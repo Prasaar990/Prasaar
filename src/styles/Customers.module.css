@@ -1,0 +1,33 @@
+.marquee {
+  background-color: red;
+  width: 100%;
+  height: 16rem;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.marqueeInner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  animation: moveLeft 20s linear infinite;
+  width: max-content; /* Ensures smooth looping */
+  height: 100%;
+}
+
+.customer {
+  width: 12.8rem;
+  height: 80%;
+  background-color: #3498db;
+}
+
+/* Keyframes for infinite looping */
+@keyframes moveLeft {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
