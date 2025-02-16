@@ -4,10 +4,11 @@
   margin-top: 10rem;
   width: 100%;
   padding: 0 3rem;
+  /* background-color: red; */
 }
 
 .feature .imgDiv {
-  width: 60%;
+  width: 40%;
   /* height: 50rem; */
 }
 
@@ -20,15 +21,11 @@
 
 .feature .text {
   display: flex;
+  gap: 5rem;
   justify-content: center;
   flex-direction: column;
   align-items: flex-start;
-
   width: 50%;
-}
-
-.rowReverse {
-  flex-direction: row-reverse;
 }
 
 .feature .text h1 {
@@ -47,5 +44,5 @@
   background-position: left center;
   padding-left: 2.5rem;
   font-size: 1.8rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
