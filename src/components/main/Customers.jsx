@@ -2,23 +2,51 @@ import styles from "../../styles/Customers.module.css";
 import { motion } from "framer-motion";
 
 export default function Customers() {
-  // const item = { hidden: { opacity: 0 } };
+  // const [isHovered, setIsHovered] = useState(false);
   return (
     <div className={styles.marquee}>
-      <div className={styles.marqueeInner}>
+      <motion.div className={styles.marqueeInner}>
         <motion.div
-          transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+          initial={{ x: "80vw" }}
+          animate={{ x: "-100vw" }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
           className={styles.customer}
         >
-          1
+          <img src="./img/cus1.webp" alt="cus1" className="image" />
         </motion.div>
-        <motion.div className={styles.customer}>2</motion.div>
-        <motion.div className={styles.customer}>3</motion.div>
-        <motion.div className={styles.customer}>4</motion.div>
-        <motion.div className={styles.customer}>5</motion.div>
-        <motion.div className={styles.customer}>6</motion.div>
-        <motion.div className={styles.customer}>7</motion.div>
-      </div>
+        <motion.div
+          initial={{ x: "80vw" }}
+          animate={{ x: "-100vw" }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          className={styles.customer}
+        >
+          <img src="./img/testimonial.webp" alt="cus1" className="image" />
+        </motion.div>
+        <motion.div
+          initial={{ x: "80vw" }}
+          animate={{ x: "-100vw" }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          className={styles.customer}
+        >
+          <img src="./img/cus3.webp" alt="cus1" className="image" />
+        </motion.div>
+        <motion.div
+          initial={{ x: "80vw" }}
+          animate={{ x: "-100vw" }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          className={styles.customer}
+        >
+          <img src="./img/cus2.webp" alt="cus1" className="image" />
+        </motion.div>
+        <motion.div
+          initial={{ x: "80vw" }}
+          animate={{ x: "-100vw" }}
+          transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+          className={styles.customer}
+        >
+          <img src="./img/cus3.webp" alt="cus1" className="image" />
+        </motion.div>
+      </motion.div>
     </div>
   );
 }
