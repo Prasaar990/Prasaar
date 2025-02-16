@@ -1,4 +1,4 @@
-import Header from "./components/layouts/header";
+import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
 import Main from "./components/main/Main";
 

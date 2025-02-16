@@ -5,14 +5,14 @@
   overflow: hidden;
   white-space: nowrap;
   position: relative;
+  padding: 0 3rem;
 }
 
 .marqueeInner {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  animation: moveLeft 20s linear infinite;
-  width: max-content; /* Ensures smooth looping */
+  gap: 5rem;
+  width: max-content;
   height: 100%;
 }
 
@@ -20,14 +20,4 @@
   width: 12.8rem;
   height: 80%;
   background-color: #3498db;
-}
-
-/* Keyframes for infinite looping */
-@keyframes moveLeft {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
 }

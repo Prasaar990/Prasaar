@@ -1,0 +1,8 @@
+.testimonials {
+  margin-top: 20rem;
+  display: flex;
+  gap: 10rem;
+  width: 100%;
+  height: 30rem;
+  background-color: slategray;
+}

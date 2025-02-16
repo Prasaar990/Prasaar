@@ -1,4 +1,5 @@
 import styles from "../../styles/Info.module.css";
+import { motion } from "framer-motion";
 
 export default function Info() {
   return (
@@ -11,8 +12,13 @@ export default function Info() {
         <h1>Engagement Platform</h1>
       </header>
       <main className={styles.main}>
-        <div>
-          <img src="" alt="logo" className={styles.infoIcon} />
+        <motion.div
+          initial={{ opacity: 0, y: 150 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+          viewport={{ once: true }}
+        >
+          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
           <h3>Rock Your Customer Experience and Teamwork</h3>
           <p>
             Collect, Consolidate, and Measure all of your Customer Feedback with
@@ -22,18 +28,28 @@ export default function Info() {
             and a more efficient Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Obcaecati, repudiandae. team with Momos.
           </p>
-        </div>
-        <div>
-          <img src="" alt="logo" className={styles.infoIcon} />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 180 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+          viewport={{ once: true }}
+        >
+          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
           <h3>Rock Your Customer Experience and Teamwork</h3>
           <p>
             Collect, Consolidate, and Measure all of your Customer Feedback with
             Momos, across all of your locations. More feedback, more insights,
             better businesses.
           </p>
-        </div>
-        <div>
-          <img src="" alt="logo" className={styles.infoIcon} />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 210 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+          viewport={{ once: true }}
+        >
+          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
           <h3>Rock Your Customer Experience and Teamwork</h3>
           <p>
             Collect, Consolidate, and Measure all of your Customer Feedback with
@@ -42,9 +58,14 @@ export default function Info() {
             customers and keep them coming back. Say hello to happier customers
             and a more efficient team with Momos.
           </p>
-        </div>
-        <div>
-          <img src="" alt="logo" className={styles.infoIcon} />
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 240 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+          viewport={{ once: true }}
+        >
+          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
           <h3>Rock Your Customer Experience and Teamwork</h3>
           <p>
             Collect, Consolidate, and Measure all of your Customer Feedback with
@@ -57,7 +78,7 @@ export default function Info() {
             magnam dolore numquam dignissimos iste repudiandae officiis?team
             with Momos.
           </p>
-        </div>
+        </motion.div>
       </main>
     </div>
   );
