@@ -49,3 +49,7 @@ select {
 .primaryColor {
   color: var(--color-primary);
 }
+
+.relative {
+  position: relative;
+}
