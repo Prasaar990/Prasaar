@@ -19,7 +19,7 @@ export default function HeroSection() {
           if (4 == wordIndex) return 0;
           return wordIndex + 1;
         }),
-      2000
+      1800
     );
 
     return () => clearInterval(interval); // Cleanup interval on unmount
