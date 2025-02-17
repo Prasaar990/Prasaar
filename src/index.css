@@ -46,10 +46,6 @@ select {
   color: var(--color-primary);
 }
 
-.relative {
-  position: relative;
-}
-
 .image {
   width: 100%;
   height: 100%;

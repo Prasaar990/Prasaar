@@ -4,11 +4,7 @@
   position: relative;
   width: 100%;
   background-color: #eee;
-}
-
-.testimonialsList {
-  /* position: relative; */
-  padding: 10rem 0;
+  overflow: hidden;
 }
 
 .testimonialsBtns {

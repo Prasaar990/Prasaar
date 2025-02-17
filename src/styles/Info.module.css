@@ -17,6 +17,13 @@
   font-size: 7.2rem;
 }
 
+.info .subHeading {
+  text-align: center;
+  width: 70%;
+  margin: 2rem auto 4rem auto;
+  font-size: 1.8rem;
+}
+
 .info .special {
   color: var(--color-primary);
 }

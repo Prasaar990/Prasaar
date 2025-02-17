@@ -6,10 +6,11 @@ motion;
 export default function HeroSection() {
   const [wordIndex, setWordIndex] = useState(0);
   const words = [
-    "Healthcare",
-    "Hospitality",
-    "Beauty & Wellness",
-    "Restaurants",
+    "Personalized Messaging",
+    "24/7 Customer Support",
+    "Efficient Marketing Campaigns",
+    "Reminders and Follow-Ups",
+    "Interactive Engagement",
   ];
 
   useEffect(() => {
@@ -29,11 +30,11 @@ export default function HeroSection() {
     <section className={styles.hero}>
       <div className={styles.heading}>
         <div>
-          <h1>Happier </h1>
-          <h1>Customers </h1>
-          <h1 className="relative">
-            For{" "}
-            <motion.span
+          <h1>Customer </h1>
+          <h1>Engagement </h1>
+          <h1 className={styles.animatedHeading}>
+            with{" "}
+            <motion.div
               key={wordIndex}
               className={`${styles.animatedWord} primaryColor`}
               initial={{ y: 20, opacity: 0 }}
@@ -45,15 +46,15 @@ export default function HeroSection() {
               transition={{ ease: "easeOut", duration: 1 }}
             >
               {words[wordIndex]}
-            </motion.span>
+            </motion.div>
           </h1>
         </div>
         <p>
-          Momos is designed to help{" "}
-          <span className="primaryColor">Multi-Location Brands globally</span>{" "}
-          drive their entire Customer Lifecycle, get connected with their
-          customers and grow their business across every location.
+          Prasaar automation helps you build stronger relationships with
+          customers through WhatsApp in a simple and effective way. In return,
+          it boosts sales and revenue and encourages long-term loyalty. Would
         </p>
+        <p>you like to learn more about how it can work for your business?</p>
         <button className={`${styles.btn} btn`}>Get Started!</button>
       </div>
       <div className={styles.img}></div>

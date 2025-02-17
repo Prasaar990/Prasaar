@@ -1,15 +1,13 @@
 .hero {
-  padding: 10rem 3rem 3rem 3rem;
+  padding: 20vh 3rem 3rem 3rem;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: space-around;
-  /* background-image: url("./img/heroImg.jpg"); */
-  /* background-size: cover; */
 }
 
 .hero .heading {
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -18,13 +16,20 @@
 .hero .heading div {
   letter-spacing: -0.8px;
 }
+
 .hero .heading div h1 {
   line-height: 1;
   font-size: 7.2rem;
 }
 
 .hero .heading p {
-  font-size: 1.6rem;
+  font-size: 2rem;
+  width: 60%;
+}
+
+.hero .animatedHeading {
+  position: relative;
+  width: 100%;
 }
 
 .hero .animatedWord {
@@ -41,8 +46,4 @@
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
   background-color: white;
-}
-
-.hero .img {
-  width: 30%;
 }
