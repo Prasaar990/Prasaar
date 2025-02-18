@@ -29,11 +29,11 @@ export default function HeroSection() {
   return (
     <section className={styles.hero}>
       <div className={styles.heading}>
-        <div>
+        <div className="font48">
           <h1>Customer </h1>
-          <h1>Engagement </h1>
+          <h1>Engagement</h1>
+          <h1>with</h1>
           <h1 className={styles.animatedHeading}>
-            with{" "}
             <motion.div
               key={wordIndex}
               className={`${styles.animatedWord} primaryColor`}
@@ -49,13 +49,18 @@ export default function HeroSection() {
             </motion.div>
           </h1>
         </div>
-        <p>
-          Prasaar automation helps you build stronger relationships with
-          customers through WhatsApp in a simple and effective way. In return,
-          it boosts sales and revenue and encourages long-term loyalty. Would
-        </p>
-        <p>you like to learn more about how it can work for your business?</p>
-        <button className={`${styles.btn} btn`}>Get Started!</button>
+        <div className={styles.subHeading}>
+          <p>
+            Prasaar automation helps you build stronger relationships with
+            customers through WhatsApp in a simple and effective way. In return,
+            it boosts sales and revenue and encourages long-term loyalty.
+          </p>
+          <p>
+            Would you like to learn more about how it can work for your
+            business?
+          </p>
+        </div>
+        <button className={`${styles.btn} font24 btn`}>Get Started!</button>
       </div>
       <div className={styles.img}></div>
     </section>

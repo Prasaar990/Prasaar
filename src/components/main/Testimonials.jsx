@@ -28,10 +28,10 @@ export default function Testimonials() {
         </button>
       </div>
       <div className={styles.testimonialsList}>
-        <Testimonial x={transform + 0} />
-        <Testimonial x={transform + 100} />
-        <Testimonial x={transform + 200} />
-        <Testimonial x={transform + 300} />
+        <Testimonial x={transform + 0} p={1} />
+        <Testimonial x={transform + 100} p={2} />
+        <Testimonial x={transform + 200} p={3} />
+        <Testimonial x={transform + 300} p={4} />
       </div>
     </section>
   );

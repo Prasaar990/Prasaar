@@ -18,7 +18,33 @@
 }
 
 .customer {
-  width: 12.8rem;
+  width: 12rem;
   height: 80%;
-  /* background-color: #3498db; */
+}
+
+@media (max-width: 50em) {
+  .customer {
+    height: 65%;
+  }
+}
+
+@media (max-width: 45em) {
+  .customer {
+    width: 12rem;
+    height: 60%;
+  }
+}
+
+@media (max-width: 40em) {
+  .customer {
+    width: 10rem;
+    height: 50%;
+  }
+}
+
+@media (max-width: 29em) {
+  .customer {
+    width: 10rem;
+    height: 40%;
+  }
 }

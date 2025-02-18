@@ -17,16 +17,19 @@
   letter-spacing: -0.8px;
 }
 
-.hero .heading div h1 {
+.hero h1 {
   line-height: 1;
-  font-size: 7.2rem;
 }
 
-.hero .heading p {
-  font-size: 2rem;
+.hero .subHeading {
   width: 60%;
+  font-size: 2rem;
+  margin-top: 4.6rem;
 }
 
+.hero .subHeading p {
+  margin-top: 1rem;
+}
 .hero .animatedHeading {
   position: relative;
   width: 100%;
@@ -34,16 +37,41 @@
 
 .hero .animatedWord {
   position: absolute;
-  left: 15%;
+  left: 0%;
   top: 0%;
 }
 
 .hero .btn {
   width: 25rem;
   height: 6.4rem;
-  font-size: 2.4rem;
   border-radius: 4rem;
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
   background-color: white;
+}
+
+@media (max-width: 66em) {
+  .hero .subHeading {
+    margin-top: 10rem;
+  }
+}
+
+@media (max-width: 40em) {
+  .hero .subHeading {
+    width: 80%;
+  }
+}
+
+@media (max-width: 35em) {
+  .hero {
+    padding: 14vh 3rem 3rem 3rem;
+  }
+
+  .hero .subHeading {
+    margin-top: 15rem;
+  }
+
+  .hero .subHeading {
+    width: 90%;
+  }
 }

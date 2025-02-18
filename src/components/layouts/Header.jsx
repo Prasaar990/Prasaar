@@ -20,9 +20,9 @@ export default function Header() {
           <li>Why Prasaar</li>
           <li>Solutions</li>
           <li>Customers</li>
-          <li>Resources</li>
+
           <li className={styles.dropdownDiv}>
-            more
+            More
             <motion.button
               type="button"
               className={` ${styles.dropdownBtn}`}

@@ -21,6 +21,7 @@ export default function Features() {
           "Say goodbye to manual oversight and hello to automatic, immediate, and thoughtful interactions for all your customers",
         ]}
         side={"rowReverse"}
+        className="featureSpecial"
       />
       <Feature
         title={"Customer Analytics & Insights"}

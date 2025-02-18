@@ -4,17 +4,15 @@
   margin-top: 10rem;
   width: 100%;
   padding: 0 3rem;
-  /* background-color: red; */
 }
 
 .feature .imgDiv {
   width: 40%;
-  /* height: 50rem; */
+  margin: auto 0;
 }
 
 .feature .img {
   width: 100%;
-  height: 100%;
   opacity: 0.5;
   border-radius: 1rem;
 }
@@ -28,13 +26,13 @@
   width: 50%;
 }
 
-.feature .text h1 {
-  font-size: 5rem;
-}
-
 .feature ul {
   list-style: none;
   padding-left: 20px;
+}
+
+.featureSpecial {
+  flex-direction: column;
 }
 
 .feature ul li {
@@ -45,4 +43,51 @@
   padding-left: 2.5rem;
   font-size: 1.8rem;
   margin-top: 2rem;
+}
+
+@media (max-width: 66em) {
+  .feature .text {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 58em) {
+  .feature .imgDiv {
+    width: 50%;
+  }
+
+  .feature .text {
+    gap: 1rem;
+  }
+
+  .feature {
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 45em) {
+  .feature .imgDiv {
+    width: 95%;
+    margin: 0 auto;
+  }
+
+  .feature {
+    flex-direction: column;
+  }
+
+  .specialFeature {
+    flex-direction: column-reverse;
+  }
+
+  .feature .text {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 45em) {
+  .feature .text {
+    width: 95%;
+    margin: 0 auto;
+  }
 }

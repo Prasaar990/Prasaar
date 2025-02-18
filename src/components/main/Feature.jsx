@@ -14,7 +14,7 @@ export default function Feature({ title, list, side = "" }) {
             viewport={{ once: true }}
             className={styles.imgDiv}
           >
-            <img src="./img/1.png" alt="feature 1" className={styles.img} />
+            <img src="./img/1.png" alt="feature" className={styles.img} />
           </motion.div>
           <motion.div
             initial={{ x: "30%", opacity: 0.1 }}
@@ -23,7 +23,7 @@ export default function Feature({ title, list, side = "" }) {
             viewport={{ once: true }}
             className={styles.text}
           >
-            <h1>{title}</h1>
+            <h1 className="font48">{title}</h1>
             <ul>
               {list.map((item) => {
                 return <li key={item}>{item}</li>;
@@ -33,7 +33,7 @@ export default function Feature({ title, list, side = "" }) {
         </section>
       ) : (
         <>
-          <section className={`${styles.feature}`}>
+          <section className={`${styles.feature} ${styles.specialFeature}`}>
             <motion.div
               initial={{ x: "-30%", opacity: 0.1 }}
               whileInView={{ x: "0%", opacity: 1 }}
@@ -41,7 +41,7 @@ export default function Feature({ title, list, side = "" }) {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={styles.text}
             >
-              <h1>{title}</h1>
+              <h1 className="font48">{title}</h1>
               <ul>
                 {list.map((item) => {
                   return <li key={item}>{item}</li>;

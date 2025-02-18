@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import styles from "../../styles/Testimonial.module.css";
 
 /* eslint-disable */
-export default function Testimonial({ x }) {
+export default function Testimonial({ x, p }) {
   return (
     <motion.section
       animate={{ x: `${x}%` }}
@@ -17,7 +17,7 @@ export default function Testimonial({ x }) {
           </div>
           <div className={styles.userInfo}>
             <h2>Poke Theory</h2>
-            <p>Vanessa - Owner</p>
+            <p>{p}</p>
           </div>
         </header>
         <main>

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function Info() {
   return (
     <div className={styles.info}>
-      <header className={styles.mainHeading}>
+      <header className={`${styles.mainHeading} font36`}>
         <h1>
           <span className="primaryColor">Feedback</span> on customer
           satisfaction
