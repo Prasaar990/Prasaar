@@ -13,7 +13,7 @@ export default function Header() {
 
   return (
     <>
-      {isTablet ? (
+      {dropdownNav && isTablet ? (
         <motion.nav
           animate={{
             y: dropdownNav ? "0%" : "calc( 7.5rem)",
