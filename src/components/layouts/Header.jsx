@@ -13,43 +13,40 @@ export default function Header() {
 
   return (
     <>
-      {dropdownNav && isTablet ? (
-        <motion.nav
-          animate={{
-            y: dropdownNav ? "0%" : "calc( 7.5rem)",
-            opacity: dropdownNav ? 0 : 1,
-          }}
-          className={styles.headerResponsive}
-          transition={{ duration: 0.4, ease: easeOut }}
-        >
-          <ul>
-            <li>Why Prasaar</li>
-            <li>Solutions</li>
-            <li>Customers</li>
+      <motion.nav
+        animate={{
+          y: dropdownNav ? "0%" : "calc(7.5rem)",
+          opacity: dropdownNav ? 0 : 1,
+        }}
+        className={styles.headerResponsive}
+        transition={{ duration: 0.4, ease: easeOut }}
+      >
+        <ul>
+          <li>Why Prasaar</li>
+          <li>Solutions</li>
+          <li>Customers</li>
 
-            <li className={styles.dropdownDiv}>
-              More
-              <motion.button
-                type="button"
-                className={`${styles.dropdownBtn}`}
-                onClick={() => {
-                  setDropdownMore((x) => !x);
-                }}
-              >
-                <motion.img
-                  src="./img/downArrow.svg"
-                  alt="show more options"
-                  className={styles.dropdownIcon}
-                  animate={{ rotate: dropdownMore ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            </li>
-          </ul>
-        </motion.nav>
-      ) : (
-        ""
-      )}
+          <li className={styles.dropdownDiv}>
+            More
+            <motion.button
+              type="button"
+              className={`${styles.dropdownBtn}`}
+              onClick={() => {
+                setDropdownMore((x) => !x);
+              }}
+            >
+              <motion.img
+                src="./img/downArrow.svg"
+                alt="show more options"
+                className={styles.dropdownIcon}
+                animate={{ rotate: dropdownMore ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              />
+            </motion.button>
+          </li>
+        </ul>
+      </motion.nav>
+
       <nav className={styles.header}>
         <div>
           <img
