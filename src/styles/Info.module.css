@@ -86,10 +86,17 @@
   }
 }
 
+@media (max-width: 35em) {
+  .info .main {
+    column-gap: 2rem;
+  }
+}
+
 @media (max-width: 29em) {
   .info .main {
     display: grid;
     grid-template-columns: 1fr;
+    justify-content: center;
     row-gap: 10rem;
   }
 
@@ -99,10 +106,17 @@
     display: flex;
     gap: 3rem;
     flex-direction: column;
+    margin: 0 auto;
   }
 
   .customer {
     width: 10rem;
     height: 40%;
+  }
+}
+
+@media (max-width: 22em) {
+  .info {
+    padding: 0 1rem;
   }
 }

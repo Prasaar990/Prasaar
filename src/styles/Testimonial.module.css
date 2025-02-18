@@ -68,3 +68,19 @@
     padding: 3rem 6rem;
   }
 }
+
+@media (max-width: 40em) {
+  .sectionTestimonial .testimonial {
+    padding: 2rem 3rem;
+  }
+}
+
+@media (max-width: 21em) {
+  .sectionTestimonial {
+    padding: 0 2rem;
+  }
+
+  .sectionTestimonial .testimonial {
+    padding: 1rem 2rem;
+  }
+}

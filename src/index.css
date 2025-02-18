@@ -101,3 +101,17 @@ select {
     font-size: 3rem;
   }
 }
+
+@media (max-width: 22em) {
+  html {
+    font-size: 55%;
+  }
+
+  .font48 {
+    font-size: 3.8rem;
+  }
+
+  .font36 {
+    font-size: 2.8rem;
+  }
+}

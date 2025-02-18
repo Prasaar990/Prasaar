@@ -2,7 +2,6 @@ import styles from "../../styles/Customers.module.css";
 import { motion } from "framer-motion";
 
 export default function Customers() {
-  // const [isHovered, setIsHovered] = useState(false);
   return (
     <div className={styles.marquee}>
       <motion.div className={styles.marqueeInner}>

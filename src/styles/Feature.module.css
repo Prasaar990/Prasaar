@@ -91,3 +91,13 @@
     margin: 0 auto;
   }
 }
+
+@media (max-width: 22em) {
+  .feature {
+    padding: 0 2rem;
+  }
+
+  .feature ul {
+    padding-left: 1rem;
+  }
+}

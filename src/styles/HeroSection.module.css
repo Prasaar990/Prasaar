@@ -75,3 +75,17 @@
     width: 90%;
   }
 }
+
+@media (max-width: 29em) {
+  .hero {
+    padding: 14vh 2rem 2rem 2rem;
+  }
+
+  .hero .subHeading {
+    margin-top: 15rem;
+  }
+
+  .hero .subHeading {
+    width: 90%;
+  }
+}
