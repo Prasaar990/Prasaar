@@ -17,26 +17,24 @@
 }
 
 .customer {
-  width: 12rem;
-  height: 80%;
+  width: 10rem;
+  height: 70%;
 }
 
 @media (max-width: 50em) {
   .customer {
-    height: 65%;
+    height: 63%;
   }
 }
 
 @media (max-width: 45em) {
   .customer {
-    width: 12rem;
     height: 60%;
   }
 }
 
 @media (max-width: 40em) {
   .customer {
-    width: 10rem;
     height: 50%;
   }
 }
