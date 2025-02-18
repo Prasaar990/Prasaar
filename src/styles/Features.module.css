@@ -1,3 +1,5 @@
 .features {
+  width: 100vw;
+  overflow: hidden;
   margin-top: 25rem;
 }

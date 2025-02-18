@@ -1,6 +1,6 @@
 .header {
   background-color: var(--color-primary);
-  width: 100%;
+  width: 100vw;
   height: 7.5rem;
   font-size: 2rem;
   display: flex;
@@ -63,7 +63,7 @@
 }
 
 .headerResponsive {
-  width: 100%;
+  width: 100vw;
   height: 50vh;
   background-color: #9d2356;
   z-index: 5;
