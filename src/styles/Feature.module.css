@@ -35,7 +35,7 @@
   flex-direction: column;
 }
 .feature ul li {
-  background-image: url("./public/img/right.png");
+  background-image: url("https://momos.onrender.com/public/img/right.png");
   background-size: 1.6rem 1.6rem;
   background-repeat: no-repeat;
   background-position: left center;
