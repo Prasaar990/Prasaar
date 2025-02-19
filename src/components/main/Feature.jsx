@@ -26,7 +26,16 @@ export default function Feature({ title, list, side = "" }) {
             <h1 className="font48">{title}</h1>
             <ul>
               {list.map((item) => {
-                return <li key={item}>{item}</li>;
+                return (
+                  <li key={item}>
+                    <img
+                      src="./img/right.png"
+                      alt="right symbol"
+                      className="icon24"
+                    />
+                    {item}
+                  </li>
+                );
               })}
             </ul>
           </motion.div>
@@ -44,7 +53,16 @@ export default function Feature({ title, list, side = "" }) {
               <h1 className="font48">{title}</h1>
               <ul>
                 {list.map((item) => {
-                  return <li key={item}>{item}</li>;
+                  return (
+                    <li key={item}>
+                      <img
+                        src="./img/right.png"
+                        alt="right symbol"
+                        className="icon24"
+                      />
+                      {item}
+                    </li>
+                  );
                 })}
               </ul>
             </motion.div>

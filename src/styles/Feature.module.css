@@ -28,18 +28,15 @@
 
 .feature ul {
   list-style: none;
-  padding-left: 20px;
 }
 
 .featureSpecial {
   flex-direction: column;
 }
 .feature ul li {
-  background-image: url("./public/img/right.png");
-  background-size: 1.6rem 1.6rem;
-  background-repeat: no-repeat;
-  background-position: left center;
-  padding-left: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
   font-size: 1.8rem;
   margin-top: 2rem;
 }
@@ -94,9 +91,5 @@
 @media (max-width: 22em) {
   .feature {
     padding: 0 2rem;
-  }
-
-  .feature ul {
-    padding-left: 1rem;
   }
 }
