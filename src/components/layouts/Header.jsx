@@ -16,8 +16,8 @@ export default function Header() {
       {isTablet ? (
         <motion.nav
           animate={{
-            y: dropdownNav ? "-100%" : "0%",
-            opacity: dropdownNav ? 0 : 1,
+            y: dropdownNav ? "0%" : "-100%",
+            opacity: dropdownNav ? 1 : 0,
           }}
           className={styles.headerResponsive}
           transition={{ duration: 0.4, ease: easeOut }}
