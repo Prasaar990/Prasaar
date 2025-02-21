@@ -26,8 +26,24 @@
   word-spacing: -0.8;
 }
 
-.authUser span {
-  padding-left: 2rem;
+.authUser {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.getStarted {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.authUser button {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
 }
 
 .header .dropdownDiv {

@@ -1,18 +1,29 @@
 import styles from "../../styles/Footer.module.css";
+import { motion } from "framer-motion";
 
 export default function footer() {
   return (
     <footer className={styles.footer}>
-      <div>
+      <motion.div
+        initial={{ opacity: 0, y: 120 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ ease: "easeOut", duration: 1 }}
+        viewport={{ once: true }}
+      >
         <img
           src="./img/prasaarLogo.webp"
           alt="Prasaar Logo"
           className={styles.logo}
         />
-      </div>
+      </motion.div>
       <div className={styles.footerContent}>
         <div>
-          <ul>
+          <motion.ul
+            initial={{ opacity: 0, y: 150 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+            viewport={{ once: true }}
+          >
             <li>
               <h1>Products</h1>
             </li>
@@ -27,10 +38,15 @@ export default function footer() {
                 Customer Active
               </a>
             </li>
-          </ul>
+          </motion.ul>
         </div>
         <div>
-          <ul>
+          <motion.ul
+            initial={{ opacity: 0, y: 180 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+            viewport={{ once: true }}
+          >
             <li>
               <h1>Company</h1>
             </li>
@@ -49,10 +65,15 @@ export default function footer() {
                 Careers
               </a>
             </li>
-          </ul>
+          </motion.ul>
         </div>
         <div>
-          <ul>
+          <motion.ul
+            initial={{ opacity: 0, y: 210 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+            viewport={{ once: true }}
+          >
             <li>
               <h1>Support</h1>
             </li>
@@ -66,10 +87,15 @@ export default function footer() {
                 Legal & privacy
               </a>
             </li>
-          </ul>
+          </motion.ul>
         </div>
         <div>
-          <ul>
+          <motion.ul
+            initial={{ opacity: 0, y: 240 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ ease: "easeOut", duration: 1 }}
+            viewport={{ once: true }}
+          >
             <li>
               <h1>Resources</h1>
             </li>
@@ -88,15 +114,28 @@ export default function footer() {
                 FAQ
               </a>
             </li>
-          </ul>
+          </motion.ul>
         </div>
       </div>
 
       <hr />
 
       <div className={styles.followUs}>
-        <h2>Follow us on social media</h2>
-        <div className={styles.footerIcons}>
+        <motion.h2
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+          viewport={{ once: true }}
+        >
+          Follow us on social media
+        </motion.h2>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ ease: "easeOut", duration: 1 }}
+          viewport={{ once: true }}
+          className={styles.footerIcons}
+        >
           <span>
             <a href="#" className={styles.footerLinks}>
               <img src="./img/facebook.svg" alt="Facebook" className="icon24" />
@@ -121,7 +160,7 @@ export default function footer() {
               />
             </a>
           </span>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

@@ -26,7 +26,7 @@ export default function Info() {
           transition={{ ease: "easeOut", duration: 1 }}
           viewport={{ once: true }}
         >
-          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
+          <img src="./img/connect.svg" alt="logo" className={styles.infoIcon} />
           <h3>Easiest way to connect with business</h3>
           <p>
             Over two billion people use WhatsApp daily, and 64% think it is the
@@ -42,7 +42,11 @@ export default function Info() {
           transition={{ ease: "easeOut", duration: 1 }}
           viewport={{ once: true }}
         >
-          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
+          <img
+            src="./img/increase.svg"
+            alt="logo"
+            className={styles.infoIcon}
+          />
           <h3>WhatsApp to take your business to the next level </h3>
           <p>
             Know how your business can use WhatsApp to retain customers while
@@ -55,7 +59,7 @@ export default function Info() {
           transition={{ ease: "easeOut", duration: 1 }}
           viewport={{ once: true }}
         >
-          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
+          <img src="./img/survey.svg" alt="logo" className={styles.infoIcon} />
           <h3>WhatsApp Surveys That Improve Your User Engagement</h3>
           <p>
             Know how your customers liked your service with WhatsApp-based CSAT
@@ -69,7 +73,11 @@ export default function Info() {
           transition={{ ease: "easeOut", duration: 1 }}
           viewport={{ once: true }}
         >
-          <img src="./img/right.png" alt="logo" className={styles.infoIcon} />
+          <img
+            src="./img/automation.svg"
+            alt="logo"
+            className={styles.infoIcon}
+          />
           <h3>
             Build a trustworthy business and boost revenue with automation
           </h3>

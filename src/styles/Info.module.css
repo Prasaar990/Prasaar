@@ -34,7 +34,7 @@
 
 .info .main .infoIcon {
   display: block;
-  background-color: #ccc;
+  /* background-color: #ccc; */
   width: 4.8rem;
   height: 4.8rem;
 }

@@ -17,7 +17,7 @@ export default function Testimonial({ x, p }) {
           </div>
           <div className={styles.userInfo}>
             <h2>Poke Theory</h2>
-            <p>{p}</p>
+            <p>Adinath Yadav</p>
           </div>
         </header>
         <main>

@@ -3,6 +3,7 @@ import styles from "../../styles/Header.module.css";
 import More from "../dropdowns/More";
 import { easeOut, motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
+// import { Link } from "react-router-dom";
 
 export default function Header() {
   const [dropdownMore, setDropdownMore] = useState(false);
@@ -80,9 +81,18 @@ export default function Header() {
           <>
             <div className={styles.nav}>
               <ul>
-                <li>Why Prasaar</li>
-                <li>Solutions</li>
-                <li>Customers</li>
+                <li>
+                  {/* <Link to="/">Why Prasaar</Link> */}
+                  Why Prasaar
+                </li>
+                <li>
+                  {/* <Link to="/">Solutions</Link> */}
+                  Solutions
+                </li>
+                <li>
+                  {/* <Link to="/">Customers</Link> */}
+                  Customers
+                </li>
 
                 <li className={styles.dropdownDiv}>
                   More
@@ -106,8 +116,15 @@ export default function Header() {
             </div>
 
             <div className={styles.authUser}>
-              <span>Login</span>
-              <span>Get Started</span>
+              <button>Login</button>
+              <button className={styles.getStarted}>
+                Get Started
+                <img
+                  src="./img/getStarted.svg"
+                  alt="get started svg"
+                  className="icon24"
+                />
+              </button>
             </div>
           </>
         )}
