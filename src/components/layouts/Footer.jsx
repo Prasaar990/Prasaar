@@ -5,7 +5,7 @@ export default function footer() {
     <footer className={styles.footer}>
       <div>
         <img
-          src="./img/prasaarLogo.png"
+          src="./img/prasaarLogo.webp"
           alt="Prasaar Logo"
           className={styles.logo}
         />

@@ -54,7 +54,7 @@ export default function Header() {
       <nav className={styles.header}>
         <div>
           <img
-            src="./img/prasaarLogo.png"
+            src="./img/prasaarLogo.webp"
             alt="website logo"
             className={styles.logo}
           />
