@@ -1,5 +1,5 @@
 .hero {
-  padding: 20vh 3rem 3rem 3rem;
+  padding: 18vh 3rem 3rem 3rem;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -19,6 +19,7 @@
 
 .hero h1 {
   line-height: 1;
+  margin-bottom: 0.4rem;
 }
 
 .hero .subHeading {
@@ -47,12 +48,21 @@
   border-radius: 4rem;
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
-  background-color: white;
+  text-decoration: none;
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 66em) {
   .hero .subHeading {
     margin-top: 10rem;
+  }
+}
+@media (max-width: 50em) {
+  .hero {
+    padding: 15vh 3rem 3rem 3rem;
   }
 }
 
@@ -62,7 +72,7 @@
   }
 }
 
-@media (max-width: 35em) {
+@media (max-width: 37em) {
   .hero {
     padding: 14vh 3rem 3rem 3rem;
   }
@@ -74,11 +84,26 @@
   .hero .subHeading {
     width: 90%;
   }
+  .hero .heading {
+    gap: 4rem;
+  }
+}
+
+@media (max-width: 35em) {
+  .hero .subHeading {
+    margin-top: 13rem;
+  }
+}
+
+@media (max-width: 35em) {
+  .hero .subHeading {
+    margin-top: 13rem;
+  }
 }
 
 @media (max-width: 29em) {
   .hero {
-    padding: 14vh 2rem 2rem 2rem;
+    padding: 12vh 2rem 2rem 3rem;
   }
 
   .hero .subHeading {
@@ -87,5 +112,11 @@
 
   .hero .subHeading {
     width: 90%;
+  }
+}
+
+@media (max-width: 23em) {
+  .hero .subHeading {
+    margin-top: 11rem;
   }
 }

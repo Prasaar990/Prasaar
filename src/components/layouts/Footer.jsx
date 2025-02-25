@@ -11,7 +11,7 @@ export default function footer() {
         viewport={{ once: true }}
       >
         <img
-          src="./img/prasaarLogo.webp"
+          src="./img/prasaar.webp"
           alt="Prasaar Logo"
           className={styles.logo}
         />
@@ -27,17 +27,11 @@ export default function footer() {
             <li>
               <h1>Products</h1>
             </li>
-
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Customer Care
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Customer Active
-              </a>
-            </li>
+            <li>PRSAAR APP</li>
+            <li>PRSAAR Web Portal</li>
+            <li>Voter Search Web Link</li>
+            <li>WhatsApp API & Automation</li>
+            <li>Complaint Management System</li>
           </motion.ul>
         </div>
         <div>
@@ -48,23 +42,14 @@ export default function footer() {
             viewport={{ once: true }}
           >
             <li>
-              <h1>Company</h1>
+              <h1>Contact Us</h1>
             </li>
+            <li>Email: ashok@prasaar.co</li>
             <li>
-              <a href="#" className={styles.footerLinks}>
-                About Us
-              </a>
+              Address: Office 615, Fortuna Business Center, Pimple Saudagar,
+              Pune
             </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Contact Us
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Careers
-              </a>
-            </li>
+            <li></li>
           </motion.ul>
         </div>
         <div>
@@ -75,44 +60,11 @@ export default function footer() {
             viewport={{ once: true }}
           >
             <li>
-              <h1>Support</h1>
+              <h1>About us</h1>
             </li>
             <li>
-              <a href="#" className={styles.footerLinks}>
-                Help Center
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Legal & privacy
-              </a>
-            </li>
-          </motion.ul>
-        </div>
-        <div>
-          <motion.ul
-            initial={{ opacity: 0, y: 240 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ ease: "easeOut", duration: 1 }}
-            viewport={{ once: true }}
-          >
-            <li>
-              <h1>Resources</h1>
-            </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Case Studies
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                Press Room
-              </a>
-            </li>
-            <li>
-              <a href="#" className={styles.footerLinks}>
-                FAQ
-              </a>
+              We are an election management company providing services to manage
+              elections effectively.
             </li>
           </motion.ul>
         </div>
@@ -143,19 +95,19 @@ export default function footer() {
           </span>
           <span>
             <a href="#" className={styles.footerLinks}>
-              <img src="./img/insta.svg" alt="Facebook" className="icon24" />
+              <img src="./img/insta.svg" alt="Instagram" className="icon24" />
             </a>
           </span>
           <span>
             <a href="#">
-              <img src="./img/linkedin.svg" alt="Facebook" className="icon24" />
+              <img src="./img/linkedin.svg" alt="linkedin" className="icon24" />
             </a>
           </span>
           <span>
             <a href="#">
               <img
                 src="./img/messanger.svg"
-                alt="Facebook"
+                alt="messanger"
                 className="icon24"
               />
             </a>

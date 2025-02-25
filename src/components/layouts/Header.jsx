@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styles from "../../styles/Header.module.css";
-import More from "../dropdowns/More";
 import { easeOut, motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+// import More from "../dropdowns/More";
 
 export default function Header() {
-  const [dropdownMore, setDropdownMore] = useState(false);
+  // const [dropdownMore, setDropdownMore] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
@@ -24,11 +25,17 @@ export default function Header() {
           transition={{ duration: 0.4, ease: easeOut }}
         >
           <ul>
-            <li>Why Prasaar</li>
-            <li>Solutions</li>
-            <li>Customers</li>
+            <li>
+              <a href="#info">Why Prasaar</a>
+            </li>
+            <li>
+              <a href="#solutions">Solutions</a>
+            </li>
+            <li>
+              <a href="#testimonials">Our Services</a>
+            </li>
 
-            <li className={styles.dropdownDiv}>
+            {/* <li className={styles.dropdownDiv}>
               More
               <motion.button
                 type="button"
@@ -45,7 +52,7 @@ export default function Header() {
                   transition={{ duration: 0.3 }}
                 />
               </motion.button>
-            </li>
+            </li> */}
           </ul>
         </motion.nav>
       ) : (
@@ -55,7 +62,7 @@ export default function Header() {
       <nav className={styles.header}>
         <div>
           <img
-            src="./img/prasaarLogo.webp"
+            src="./img/prasaarLogo.png"
             alt="website logo"
             className={styles.logo}
           />
@@ -82,19 +89,16 @@ export default function Header() {
             <div className={styles.nav}>
               <ul>
                 <li>
-                  {/* <Link to="/">Why Prasaar</Link> */}
-                  Why Prasaar
+                  <a href="#info">Why Prasaar</a>
                 </li>
                 <li>
-                  {/* <Link to="/">Solutions</Link> */}
-                  Solutions
+                  <a href="#solutions">Solutions</a>
                 </li>
                 <li>
-                  {/* <Link to="/">Customers</Link> */}
-                  Customers
+                  <a href="#testimonials">Our Services</a>
                 </li>
 
-                <li className={styles.dropdownDiv}>
+                {/* <li className={styles.dropdownDiv}>
                   More
                   <motion.button
                     type="button"
@@ -111,25 +115,28 @@ export default function Header() {
                       transition={{ duration: 0.3 }}
                     />
                   </motion.button>
-                </li>
+                </li> */}
               </ul>
             </div>
 
             <div className={styles.authUser}>
-              <button>Login</button>
-              <button className={styles.getStarted}>
+              <Link
+                to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+                target="_blank"
+                className={styles.getStarted}
+              >
                 Get Started
                 <img
                   src="./img/getStarted.svg"
                   alt="get started svg"
                   className="icon24"
                 />
-              </button>
+              </Link>
             </div>
           </>
         )}
 
-        {dropdownMore && !isTablet ? <More /> : ""}
+        {/* {dropdownMore && !isTablet ? <More /> : ""} */}
       </nav>
     </>
   );

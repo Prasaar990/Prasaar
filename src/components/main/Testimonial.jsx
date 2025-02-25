@@ -3,28 +3,23 @@ import { motion } from "framer-motion";
 import styles from "../../styles/Testimonial.module.css";
 
 /* eslint-disable */
-export default function Testimonial({ x, p }) {
+export default function Testimonial({ x, heading, text }) {
   return (
     <motion.section
       animate={{ x: `${x}%` }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.5 }}
       className={styles.sectionTestimonial}
     >
       <div className={styles.testimonial}>
         <header>
           <div>
-            <img src="./img/testimonial.webp" alt="testimonial" />
+            <img src="./img/favicons/192.png" alt="testimonial" />
           </div>
           <div className={styles.userInfo}>
-            <h2>Poke Theory</h2>
-            <p>Adinath Yadav</p>
+            <h2>{heading}</h2>
           </div>
         </header>
-        <main>
-          In the 6 months that we have been on Momos, the product has grown
-          exponentially, with feedback taken into consideration and implemented
-          swiftly where appropriate.{" "}
-        </main>
+        <main>{text}</main>
       </div>
     </motion.section>
   );

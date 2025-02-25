@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import styles from "../../styles/HeroSection.module.css";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 motion;
 
 export default function HeroSection() {
@@ -60,7 +61,13 @@ export default function HeroSection() {
             business?
           </p>
         </div>
-        <button className={`${styles.btn} font24 btn`}>Get Started!</button>
+        <Link
+          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+          target="_blank"
+          className={`${styles.btn} font24 btn`}
+        >
+          Get Started!
+        </Link>
       </div>
       <div className={styles.img}></div>
     </section>

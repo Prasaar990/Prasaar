@@ -1,5 +1,14 @@
 .features {
   width: 100vw;
   overflow: hidden;
-  margin-top: 25rem;
+  margin-top: 15rem;
+}
+
+.features .heading {
+  margin: 0 auto;
+  width: 30rem;
+  text-align: center;
+  font-size: 4.8rem;
+  color: var(--color-primary);
+  border-bottom: 2px solid black;
 }

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import styles from "../../styles/Feature.module.css";
 
 /* eslint-disable */
-export default function Feature({ title, list, side = "" }) {
+export default function Feature({ title, list, img, side = "" }) {
   return (
     <>
       {side !== "rowReverse" ? (
@@ -14,7 +14,7 @@ export default function Feature({ title, list, side = "" }) {
             viewport={{ once: true }}
             className={styles.imgDiv}
           >
-            <img src="./img/1.png" alt="feature" className={styles.img} />
+            <img src={img} alt="feature" className={styles.img} />
           </motion.div>
           <motion.div
             initial={{ x: "30%", opacity: 0.1 }}
@@ -73,7 +73,7 @@ export default function Feature({ title, list, side = "" }) {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={styles.imgDiv}
             >
-              <img src="./img/1.png" alt="feature 1" className={styles.img} />
+              <img src={img} alt="feature 1" className={styles.img} />
             </motion.div>
           </section>
         </>

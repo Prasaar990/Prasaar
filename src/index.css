@@ -10,7 +10,7 @@
 }
 
 body {
-  font-family: "Roboto", serif;
+  font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
   font-variation-settings: "wdth" 100;
@@ -24,6 +24,7 @@ body {
 html {
   overflow-x: hidden;
   /* scrollbar-gutter: stable; */
+  scroll-behavior: smooth;
   font-size: 62.5%;
 }
 
@@ -99,11 +100,21 @@ select {
   }
 
   .font48 {
-    font-size: 4rem;
+    font-size: 3.8rem;
   }
 
   .font36 {
     font-size: 3rem;
+  }
+
+  .font24 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 26em) {
+  .font48 {
+    font-size: 3.2rem;
   }
 }
 
@@ -113,7 +124,7 @@ select {
   }
 
   .font48 {
-    font-size: 3.8rem;
+    font-size: 3rem;
   }
 
   .font36 {

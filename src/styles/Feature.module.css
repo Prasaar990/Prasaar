@@ -1,7 +1,7 @@
 .feature {
   display: flex;
   gap: 10rem;
-  margin-top: 10rem;
+  margin-top: 7rem;
   width: 100%;
   padding: 0 3rem;
 }
@@ -13,7 +13,7 @@
 
 .feature .img {
   width: 100%;
-  opacity: 0.5;
+  opacity: 0.8;
   border-radius: 1rem;
 }
 

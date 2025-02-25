@@ -12,6 +12,18 @@
   color: white;
 }
 
+.header a {
+  color: white;
+  text-decoration: none;
+  transition: border 0.3s;
+  border-bottom: none;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.header a:hover {
+  border-bottom: 2px solid white;
+}
+
 .header .logo {
   width: 16rem;
 }
@@ -36,6 +48,8 @@
   display: flex;
   align-items: center;
   gap: 0.2rem;
+  text-decoration: none;
+  color: white;
 }
 
 .authUser button {
@@ -99,6 +113,11 @@
 .headerResponsive ul li {
   cursor: pointer;
   margin-top: 2rem;
+}
+
+.headerResponsive a {
+  text-decoration: none;
+  color: white;
 }
 
 .headerResponsive .dropdownIcon {

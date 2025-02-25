@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 export default function Info() {
   return (
-    <div className={styles.info}>
-      <header className={`${styles.mainHeading} font36`}>
+    <div className={styles.info} id="info">
+      <header className={`${styles.mainHeading} font24`}>
         <h1>
           <span className="primaryColor">Feedback</span> on customer
           satisfaction

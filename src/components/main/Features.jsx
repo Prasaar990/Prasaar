@@ -3,34 +3,41 @@ import Feature from "./Feature";
 
 export default function Features() {
   return (
-    <div className={styles.features}>
+    <div className={styles.features} id="solutions">
+      <h1 className={styles.heading}>Solutions</h1>
       <Feature
-        title={"Unified Platform"}
+        title={"Prasaar WebPortal"}
         list={[
-          "An integrated center for all your customer needs.",
-          "Our Unified Platform consolidates all your customer channels, feedback, and sales into one user-friendly interface.",
-          "This seamless access allows for swift interactions and effective management, contributing to better customer engagement and retention.",
-          "Keep track, communicate and engage — all from one place.",
+          "Streamlines backend operations for efficient election management.",
+          "Enables administrators to manage voter data and generate reports.",
+          "Facilitates real-time monitoring and seamless coordination.",
+          "Features an intuitive interface with powerful functionalities.",
+          "Enhances efficiency and transparency in the electoral process.",
         ]}
+        img="./img/service_images/pwp.png"
       />
       <Feature
-        title={"Automation - powered by AI"}
+        title={"WhatsApp Surveys"}
         list={[
-          "Improve your workflow with our AI-powered automation.",
-          "From providing quick, personalized responses to identifying and addressing negative feedback, our AI automation makes your customer service easier and more efficient.",
-          "Say goodbye to manual oversight and hello to automatic, immediate, and thoughtful interactions for all your customers",
+          "Collect real-time customer feedback effortlessly via WhatsApp.",
+          "Benefit from instant responses and high engagement rates.",
+          "Gain valuable insights to enhance services and satisfaction.",
+          "Automate feedback collection and analyze responses efficiently.",
+          "Seamlessly integrate surveys into your workflow for better decision-making.",
         ]}
+        img="./img/service_images/cms.jpeg"
         side={"rowReverse"}
         className="featureSpecial"
       />
       <Feature
-        title={"Customer Analytics & Insights"}
+        title={"Complaint Management System"}
         list={[
-          "Stay informed and always a step ahead.",
-          "Get an in-depth understanding of your customer base at every location with actionable insights, their behavior, and location leaderboards.",
-          "Make data-driven decisions, understand what works and what doesn't, and measure success with our comprehensive analytics.",
-          "Utilize these insights to refine and retarget your business strategies, bringing back customers and success for your business.",
+          "Efficiently track, manage, and resolve customer complaints in real-time.",
+          "Enhance service quality and customer satisfaction with seamless issue handling.",
+          "Automate ticketing and categorize issues for faster resolution.",
+          "Gain valuable insights to optimize operations and improve efficiency.",
         ]}
+        img="./img/service_images/ws.jpeg"
       />
     </div>
   );
