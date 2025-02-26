@@ -1,5 +1,5 @@
 .hero {
-  padding: 18vh 3rem 3rem 3rem;
+  padding: 25vh 3rem 3rem 3rem;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -18,8 +18,7 @@
 }
 
 .hero h1 {
-  line-height: 1;
-  margin-bottom: 0.4rem;
+  margin-bottom: 1rem;
 }
 
 .hero .subHeading {
@@ -29,8 +28,13 @@
 }
 
 .hero .subHeading p {
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
+
+.hero .subHeading p:nth-child(2) {
+  margin-top: 1.5rem;
+}
+
 .hero .animatedHeading {
   position: relative;
   width: 100%;
@@ -43,8 +47,9 @@
 }
 
 .hero .btn {
-  width: 25rem;
-  height: 6.4rem;
+  font-size: 2rem;
+  width: 20rem;
+  height: 4.8rem;
   border-radius: 4rem;
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
@@ -112,6 +117,10 @@
 
   .hero .subHeading {
     width: 90%;
+  }
+
+  .hero .subHeading p {
+    margin-top: 2rem;
   }
 }
 

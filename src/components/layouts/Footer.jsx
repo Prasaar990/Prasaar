@@ -42,11 +42,11 @@ export default function footer() {
             viewport={{ once: true }}
           >
             <li>
-              <h1>Contact Us</h1>
+              <h1>Contact</h1>
             </li>
             <li>Email: ashok@prasaar.co</li>
             <li>
-              Address: Office 615, Fortuna Business Center, Pimple Saudagar,
+              Address: Office 310, Fortuna Business Center, Pimple Saudagar,
               Pune
             </li>
             <li></li>
@@ -63,8 +63,9 @@ export default function footer() {
               <h1>About us</h1>
             </li>
             <li>
-              We are an election management company providing services to manage
-              elections effectively.
+              We help businesses connect with customers effortlessly through
+              WhatsApp, combining automation and real-time interactions to
+              enhance engagement, trust, and revenue.
             </li>
           </motion.ul>
         </div>
@@ -101,15 +102,6 @@ export default function footer() {
           <span>
             <a href="#">
               <img src="./img/linkedin.svg" alt="linkedin" className="icon24" />
-            </a>
-          </span>
-          <span>
-            <a href="#">
-              <img
-                src="./img/messanger.svg"
-                alt="messanger"
-                className="icon24"
-              />
             </a>
           </span>
         </motion.div>

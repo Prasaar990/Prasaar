@@ -23,7 +23,7 @@ export default function Feature({ title, list, img, side = "" }) {
             viewport={{ once: true }}
             className={styles.text}
           >
-            <h1 className="font48">{title}</h1>
+            <h1 className="font36">{title}</h1>
             <ul>
               {list.map((item) => {
                 return (
@@ -50,7 +50,7 @@ export default function Feature({ title, list, img, side = "" }) {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={styles.text}
             >
-              <h1 className="font48">{title}</h1>
+              <h1 className="font36">{title}</h1>
               <ul>
                 {list.map((item) => {
                   return (

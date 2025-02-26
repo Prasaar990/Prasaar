@@ -5,17 +5,7 @@ export default function Features() {
   return (
     <div className={styles.features} id="solutions">
       <h1 className={styles.heading}>Solutions</h1>
-      <Feature
-        title={"Prasaar WebPortal"}
-        list={[
-          "Streamlines backend operations for efficient election management.",
-          "Enables administrators to manage voter data and generate reports.",
-          "Facilitates real-time monitoring and seamless coordination.",
-          "Features an intuitive interface with powerful functionalities.",
-          "Enhances efficiency and transparency in the electoral process.",
-        ]}
-        img="./img/service_images/pwp.png"
-      />
+
       <Feature
         title={"WhatsApp Surveys"}
         list={[
@@ -26,8 +16,6 @@ export default function Features() {
           "Seamlessly integrate surveys into your workflow for better decision-making.",
         ]}
         img="./img/service_images/cms.jpeg"
-        side={"rowReverse"}
-        className="featureSpecial"
       />
       <Feature
         title={"Complaint Management System"}
@@ -38,6 +26,8 @@ export default function Features() {
           "Gain valuable insights to optimize operations and improve efficiency.",
         ]}
         img="./img/service_images/ws.jpeg"
+        side={"rowReverse"}
+        className="featureSpecial"
       />
     </div>
   );

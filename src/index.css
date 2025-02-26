@@ -2,6 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  line-height: 1.1;
 }
 
 :root {
@@ -18,7 +19,8 @@ body {
   padding: 0;
   height: 100vh;
   width: 100vw;
-  color: #333;
+  /* color: #333; */
+  color: #555;
 }
 
 html {
@@ -70,6 +72,10 @@ select {
   font-size: 4.8rem;
 }
 
+.font42 {
+  font-size: 4.2rem;
+}
+
 .font36 {
   font-size: 3.6rem;
 }
@@ -103,6 +109,10 @@ select {
     font-size: 3.8rem;
   }
 
+  .font42 {
+    font-size: 4rem;
+  }
+
   .font36 {
     font-size: 3rem;
   }
@@ -116,11 +126,19 @@ select {
   .font48 {
     font-size: 3.2rem;
   }
+
+  .font42 {
+    font-size: 3rem;
+  }
+
+  .font36 {
+    font-size: 2.8rem;
+  }
 }
 
 @media (max-width: 22em) {
   html {
-    font-size: 55%;
+    font-size: 52%;
   }
 
   .font48 {

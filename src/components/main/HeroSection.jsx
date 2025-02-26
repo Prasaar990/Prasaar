@@ -30,10 +30,8 @@ export default function HeroSection() {
   return (
     <section className={styles.hero}>
       <div className={styles.heading}>
-        <div className="font48">
-          <h1>Customer </h1>
-          <h1>Engagement</h1>
-          <h1>with</h1>
+        <div className="font42">
+          <h1>Customer Engagement with</h1>
           <h1 className={styles.animatedHeading}>
             <motion.div
               key={wordIndex}
