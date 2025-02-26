@@ -44,6 +44,16 @@ select {
   padding: 0 0.4rem;
 }
 
+.showMessage {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  /* font-size: 4rem; */
+}
+
+.hide {
+  opacity: 0;
+}
+
 /* UTILITY CSS */
 .primaryColor {
   color: var(--color-primary);
@@ -62,6 +72,11 @@ select {
 .icon24 {
   width: 3.2rem;
   height: 3.2rem;
+}
+
+.icon48 {
+  width: 4.8rem;
+  height: 4.8rem;
 }
 
 .font64 {

@@ -12,6 +12,7 @@ export default function Header() {
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
   });
+  const [isHovered, setHovered] = useState(false);
 
   return (
     <>
@@ -137,6 +138,28 @@ export default function Header() {
         )}
 
         {/* {dropdownMore && !isTablet ? <More /> : ""} */}
+
+        <Link
+          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+          target="_blank"
+          className={`${styles.whatsapp} `}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+        >
+          <img
+            src="./img/whatsapp.svg"
+            alt="whatsapp"
+            style={{ zIndex: "1" }}
+            className={`${styles.whatsappImg}`}
+          />
+        </Link>
+        <div
+          className={`${styles.secreteMessage} ${
+            isHovered ? "showMessage" : "hide"
+          } `}
+        >
+          Whatsapp
+        </div>
       </nav>
     </>
   );
