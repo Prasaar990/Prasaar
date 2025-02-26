@@ -12,15 +12,16 @@
   color: white;
 }
 
-.header a {
+.header .link {
   color: white;
   text-decoration: none;
   transition: border 0.3s;
   border-bottom: none;
+  border-bottom: 2px solid var(--color-primary);
 }
 
-.header a:hover {
-  /* border-bottom: 2px solid white; */
+.header .link:hover {
+  border-bottom: 2px solid white;
 }
 
 .header .logo {

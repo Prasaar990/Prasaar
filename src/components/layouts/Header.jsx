@@ -90,13 +90,19 @@ export default function Header() {
             <div className={styles.nav}>
               <ul>
                 <li>
-                  <a href="#info">Why Prasaar</a>
+                  <a href="#info" className={styles.link}>
+                    Why Prasaar
+                  </a>
                 </li>
                 <li>
-                  <a href="#solutions">Solutions</a>
+                  <a href="#solutions" className={styles.link}>
+                    Solutions
+                  </a>
                 </li>
                 <li>
-                  <a href="#testimonials">Our Services</a>
+                  <a href="#testimonials" className={styles.link}>
+                    Our Services
+                  </a>
                 </li>
 
                 {/* <li className={styles.dropdownDiv}>
@@ -124,7 +130,7 @@ export default function Header() {
               <Link
                 to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
                 target="_blank"
-                className={styles.getStarted}
+                className={`${styles.getStarted} ${styles.link}`}
               >
                 Get Started
                 <img
