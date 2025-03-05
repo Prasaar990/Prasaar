@@ -2,7 +2,7 @@
   background-color: var(--color-primary);
   width: 100vw;
   height: 7.5rem;
-  font-size: 2rem;
+  font-size: 1.9rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +25,7 @@
 }
 
 .header .logo {
-  width: 16rem;
+  width: 14rem;
 }
 
 .header .nav ul {
@@ -94,7 +94,7 @@
 
 .header .secreteMessage {
   position: fixed;
-  bottom: 3.6rem;
+  bottom: 3.2rem;
   right: 10rem;
   color: black;
   font-size: 1.8rem;

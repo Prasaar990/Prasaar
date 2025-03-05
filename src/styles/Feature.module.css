@@ -1,7 +1,7 @@
 .feature {
   display: flex;
   gap: 10rem;
-  margin-top: 8rem;
+  margin-top: 6rem;
   width: 100%;
   padding: 0 3rem;
 }
@@ -19,11 +19,16 @@
 
 .feature .text {
   display: flex;
-  gap: 5rem;
+  gap: 2rem;
   justify-content: center;
   flex-direction: column;
   align-items: flex-start;
   width: 50%;
+}
+
+.feature div h1 {
+  font-weight: 500;
+  font-size: 2.8rem;
 }
 
 .feature ul {

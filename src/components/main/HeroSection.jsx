@@ -29,8 +29,8 @@ export default function HeroSection() {
 
   return (
     <section className={styles.hero}>
-      <div className={styles.heading}>
-        <div className="font42">
+      <div className={styles.left}>
+        <div className={styles.heading}>
           <h1>Customer Engagement with</h1>
           <h1 className={styles.animatedHeading}>
             <motion.div
@@ -67,7 +67,7 @@ export default function HeroSection() {
           Get Started!
         </Link>
       </div>
-      <div className={styles.img}></div>
+      <div className={styles.right}></div>
     </section>
   );
 }

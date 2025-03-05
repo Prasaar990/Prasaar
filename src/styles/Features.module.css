@@ -1,7 +1,7 @@
 .features {
   width: 100vw;
   overflow: hidden;
-  margin-top: 15rem;
+  margin-top: 20rem;
 }
 
 .features .heading {
@@ -11,4 +11,5 @@
   font-size: 4.2rem;
   color: var(--color-primary);
   border-bottom: 2px solid black;
+  font-weight: 500;
 }

@@ -27,12 +27,13 @@
 
 .sectionTestimonial header h2 {
   font-size: 2.2rem;
+  font-weight: 500;
 }
 
 .sectionTestimonial header p {
   font-size: 1.7rem;
   font-weight: 600;
-  color: #888;
+  color: #a3a2a2;
 }
 
 .sectionTestimonial img {

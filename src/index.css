@@ -2,7 +2,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  line-height: 1.1;
 }
 
 :root {
@@ -70,8 +69,18 @@ select {
 }
 
 .icon24 {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.icon32{
   width: 3.2rem;
   height: 3.2rem;
+}
+
+.icon36{
+  width: 3.6rem;
+  height: 3.6rem;
 }
 
 .icon48 {

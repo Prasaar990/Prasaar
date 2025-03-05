@@ -1,9 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/Testimonials.module.css";
 import Testimonial from "./Testimonial";
 
 export default function Testimonials() {
   const [transform, setTransform] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTransform((prevTransform) => {
+        const newTransform = prevTransform - 100;
+        // Reset to 0 if it goes below -800
+        if (newTransform <= -800) {
+          return 0;
+        }
+        return newTransform;
+      });
+    }, 3000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
     <section className={styles.testimonials} id="testimonials">
       <div className={styles.testimonialsList}>
