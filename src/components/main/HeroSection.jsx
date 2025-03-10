@@ -1,24 +1,17 @@
 import { motion } from "framer-motion";
 import styles from "../../styles/HeroSection.module.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-motion;
+import Button from "../layouts/Button";
 
-export default function HeroSection() {
+/* eslint-disable */
+export default function HeroSection({ words, title, subHeading }) {
   const [wordIndex, setWordIndex] = useState(0);
-  const words = [
-    "Personalized Messaging",
-    "24/7 Customer Support",
-    "Efficient Marketing Campaigns",
-    "Reminders and Follow-Ups",
-    "Interactive Engagement",
-  ];
 
   useEffect(() => {
     const interval = setInterval(
       () =>
         setWordIndex((wordIndex) => {
-          if (4 == wordIndex) return 0;
+          if (2 == wordIndex) return 0;
           return wordIndex + 1;
         }),
       1800
@@ -31,7 +24,7 @@ export default function HeroSection() {
     <section className={styles.hero}>
       <div className={styles.left}>
         <div className={styles.heading}>
-          <h1>Customer Engagement with</h1>
+          <h1>{title}</h1>
           <h1 className={styles.animatedHeading}>
             <motion.div
               key={wordIndex}
@@ -49,25 +42,17 @@ export default function HeroSection() {
           </h1>
         </div>
         <div className={styles.subHeading}>
-          <p>
-            Prasaar automation helps you build stronger relationships with
-            customers through WhatsApp in a simple and effective way. In return,
-            it boosts sales and revenue and encourages long-term loyalty.
-          </p>
-          <p>
-            Would you like to learn more about how it can work for your
-            business?
-          </p>
+          <p>{subHeading}</p>
         </div>
-        <Link
-          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-          target="_blank"
-          className={`${styles.btn} font24 btn`}
-        >
-          Get Started!
-        </Link>
+        <Button />
       </div>
-      <div className={styles.right}></div>
+      <div className={styles.right}>
+        <img
+          src="./img/heroImg.svg"
+          alt="hero img"
+          className={styles.heroImg}
+        />
+      </div>
     </section>
   );
 }

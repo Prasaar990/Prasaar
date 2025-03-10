@@ -4,10 +4,12 @@ import { easeOut, motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 
-// import More from "../dropdowns/More";
+import Solutions from "../dropdowns/Solutions";
+import UseCases from "../dropdowns/UseCases";
 
 export default function Header() {
-  // const [dropdownMore, setDropdownMore] = useState(false);
+  const [dropdownSolutions, setDropdownSolutions] = useState(false);
+  const [dropdownUseCases, setDropdownUseCases] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
@@ -27,33 +29,36 @@ export default function Header() {
         >
           <ul>
             <li>
-              <a href="#info">Why Prasaar</a>
+              <a href="#info">Why Prasaar ?</a>
             </li>
             <li>
               <a href="#solutions">Solutions</a>
             </li>
             <li>
-              <a href="#testimonials">Our Services</a>
+              <a href="#testimonials">Use Cases</a>
+            </li>
+            <li>
+              <a href="#pricing">Pricing</a>
             </li>
 
-            {/* <li className={styles.dropdownDiv}>
-              More
+            <li className={styles.dropdownDiv}>
+              Solutions
               <motion.button
                 type="button"
                 className={`${styles.dropdownBtn}`}
                 onClick={() => {
-                  setDropdownMore((x) => !x);
+                  setDropdownSolutions((x) => !x);
                 }}
               >
                 <motion.img
                   src="./img/downArrow.svg"
                   alt="show more options"
                   className={styles.dropdownIcon}
-                  animate={{ rotate: dropdownMore ? 180 : 0 }}
+                  animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
               </motion.button>
-            </li> */}
+            </li>
           </ul>
         </motion.nav>
       ) : (
@@ -75,7 +80,9 @@ export default function Header() {
               <button
                 type="button"
                 className={`${styles.hamBtn}`}
-                onClick={() => setDropdownNav((x) => !x)}
+                onClick={() => {
+                  setDropdownNav((x) => !x);
+                }}
               >
                 <img
                   src="./img/ham.svg"
@@ -91,38 +98,58 @@ export default function Header() {
               <ul>
                 <li>
                   <a href="#info" className={styles.link}>
-                    Why Prasaar
-                  </a>
-                </li>
-                <li>
-                  <a href="#solutions" className={styles.link}>
-                    Solutions
-                  </a>
-                </li>
-                <li>
-                  <a href="#testimonials" className={styles.link}>
-                    Our Services
+                    Why Prasaar ?
                   </a>
                 </li>
 
-                {/* <li className={styles.dropdownDiv}>
-                  More
+                <li href="#" className={`${styles.dropdownDiv}`}>
+                  Solutions
                   <motion.button
                     type="button"
                     className={`${styles.dropdownBtn}`}
                     onClick={() => {
-                      setDropdownMore((x) => !x);
+                      setDropdownSolutions((x) => !x);
+                      if (dropdownUseCases == true) {
+                        setDropdownUseCases(false);
+                      }
                     }}
                   >
                     <motion.img
                       src="./img/downArrow.svg"
-                      alt="show more options"
+                      alt="show solution"
                       className={styles.dropdownIcon}
-                      animate={{ rotate: dropdownMore ? 180 : 0 }}
+                      animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     />
                   </motion.button>
-                </li> */}
+                </li>
+                <li href="#" className={`${styles.dropdownDiv}`}>
+                  Use Cases
+                  <motion.button
+                    type="button"
+                    className={`${styles.dropdownBtn}`}
+                    onClick={() => {
+                      setDropdownUseCases((x) => !x);
+                      if (dropdownSolutions) {
+                        setDropdownSolutions(false);
+                      }
+                    }}
+                  >
+                    <motion.img
+                      src="./img/downArrow.svg"
+                      alt="show useCases"
+                      className={styles.dropdownIcon}
+                      animate={{ rotate: dropdownUseCases ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.button>
+                </li>
+
+                <li>
+                  <a href="#pricing" className={styles.link}>
+                    Pricing
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -143,7 +170,8 @@ export default function Header() {
           </>
         )}
 
-        {/* {dropdownMore && !isTablet ? <More /> : ""} */}
+        {!isTablet ? <Solutions dropdownSolutions={dropdownSolutions} /> : ""}
+        {!isTablet ? <UseCases dropdownUseCases={dropdownUseCases} /> : ""}
 
         <Link
           to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"

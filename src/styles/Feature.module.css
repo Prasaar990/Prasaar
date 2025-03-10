@@ -11,6 +11,11 @@
   margin: auto 0;
 }
 
+.feature .subheading {
+  color: #bbb;
+  font-size: 2.4rem;
+}
+
 .feature .img {
   width: 100%;
   opacity: 0.8;
@@ -74,6 +79,7 @@
 
   .feature {
     flex-direction: column;
+    padding: 0;
   }
 
   .specialFeature {

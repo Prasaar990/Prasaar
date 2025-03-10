@@ -2,6 +2,7 @@
   width: 100vw;
   overflow: hidden;
   margin-top: 20rem;
+  padding: 0 8rem;
 }
 
 .features .heading {
@@ -12,4 +13,16 @@
   color: var(--color-primary);
   border-bottom: 2px solid black;
   font-weight: 500;
+}
+
+@media (max-width: 50em) {
+  .features {
+    padding: 0 6rem;
+  }
+}
+
+@media (max-width: 50em) {
+  .features {
+    padding: 0 3rem;
+  }
 }

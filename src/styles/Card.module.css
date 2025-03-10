@@ -1,0 +1,24 @@
+.testimonialWrapper {
+  /* padding: 4rem 0; */
+  width: 33.33%;
+  height: 70%;
+  position: absolute;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 50em) {
+  .testimonialWrapper {
+    width: 50%;
+    /* height: ; */
+  }
+}
+@media (max-width: 29em) {
+  .testimonialWrapper {
+    width: 100%;
+    /* height: ; */
+  }
+}

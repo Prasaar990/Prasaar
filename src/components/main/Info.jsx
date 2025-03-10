@@ -6,10 +6,10 @@ export default function Info() {
     <div className={styles.info} id="info">
       <header className={`${styles.mainHeading} font24`}>
         <h1>
-          <span className="primaryColor">Feedback</span> on customer
-          satisfaction
+          {" "}
+          Why
+          <span className="primaryColor">Prasaar ?</span>
         </h1>
-        <h1>using WhatsApp</h1>
       </header>
 
       <p className={styles.subHeading}>
@@ -29,7 +29,7 @@ export default function Info() {
           <img src="./img/connect.svg" alt="logo" className={styles.infoIcon} />
           <h3>Easiest way to connect with business</h3>
           <p>
-            Over two billion people use WhatsApp daily, and 64% think it is the
+            Over two billion people use WhatsApp daily, and 69% think it is the
             easiest way to connect with a business. How? Well, WhatsApp is a
             user-friendly platform with real-time messaging features making it
             an ideal channel for businesses for customer engagement, support,
@@ -47,13 +47,14 @@ export default function Info() {
             alt="logo"
             className={styles.infoIcon}
           />
-          <h3>WhatsApp to take your business to the next level </h3>
+          <h3>Take your business to the next level</h3>
           <p>
-            Know how your business can use WhatsApp to retain customers while
-            improving customer satisfaction.
+            Use WhatsApp to retain customers while improving customer
+            satisfaction. Improve your services based on customer feedback. This
+            simple approach enhances communication, trust, and user engagement.
           </p>
         </motion.div>
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 210 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ ease: "easeOut", duration: 1 }}
@@ -66,7 +67,7 @@ export default function Info() {
             surveys. Improve your services based on their feedback. This simple
             approach enhances communication, trust, and user engagement
           </p>
-        </motion.div>
+        </motion.div> */}
         <motion.div
           initial={{ opacity: 0, y: 240 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
 import styles from "../../styles/Feature.module.css";
+import Button from "../layouts/Button";
 
 /* eslint-disable */
-export default function Feature({ title, list, img, side = "" }) {
+export default function Feature({
+  title,
+  subheading,
+  list,
+  img,
+  btnText,
+  side = "",
+}) {
   return (
     <>
       {side !== "rowReverse" ? (
@@ -23,7 +31,11 @@ export default function Feature({ title, list, img, side = "" }) {
             viewport={{ once: true }}
             className={styles.text}
           >
-            <h1 className="font36">{title}</h1>
+            <div>
+              <h1 className="font36">{title}</h1>
+              <h1 className={`${styles.subheading} font36`}>{subheading}</h1>
+            </div>
+
             <ul>
               {list.map((item) => {
                 return (
@@ -38,6 +50,7 @@ export default function Feature({ title, list, img, side = "" }) {
                 );
               })}
             </ul>
+            <Button />
           </motion.div>
         </section>
       ) : (
@@ -50,7 +63,11 @@ export default function Feature({ title, list, img, side = "" }) {
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={styles.text}
             >
-              <h1 className="font36">{title}</h1>
+              <div>
+                <h1 className="font36">{title}</h1>
+                <h1 className={`${styles.subheading} font36`}>{subheading}</h1>
+              </div>
+
               <ul>
                 {list.map((item) => {
                   return (
@@ -65,6 +82,7 @@ export default function Feature({ title, list, img, side = "" }) {
                   );
                 })}
               </ul>
+              <Button />
             </motion.div>
             <motion.div
               initial={{ x: "30%", opacity: 0.1 }}

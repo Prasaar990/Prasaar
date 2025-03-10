@@ -5,7 +5,7 @@
 }
 
 :root {
-  --color-primary: #ae275f;
+  --color-primary: #fe6363;
   --color-secondary: #5e5eff;
 }
 
@@ -73,12 +73,12 @@ select {
   height: 2.4rem;
 }
 
-.icon32{
+.icon32 {
   width: 3.2rem;
   height: 3.2rem;
 }
 
-.icon36{
+.icon36 {
   width: 3.6rem;
   height: 3.6rem;
 }

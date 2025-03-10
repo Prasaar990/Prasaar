@@ -27,11 +27,10 @@ export default function footer() {
             <li>
               <h1>Products</h1>
             </li>
-            <li>PRSAAR APP</li>
-            <li>PRSAAR Web Portal</li>
-            <li>Voter Search Web Link</li>
-            <li>WhatsApp API & Automation</li>
-            <li>Complaint Management System</li>
+            <li>CSAT Survey</li>
+            <li>Opinion Survey</li>
+            <li>Feedback</li>
+            <li>Complaint Management </li>
           </motion.ul>
         </div>
         <div>
@@ -46,8 +45,8 @@ export default function footer() {
             </li>
             <li>Email: ashok@prasaar.co</li>
             <li>
-              Address: 310, Fortuna Business Center, Pimple Saudagar,
-              Pune -411027
+              Address: 310, Fortuna Business Center, Pimple Saudagar, Pune
+              -411027
             </li>
             <li></li>
           </motion.ul>
