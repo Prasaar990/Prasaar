@@ -31,14 +31,9 @@ export default function Header() {
             <li>
               <a href="#info">Why Prasaar ?</a>
             </li>
-            <li>
-              <a href="#solutions">Solutions</a>
-            </li>
+
             <li>
               <a href="#testimonials">Use Cases</a>
-            </li>
-            <li>
-              <a href="#pricing">Pricing</a>
             </li>
 
             <li className={styles.dropdownDiv}>
@@ -58,6 +53,27 @@ export default function Header() {
                   transition={{ duration: 0.3 }}
                 />
               </motion.button>
+            </li>
+            <li className={styles.dropdownDiv}>
+              UseCases
+              <motion.button
+                type="button"
+                className={`${styles.dropdownBtn}`}
+                onClick={() => {
+                  setDropdownSolutions((x) => !x);
+                }}
+              >
+                <motion.img
+                  src="./img/downArrow.svg"
+                  alt="show more options"
+                  className={styles.dropdownIcon}
+                  animate={{ rotate: dropdownSolutions ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.button>
+            </li>
+            <li>
+              <a href="#pricing">Pricing</a>
             </li>
           </ul>
         </motion.nav>

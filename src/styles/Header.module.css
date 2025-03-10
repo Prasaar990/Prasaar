@@ -137,7 +137,7 @@
 .headerResponsive {
   width: 100vw;
   height: 50vh;
-  background-color: #9d2356;
+  background-color: var(--color-primary);
   z-index: 5;
   position: fixed;
   display: flex;
@@ -146,6 +146,7 @@
   align-items: center;
   font-size: 2.2rem;
   color: white;
+  z-index: 100;
 }
 
 .headerResponsive ul {
