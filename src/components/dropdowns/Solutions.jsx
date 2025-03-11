@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import styles from "./../../styles/Solutions.module.css";
 
 /* eslint-disable */
-export default function Solutions({ dropdownSolutions }) {
+export default function Solutions({ dropdownSolutions, isTablet = true }) {
   return (
     <>
-      {!dropdownSolutions ? (
+      {!isTablet ? (
         <motion.div
           animate={{
             opacity: dropdownSolutions ? 1 : 0,

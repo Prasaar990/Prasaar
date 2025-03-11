@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import styles from "./../../styles/UseCases.module.css";
 
 /* eslint-disable */
-export default function UseCases({ dropdownUseCases }) {
+export default function UseCases({ dropdownUseCases, isTablet = true }) {
   return (
     <>
-      {!dropdownUseCases ? (
+      {!isTablet ? (
         <motion.div
           animate={{
             opacity: dropdownUseCases ? 1 : 0,
@@ -16,7 +16,7 @@ export default function UseCases({ dropdownUseCases }) {
           className={styles.dropdownMore}
         >
           <div className={styles.megaMenu}>
-            <h3 className={styles.heading}>UsedropdownUseCases</h3>
+            <h3 className={styles.heading}>UseCases</h3>
             <p className={styles.description}>
               We provide the most complete UsedropdownUseCases for
               multi-location brands.

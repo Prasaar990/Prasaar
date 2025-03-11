@@ -206,8 +206,19 @@ export default function Header() {
           </>
         )}
 
-        {!isTablet ? <Solutions dropdownSolutions={dropdownSolutions} /> : ""}
-        {!isTablet ? <UseCases dropdownUseCases={dropdownUseCases} /> : ""}
+        {!isTablet ? (
+          <Solutions
+            dropdownSolutions={dropdownSolutions}
+            isTablet={isTablet}
+          />
+        ) : (
+          ""
+        )}
+        {!isTablet ? (
+          <UseCases dropdownUseCases={dropdownUseCases} isTablet={isTablet} />
+        ) : (
+          ""
+        )}
 
         <Link
           to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
