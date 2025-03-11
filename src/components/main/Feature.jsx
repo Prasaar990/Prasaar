@@ -50,7 +50,7 @@ export default function Feature({
                 );
               })}
             </ul>
-            <Button />
+            <Button text={"Get Started"} />
           </motion.div>
         </section>
       ) : (
@@ -82,7 +82,7 @@ export default function Feature({
                   );
                 })}
               </ul>
-              <Button />
+              <Button text={"Get Started"} />
             </motion.div>
             <motion.div
               initial={{ x: "30%", opacity: 0.1 }}

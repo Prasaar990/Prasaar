@@ -38,6 +38,7 @@
 
 .feature ul {
   list-style: none;
+  margin-bottom: 2rem;
 }
 
 .featureSpecial {
@@ -100,7 +101,7 @@
 }
 
 @media (max-width: 22em) {
-  .feature {
+  /* .feature {
     padding: 0 2rem;
-  }
+  } */
 }

@@ -94,9 +94,3 @@
     padding: 4rem 3rem;
   }
 }
-
-@media (max-width: 22em) {
-  .footer {
-    padding: 4rem 2rem;
-  }
-}

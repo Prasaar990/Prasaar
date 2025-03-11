@@ -12,6 +12,7 @@
   align-items: center;
   text-align: center;
   line-height: 1.1;
+  font-size: 2rem;
 }
 
 .info .mainHeading h1 {
@@ -70,6 +71,9 @@
 }
 
 @media (max-width: 58em) {
+  .info .mainHeading {
+    font-size: 1.8rem;
+  }
   .info .subHeading {
     width: 90%;
   }
@@ -97,6 +101,9 @@
 }
 
 @media (max-width: 35em) {
+  .info .mainHeading {
+    font-size: 1.6rem;
+  }
   .info .main {
     column-gap: 2rem;
   }

@@ -101,7 +101,7 @@ export default function Header() {
                 }}
               >
                 <img
-                  src="./img/ham.svg"
+                  src={dropdownNav ? "./img/close.svg" : "./img/ham.svg"}
                   alt="ham icon"
                   className={styles.hamIcon}
                 />

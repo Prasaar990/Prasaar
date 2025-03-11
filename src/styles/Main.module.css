@@ -1,3 +1,43 @@
 .main {
   /* background-color: dimgray; */
 }
+
+.getStarted {
+  margin-top: 10rem;
+  font-size: 3.8rem;
+  padding: 5rem 8rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #aaa;
+  background-color: #333b4f;
+}
+
+@media (max-width: 45em) {
+  .getStarted {
+    padding: 5rem 6rem;
+    font-size: 3rem;
+    color: #aaa;
+    background-color: #333b4f;
+  }
+}
+
+@media (max-width: 37em) {
+  .getStarted {
+    padding: 5rem 3rem;
+    font-size: 3.2rem;
+    flex-direction: column;
+    gap: 2rem;
+    color: #aaa;
+    background-color: #333b4f;
+  }
+}
+
+@media (max-width: 29em) {
+  .getStarted {
+    padding: 5rem 3rem;
+    font-size: 2.8rem;
+    color: #aaa;
+    background-color: #333b4f;
+  }
+}

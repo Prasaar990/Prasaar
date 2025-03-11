@@ -19,7 +19,7 @@ const Card = ({ x, heading, text }) => {
           </div>
           <p className="heading">{heading}</p>
           <div className="text">{text}</div>
-          <Button />
+          <Button text={"Know More"} />
         </div>
       </StyledWrapper>
     </motion.div>

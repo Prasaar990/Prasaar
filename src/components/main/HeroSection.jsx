@@ -44,7 +44,7 @@ export default function HeroSection({ words, title, subHeading }) {
         <div className={styles.subHeading}>
           <p>{subHeading}</p>
         </div>
-        <Button />
+        <Button text={"Get Started"} />
       </div>
       <div className={styles.right}>
         <img

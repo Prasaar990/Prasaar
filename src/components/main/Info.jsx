@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function Info() {
   return (
     <div className={styles.info} id="info">
-      <header className={`${styles.mainHeading} font24`}>
+      <header className={`${styles.mainHeading}`}>
         <h1>
           {" "}
           Why
@@ -13,12 +13,13 @@ export default function Info() {
       </header>
 
       <p className={styles.subHeading}>
-        Know how your customers feel about your service with WhatsApp-based CSAT
-        surveys and feedback tools. It is easy to track responses gather
-        insights and analyze results using WhatsApp Business and automation
-        features. Ultimately improving customer satisfaction effortlessly.
+        Prasaar has everything you need for customer engagement and service
+        using its WhatsApp automation platform. Know how your customers feel
+        about your service with WhatsApp-based CSAT surveys and feedback tools.
+        It is easy to track responses, gather insights and analyze results using
+        Prasaar. It&apos;s the best way to improve customer satisfaction
+        effortlessly.
       </p>
-
       <main className={styles.main}>
         <motion.div
           initial={{ opacity: 0, y: 150 }}

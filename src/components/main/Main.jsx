@@ -5,6 +5,7 @@ import Info from "./Info";
 import Features from "./Features";
 // import Testimonials from "./Testimonials";
 import Testimonials2 from "./Testimonials2";
+import Button from "../layouts/Button";
 
 export default function main() {
   return (
@@ -24,6 +25,10 @@ export default function main() {
       <Features />
       {/* <Testimonials id="testimonials" /> */}
       <Testimonials2 id="testimonials" />
+      <section className={styles.getStarted}>
+        Collect Feedback Faster...
+        <Button text="Start Today" />
+      </section>
       <HeroSection
         words={[
           "Customer service",
