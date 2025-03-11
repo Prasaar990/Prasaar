@@ -43,24 +43,9 @@ export default function Header() {
                 className={`${styles.dropdownBtn}`}
                 onClick={() => {
                   setDropdownSolutions((x) => !x);
-                }}
-              >
-                <motion.img
-                  src="./img/downArrow.svg"
-                  alt="show more options"
-                  className={styles.dropdownIcon}
-                  animate={{ rotate: dropdownSolutions ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            </li>
-            <li className={styles.dropdownDiv}>
-              UseCases
-              <motion.button
-                type="button"
-                className={`${styles.dropdownBtn}`}
-                onClick={() => {
-                  setDropdownSolutions((x) => !x);
+                  if (dropdownUseCases) {
+                    setDropdownUseCases(false);
+                  }
                 }}
               >
                 <motion.img
@@ -73,6 +58,41 @@ export default function Header() {
               </motion.button>
             </li>
             <li>
+              {dropdownSolutions ? (
+                <Solutions dropdownSolutions={dropdownSolutions} />
+              ) : (
+                ""
+              )}
+            </li>
+            <li className={styles.dropdownDiv}>
+              UseCases
+              <motion.button
+                type="button"
+                className={`${styles.dropdownBtn}`}
+                onClick={() => {
+                  setDropdownUseCases((x) => !x);
+                  if (dropdownSolutions) {
+                    setDropdownSolutions(false);
+                  }
+                }}
+              >
+                <motion.img
+                  src="./img/downArrow.svg"
+                  alt="show more options"
+                  className={styles.dropdownIcon}
+                  animate={{ rotate: dropdownUseCases ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.button>
+            </li>
+            <li>
+              {dropdownUseCases ? (
+                <UseCases dropdownUseCases={dropdownUseCases} />
+              ) : (
+                ""
+              )}
+            </li>
+            <li>
               <a href="#pricing">Pricing</a>
             </li>
           </ul>
@@ -81,7 +101,7 @@ export default function Header() {
         <></>
       )}
 
-      <nav className={styles.header}>
+      <header className={styles.header}>
         <div>
           <img
             src="./img/prasaarLogo.png"
@@ -210,7 +230,7 @@ export default function Header() {
         >
           Whatsapp
         </div>
-      </nav>
+      </header>
     </>
   );
 }

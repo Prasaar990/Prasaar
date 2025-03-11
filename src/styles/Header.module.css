@@ -28,6 +28,10 @@
   width: 14rem;
 }
 
+.header .nav {
+  z-index: 90;
+}
+
 .header .nav ul {
   list-style: none;
   display: flex;
@@ -136,17 +140,18 @@
 
 .headerResponsive {
   width: 100vw;
-  height: 50vh;
+  padding: 10rem 4rem;
   background-color: var(--color-primary);
   z-index: 5;
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  /* justify-content: center; */
+  /* align-items: center; */
   font-size: 2.2rem;
   color: white;
   z-index: 100;
+  transition: height 0.5s;
 }
 
 .headerResponsive ul {

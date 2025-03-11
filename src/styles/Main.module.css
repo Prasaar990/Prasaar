@@ -9,16 +9,15 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  color: #aaa;
-  background-color: #333b4f;
+  color: white;
+  /* background-color: #333b4f; */
+  background-image: linear-gradient(#333b4f, #596789);
 }
 
 @media (max-width: 45em) {
   .getStarted {
     padding: 5rem 6rem;
     font-size: 3rem;
-    color: #aaa;
-    background-color: #333b4f;
   }
 }
 
@@ -28,8 +27,6 @@
     font-size: 3.2rem;
     flex-direction: column;
     gap: 2rem;
-    color: #aaa;
-    background-color: #333b4f;
   }
 }
 
@@ -37,7 +34,5 @@
   .getStarted {
     padding: 5rem 3rem;
     font-size: 2.8rem;
-    color: #aaa;
-    background-color: #333b4f;
   }
 }
