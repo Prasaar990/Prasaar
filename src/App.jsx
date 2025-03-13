@@ -9,38 +9,13 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <Header />
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Header />
-                <Main />
-                <Footer />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/form"
-            element={
-              <>
-                <Header />
-                <GetStarted />
-                <Footer />
-              </>
-            }
-          ></Route>
-          <Route
-            path="/terms"
-            element={
-              <>
-                <Header />
-                <Terms />
-                <Footer />
-              </>
-            }
-          ></Route>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/form" element={<GetStarted />}></Route>
+          <Route path="/terms" element={<Terms />}></Route>
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );
