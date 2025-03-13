@@ -3,6 +3,7 @@ import Footer from "./components/layouts/Footer";
 import Main from "./components/main/Main";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GetStarted from "./components/main/GetStarted";
+import Terms from "./components/main/Terms";
 
 function App() {
   return (
@@ -25,6 +26,16 @@ function App() {
               <>
                 <Header />
                 <GetStarted />
+                <Footer />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/terms"
+            element={
+              <>
+                <Header />
+                <Terms />
                 <Footer />
               </>
             }

@@ -124,13 +124,13 @@ export default function Header() {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className={styles.header}
       >
-        <div>
+        <a href="/" style={{ cursor: "pointer" }}>
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
             className={styles.logo}
           />
-        </div>
+        </a>
 
         {isTablet ? (
           <>
@@ -212,7 +212,10 @@ export default function Header() {
             </div>
 
             <div className={styles.authUser}>
-              <Button text={"Get Started"} />
+              <Button
+                text={"Get Started"}
+                to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+              />
             </div>
           </>
         )}

@@ -3,7 +3,7 @@ import styles from "../../styles/Button.module.css";
 import { useRef } from "react";
 
 /*eslint-disable*/
-export default function Button({ text }) {
+export default function Button({ text, to }) {
   const elementRef = useRef(null);
   const arrow = useRef(null);
   const blackArrow = useRef(null);
@@ -26,7 +26,7 @@ export default function Button({ text }) {
   return (
     <Link
       ref={elementRef}
-      to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+      to={to}
       target="_blank"
       className={`${styles.btn} font24 btn`}
       onMouseEnter={handleMouseEnter}

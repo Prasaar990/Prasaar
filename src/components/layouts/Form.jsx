@@ -50,7 +50,7 @@ export default function Form() {
         <div className={styles.input_group}>
           <input
             type="tel"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            pattern="[0-9]{10}"
             name="phone"
             id="phone"
             className={styles.input_field}
@@ -58,7 +58,7 @@ export default function Form() {
             required
           />
           <label htmlFor="phone" className={styles.input_label}>
-            Phone number (123-456-7890)
+            Phone number (1234567890)
           </label>
         </div>
         <div className={styles.input_group}>
