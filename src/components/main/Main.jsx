@@ -16,8 +16,8 @@ export default function main() {
           "Customer Service",
           "Employee Experience",
         ]}
-        subHeading="Prasaar Whatsapp Automation Platform helps you grow cutomer
-            engagement drive revenue and increase customer satisfaction🙂."
+        subHeading="Prasaar Whatsapp Automation Platform helps you grow customer
+            engagement, drive revenue, and increase customer satisfaction🙂."
         title={"Transfrom Your"}
       />
       <Customers />
@@ -31,13 +31,13 @@ export default function main() {
       </section>
       <HeroSection
         words={[
-          "Customer service",
+          "Customer Service",
           "Customer Experience",
           "Employee Experience",
           "Customer Retention",
         ]}
         subheading=""
-        title={"How Prasaar is helping drive Better ?"}
+        title={"How Prasaar is helping drive better"}
       />
     </div>
   );

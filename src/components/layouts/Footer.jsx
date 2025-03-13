@@ -46,7 +46,7 @@ export default function footer() {
             <li>Email: ashok@prasaar.co</li>
             <li>
               Address: 310, Fortuna Business Center, Pimple Saudagar, Pune
-              -411027
+              -411027, India
             </li>
             <li></li>
           </motion.ul>

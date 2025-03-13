@@ -37,13 +37,13 @@ export default function Button({ text }) {
         <img
           ref={blackArrow}
           src="./img/right-arrow-black.svg"
-          alt="get Started"
+          alt={text}
           className={styles.blackArrow}
         />
         <img
           ref={arrow}
           src="./img/right-arrow.svg"
-          alt="get Started"
+          alt={text}
           className={styles.arrow}
         />
       </div>

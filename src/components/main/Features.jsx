@@ -8,7 +8,6 @@ export default function Features() {
 
       <Feature
         title="Real Time Feedback"
-        subheading="Conduct opinion-poll Customer Satisfaction(CSAT) surveys, NPS - Net Promoter Score, Employee Tech."
         list={[
           "Collect real-time customer feedback effortlessly via WhatsApp.",
           "Benefit from instant responses and high engagement rates.",
@@ -17,11 +16,19 @@ export default function Features() {
           "Seamlessly integrate surveys into your workflow for better decision-making.",
         ]}
         img="./img/service_images/cms.png"
-        btnText="Get Started!"
-      />
+        btnText="Get Started"
+      >
+        {
+          <p>
+            Conduct Opinion-Poll, Customer Satisfaction (CSAT) surveys, NPS -
+            Net Promoter Score, Employee Feedback.{" "}
+          </p>
+        }
+      </Feature>
       <Feature
         title="Complaint Management System"
-        subheading="Convert complaints into compliments."
+        // subheading="Convert <em>complaints<em> into <em>compliments<em>."
+        // subheading="Convert complaints into compliments."
         list={[
           "Efficiently track, manage, and resolve customer complaints in real-time.",
           "Enhance service quality and customer satisfaction with seamless issue handling.",
@@ -31,8 +38,14 @@ export default function Features() {
         img="./img/service_images/ws.png"
         side="rowReverse"
         className="featureSpecial"
-        btnText="Get Started!"
-      />
+        btnText="Get Started"
+      >
+        {
+          <p>
+            Convert <em>complaints</em> into <em>compliments</em>
+          </p>
+        }
+      </Feature>
     </div>
   );
 }

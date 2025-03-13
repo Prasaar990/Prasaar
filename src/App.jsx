@@ -2,6 +2,7 @@ import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
 import Main from "./components/main/Main";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GetStarted from "./components/main/GetStarted";
 
 function App() {
   return (
@@ -14,6 +15,16 @@ function App() {
               <>
                 <Header />
                 <Main />
+                <Footer />
+              </>
+            }
+          ></Route>
+          <Route
+            path="/form"
+            element={
+              <>
+                <Header />
+                <GetStarted />
                 <Footer />
               </>
             }

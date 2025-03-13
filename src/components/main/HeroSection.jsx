@@ -11,7 +11,7 @@ export default function HeroSection({ words, title, subHeading }) {
     const interval = setInterval(
       () =>
         setWordIndex((wordIndex) => {
-          if (2 == wordIndex) return 0;
+          if (words.length - 1 == wordIndex) return 0;
           return wordIndex + 1;
         }),
       1800

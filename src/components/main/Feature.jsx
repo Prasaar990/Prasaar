@@ -5,11 +5,11 @@ import Button from "../layouts/Button";
 /* eslint-disable */
 export default function Feature({
   title,
-  subheading,
   list,
   img,
-  btnText,
+  children,
   side = "",
+  btnText = "Get Started",
 }) {
   return (
     <>
@@ -33,7 +33,7 @@ export default function Feature({
           >
             <div>
               <h1 className="font36">{title}</h1>
-              <h1 className={`${styles.subheading} font36`}>{subheading}</h1>
+              <h1 className={`${styles.subheading}`}>{children}</h1>
             </div>
 
             <ul>
@@ -50,7 +50,7 @@ export default function Feature({
                 );
               })}
             </ul>
-            <Button text={"Get Started"} />
+            <Button text={btnText} />
           </motion.div>
         </section>
       ) : (
@@ -65,7 +65,7 @@ export default function Feature({
             >
               <div>
                 <h1 className="font36">{title}</h1>
-                <h1 className={`${styles.subheading} font36`}>{subheading}</h1>
+                <h1 className={`${styles.subheading} `}>{children}</h1>
               </div>
 
               <ul>
@@ -82,7 +82,7 @@ export default function Feature({
                   );
                 })}
               </ul>
-              <Button text={"Get Started"} />
+              <Button text={btnText} />
             </motion.div>
             <motion.div
               initial={{ x: "30%", opacity: 0.1 }}
@@ -91,7 +91,7 @@ export default function Feature({
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={styles.imgDiv}
             >
-              <img src={img} alt="feature 1" className={styles.img} />
+              <img src={img} alt="feature" className={styles.img} />
             </motion.div>
           </section>
         </>
