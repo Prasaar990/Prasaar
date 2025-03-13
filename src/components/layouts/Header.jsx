@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../../styles/Header.module.css";
 import { easeOut, motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
+import Button from "../layouts/Button";
 
 import Solutions from "../dropdowns/Solutions";
 import UseCases from "../dropdowns/UseCases";
@@ -15,6 +16,22 @@ export default function Header() {
     query: "(max-width: 900px)",
   });
   const [isHovered, setHovered] = useState(false);
+  const [visible, setVisible] = useState(true);
+  let lastScrollY = window.scrollY;
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setVisible(false); // Hide when scrolling down
+      } else {
+        setVisible(true); // Show when scrolling up
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -101,7 +118,12 @@ export default function Header() {
         <></>
       )}
 
-      <header className={styles.header}>
+      <motion.header
+        initial={{ y: 0 }}
+        animate={{ y: visible ? 0 : "-100%" }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className={styles.header}
+      >
         <div>
           <img
             src="./img/prasaarLogo.png"
@@ -190,18 +212,7 @@ export default function Header() {
             </div>
 
             <div className={styles.authUser}>
-              <Link
-                to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-                target="_blank"
-                className={`${styles.getStarted} ${styles.link}`}
-              >
-                Get Started
-                <img
-                  src="./img/getStarted.svg"
-                  alt="get started svg"
-                  className="icon24"
-                />
-              </Link>
+              <Button text={"Get Started"} />
             </div>
           </>
         )}
@@ -219,29 +230,28 @@ export default function Header() {
         ) : (
           ""
         )}
-
-        <Link
-          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-          target="_blank"
-          className={`${styles.whatsapp} `}
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-        >
-          <img
-            src="./img/whatsapp.svg"
-            alt="whatsapp"
-            style={{ zIndex: "1" }}
-            className={`${styles.whatsappImg}`}
-          />
-        </Link>
-        <div
-          className={`${styles.secreteMessage} ${
-            isHovered ? "showMessage" : "hide"
-          } `}
-        >
-          Whatsapp
-        </div>
-      </header>
+      </motion.header>
+      <Link
+        to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+        target="_blank"
+        className={`${styles.whatsapp} `}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <img
+          src="./img/whatsapp.svg"
+          alt="whatsapp"
+          style={{ zIndex: "1" }}
+          className={`${styles.whatsappImg}`}
+        />
+      </Link>
+      <div
+        className={`${styles.secreteMessage} ${
+          isHovered ? "showMessage" : "hide"
+        } `}
+      >
+        Whatsapp
+      </div>
     </>
   );
 }

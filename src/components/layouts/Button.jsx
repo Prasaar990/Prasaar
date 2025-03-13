@@ -10,7 +10,7 @@ export default function Button({ text }) {
 
   const handleMouseEnter = () => {
     arrow.current.style.transform = "translate(50%, -150%)";
-    blackArrow.current.style.transform = "translate(120%, -120%)";
+    blackArrow.current.style.transform = "translate(110%, -130%)";
     blackArrow.current.style.opacity = "1";
     arrow.current.style.opacity = "0";
     elementRef.current.style.color = "black";

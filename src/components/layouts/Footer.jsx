@@ -90,17 +90,17 @@ export default function footer() {
         >
           <span>
             <a href="#" className={styles.footerLinks}>
-              <img src="./img/facebook.svg" alt="Facebook" className="icon24" />
+              <img src="./img/facebook.svg" alt="Facebook" className="icon36" />
             </a>
           </span>
           <span>
             <a href="#" className={styles.footerLinks}>
-              <img src="./img/insta.svg" alt="Instagram" className="icon24" />
+              <img src="./img/insta.svg" alt="Instagram" className="icon36" />
             </a>
           </span>
           <span>
             <a href="#">
-              <img src="./img/linkedin.svg" alt="linkedin" className="icon24" />
+              <img src="./img/linkedin.svg" alt="linkedin" className="icon36" />
             </a>
           </span>
         </motion.div>

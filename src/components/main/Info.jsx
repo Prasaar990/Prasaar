@@ -8,7 +8,7 @@ export default function Info() {
         <h1>
           {" "}
           Why
-          <span className="primaryColor">Prasaar ?</span>
+          <span className="primaryColor"> Prasaar ?</span>
         </h1>
       </header>
 

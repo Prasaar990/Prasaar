@@ -32,7 +32,7 @@ const StyledWrapper = styled.div`
     width: 62%;
     height: 100%;
     color: white;
-    background: #333b4f;
+    background-image: linear-gradient(#333b4f, rgb(74, 86, 113));
     // border: 2px solid black;
     transition: 1s ease-in-out;
     clip-path: polygon(
@@ -49,6 +49,7 @@ const StyledWrapper = styled.div`
     border-bottom-left-radius: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
   }
 

@@ -9,19 +9,21 @@
   padding: 0 3rem;
   position: fixed;
   z-index: 100;
-  color: white;
+  color: var(--color-text);
+  background-color: white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15),
+    -4px -4px 10px rgba(255, 255, 255, 0.1);
 }
 
 .header .link {
-  color: white;
+  color: var(--color-text);
   text-decoration: none;
   transition: border 0.3s;
-  border-bottom: none;
-  border-bottom: 2px solid var(--color-primary);
+  border-bottom: 2px solid white;
 }
 
 .header .link:hover {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid var(--color-text);
 }
 
 .header .logo {
@@ -78,7 +80,8 @@
   gap: 0.6rem;
 }
 
-.header .whatsapp {
+/* Whatsapp hover  */
+.whatsapp {
   background-color: #49e670;
   position: fixed;
   right: 3rem;
@@ -91,22 +94,24 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.5s;
+  z-index: 10;
 }
 
-.header .whatsapp:hover {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+.whatsapp:hover {
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15),
+    -4px -4px 10px rgba(255, 255, 255, 0.1);
 }
 
-.header .whatsappImg {
+.whatsappImg {
   width: 60%;
   height: 60%;
 }
 
-.header .secreteMessage {
+.secreteMessage {
   position: fixed;
   bottom: 3.2rem;
   right: 10rem;
-  color: black;
+  color: var(--color-text);
   font-size: 1.8rem;
   border: 1px solid black;
   padding: 1rem 2rem;
@@ -141,7 +146,7 @@
 .headerResponsive {
   width: 100vw;
   padding: 10rem 4rem;
-  background-color: var(--color-primary);
+  background-color: white;
   z-index: 5;
   position: fixed;
   display: flex;
@@ -149,7 +154,7 @@
   /* justify-content: center; */
   /* align-items: center; */
   font-size: 2.2rem;
-  color: white;
+  color: var(--color-text);
   z-index: 100;
   transition: height 0.5s;
 }
@@ -165,7 +170,7 @@
 
 .headerResponsive a {
   text-decoration: none;
-  color: white;
+  color: var(--color-text);
 }
 
 .headerResponsive .dropdownIcon {
