@@ -34,6 +34,12 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("popstate", () => {
+      if (document.URL.includes("form")) setFormOpen(true);
+      else setFormOpen(false);
+      console.log("hash changed");
+    });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
