@@ -75,9 +75,7 @@ export default function Form() {
             Company
           </label>
         </div>
-        <button type="submit" className={styles.submit_button}>
-          Submit
-        </button>
+        <button className={styles.submit_button}>Submit</button>
       </form>
     </div>
   );
