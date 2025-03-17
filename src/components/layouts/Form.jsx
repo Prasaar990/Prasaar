@@ -4,7 +4,11 @@ import styles from "../../styles/Form.module.css";
 export default function Form() {
   return (
     <div className={styles.form_div}>
-      <form className={styles.form_container} data-netlify="true">
+      <form
+        className={styles.form_container}
+        name="contact"
+        data-netlify="true"
+      >
         <div className={styles.input_group}>
           <input
             type="email"
