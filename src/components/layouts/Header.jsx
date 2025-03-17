@@ -12,17 +12,21 @@ export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
   const [dropdownUseCases, setDropdownUseCases] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
+  const [isFormOpen, setFormOpen] = useState(document.URL.includes("form"));
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
   });
   const [isHovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(true);
-  let lastScrollY = window.scrollY;
 
+  let lastScrollY = window.scrollY;
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
         setVisible(false); // Hide when scrolling down
+        setDropdownSolutions(false);
+        setDropdownUseCases(false);
+        setDropdownNav(false);
       } else {
         setVisible(true); // Show when scrolling up
       }
@@ -124,7 +128,11 @@ export default function Header() {
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className={styles.header}
       >
-        <Link to="/" style={{ cursor: "pointer" }}>
+        <Link
+          to="/"
+          style={{ cursor: "pointer" }}
+          onClick={() => setFormOpen(false)}
+        >
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
@@ -153,66 +161,74 @@ export default function Header() {
         ) : (
           <>
             <div className={styles.nav}>
-              <ul>
-                <li>
-                  <a href="#info" className={styles.link}>
-                    Why Prasaar ?
-                  </a>
-                </li>
+              {!isFormOpen ? (
+                <ul>
+                  <li>
+                    <a href="#info" className={styles.link}>
+                      Why Prasaar ?
+                    </a>
+                  </li>
 
-                <li href="#" className={`${styles.dropdownDiv}`}>
-                  Solutions
-                  <motion.button
-                    type="button"
-                    className={`${styles.dropdownBtn}`}
-                    onClick={() => {
-                      setDropdownSolutions((x) => !x);
-                      if (dropdownUseCases == true) {
-                        setDropdownUseCases(false);
-                      }
-                    }}
-                  >
-                    <motion.img
-                      src="./img/downArrow.svg"
-                      alt="show solution"
-                      className={styles.dropdownIcon}
-                      animate={{ rotate: dropdownSolutions ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.button>
-                </li>
-                <li href="#" className={`${styles.dropdownDiv}`}>
-                  Use Cases
-                  <motion.button
-                    type="button"
-                    className={`${styles.dropdownBtn}`}
-                    onClick={() => {
-                      setDropdownUseCases((x) => !x);
-                      if (dropdownSolutions) {
-                        setDropdownSolutions(false);
-                      }
-                    }}
-                  >
-                    <motion.img
-                      src="./img/downArrow.svg"
-                      alt="show useCases"
-                      className={styles.dropdownIcon}
-                      animate={{ rotate: dropdownUseCases ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.button>
-                </li>
+                  <li href="#" className={`${styles.dropdownDiv}`}>
+                    Solutions
+                    <motion.button
+                      type="button"
+                      className={`${styles.dropdownBtn}`}
+                      onClick={() => {
+                        setDropdownSolutions((x) => !x);
+                        if (dropdownUseCases == true) {
+                          setDropdownUseCases(false);
+                        }
+                      }}
+                    >
+                      <motion.img
+                        src="./img/downArrow.svg"
+                        alt="show solution"
+                        className={styles.dropdownIcon}
+                        animate={{ rotate: dropdownSolutions ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.button>
+                  </li>
+                  <li href="#" className={`${styles.dropdownDiv}`}>
+                    Use Cases
+                    <motion.button
+                      type="button"
+                      className={`${styles.dropdownBtn}`}
+                      onClick={() => {
+                        setDropdownUseCases((x) => !x);
+                        if (dropdownSolutions) {
+                          setDropdownSolutions(false);
+                        }
+                      }}
+                    >
+                      <motion.img
+                        src="./img/downArrow.svg"
+                        alt="show useCases"
+                        className={styles.dropdownIcon}
+                        animate={{ rotate: dropdownUseCases ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </motion.button>
+                  </li>
 
-                <li>
-                  <a href="#pricing" className={styles.link}>
-                    Pricing
-                  </a>
-                </li>
-              </ul>
+                  <li>
+                    <a href="#pricing" className={styles.link}>
+                      Pricing
+                    </a>
+                  </li>
+                </ul>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className={styles.authUser}>
-              <Button text={"Get Started"} to="/form" />
+              <Button
+                text={"Get Started"}
+                to="/form"
+                handleFormOpen={setFormOpen}
+              />
             </div>
           </>
         )}
@@ -232,8 +248,7 @@ export default function Header() {
         )}
       </motion.header>
       <Link
-        to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-        target="_blank"
+        to="/form"
         className={`${styles.whatsapp} `}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}

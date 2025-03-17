@@ -3,7 +3,7 @@ import styles from "../../styles/Button.module.css";
 import { useRef } from "react";
 
 /*eslint-disable*/
-export default function Button({ text, to }) {
+export default function Button({ text, to, handleFormOpen }) {
   const elementRef = useRef(null);
   const arrow = useRef(null);
   const blackArrow = useRef(null);
@@ -30,6 +30,10 @@ export default function Button({ text, to }) {
       className={`${styles.btn} font24 btn`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={() => {
+        if (to.includes("form")) handleFormOpen(true);
+        console.log(to.includes("form"));
+      }}
     >
       {text}{" "}
       <div className={styles.arrowDiv}>

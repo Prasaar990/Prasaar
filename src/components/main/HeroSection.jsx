@@ -44,10 +44,7 @@ export default function HeroSection({ words, title, subHeading }) {
         <div className={styles.subHeading}>
           <p>{subHeading}</p>
         </div>
-        <Button
-          text={"Get Started"}
-          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-        />
+        <Button text={"Get Started"} to="/form" />
       </div>
       <div className={styles.right}>
         <img
