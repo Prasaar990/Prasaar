@@ -22,13 +22,15 @@
 </head>
 
 <body>
-  <form name="contact" netlify hidden>
+  <!-- Hidden form for Netlify to detect -->
+  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
     <input type="email" name="email" />
     <input type="text" name="first_name" />
     <input type="text" name="last_name" />
     <input type="tel" name="phone" />
     <input type="text" name="company" />
   </form>
+
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

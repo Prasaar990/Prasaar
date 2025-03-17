@@ -1,18 +1,30 @@
-// import React from "react";
 import styles from "../../styles/Form.module.css";
 
 export default function Form() {
   return (
     <div className={styles.form_div}>
-      <form className={styles.form_container} name="contact" netlify>
+      <form
+        className={styles.form_container}
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        {/* Hidden field to tell Netlify the form name */}
         <input type="hidden" name="form-name" value="contact" />
+        <p hidden>
+          <label>
+            Don’t fill this out if you’re human:
+            <input name="bot-field" />
+          </label>
+        </p>
+
         <div className={styles.input_group}>
           <input
             type="email"
             name="email"
             id="email"
             className={styles.input_field}
-            placeholder=" "
             required
           />
           <label htmlFor="email" className={styles.input_label}>
@@ -27,7 +39,6 @@ export default function Form() {
               name="first_name"
               id="first_name"
               className={styles.input_field}
-              placeholder=" "
               required
             />
             <label htmlFor="first_name" className={styles.input_label}>
@@ -40,7 +51,6 @@ export default function Form() {
               name="last_name"
               id="last_name"
               className={styles.input_field}
-              placeholder=" "
               required
             />
             <label htmlFor="last_name" className={styles.input_label}>
@@ -48,34 +58,37 @@ export default function Form() {
             </label>
           </div>
         </div>
+
         <div className={styles.input_group}>
           <input
             type="tel"
-            pattern="[0-9]{10}"
             name="phone"
             id="phone"
             className={styles.input_field}
-            placeholder=" "
+            pattern="[0-9]{10}"
             required
           />
           <label htmlFor="phone" className={styles.input_label}>
             Phone number (1234567890)
           </label>
         </div>
+
         <div className={styles.input_group}>
           <input
             type="text"
             name="company"
             id="company"
             className={styles.input_field}
-            placeholder=" "
             required
           />
           <label htmlFor="company" className={styles.input_label}>
             Company
           </label>
         </div>
-        <button className={styles.submit_button}>Submit</button>
+
+        <button className={styles.submit_button} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );
