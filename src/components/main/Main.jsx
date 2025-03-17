@@ -27,10 +27,7 @@ export default function main() {
       <Testimonials2 id="testimonials" />
       <section className={styles.getStarted}>
         Collect Feedback Faster...
-        <Button
-          text="Start Today"
-          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-        />
+        <Button text="Start Today" />
       </section>
       <HeroSection
         words={[

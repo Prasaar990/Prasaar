@@ -3,7 +3,7 @@ import styles from "../../styles/Button.module.css";
 import { useRef } from "react";
 
 /*eslint-disable*/
-export default function Button({ text, to, handleFormOpen }) {
+export default function Button({ text, to = "/form", handleFormOpen }) {
   const elementRef = useRef(null);
   const arrow = useRef(null);
   const blackArrow = useRef(null);
