@@ -27,7 +27,6 @@ export default function Button({ text, to }) {
     <Link
       ref={elementRef}
       to={to}
-      target="_blank"
       className={`${styles.btn} font24 btn`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

@@ -12,7 +12,9 @@ export default function GetStarted() {
           company
         </p>
       </div>
-      <Form />
+      <div className={styles.formDiv}>
+        <Form />
+      </div>
     </div>
   );
 }

@@ -19,10 +19,7 @@ const Card = ({ x, heading, text }) => {
           </div>
           <p className="heading">{heading}</p>
           <div className="text">{text}</div>
-          <Button
-            text={"Know More"}
-            to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-          />
+          <Button text={"Know More"} to="/form" />
         </div>
       </StyledWrapper>
     </motion.div>

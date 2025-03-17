@@ -5,7 +5,7 @@
 
 .form_container {
   width: 100%;
-  max-width: 400px;
+  max-width: 50rem;
   background: white;
   padding: 20px;
   border-radius: 8px;
@@ -78,7 +78,17 @@
 }
 
 /* Responsive Styles */
-@media (max-width: 600px) {
+@media (max-width: 66em) {
+  .grid_container {
+    display: flex;
+    gap: 5px;
+  }
+  .form_container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 38em) {
   .grid_container {
     flex-direction: column;
   }
