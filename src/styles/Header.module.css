@@ -127,7 +127,8 @@
 }
 
 .header .dropdownIcon {
-  height: 1.8rem;
+  height: 2.4rem;
+  width: 2.4rem;
 }
 
 .header .hamBtn {
@@ -157,6 +158,8 @@
   color: var(--color-text);
   z-index: 100;
   transition: height 0.5s;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15),
+    -4px -4px 10px rgba(255, 255, 255, 0.1);
 }
 
 .headerResponsive ul {
@@ -174,7 +177,8 @@
 }
 
 .headerResponsive .dropdownIcon {
-  height: 1.8rem;
+  height: 2.4rem;
+  width: 2.4rem;
 }
 .headerResponsive .dropdownBtn {
   background-color: transparent;

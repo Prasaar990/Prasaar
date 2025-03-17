@@ -97,14 +97,6 @@ const TermsAndConditions = () => {
             being notified to users.
           </p>
         </section>
-
-        <section className={`${styles.tnc_section} ${styles.tnc_contact}`}>
-          <p>Email: ashok@prasaar.co</p>
-          <p>
-            Address: 310, Fortuna Business Center, Pimple Saudagar, Pune -
-            411027, India
-          </p>
-        </section>
       </div>
     </div>
   );
