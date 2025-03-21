@@ -24,7 +24,7 @@ export default function main() {
       <Info />
       <Features />
       {/* <Testimonials id="testimonials" /> */}
-      <Testimonials2 id="testimonials" />
+      {/* <Testimonials2 id="testimonials" /> */}
       <section className={styles.getStarted}>
         Collect Feedback Faster...
         <Button text="Start Today" />
