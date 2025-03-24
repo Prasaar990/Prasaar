@@ -18,24 +18,37 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
           <div className={styles.megaMenu}>
             <h3 className={styles.heading}>Solutions</h3>
             <p className={styles.description}>
-              We provide the most complete solutions for multi-location brands.
+              Our customer engagement solutions helps brands grow more
+              organically.
             </p>
             <div className={styles.grid}>
               <div className={styles.menuItem}>
-                <h4>Reputation Management</h4>
-                <p>Get better reviews and listings with AI.</p>
+                <h4>QR Codes</h4>
+                <p>
+                  Create dynamic QR codes for your business to get seamlessly
+                  connected with customers.
+                </p>
               </div>
               <div className={styles.menuItem}>
-                <h4>Customer Service</h4>
-                <p>Automate customer service and recover unhappy customers.</p>
+                <h4>CSAT - Customer Satisfaction</h4>
+                <p>
+                  Understand how customer is satisfied with your product or
+                  service with CSAT survey.
+                </p>
               </div>
               <div className={styles.menuItem}>
-                <h4>Customer Experience</h4>
-                <p>Discover customer insights with AI.</p>
+                <h4>NPS - Net Promoter Score</h4>
+                <p>
+                  NPS shows probability of a customer recommending your product
+                  / service to others.
+                </p>
               </div>
               <div className={styles.menuItem}>
-                <h4>Customer Marketing</h4>
-                <p>Drive retention with personalized marketing automation.</p>
+                <h4>Grievance Redressal</h4>
+                <p>
+                  Turn complaints into compliments with an easy-to-use Grievance
+                  Redressal / Complaint Management System.
+                </p>
               </div>
             </div>
           </div>
