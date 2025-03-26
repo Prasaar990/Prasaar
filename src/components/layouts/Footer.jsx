@@ -44,11 +44,11 @@ export default function footer() {
               <h1>Contact</h1>
             </li>
             <li>Email: ashok@prasaar.co</li>
-            <li>
+            {/* <li>
               Address: 310, Fortuna Business Center, Pimple Saudagar, Pune
               -411027, India
-            </li>
-            <li></li>
+            </li> */}
+            <li>Eitot Technologies Private Limited.</li>
           </motion.ul>
         </div>
         <div>
