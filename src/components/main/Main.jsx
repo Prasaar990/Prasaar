@@ -12,13 +12,12 @@ export default function main() {
     <div className={styles.main}>
       <HeroSection
         words={[
+          "Customer Satisfaction",
           "Customer Experience",
           "Customer Service",
-          "Employee Experience",
         ]}
-        subHeading="Prasaar Whatsapp Automation Platform helps you grow customer
-            engagement, drive revenue, and increase customer satisfaction🙂."
-        title={"Transfrom Your"}
+        subHeading="Prasaar is your Customer Platform to activate, retain, and grow the customer base organically.🙂."
+        title={"Increase Revenue and"}
       />
       <Customers />
       <Info />
