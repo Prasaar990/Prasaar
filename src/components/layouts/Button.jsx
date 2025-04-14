@@ -3,7 +3,12 @@ import styles from "../../styles/Button.module.css";
 import { useRef } from "react";
 
 /*eslint-disable*/
-export default function Button({ text, to = "/form", handleFormOpen }) {
+export default function Button({
+  text,
+  to = "/form",
+  handleFormOpen,
+  primary = true,
+}) {
   const elementRef = useRef(null);
   const arrow = useRef(null);
   const blackArrow = useRef(null);
@@ -13,7 +18,8 @@ export default function Button({ text, to = "/form", handleFormOpen }) {
     blackArrow.current.style.transform = "translate(110%, -130%)";
     blackArrow.current.style.opacity = "1";
     arrow.current.style.opacity = "0";
-    elementRef.current.style.color = "black";
+    if (primary === true) elementRef.current.style.color = "black";
+    else elementRef.current.style.color = "black";
   };
 
   const handleMouseLeave = () => {
@@ -21,13 +27,16 @@ export default function Button({ text, to = "/form", handleFormOpen }) {
     blackArrow.current.style.transform = "translate(-50%, 10%)";
     blackArrow.current.style.opacity = "0";
     arrow.current.style.opacity = "1";
-    elementRef.current.style.color = "white";
+    if (primary === true) elementRef.current.style.color = "white";
+    else elementRef.current.style.color = "black";
   };
   return (
     <Link
       ref={elementRef}
       to={to}
-      className={`${styles.btn} font24 btn`}
+      className={`${styles.btn} font24 btn ${
+        primary ? "bg_primary" : "bg_white"
+      }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => {

@@ -3,8 +3,6 @@ import HeroSection from "./HeroSection";
 import Customers from "./Customers";
 import Info from "./Info";
 import Features from "./Features";
-// import Testimonials from "./Testimonials";
-import Testimonials2 from "./Testimonials2";
 import Button from "../layouts/Button";
 
 export default function main() {

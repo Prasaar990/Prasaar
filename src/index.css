@@ -61,6 +61,17 @@ select {
   color: var(--color-primary);
 }
 
+.bg_primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.bg_white {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+}
+
 .image {
   width: 100%;
   height: 100%;
