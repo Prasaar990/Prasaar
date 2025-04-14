@@ -231,8 +231,8 @@ export default function Header() {
 
             <div className={styles.authUser}>
               <Button
-                text={"Get Started"}
-                to="/form"
+                text={"VoiceAgent Demo"}
+                to="https://call.prasaar.co/#demo"
                 handleFormOpen={setFormOpen}
               />
             </div>
@@ -254,7 +254,7 @@ export default function Header() {
         )}
       </motion.header>
       <Link
-        to="/form"
+        to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
         className={`${styles.whatsapp} `}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
