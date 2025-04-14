@@ -61,10 +61,10 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
           className={styles.dropdownContent}
         >
           <ul className={styles.menuList}>
-            <li>📃 Reputation Management</li>
-            <li>📃 Customer Service</li>
-            <li>📃 Customer Experience</li>
-            <li>📃 Customer Marketing</li>
+            <li>QR Codes</li>
+            <li>CSAT - Customer Satisfaction</li>
+            <li>NPS - Net Promoter Score</li>
+            <li>Grievance Redressal</li>
           </ul>
         </motion.div>
       )}

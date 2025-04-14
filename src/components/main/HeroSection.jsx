@@ -44,7 +44,10 @@ export default function HeroSection({ words, title, subHeading }) {
         <div className={styles.subHeading}>
           <p>{subHeading}</p>
         </div>
-        <Button text={"VoiceAgent Demo"} to="https://call.prasaar.co/#demo" />
+        <div className={styles.buttons}>
+          <Button text={"VoiceAgent Demo"} to="https://call.prasaar.co/#demo" />
+          <Button text={"Try HiroQR Free"} to="https://hiroqr.com" />
+        </div>
       </div>
       <div className={styles.right}>
         <img
