@@ -100,9 +100,7 @@ export default function Footer() {
                 Contact
               </h2>
             </li>
-            <li className="hover:translate-x-1 transition-transform duration-300 hover:text-shadow cursor-pointer">
-              Email: contact@company.co
-            </li>
+            <li className="hover:translate-x-1 transition-transform duration-300 hover:text-shadow cursor-pointer"></li>
           </ul>
         </div>
 

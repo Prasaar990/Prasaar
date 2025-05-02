@@ -1,7 +1,12 @@
 import Form from "../layouts/Form";
 import styles from "../../styles/GetStarted.module.css";
+import { useEffect } from "react";
 
 export default function GetStarted() {
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <div className={styles.div}>
       <div className={styles.heading}>
