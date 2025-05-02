@@ -202,7 +202,8 @@ export default function Footer() {
           </Link>
 
           <span className="block mt-6 text-white/70 text-sm">
-            © {new Date().getFullYear()} Company Name. All rights reserved.
+            © {new Date().getFullYear()} Prasaar Technology. All rights
+            reserved.
           </span>
         </div>
       </div>
