@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import styles from "../../styles/Header.module.css";
-import { easeOut, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
+import Button from "./Button";
+import Solutions from "../dropdowns/SolutionsDropdown";
+import UseCases from "../dropdowns/UseCasesDropdown";
 import { Link } from "react-router-dom";
-import Button from "../layouts/Button";
-
-import Solutions from "../dropdowns/Solutions";
-import UseCases from "../dropdowns/UseCases";
 
 export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
@@ -20,6 +18,7 @@ export default function Header() {
   const [visible, setVisible] = useState(true);
 
   let lastScrollY = window.scrollY;
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
@@ -51,23 +50,27 @@ export default function Header() {
             y: dropdownNav ? "0%" : "-100%",
             opacity: dropdownNav ? 1 : 0,
           }}
-          className={styles.headerResponsive}
-          transition={{ duration: 0.4, ease: easeOut }}
+          className="fixed w-screen px-16 pt-40 pb-16 bg-white z-50 shadow-lg flex flex-col text-2xl text-gray-800"
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <ul>
-            <li>
-              <a href="#info">Why Prasaar ?</a>
+          <ul className="list-none">
+            <li className="mt-8">
+              <a href="#info" className="no-underline text-gray-800">
+                Why Prasaar ?
+              </a>
             </li>
 
-            <li>
-              <a href="#testimonials">Use Cases</a>
+            <li className="mt-8">
+              <a href="#testimonials" className="no-underline text-gray-800">
+                Use Cases
+              </a>
             </li>
 
-            <li className={styles.dropdownDiv}>
+            <li className="mt-8 flex flex-row items-center gap-2">
               Solutions
               <motion.button
                 type="button"
-                className={`${styles.dropdownBtn}`}
+                className="bg-transparent border-none cursor-pointer h-6"
                 onClick={() => {
                   setDropdownSolutions((x) => !x);
                   if (dropdownUseCases) {
@@ -78,7 +81,7 @@ export default function Header() {
                 <motion.img
                   src="./img/downArrow.svg"
                   alt="show more options"
-                  className={styles.dropdownIcon}
+                  className="h-6 w-6"
                   animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -86,16 +89,19 @@ export default function Header() {
             </li>
             <li>
               {dropdownSolutions ? (
-                <Solutions dropdownSolutions={dropdownSolutions} />
+                <Solutions
+                  dropdownSolutions={dropdownSolutions}
+                  isTablet={true}
+                />
               ) : (
                 ""
               )}
             </li>
-            <li className={styles.dropdownDiv}>
+            <li className="mt-8 flex flex-row items-center gap-2">
               UseCases
               <motion.button
                 type="button"
-                className={`${styles.dropdownBtn}`}
+                className="bg-transparent border-none cursor-pointer h-6"
                 onClick={() => {
                   setDropdownUseCases((x) => !x);
                   if (dropdownSolutions) {
@@ -106,7 +112,7 @@ export default function Header() {
                 <motion.img
                   src="./img/downArrow.svg"
                   alt="show more options"
-                  className={styles.dropdownIcon}
+                  className="h-6 w-6"
                   animate={{ rotate: dropdownUseCases ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -114,14 +120,11 @@ export default function Header() {
             </li>
             <li>
               {dropdownUseCases ? (
-                <UseCases dropdownUseCases={dropdownUseCases} />
+                <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
               ) : (
                 ""
               )}
             </li>
-            {/* <li>
-              <a href="#pricing">Pricing</a>
-            </li> */}
           </ul>
         </motion.nav>
       ) : (
@@ -132,17 +135,13 @@ export default function Header() {
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={styles.header}
+        className="fixed w-screen h-18 text-lg flex justify-between items-center px-12 z-50 bg-white shadow-lg text-gray-800"
       >
-        <Link
-          to="/"
-          style={{ cursor: "pointer" }}
-          onClick={() => setFormOpen(false)}
-        >
+        <Link to="/" className="cursor-pointer">
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className={styles.logo}
+            className="w-40"
           />
         </Link>
 
@@ -151,7 +150,7 @@ export default function Header() {
             <div>
               <button
                 type="button"
-                className={`${styles.hamBtn}`}
+                className="bg-transparent w-14 h-14 border-none cursor-pointer"
                 onClick={() => {
                   setDropdownNav((x) => !x);
                 }}
@@ -159,30 +158,33 @@ export default function Header() {
                 <img
                   src={dropdownNav ? "./img/close.svg" : "./img/ham.svg"}
                   alt="ham icon"
-                  className={styles.hamIcon}
+                  className="w-full h-full"
                 />
               </button>
             </div>
           </>
         ) : (
           <>
-            <div className={styles.nav}>
+            <div className="z-40">
               {!isFormOpen ? (
-                <ul>
+                <ul className="list-none flex gap-12">
                   <li>
-                    <a href="#info" className={styles.link}>
+                    <a
+                      href="#info"
+                      className="text-gray-800 no-underline transition-all duration-300 border-b-2 border-white hover:border-gray-800"
+                    >
                       Why Prasaar ?
                     </a>
                   </li>
 
-                  <li href="#" className={`${styles.dropdownDiv}`}>
+                  <li className="flex flex-row items-center justify-center gap-2">
                     Solutions
                     <motion.button
                       type="button"
-                      className={`${styles.dropdownBtn}`}
+                      className="bg-transparent border-none cursor-pointer h-6"
                       onClick={() => {
                         setDropdownSolutions((x) => !x);
-                        if (dropdownUseCases == true) {
+                        if (dropdownUseCases) {
                           setDropdownUseCases(false);
                         }
                       }}
@@ -190,46 +192,19 @@ export default function Header() {
                       <motion.img
                         src="./img/downArrow.svg"
                         alt="show solution"
-                        className={styles.dropdownIcon}
+                        className="h-6 w-6"
                         animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                       />
                     </motion.button>
                   </li>
-                  {/* <li href="#" className={`${styles.dropdownDiv}`}>
-                    Use Cases
-                    <motion.button
-                      type="button"
-                      className={`${styles.dropdownBtn}`}
-                      onClick={() => {
-                        setDropdownUseCases((x) => !x);
-                        if (dropdownSolutions) {
-                          setDropdownSolutions(false);
-                        }
-                      }}
-                    >
-                      <motion.img
-                        src="./img/downArrow.svg"
-                        alt="show useCases"
-                        className={styles.dropdownIcon}
-                        animate={{ rotate: dropdownUseCases ? 180 : 0 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </motion.button>
-                  </li> */}
-
-                  {/* <li>
-                    <a href="#pricing" className={styles.link}>
-                      Pricing
-                    </a>
-                  </li> */}
                 </ul>
               ) : (
                 ""
               )}
             </div>
 
-            <div className={styles.authUser}>
+            <div className="flex items-center gap-8">
               <Button
                 text={"VoiceAgent Demo"}
                 to="https://call.prasaar.co/#demo"
@@ -253,9 +228,10 @@ export default function Header() {
           ""
         )}
       </motion.header>
-      <Link
-        to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-        className={`${styles.whatsapp} `}
+
+      <a
+        href="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+        className="fixed right-12 bottom-12 w-14 h-14 bg-green-400 flex justify-center items-center rounded-full cursor-pointer transition-all duration-500 hover:shadow-lg z-10"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -263,13 +239,14 @@ export default function Header() {
           src="./img/whatsapp.svg"
           alt="whatsapp"
           style={{ zIndex: "1" }}
-          className={`${styles.whatsappImg}`}
+          className="w-3/5 h-3/5"
         />
-      </Link>
+      </a>
+
       <div
-        className={`${styles.secreteMessage} ${
-          isHovered ? "showMessage" : "hide"
-        } `}
+        className={`fixed bottom-12 right-40 text-gray-800 text-lg border border-black py-4 px-8 rounded-xl bg-white ${
+          isHovered ? "opacity-100" : "opacity-0"
+        } transition-opacity duration-300`}
       >
         Whatsapp
       </div>

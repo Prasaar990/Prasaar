@@ -1,31 +1,35 @@
-import styles from "../../styles/Main.module.css";
 import HeroSection from "./HeroSection";
-import Customers from "./Customers";
+import Customers from "./Marquee";
 import Info from "./Info";
-import Features from "./Features";
+import Solutions from "./Solutions";
 import Button from "../layouts/Button";
 
-export default function main() {
+export default function Main() {
   return (
-    <div className={styles.main}>
+    <div className="w-full">
       <HeroSection
         words={[
           "Customer Satisfaction",
           "Customer Experience",
           "Customer Service",
         ]}
-        subHeading="Prasaar is your Customer Platform to activate, retain, and grow the customer base organically.🙂."
+        subHeading="Prasaar is your Customer Platform to activate, retain, and grow the customer base organically🙂."
         title={"Increase Revenue and"}
       />
+
       <Customers />
+
       <Info />
-      <Features />
+
+      <Solutions />
+
       {/* <Testimonials id="testimonials" /> */}
-      {/* <Testimonials2 id="testimonials" /> */}
-      <section className={styles.getStarted}>
+
+      <section className="mt-40 text-4xl md:text-3xl py-20 px-12 md:px-24 lg:px-32 flex justify-around items-center text-white bg-gradient-to-b from-[#333b4f] to-[#596789] md:flex-row sm:flex-col sm:gap-8">
         Collect Feedback Faster...
-        <Button text="Start Today" />
+        <Button text="Start Today" to="/form" />
       </section>
+
       <HeroSection
         words={[
           "Customer Service",

@@ -1,8 +1,6 @@
-import { Link } from "react-router-dom";
-import styles from "../../styles/Button.module.css";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 
-/*eslint-disable*/
 export default function Button({
   text,
   to = "/form",
@@ -14,50 +12,58 @@ export default function Button({
   const blackArrow = useRef(null);
 
   const handleMouseEnter = () => {
-    arrow.current.style.transform = "translate(50%, -150%)";
-    blackArrow.current.style.transform = "translate(110%, -130%)";
-    blackArrow.current.style.opacity = "1";
-    arrow.current.style.opacity = "0";
-    if (primary === true) elementRef.current.style.color = "black";
-    else elementRef.current.style.color = "black";
+    if (arrow.current && blackArrow.current && elementRef.current) {
+      arrow.current.style.transform = "translate(150%, -150%)";
+      blackArrow.current.style.transform = "translate(120%, -125%)";
+      blackArrow.current.style.opacity = "1";
+      arrow.current.style.opacity = "0";
+      elementRef.current.style.color = "black";
+    }
   };
 
   const handleMouseLeave = () => {
-    arrow.current.style.transform = "translate(-50%, -50%)";
-    blackArrow.current.style.transform = "translate(-50%, 10%)";
-    blackArrow.current.style.opacity = "0";
-    arrow.current.style.opacity = "1";
-    if (primary === true) elementRef.current.style.color = "white";
-    else elementRef.current.style.color = "black";
+    if (arrow.current && blackArrow.current && elementRef.current) {
+      arrow.current.style.transform = "translate(0, 0)";
+      blackArrow.current.style.transform = "translate(-50%, 10%)";
+      blackArrow.current.style.opacity = "0";
+      arrow.current.style.opacity = "1";
+      elementRef.current.style.color = primary ? "white" : "black";
+    }
   };
+
+  const handleClick = () => {
+    if (to.includes("form") && handleFormOpen) {
+      handleFormOpen(true);
+    }
+  };
+
+  // Using a regular anchor tag instead of React Router's Link
   return (
     <Link
       ref={elementRef}
-      target="_blank"
       to={to}
-      className={`${styles.btn} font24 btn ${
-        primary ? "bg_primary" : "bg_white"
+      target={`${to !== "/form" ? "_blank" : ""}`}
+      rel="noopener noreferrer"
+      className={`h-12 px-3 rounded-full text-xl flex items-center justify-center transition-all duration-300 z-10 relative ${
+        primary ? "bg-[#fe6363] text-white" : "bg-white text-black"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => {
-        if (to.includes("form")) handleFormOpen(true);
-        console.log(to.includes("form"));
-      }}
+      onClick={handleClick}
     >
       {text}{" "}
-      <div className={styles.arrowDiv}>
+      <div className="bg-white rounded-full p-4 ml-4 flex justify-center items-center relative z-10">
         <img
           ref={blackArrow}
           src="./img/right-arrow-black.svg"
           alt={text}
-          className={styles.blackArrow}
+          className="absolute w-5 h-5 -left-1/2 top-full opacity-0 transition-all duration-300"
         />
         <img
           ref={arrow}
           src="./img/right-arrow.svg"
           alt={text}
-          className={styles.arrow}
+          className="absolute w-5 h-5 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300"
         />
       </div>
     </Link>
