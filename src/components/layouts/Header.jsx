@@ -119,9 +119,9 @@ export default function Header() {
                 ""
               )}
             </li>
-            <li>
+            {/* <li>
               <a href="#pricing">Pricing</a>
-            </li>
+            </li> */}
           </ul>
         </motion.nav>
       ) : (
@@ -218,11 +218,11 @@ export default function Header() {
                     </motion.button>
                   </li>
 
-                  <li>
+                  {/* <li>
                     <a href="#pricing" className={styles.link}>
                       Pricing
                     </a>
-                  </li>
+                  </li> */}
                 </ul>
               ) : (
                 ""

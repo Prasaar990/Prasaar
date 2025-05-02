@@ -33,6 +33,7 @@ export default function Button({
   return (
     <Link
       ref={elementRef}
+      target="_blank"
       to={to}
       className={`${styles.btn} font24 btn ${
         primary ? "bg_primary" : "bg_white"

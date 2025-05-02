@@ -46,11 +46,11 @@ export default function HeroSection({ words, title, subHeading }) {
         </div>
         <div className={styles.buttons}>
           <Button text={"VoiceAgent Demo"} to="https://call.prasaar.co/#demo" />
-          <Button
+          {/* <Button
             text={"Try HiroQR Free"}
             to="https://hiroqr.com"
             primary={false}
-          />
+          /> */}
         </div>
       </div>
       <div className={styles.right}>
