@@ -149,7 +149,7 @@ export default function Header() {
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed w-screen h-18 text-lg flex justify-between items-center px-12 z-50 bg-white shadow-lg text-gray-800"
+        className="fixed w-screen lg:h-18 sm:h-20 text-lg flex justify-between items-center px-12 z-50 bg-white shadow-lg text-gray-800"
       >
         <Link to="/" className="cursor-pointer">
           <img
