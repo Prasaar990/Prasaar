@@ -196,7 +196,7 @@ export default function Header() {
                       />
                     </motion.button>
                   </li>
-                  <li href="#" className={`${styles.dropdownDiv}`}>
+                  {/* <li href="#" className={`${styles.dropdownDiv}`}>
                     Use Cases
                     <motion.button
                       type="button"
@@ -208,15 +208,15 @@ export default function Header() {
                         }
                       }}
                     >
-                      {/* <motion.img
+                      <motion.img
                         src="./img/downArrow.svg"
                         alt="show useCases"
                         className={styles.dropdownIcon}
                         animate={{ rotate: dropdownUseCases ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
-                      /> */}
+                      />
                     </motion.button>
-                  </li>
+                  </li> */}
 
                   {/* <li>
                     <a href="#pricing" className={styles.link}>
