@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8" />
-  <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prasaar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,28 +16,21 @@
   <link rel="apple-touch-icon" href="./img/favicons/192.png" sizes="192x192">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-
 </head>
 
 <body>
   <!-- Hidden form for Netlify to detect -->
   <form name="contact" netlify netlify-honeypot="bot-field" hidden>
     <input type="email" name="email" />
-    <input type="text" name="first_name" />
-    <input type="text" name="last_name" />
+    <input type="text" name="firstName" />
+    <input type="text" name="lastName" />
     <input type="tel" name="phone" />
     <input type="text" name="company" />
-    <input type="text" name="message" />
-
+    <textarea name="message"></textarea>
   </form>
 
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
-
-<script>
-
-</script>
 
 </html>
