@@ -127,7 +127,7 @@ export default function InitialForm() {
         >
           {/* Header with gradient background */}
           <div
-            className="bg-gradient-to-r from-[#fe6363] to-[#ff4545] px-[24px] py-[32px]"
+            className="bg_primary px-[24px] py-[32px]"
             style={{
               "@media (min-width: 640px)": {
                 paddingLeft: "40px",
@@ -422,7 +422,7 @@ export default function InitialForm() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#fe6363] cursor-pointer hover:bg-[#ff4545] text-white font-medium shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed rounded-lg"
+                  className="w-full bg_primary cursor-pointer hover:bg-[#ff4545] text-white font-medium shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed rounded-lg"
                   style={{
                     padding: "16px 24px",
                     fontSize: "18px",
