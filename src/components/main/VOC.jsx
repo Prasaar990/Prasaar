@@ -1,21 +1,76 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function VocAssessment() {
-  const userData = { fullName: "xyz" };
-  function onBack() {}
+  const getUserDetails = () => {
+    const storedData = localStorage.getItem("userAssessmentDetails");
+    return storedData ? JSON.parse(storedData) : null;
+  };
+  const userData = getUserDetails() || { fullName: "No Name Provided" };
+  const navigate = useNavigate();
+  function onBack() {
+    navigate(-1);
+  }
+
   const [formData, setFormData] = useState({
-    // Voice of Customer checkboxes
-    nps: false,
-    survey: false,
-    social: false,
-    crm: false,
-    feedback: false,
+    // 1. Data Collection Capabilities
+    onlineSurveys: false,
+    npsTools: false,
+    inAppFeedback: false,
+    socialListening: false,
+    customerServiceForms: false,
+    productReviewPlatforms: false,
+    surveys: false,
+    chatTextMessages: false,
+    phoneCalls: false,
+    speechAnalytics: false,
+    emails: false,
+
+    // 2. Existing Customer Touchpoints
+    website: false,
+    mobileApp: false,
+    email: false,
+    socialMedia: false,
+    callCenters: false,
+    physicalStores: false,
+    chatbots: false,
+    onlineForums: false,
+    none: false,
+    all: false,
+    whatsapp: false,
+    qr: false,
+
+    // 3. Organizational Alignment
+    cxWorkshops: false,
+    cxKpis: false,
+    leadershipReviews: false,
+    customerCentricVision: false,
+    other: false,
+
+    // 4. Technology Readiness
+    crmTools: false,
+    feedbackPlatforms: false,
+    dashboards: false,
+    integrationTools: false,
+    dataLakes: false,
+    apis: false,
+
+    // 5. Feedback Governance
+    dedicatedTeam: false,
+    cxManager: false,
+    feedbackRouting: false,
+    dataGovernance: false,
+    centralizedRepository: false,
+    feedbackPlaybooks: false,
   });
 
   // Readiness scores state
   const [readiness, setReadiness] = useState({
     dataCollection: 0,
-    techReadiness: 0,
+    touchpoints: 0,
+    organizational: 0,
+    technology: 0,
+    governance: 0,
     overall: 0,
   });
 
@@ -30,27 +85,73 @@ export default function VocAssessment() {
 
   // Calculate readiness scores whenever checkboxes change
   useEffect(() => {
-    // Calculate Voice of Customer scores
     const dataCollectionScore = calculateScore([
-      formData.nps,
-      formData.survey,
-      formData.social,
+      formData.onlineSurveys,
+      formData.npsTools,
+      formData.inAppFeedback,
+      formData.socialListening,
+      formData.customerServiceForms,
+      formData.productReviewPlatforms,
+      formData.surveys,
+      formData.chatTextMessages,
+      formData.phoneCalls,
+      formData.speechAnalytics,
+      formData.emails,
     ]);
 
-    const techReadinessScore = calculateScore([
-      formData.crm,
-      formData.feedback,
+    const touchpointsScore = calculateScore([
+      formData.website,
+      formData.mobileApp,
+      formData.email,
+      formData.socialMedia,
+      formData.callCenters,
+      formData.physicalStores,
+      formData.chatbots,
+      formData.onlineForums,
+      formData.whatsapp,
+      formData.qr,
     ]);
 
-    // Calculate overall score
-    const overallScore = calculateOverallScore(
+    const organizationalScore = calculateScore([
+      formData.cxWorkshops,
+      formData.cxKpis,
+      formData.leadershipReviews,
+      formData.customerCentricVision,
+      formData.other,
+    ]);
+
+    const technologyScore = calculateScore([
+      formData.crmTools,
+      formData.feedbackPlatforms,
+      formData.dashboards,
+      formData.integrationTools,
+      formData.dataLakes,
+      formData.apis,
+    ]);
+
+    const governanceScore = calculateScore([
+      formData.dedicatedTeam,
+      formData.cxManager,
+      formData.feedbackRouting,
+      formData.dataGovernance,
+      formData.centralizedRepository,
+      formData.feedbackPlaybooks,
+    ]);
+
+    const overallScore = calculateOverallScore([
       dataCollectionScore,
-      techReadinessScore
-    );
+      touchpointsScore,
+      organizationalScore,
+      technologyScore,
+      governanceScore,
+    ]);
 
     setReadiness({
       dataCollection: dataCollectionScore,
-      techReadiness: techReadinessScore,
+      touchpoints: touchpointsScore,
+      organizational: organizationalScore,
+      technology: technologyScore,
+      governance: governanceScore,
       overall: overallScore,
     });
   }, [formData]);
@@ -63,8 +164,9 @@ export default function VocAssessment() {
   };
 
   // Calculate overall score
-  const calculateOverallScore = (dataCollection, techReadiness) => {
-    return Math.round((dataCollection + techReadiness) / 2);
+  const calculateOverallScore = (scores) => {
+    const sum = scores.reduce((acc, score) => acc + score, 0);
+    return Math.round(sum / scores.length);
   };
 
   // Get class for progress bar based on score
@@ -84,15 +186,119 @@ export default function VocAssessment() {
     }
   };
 
+  const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
+    <div>
+      <h3 className="text-lg font-medium text-gray-800 mb-4">{title}</h3>
+      <div className="space-y-3">
+        {items.map(({ key, label }) => (
+          <div key={key} className="flex items-center">
+            <input
+              type="checkbox"
+              id={key}
+              name={key}
+              checked={formData[key]}
+              onChange={handleInputChange}
+              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label className="ml-3 text-gray-700" htmlFor={key}>
+              {label}
+            </label>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium text-gray-700">
+            {scoreLabel}
+          </span>
+          <span className="text-sm font-bold text-gray-900">
+            {readiness[scoreKey]}%
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-3">
+          <div
+            className={`h-3 rounded-full transition-all duration-300 ${getProgressBarClass(
+              readiness[scoreKey]
+            )}`}
+            style={{ width: `${readiness[scoreKey]}%` }}
+          ></div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const dataCollectionItems = [
+    { key: "onlineSurveys", label: "Online Surveys" },
+    { key: "npsTools", label: "NPS Tools" },
+    { key: "inAppFeedback", label: "In-app Feedback Widgets" },
+    { key: "socialListening", label: "Social Listening" },
+    { key: "customerServiceForms", label: "Customer Service Feedback Forms" },
+    { key: "productReviewPlatforms", label: "Product Review Platforms" },
+    { key: "surveys", label: "Surveys" },
+    { key: "chatTextMessages", label: "Chat and Text Messages" },
+    { key: "phoneCalls", label: "Phone Calls" },
+    { key: "speechAnalytics", label: "Speech Analytics" },
+    { key: "emails", label: "Emails" },
+  ];
+
+  const touchpointItems = [
+    { key: "website", label: "Website" },
+    { key: "mobileApp", label: "Mobile App" },
+    { key: "email", label: "Email" },
+    { key: "socialMedia", label: "Social Media" },
+    { key: "callCenters", label: "Call Centers" },
+    { key: "physicalStores", label: "Physical Stores" },
+    { key: "chatbots", label: "Chatbots" },
+    { key: "onlineForums", label: "Online Forums" },
+    { key: "whatsapp", label: "WhatsApp" },
+    { key: "qr", label: "QR" },
+  ];
+
+  const organizationalItems = [
+    { key: "cxWorkshops", label: "CX Workshops & Training" },
+    { key: "cxKpis", label: "CX KPIs in Performance Reviews" },
+    { key: "leadershipReviews", label: "Leadership CX Review Meetings" },
+    {
+      key: "customerCentricVision",
+      label: "Customer-Centric Vision Statements",
+    },
+    { key: "other", label: "Other" },
+  ];
+
+  const technologyItems = [
+    { key: "crmTools", label: "CRM Tools" },
+    { key: "feedbackPlatforms", label: "Customer Feedback Platforms" },
+    { key: "dashboards", label: "Analytics Dashboards" },
+    { key: "integrationTools", label: "Integration Tools" },
+    { key: "dataLakes", label: "Data Lakes or Centralized Data Platforms" },
+    {
+      key: "apis",
+      label: "APIs to pull data from survey tools into CRM or BI tools",
+    },
+  ];
+
+  const governanceItems = [
+    { key: "dedicatedTeam", label: "Dedicated VoC Team" },
+    { key: "cxManager", label: "CX Manager" },
+    { key: "feedbackRouting", label: "Feedback Routing Workflows" },
+    { key: "dataGovernance", label: "Data Governance Policies" },
+    {
+      key: "centralizedRepository",
+      label: "Centralized Repository For Feedback",
+    },
+    { key: "feedbackPlaybooks", label: "Feedback-to-action Playbooks" },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="bg-white shadow-sm rounded-lg mb-6 p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">
-                Voice of Customer Assessment
+                Voice of Customer
               </h1>
               <p className="text-gray-600">Welcome, {userData.fullName}</p>
             </div>
@@ -106,7 +312,7 @@ export default function VocAssessment() {
         </div>
 
         <div className="space-y-6">
-          {/* Voice of Customer Section */}
+          {/* Voice of Customer Checklist */}
           <div className="bg-white shadow-sm rounded-lg overflow-hidden">
             <div className="bg-blue-50 px-6 py-4 border-b border-blue-100">
               <h2 className="text-xl font-semibold text-blue-800">
@@ -115,130 +321,41 @@ export default function VocAssessment() {
             </div>
 
             <div className="p-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Data Collection */}
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-4">
-                    1) Data Collection
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="nps"
-                        name="nps"
-                        checked={formData.nps}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="nps">
-                        Net Promoter Score (NPS)
-                      </label>
-                    </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                <CheckboxSection
+                  title="1) Data Collection Capabilities"
+                  items={dataCollectionItems}
+                  scoreKey="dataCollection"
+                  scoreLabel="Data Collection Readiness"
+                />
 
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="survey"
-                        name="survey"
-                        checked={formData.survey}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="survey">
-                        Customer Surveys
-                      </label>
-                    </div>
+                <CheckboxSection
+                  title="2) Customer Touchpoints"
+                  items={touchpointItems}
+                  scoreKey="touchpoints"
+                  scoreLabel="Touchpoints Coverage"
+                />
 
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="social"
-                        name="social"
-                        checked={formData.social}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="social">
-                        Social Media Monitoring
-                      </label>
-                    </div>
-                  </div>
+                <CheckboxSection
+                  title="3) Organizational Alignment"
+                  items={organizationalItems}
+                  scoreKey="organizational"
+                  scoreLabel="Organizational Readiness"
+                />
 
-                  <div className="mt-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">
-                        Data Collection Readiness
-                      </span>
-                      <span className="text-sm font-bold text-gray-900">
-                        {readiness.dataCollection}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className={`h-3 rounded-full transition-all duration-300 ${getProgressBarClass(
-                          readiness.dataCollection
-                        )}`}
-                        style={{ width: `${readiness.dataCollection}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
+                <CheckboxSection
+                  title="4) Technology Readiness"
+                  items={technologyItems}
+                  scoreKey="technology"
+                  scoreLabel="Technology Readiness"
+                />
 
-                {/* Tech Readiness */}
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-4">
-                    2) Technology Readiness
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="crm"
-                        name="crm"
-                        checked={formData.crm}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="crm">
-                        CRM System
-                      </label>
-                    </div>
-
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="feedback"
-                        name="feedback"
-                        checked={formData.feedback}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="feedback">
-                        Feedback Management System
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">
-                        Tech Readiness
-                      </span>
-                      <span className="text-sm font-bold text-gray-900">
-                        {readiness.techReadiness}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className={`h-3 rounded-full transition-all duration-300 ${getProgressBarClass(
-                          readiness.techReadiness
-                        )}`}
-                        style={{ width: `${readiness.techReadiness}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
+                <CheckboxSection
+                  title="5) Feedback Governance"
+                  items={governanceItems}
+                  scoreKey="governance"
+                  scoreLabel="Governance Readiness"
+                />
               </div>
             </div>
           </div>
@@ -271,16 +388,14 @@ export default function VocAssessment() {
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-medium text-gray-800 mb-2">
-                  Assessment Summary
-                </h3>
+              <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                <h3 className="font-medium text-gray-800 mb-2">Summary</h3>
                 <p className="text-gray-700">
                   {getScoreMessage(readiness.overall)}
                 </p>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 <div className="bg-blue-50 rounded-lg p-4">
                   <h4 className="font-medium text-blue-800 mb-1">
                     Data Collection
@@ -289,12 +404,36 @@ export default function VocAssessment() {
                     {readiness.dataCollection}%
                   </p>
                 </div>
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-800 mb-1">
-                    Technology Readiness
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-medium text-green-800 mb-1">
+                    Touchpoints
                   </h4>
-                  <p className="text-2xl font-bold text-blue-900">
-                    {readiness.techReadiness}%
+                  <p className="text-2xl font-bold text-green-900">
+                    {readiness.touchpoints}%
+                  </p>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <h4 className="font-medium text-purple-800 mb-1">
+                    Organizational
+                  </h4>
+                  <p className="text-2xl font-bold text-purple-900">
+                    {readiness.organizational}%
+                  </p>
+                </div>
+                <div className="bg-indigo-50 rounded-lg p-4">
+                  <h4 className="font-medium text-indigo-800 mb-1">
+                    Technology
+                  </h4>
+                  <p className="text-2xl font-bold text-indigo-900">
+                    {readiness.technology}%
+                  </p>
+                </div>
+                <div className="bg-orange-50 rounded-lg p-4">
+                  <h4 className="font-medium text-orange-800 mb-1">
+                    Governance
+                  </h4>
+                  <p className="text-2xl font-bold text-orange-900">
+                    {readiness.governance}%
                   </p>
                 </div>
               </div>

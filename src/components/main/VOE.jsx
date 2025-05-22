@@ -1,21 +1,65 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function VoeAssessment() {
-  const userData = { fullName: "xyz" };
-  function onBack() {}
+  const getUserDetails = () => {
+    const storedData = localStorage.getItem("userAssessmentDetails");
+    return storedData ? JSON.parse(storedData) : null;
+  };
+  const userData = getUserDetails() || { fullName: "no name provided" };
+  const navigate = useNavigate();
+  function onBack() {
+    navigate(-1);
+  }
+
   const [formData, setFormData] = useState({
-    // Voice of Customer checkboxes
-    nps: false,
-    survey: false,
-    social: false,
-    crm: false,
-    feedback: false,
+    // 1. Employee Response Mechanisms
+    employeePulseSurveys: false,
+    anonymousFeedbackPlatforms: false,
+    internalSocialNetworks: false,
+    suggestionBoxes: false,
+    employeeForums: false,
+    mobileFeedbackApps: false,
+
+    // 2. Data Privacy & Security Measures
+    anonymousSurveyTools: false,
+    dataUseTransparency: false,
+    encryptedDataStorage: false,
+    roleBasedAccess: false,
+    privacyLawCompliance: false,
+    confidentialReportingChannels: false,
+
+    // 3. Leadership Support
+    executiveSponsorship: false,
+    voiceMetricsInDashboards: false,
+    leaderParticipationInFeedback: false,
+    employeeExperienceTeam: false,
+    hrListeningPolicies: false,
+    voiceProgramResourcing: false,
+
+    // 4. Culture of Openness & Feedback
+    openDoorPolicies: false,
+    regularFeedbackTraining: false,
+    recognitionPrograms: false,
+    feedbackFollowThrough: false,
+    activeLeaderListening: false,
+
+    // 5. Engagement Channels
+    feedbackAnalyticsTools: false,
+    actionTeams: false,
+    employeeCoCreation: false,
+    actionDashboards: false,
+    progressUpdates: false,
+    hrPlanningIntegration: false,
   });
 
   // Readiness scores state
   const [readiness, setReadiness] = useState({
-    dataCollection: 0,
-    techReadiness: 0,
+    responseMechanisms: 0,
+    dataSecurity: 0,
+    leadership: 0,
+    culture: 0,
+    engagement: 0,
     overall: 0,
   });
 
@@ -30,27 +74,64 @@ export default function VoeAssessment() {
 
   // Calculate readiness scores whenever checkboxes change
   useEffect(() => {
-    // Calculate Voice of Customer scores
-    const dataCollectionScore = calculateScore([
-      formData.nps,
-      formData.survey,
-      formData.social,
+    const responseMechanismsScore = calculateScore([
+      formData.employeePulseSurveys,
+      formData.anonymousFeedbackPlatforms,
+      formData.internalSocialNetworks,
+      formData.suggestionBoxes,
+      formData.employeeForums,
+      formData.mobileFeedbackApps,
     ]);
 
-    const techReadinessScore = calculateScore([
-      formData.crm,
-      formData.feedback,
+    const dataSecurityScore = calculateScore([
+      formData.anonymousSurveyTools,
+      formData.dataUseTransparency,
+      formData.encryptedDataStorage,
+      formData.roleBasedAccess,
+      formData.privacyLawCompliance,
+      formData.confidentialReportingChannels,
     ]);
 
-    // Calculate overall score
-    const overallScore = calculateOverallScore(
-      dataCollectionScore,
-      techReadinessScore
-    );
+    const leadershipScore = calculateScore([
+      formData.executiveSponsorship,
+      formData.voiceMetricsInDashboards,
+      formData.leaderParticipationInFeedback,
+      formData.employeeExperienceTeam,
+      formData.hrListeningPolicies,
+      formData.voiceProgramResourcing,
+    ]);
+
+    const cultureScore = calculateScore([
+      formData.openDoorPolicies,
+      formData.regularFeedbackTraining,
+      formData.recognitionPrograms,
+      formData.feedbackFollowThrough,
+      formData.activeLeaderListening,
+    ]);
+
+    const engagementScore = calculateScore([
+      formData.feedbackAnalyticsTools,
+      formData.actionTeams,
+      formData.employeeCoCreation,
+      formData.actionDashboards,
+      formData.progressUpdates,
+      formData.hrPlanningIntegration,
+    ]);
+
+    const overallScore = calculateOverallScore([
+      responseMechanismsScore,
+      dataSecurityScore,
+      leadershipScore,
+      cultureScore,
+      engagementScore,
+    ]);
 
     setReadiness({
-      dataCollection: dataCollectionScore,
-      techReadiness: techReadinessScore,
+      responseMechanisms: responseMechanismsScore,
+      dataSecurity: dataSecurityScore,
+      leadership: leadershipScore,
+      culture: cultureScore,
+      engagement: engagementScore,
       overall: overallScore,
     });
   }, [formData]);
@@ -63,8 +144,9 @@ export default function VoeAssessment() {
   };
 
   // Calculate overall score
-  const calculateOverallScore = (dataCollection, techReadiness) => {
-    return Math.round((dataCollection + techReadiness) / 2);
+  const calculateOverallScore = (scores) => {
+    const sum = scores.reduce((acc, score) => acc + score, 0);
+    return Math.round(sum / scores.length);
   };
 
   // Get class for progress bar based on score
@@ -76,29 +158,133 @@ export default function VoeAssessment() {
 
   const getScoreMessage = (score) => {
     if (score < 30) {
-      return "Your organization needs significant improvement in Voice of Customer readiness factors.";
+      return "Your organization needs significant improvement in Voice of Employee readiness factors.";
     } else if (score >= 30 && score < 70) {
-      return "Your organization has moderate Voice of Customer readiness but there's room for improvement.";
+      return "Your organization has moderate Voice of Employee readiness but there's room for improvement.";
     } else {
-      return "Your organization demonstrates strong Voice of Customer readiness across key areas.";
+      return "Your organization demonstrates strong Voice of Employee readiness across key areas.";
     }
   };
 
+  const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
+    <div>
+      <h3 className="text-lg font-medium text-gray-800 mb-4">{title}</h3>
+      <div className="space-y-3">
+        {items.map(({ key, label }) => (
+          <div key={key} className="flex items-center">
+            <input
+              type="checkbox"
+              id={key}
+              name={key}
+              checked={formData[key]}
+              onChange={handleInputChange}
+              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            />
+            <label className="ml-3 text-gray-700" htmlFor={key}>
+              {label}
+            </label>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium text-gray-700">
+            {scoreLabel}
+          </span>
+          <span className="text-sm font-bold text-gray-900">
+            {readiness[scoreKey]}%
+          </span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-3">
+          <div
+            className={`h-3 rounded-full transition-all duration-300 ${getProgressBarClass(
+              readiness[scoreKey]
+            )}`}
+            style={{ width: `${readiness[scoreKey]}%` }}
+          ></div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const responseMechanismsItems = [
+    { key: "employeePulseSurveys", label: "Employee Pulse Surveys" },
+    {
+      key: "anonymousFeedbackPlatforms",
+      label: "Anonymous Feedback Platforms",
+    },
+    {
+      key: "internalSocialNetworks",
+      label: "Internal Social Networks and Collaboration Tools",
+    },
+    { key: "suggestionBoxes", label: "Suggestion Boxes" },
+    { key: "employeeForums", label: "Employee Forums and Discussion Boards" },
+    { key: "mobileFeedbackApps", label: "Mobile Feedback Apps" },
+  ];
+
+  const dataSecurityItems = [
+    { key: "anonymousSurveyTools", label: "Anonymous Survey Tools" },
+    { key: "dataUseTransparency", label: "Data Use Transparency" },
+    { key: "encryptedDataStorage", label: "Encrypted Data Storage" },
+    { key: "roleBasedAccess", label: "Role-Based Access" },
+    { key: "privacyLawCompliance", label: "Privacy Law Compliance" },
+    {
+      key: "confidentialReportingChannels",
+      label: "Confidential Reporting Channels",
+    },
+  ];
+
+  const leadershipItems = [
+    { key: "executiveSponsorship", label: "Executive Sponsorship" },
+    { key: "voiceMetricsInDashboards", label: "Voice Metrics in Dashboards" },
+    {
+      key: "leaderParticipationInFeedback",
+      label: "Leader Participation in Feedback",
+    },
+    { key: "employeeExperienceTeam", label: "Employee Experience Team" },
+    { key: "hrListeningPolicies", label: "HR Listening Policies" },
+    { key: "voiceProgramResourcing", label: "Voice Program Resourcing" },
+  ];
+
+  const cultureItems = [
+    { key: "openDoorPolicies", label: "Open-door policies" },
+    {
+      key: "regularFeedbackTraining",
+      label: "Regular Feedback Training for Managers and Employees",
+    },
+    {
+      key: "recognitionPrograms",
+      label: "Recognition Programs Celebrating Constructive Feedback",
+    },
+    { key: "feedbackFollowThrough", label: "Feedback Follow-Through" },
+    { key: "activeLeaderListening", label: "Active Leader Listening" },
+  ];
+
+  const engagementItems = [
+    { key: "feedbackAnalyticsTools", label: "Feedback Analytics Tools" },
+    { key: "actionTeams", label: "Action Teams" },
+    { key: "employeeCoCreation", label: "Employee Co-Creation" },
+    { key: "actionDashboards", label: "Action Dashboards" },
+    { key: "progressUpdates", label: "Progress Updates" },
+    { key: "hrPlanningIntegration", label: "HR Planning Integration" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-50 py-52 px-4 sm:px-6 lg:px-8 ">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="bg-white shadow-sm rounded-lg mb-6 p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-blue-800 mb-2">
-                Voice of Customer Assessment
+              <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-2">
+                Voice of Employee
               </h1>
               <p className="text-gray-600">Welcome, {userData.fullName}</p>
             </div>
             <button
               onClick={onBack}
-              className="mt-4 sm:mt-0 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              className="mt-4 sm:mt-0 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
             >
               ← Back to Form
             </button>
@@ -106,139 +292,50 @@ export default function VoeAssessment() {
         </div>
 
         <div className="space-y-6">
-          {/* Voice of Customer Section */}
+          {/* Voice of Employee Checklist */}
           <div className="bg-white shadow-sm rounded-lg overflow-hidden">
-            <div className="bg-blue-50 px-6 py-4 border-b border-blue-100">
-              <h2 className="text-xl font-semibold text-blue-800">
-                Voice of Customer Checklist
+            <div className="bg-purple-50 px-6 py-4 border-b border-purple-100">
+              <h2 className="text-xl font-semibold text-purple-800">
+                Voice of Employee Checklist
               </h2>
             </div>
 
             <div className="p-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {/* Data Collection */}
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-4">
-                    1) Data Collection
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="nps"
-                        name="nps"
-                        checked={formData.nps}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="nps">
-                        Net Promoter Score (NPS)
-                      </label>
-                    </div>
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                <CheckboxSection
+                  title="1) Employee Response Mechanisms"
+                  items={responseMechanismsItems}
+                  scoreKey="responseMechanisms"
+                  scoreLabel="Response Mechanisms Readiness"
+                />
 
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="survey"
-                        name="survey"
-                        checked={formData.survey}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="survey">
-                        Customer Surveys
-                      </label>
-                    </div>
+                <CheckboxSection
+                  title="2) Data Privacy & Security Measures"
+                  items={dataSecurityItems}
+                  scoreKey="dataSecurity"
+                  scoreLabel="Data Security Readiness"
+                />
 
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="social"
-                        name="social"
-                        checked={formData.social}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="social">
-                        Social Media Monitoring
-                      </label>
-                    </div>
-                  </div>
+                <CheckboxSection
+                  title="3) Leadership Support"
+                  items={leadershipItems}
+                  scoreKey="leadership"
+                  scoreLabel="Leadership Support Readiness"
+                />
 
-                  <div className="mt-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">
-                        Data Collection Readiness
-                      </span>
-                      <span className="text-sm font-bold text-gray-900">
-                        {readiness.dataCollection}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className={`h-3 rounded-full transition-all duration-300 ${getProgressBarClass(
-                          readiness.dataCollection
-                        )}`}
-                        style={{ width: `${readiness.dataCollection}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
+                <CheckboxSection
+                  title="4) Culture of Openness & Feedback"
+                  items={cultureItems}
+                  scoreKey="culture"
+                  scoreLabel="Culture Readiness"
+                />
 
-                {/* Tech Readiness */}
-                <div>
-                  <h3 className="text-lg font-medium text-gray-800 mb-4">
-                    2) Technology Readiness
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="crm"
-                        name="crm"
-                        checked={formData.crm}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="crm">
-                        CRM System
-                      </label>
-                    </div>
-
-                    <div className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id="feedback"
-                        name="feedback"
-                        checked={formData.feedback}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      />
-                      <label className="ml-3 text-gray-700" htmlFor="feedback">
-                        Feedback Management System
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">
-                        Tech Readiness
-                      </span>
-                      <span className="text-sm font-bold text-gray-900">
-                        {readiness.techReadiness}%
-                      </span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className={`h-3 rounded-full transition-all duration-300 ${getProgressBarClass(
-                          readiness.techReadiness
-                        )}`}
-                        style={{ width: `${readiness.techReadiness}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </div>
+                <CheckboxSection
+                  title="5) Engagement Channels"
+                  items={engagementItems}
+                  scoreKey="engagement"
+                  scoreLabel="Engagement Readiness"
+                />
               </div>
             </div>
           </div>
@@ -247,7 +344,7 @@ export default function VoeAssessment() {
           <div className="bg-white shadow-sm rounded-lg overflow-hidden">
             <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-800">
-                Overall Voice of Customer Readiness Score
+                Overall Voice of Employee Readiness Score
               </h2>
             </div>
 
@@ -271,30 +368,50 @@ export default function VoeAssessment() {
                 </div>
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4">
-                <h3 className="font-medium text-gray-800 mb-2">
-                  Assessment Summary
-                </h3>
+              <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                <h3 className="font-medium text-gray-800 mb-2">Summary</h3>
                 <p className="text-gray-700">
                   {getScoreMessage(readiness.overall)}
                 </p>
               </div>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
                 <div className="bg-blue-50 rounded-lg p-4">
                   <h4 className="font-medium text-blue-800 mb-1">
-                    Data Collection
+                    Response Mechanisms
                   </h4>
                   <p className="text-2xl font-bold text-blue-900">
-                    {readiness.dataCollection}%
+                    {readiness.responseMechanisms}%
                   </p>
                 </div>
-                <div className="bg-blue-50 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-800 mb-1">
-                    Technology Readiness
+                <div className="bg-green-50 rounded-lg p-4">
+                  <h4 className="font-medium text-green-800 mb-1">
+                    Data Security
                   </h4>
-                  <p className="text-2xl font-bold text-blue-900">
-                    {readiness.techReadiness}%
+                  <p className="text-2xl font-bold text-green-900">
+                    {readiness.dataSecurity}%
+                  </p>
+                </div>
+                <div className="bg-purple-50 rounded-lg p-4">
+                  <h4 className="font-medium text-purple-800 mb-1">
+                    Leadership
+                  </h4>
+                  <p className="text-2xl font-bold text-purple-900">
+                    {readiness.leadership}%
+                  </p>
+                </div>
+                <div className="bg-indigo-50 rounded-lg p-4">
+                  <h4 className="font-medium text-indigo-800 mb-1">Culture</h4>
+                  <p className="text-2xl font-bold text-indigo-900">
+                    {readiness.culture}%
+                  </p>
+                </div>
+                <div className="bg-orange-50 rounded-lg p-4">
+                  <h4 className="font-medium text-orange-800 mb-1">
+                    Engagement
+                  </h4>
+                  <p className="text-2xl font-bold text-orange-900">
+                    {readiness.engagement}%
                   </p>
                 </div>
               </div>

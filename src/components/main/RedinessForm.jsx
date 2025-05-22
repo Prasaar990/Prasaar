@@ -68,6 +68,22 @@ export default function InitialForm() {
       });
 
       if (response.ok) {
+        // Store form data to localStorage after successful submission
+        const userDetails = {
+          fullName: formData.fullName,
+          companyEmail: formData.companyEmail,
+          companyName: formData.companyName,
+          mobile: formData.mobile,
+          jobRole: formData.jobRole,
+          formType: formData.formType,
+          submittedAt: new Date().toISOString(), // Optional: timestamp
+        };
+
+        localStorage.setItem(
+          "userAssessmentDetails",
+          JSON.stringify(userDetails)
+        );
+
         // Navigate based on form type selection
         if (formData.formType === "voc") {
           navigate("/voc");

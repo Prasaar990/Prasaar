@@ -10,7 +10,11 @@ export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
   const [dropdownUseCases, setDropdownUseCases] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
-  const [isFormOpen, setFormOpen] = useState(document.URL.includes("form"));
+  const [isFormOpen, setFormOpen] = useState(
+    document.URL.includes("form") ||
+      document.URL.includes("voc") ||
+      document.URL.includes("voe")
+  );
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
   });
@@ -152,13 +156,13 @@ export default function Header() {
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed w-screen h-[64px] sm:h-[64px] lg:h-[64px] text-sm sm:text-base lg:text-lg flex justify-between items-center px-10 sm:px-8 lg:px-12 z-50 bg-white shadow-lg text-gray-800"
+        className="fixed w-screen h-[64px] sm:h-[64px] lg:h-[68px] text-sm sm:text-base lg:text-lg flex justify-between items-center px-10 sm:px-8 lg:px-12 z-50 bg-white shadow-lg text-gray-800"
       >
         <Link to="/" className="cursor-pointer">
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className="w-[125px] h-[30px] sm:w-32 lg:w-40"
+            className="w-[125px] h-[30px] lg:h-[40px] sm:w-32 lg:w-40"
           />
         </Link>
 
