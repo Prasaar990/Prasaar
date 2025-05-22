@@ -14,7 +14,7 @@ export default function Solutions() {
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="mb-16 md:mb-24"
       >
-        <motion.h1 className="mx-auto max-w-md text-center text-3xl sm:text-4xl lg:text-5xl text-[#fe6363] font-medium">
+        <motion.h1 className="mx-auto max-w-md text-center text-3xl sm:text-4xl lg:text-5xl primaryColor font-medium">
           Solutions
         </motion.h1>
         <motion.div

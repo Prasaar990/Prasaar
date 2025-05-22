@@ -7,7 +7,7 @@ export default function Customers() {
     <div className="w-full py-24 overflow-hidden bg-gradient-to-r from-gray-50 to-gray-100">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">
-          <span className=" bg-clip-text  text-[#fe6363]">
+          <span className=" bg-clip-text primaryColor">
             Trusted by organizations
           </span>{" "}
           that grow fast

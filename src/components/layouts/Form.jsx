@@ -123,7 +123,7 @@ export default function ContactForm() {
           className="bg-white rounded-2xl shadow-xl overflow-hidden"
         >
           {/* Form header */}
-          <div className="bg-gradient-to-r from-[#fe6363] to-[#ff4545] px-6 py-8 sm:px-10 sm:py-12">
+          <div className="bg_primary px-6 py-8 sm:px-10 sm:py-12">
             <h2 className="text-3xl font-bold text-white tracking-tight">
               Contact Us
             </h2>
@@ -285,7 +285,7 @@ export default function ContactForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-[#fe6363] cursor-pointer hover:bg-[#ff4545] text-white font-medium py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
+                    className="w-full bg_primary cursor-pointer hover:bg-[#ff4545] text-white font-medium py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">

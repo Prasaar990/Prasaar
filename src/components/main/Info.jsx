@@ -39,7 +39,7 @@ export default function Info() {
           className="text-4xl md:text-5xl font-medium leading-tight"
         >
           Why
-          <span className="text-[#fe6363] font-semibold"> Prasaar?</span>
+          <span className="primaryColor font-semibold"> Prasaar?</span>
         </motion.h1>
 
         <motion.p

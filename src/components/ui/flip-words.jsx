@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "../../lib/utils";
 
@@ -65,7 +65,7 @@ export const FlipWords = ({ words, duration = 3000, className }) => {
               delay: wordIndex * 0.3,
               duration: 0.3,
             }}
-            className="inline-block whitespace-nowrap text-[#fe6363]"
+            className="inline-block whitespace-nowrap primaryColor"
           >
             {word.split("").map((letter, letterIndex) => (
               <motion.span

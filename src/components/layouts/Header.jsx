@@ -5,6 +5,7 @@ import Button from "./Button";
 import Solutions from "../dropdowns/SolutionsDropdown";
 import UseCases from "../dropdowns/UseCasesDropdown";
 import { Link } from "react-router-dom";
+import { ArrowBigDownIcon } from "lucide-react";
 
 export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
@@ -81,13 +82,13 @@ export default function Header() {
               </a>
             </li>
 
-            <li className="mt-8 sm:mt-6 md:mt-8">
+            {/* <li className="mt-8 sm:mt-6 md:mt-8">
               <a href="#testimonials" className="no-underline text-gray-800">
                 Use Cases
               </a>
-            </li>
+            </li> */}
 
-            <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center gap-2">
+            <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center">
               Solutions
               <motion.button
                 type="button"
@@ -101,8 +102,8 @@ export default function Header() {
               >
                 <motion.img
                   src="./img/downArrow.svg"
-                  alt="show more options"
-                  className="h-5 w-5 sm:h-6 sm:w-6"
+                  alt="show solution"
+                  className="h-5 w-5 lg:h-6 lg:w-6"
                   animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -118,7 +119,7 @@ export default function Header() {
                 ""
               )}
             </li>
-            <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center gap-2">
+            {/* <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center gap-2">
               UseCases
               <motion.button
                 type="button"
@@ -138,7 +139,7 @@ export default function Header() {
                   transition={{ duration: 0.3 }}
                 />
               </motion.button>
-            </li>
+            </li> */}
             <li>
               {dropdownUseCases ? (
                 <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
@@ -162,7 +163,7 @@ export default function Header() {
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className="w-[125px] h-[30px] lg:h-[40px] sm:w-32 lg:w-40"
+            className="w-[125px] h-[30px] sm:w-32 lg:w-[140px] lg:h-[40px]"
           />
         </Link>
 
@@ -198,7 +199,7 @@ export default function Header() {
                     </a>
                   </li>
 
-                  <li className="flex flex-row items-center justify-center gap-2">
+                  <li className="flex flex-row items-center justify-center ">
                     Solutions
                     <motion.button
                       type="button"

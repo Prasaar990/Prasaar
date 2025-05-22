@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import "../../index.css";
 
 export default function Button({
   text,
@@ -45,7 +46,7 @@ export default function Button({
       target={`${to !== "/form" ? "_blank" : ""}`}
       rel="noopener noreferrer"
       className={`h-12 px-3 rounded-full text-xl flex items-center justify-center transition-all duration-300 z-10 relative ${
-        primary ? "bg-[#fe6363] text-white" : "bg-white text-black"
+        primary ? "bg_primary text-white" : "bg-white text-black"
       }`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

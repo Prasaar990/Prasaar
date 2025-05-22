@@ -75,7 +75,7 @@ export default function Solution({
             variants={itemVariants}
             className="flex items-start gap-3 text-base md:text-lg"
           >
-            <div className="bg-[#fe6363] rounded-full p-1 mt-1 flex-shrink-0 shadow-md">
+            <div className="bg_primary rounded-full p-1 mt-1 flex-shrink-0 shadow-md">
               <svg
                 className="w-4 h-4 text-white"
                 fill="none"

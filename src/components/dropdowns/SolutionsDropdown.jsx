@@ -51,7 +51,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
     >
       <div className="container mx-auto px-6 py-8 max-w-7xl">
         <div className="mb-6">
-          <h3 className="text-xl font-bold text-red-600 mb-2">Solutions</h3>
+          <h3 className="text-xl font-bold primaryColor mb-2">Solutions</h3>
           <p className="text-gray-600">
             Our customer engagement solutions helps brands grow more
             organically.

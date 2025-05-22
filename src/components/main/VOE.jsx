@@ -277,7 +277,7 @@ export default function VoeAssessment() {
         <div className="bg-white shadow-sm rounded-lg mb-6 p-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-purple-800 mb-2">
+              <h1 className="text-2xl sm:text-3xl font-bold primaryColor mb-2">
                 Voice of Employee
               </h1>
               <p className="text-gray-600">Welcome, {userData.fullName}</p>
@@ -295,7 +295,7 @@ export default function VoeAssessment() {
           {/* Voice of Employee Checklist */}
           <div className="bg-white shadow-sm rounded-lg overflow-hidden">
             <div className="bg-purple-50 px-6 py-4 border-b border-purple-100">
-              <h2 className="text-xl font-semibold text-purple-800">
+              <h2 className="text-xl font-semibold primaryColor">
                 Voice of Employee Checklist
               </h2>
             </div>
