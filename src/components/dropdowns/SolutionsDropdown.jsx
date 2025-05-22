@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  ChevronDown,
-  Settings,
-  BarChart,
-  MessageSquare,
-  QrCode,
-} from "lucide-react";
+import { Settings, BarChart, MessageSquare, QrCode } from "lucide-react";
 
 export default function Solutions({ dropdownSolutions, isTablet = true }) {
   const [animateIn, setAnimateIn] = useState(false);
@@ -88,7 +82,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
   const MobileMenu = () => (
     <div
       className={`bg-white/95 rounded-md overflow-hidden transition-all duration-300 ease-in-out ${
-        dropdownSolutions ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+        dropdownSolutions ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
       }`}
     >
       <ul className="py-2 px-4">

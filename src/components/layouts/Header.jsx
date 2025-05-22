@@ -14,6 +14,9 @@ export default function Header() {
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
   });
+  const isMobile = useMediaQuery({
+    query: "(max-width: 640px)",
+  });
   const [isHovered, setHovered] = useState(false);
   const [visible, setVisible] = useState(true);
   const [isRippling, setRippling] = useState(false);
@@ -64,27 +67,27 @@ export default function Header() {
             y: dropdownNav ? "0%" : "-100%",
             opacity: dropdownNav ? 1 : 0,
           }}
-          className="fixed w-screen px-16 pt-40 pb-16 bg-white z-50 shadow-lg flex flex-col text-2xl text-gray-800"
+          className="fixed w-screen h-1/2 px-10 sm:px-8 md:px-16 pt-[80px] sm:pt-32 md:pt-40 pb-8 sm:pb-12 md:pb-16 bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-xl md:text-2xl text-gray-800"
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <ul className="list-none">
-            <li className="mt-8">
+          <ul className="list-none ">
+            <li className="mt-8 sm:mt-6 md:mt-8">
               <a href="#info" className="no-underline text-gray-800">
                 Why Prasaar ?
               </a>
             </li>
 
-            <li className="mt-8">
+            <li className="mt-8 sm:mt-6 md:mt-8">
               <a href="#testimonials" className="no-underline text-gray-800">
                 Use Cases
               </a>
             </li>
 
-            <li className="mt-8 flex flex-row items-center gap-2">
+            <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center gap-2">
               Solutions
               <motion.button
                 type="button"
-                className="bg-transparent border-none cursor-pointer h-6"
+                className="bg-transparent border-none cursor-pointer h-5 sm:h-6"
                 onClick={() => {
                   setDropdownSolutions((x) => !x);
                   if (dropdownUseCases) {
@@ -95,7 +98,7 @@ export default function Header() {
                 <motion.img
                   src="./img/downArrow.svg"
                   alt="show more options"
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -111,11 +114,11 @@ export default function Header() {
                 ""
               )}
             </li>
-            <li className="mt-8 flex flex-row items-center gap-2">
+            <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center gap-2">
               UseCases
               <motion.button
                 type="button"
-                className="bg-transparent border-none cursor-pointer h-6"
+                className="bg-transparent border-none cursor-pointer h-5 sm:h-6"
                 onClick={() => {
                   setDropdownUseCases((x) => !x);
                   if (dropdownSolutions) {
@@ -126,7 +129,7 @@ export default function Header() {
                 <motion.img
                   src="./img/downArrow.svg"
                   alt="show more options"
-                  className="h-6 w-6"
+                  className="h-5 w-5 sm:h-6 sm:w-6"
                   animate={{ rotate: dropdownUseCases ? 180 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
@@ -149,13 +152,13 @@ export default function Header() {
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed w-screen lg:h-18 sm:h-20 text-lg flex justify-between items-center px-12 z-50 bg-white shadow-lg text-gray-800"
+        className="fixed w-screen h-[64px] sm:h-[64px] lg:h-[64px] text-sm sm:text-base lg:text-lg flex justify-between items-center px-10 sm:px-8 lg:px-12 z-50 bg-white shadow-lg text-gray-800"
       >
         <Link to="/" className="cursor-pointer">
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className="w-40"
+            className="w-[125px] h-[30px] sm:w-32 lg:w-40"
           />
         </Link>
 
@@ -164,7 +167,7 @@ export default function Header() {
             <div>
               <button
                 type="button"
-                className="bg-transparent w-14 h-14 border-none cursor-pointer"
+                className="bg-transparent w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 border-none cursor-pointer"
                 onClick={() => {
                   setDropdownNav((x) => !x);
                 }}
@@ -181,7 +184,7 @@ export default function Header() {
           <>
             <div className="z-40">
               {!isFormOpen ? (
-                <ul className="list-none flex gap-12">
+                <ul className="list-none flex gap-6 lg:gap-12">
                   <li>
                     <a
                       href="#info"
@@ -195,7 +198,7 @@ export default function Header() {
                     Solutions
                     <motion.button
                       type="button"
-                      className="bg-transparent border-none cursor-pointer h-6"
+                      className="bg-transparent border-none cursor-pointer h-5 lg:h-6"
                       onClick={() => {
                         setDropdownSolutions((x) => !x);
                         if (dropdownUseCases) {
@@ -206,7 +209,7 @@ export default function Header() {
                       <motion.img
                         src="./img/downArrow.svg"
                         alt="show solution"
-                        className="h-6 w-6"
+                        className="h-5 w-5 lg:h-6 lg:w-6"
                         animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                       />
@@ -218,7 +221,7 @@ export default function Header() {
               )}
             </div>
 
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-4 lg:gap-8">
               <Button
                 text={"VoiceAgent Demo"}
                 to="https://call.prasaar.co/#demo"
@@ -247,7 +250,12 @@ export default function Header() {
         {/* WhatsApp Button */}
         <a
           href="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
-          className="fixed right-12 bottom-12 w-12 h-12 bg-green-500  hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl z-20"
+          className={`fixed z-20 bg-green-500 hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl
+            ${
+              isMobile
+                ? "right-4 bottom-4 w-10 h-10"
+                : "right-6 bottom-6 w-12 h-12 sm:right-8 sm:bottom-8 lg:right-12 lg:bottom-12"
+            }`}
           style={{
             transform: isHovered ? "scale(1.1)" : "scale(1)",
             transition: "all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
@@ -279,22 +287,33 @@ export default function Header() {
         </a>
 
         {/* Pulse animation behind button */}
-        <span className="fixed right-12 bottom-12 w-12 h-12 bg-green-500 rounded-full opacity-30 animate-pulse" />
+        <span
+          className={`fixed bg-green-500 rounded-full opacity-30 animate-pulse
+          ${
+            isMobile
+              ? "right-4 bottom-4 w-10 h-10"
+              : "right-6 bottom-6 w-12 h-12 sm:right-8 sm:bottom-8 lg:right-12 lg:bottom-12"
+          }`}
+        />
 
-        {/* Tooltip */}
-        <div
-          className="fixed bottom-12 right-32 text-gray-800 text-base font-medium border border-gray-300 px-6 py-3 rounded-lg bg-white shadow-md z-10"
-          style={{
-            opacity: isHovered ? 1 : 0,
-            transform: isHovered ? "translateX(0)" : "translateX(10px)",
-            transition: "all 0.4s ease",
-            pointerEvents: isHovered ? "auto" : "none",
-          }}
-        >
-          Chat on WhatsApp
-          {/* Tooltip arrow */}
-          <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 rotate-45 w-4 h-4 bg-white border-r border-t border-gray-300" />
-        </div>
+        {/* Tooltip - Only show on larger screens */}
+        {!isMobile && (
+          <div
+            className={`fixed z-10 text-gray-800 font-medium border border-gray-300 px-3 py-2 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-lg bg-white shadow-md
+              text-xs sm:text-sm lg:text-base
+              bottom-6 right-16 sm:bottom-8 sm:right-20 lg:bottom-12 lg:right-32`}
+            style={{
+              opacity: isHovered ? 1 : 0,
+              transform: isHovered ? "translateX(0)" : "translateX(10px)",
+              transition: "all 0.4s ease",
+              pointerEvents: isHovered ? "auto" : "none",
+            }}
+          >
+            Chat on WhatsApp
+            {/* Tooltip arrow */}
+            <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 rotate-45 w-3 h-3 sm:w-4 sm:h-4 bg-white border-r border-t border-gray-300" />
+          </div>
+        )}
       </div>
     </>
   );

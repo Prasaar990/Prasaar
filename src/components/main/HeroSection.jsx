@@ -19,9 +19,9 @@ export default function HeroSection({ words, title, subHeading }) {
   }, [wordIndex, words]);
 
   return (
-    <section className="w-screen h-screen pt-40 px-12 pb-12 flex justify-center">
+    <section className="w-screen h-1/2 lg:h-screen pt-40 px-8 lg:px-12 pb-12 flex justify-center">
       {/* Left section */}
-      <div className="w-[55%] flex flex-col gap-5">
+      <div className="lg:w-[55%] w-full  flex flex-col gap-5">
         {/* Heading with FlipWords */}
         <div className="flex items-center">
           <div className="text-3xl sm:text-4xl lg:text-6xl  text-neutral-600 dark:text-neutral-400 font-semibold">
