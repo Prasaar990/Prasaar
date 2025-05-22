@@ -5,7 +5,6 @@ import Button from "./Button";
 import Solutions from "../dropdowns/SolutionsDropdown";
 import UseCases from "../dropdowns/UseCasesDropdown";
 import { Link } from "react-router-dom";
-import { ArrowBigDownIcon } from "lucide-react";
 
 export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
@@ -163,7 +162,7 @@ export default function Header() {
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className="w-[125px] h-[30px] sm:w-32 lg:w-[140px] lg:h-[40px]"
+            className="w-[125px] h-[30px] sm:w-[130px] lg:w-[150px] lg:h-[40px]"
           />
         </Link>
 
@@ -258,8 +257,8 @@ export default function Header() {
           className={`fixed z-20 bg-green-500 hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl
             ${
               isMobile
-                ? "right-4 bottom-4 w-10 h-10"
-                : "right-6 bottom-6 w-12 h-12 sm:right-8 sm:bottom-8 lg:right-12 lg:bottom-12"
+                ? "right-4 bottom-4 w-[40px] h-[40px]"
+                : "right-6 bottom-6 w-[48px] h-[48px] sm:right-8 sm:bottom-8 lg:right-12 lg:bottom-12"
             }`}
           style={{
             transform: isHovered ? "scale(1.1)" : "scale(1)",

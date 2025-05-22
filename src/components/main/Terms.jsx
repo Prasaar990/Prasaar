@@ -53,7 +53,7 @@ const TermsAndConditions = () => {
         transition={{ duration: 0.5 }}
         className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden"
       >
-        <div className="bg-[#fe6363] py-6 px-8">
+        <div className="bg_primary py-6 px-8">
           <h1 className="text-3xl font-bold text-white">
             Terms and Conditions
           </h1>
@@ -71,7 +71,7 @@ const TermsAndConditions = () => {
           >
             <motion.div variants={itemVariants} className="mb-8 text-gray-700">
               <p className="text-lg">
-                By using Prasaar's website and services, you agree to these
+                By using Prasaar&apos;s website and services, you agree to these
                 terms.
               </p>
             </motion.div>
@@ -85,7 +85,7 @@ const TermsAndConditions = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-8">
-              <h2 className="text-xl font-semibold text-[#fe6363] mb-4">
+              <h2 className="text-xl font-semibold primaryColor mb-4">
                 Account Responsibilities
               </h2>
               <motion.ul
@@ -142,7 +142,7 @@ const TermsAndConditions = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-8">
-              <h2 className="text-xl font-semibold text-[#fe6363] mb-4">
+              <h2 className="text-xl font-semibold primaryColor mb-4">
                 Compliance Requirements
               </h2>
               <motion.ul
@@ -199,7 +199,7 @@ const TermsAndConditions = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-8">
-              <h2 className="text-xl font-semibold text-[#fe6363] mb-4">
+              <h2 className="text-xl font-semibold primaryColor mb-4">
                 Data Security
               </h2>
               <motion.ul
@@ -241,7 +241,7 @@ const TermsAndConditions = () => {
             </motion.div>
 
             <motion.div variants={itemVariants} className="mb-8">
-              <h2 className="text-xl font-semibold text-[#fe6363] mb-4">
+              <h2 className="text-xl font-semibold primaryColor mb-4">
                 Payment and Refunds
               </h2>
               <motion.ul

@@ -4,7 +4,7 @@ import Solution from "./Solution";
 export default function Solutions() {
   return (
     <div
-      className="w-full overflow-hidden mt-40 lg:mt-80 px-6 sm:px-12 md:px-24 lg:px-32"
+      className="w-full overflow-hidden mt-[160px] lg:mt-[320px] px-[24px] sm:px-[48px] md:px-[96px] lg:px-[128px]"
       id="solutions"
     >
       <motion.div
@@ -12,13 +12,13 @@ export default function Solutions() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="mb-16 md:mb-24"
+        className="mb-[64px] md:mb-[96px]"
       >
-        <motion.h1 className="mx-auto max-w-md text-center text-3xl sm:text-4xl lg:text-5xl primaryColor font-medium">
+        <motion.h1 className="mx-auto max-w-[448px] text-center text-[30px] sm:text-[36px] lg:text-[48px] primaryColor font-medium">
           Solutions
         </motion.h1>
         <motion.div
-          className="h-1 w-24 bg-black mt-3 mx-auto rounded-full"
+          className="h-[4px] w-[96px] bg-black mt-[12px] mx-auto rounded-full"
           initial={{ width: 0 }}
           whileInView={{ width: 96 }}
           viewport={{ once: true }}
@@ -26,7 +26,7 @@ export default function Solutions() {
         />
       </motion.div>
 
-      <div className="space-y-24 md:space-y-32 lg:space-y-40">
+      <div className="space-y-[96px] md:space-y-[128px] lg:space-y-[160px]">
         <Solution
           title="Real Time Feedback"
           list={[

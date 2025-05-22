@@ -42,7 +42,7 @@ export default function Solution({
       <img
         src={img}
         alt="feature"
-        className="w-full max-w-md rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 opacity-90 hover:opacity-100"
+        className="w-full max-w-[448px] rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 opacity-90 hover:opacity-100"
       />
     </motion.div>
   );
@@ -53,17 +53,19 @@ export default function Solution({
       whileInView={{ x: "0%", opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="w-full lg:w-1/2 flex gap-6 flex-col items-start"
+      className="w-full lg:w-1/2 flex gap-[24px] flex-col items-start"
     >
-      <div className="space-y-3">
-        <h2 className="font-semibold text-2xl md:text-3xl text-gray-800">
+      <div className="space-y-[12px]">
+        <h2 className="font-semibold text-[24px] md:text-[30px] text-gray-800">
           {title}
         </h2>
-        <div className="text-gray-600 text-lg md:text-xl">{children}</div>
+        <div className="text-gray-600 text-[18px] md:text-[20px]">
+          {children}
+        </div>
       </div>
 
       <motion.ul
-        className="list-none space-y-4 my-6"
+        className="list-none space-y-[16px] my-[24px]"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -73,11 +75,11 @@ export default function Solution({
           <motion.li
             key={index}
             variants={itemVariants}
-            className="flex items-start gap-3 text-base md:text-lg"
+            className="flex items-start gap-[12px] text-[16px] md:text-[18px]"
           >
-            <div className="bg_primary rounded-full p-1 mt-1 flex-shrink-0 shadow-md">
+            <div className="bg_primary rounded-full p-[4px] mt-[4px] flex-shrink-0 shadow-md">
               <svg
-                className="w-4 h-4 text-white"
+                className="w-[16px] h-[16px] text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -111,14 +113,14 @@ export default function Solution({
   );
 
   return (
-    <section className="w-full py-8">
+    <section className="w-full py-[32px]">
       {side !== "rowReverse" ? (
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-24 items-center">
+        <div className="flex flex-col lg:flex-row gap-[32px] lg:gap-[64px] xl:gap-[96px] items-center">
           {contentLeft}
           {contentRight}
         </div>
       ) : (
-        <div className="flex flex-col lg:flex-row-reverse gap-8 lg:gap-16 xl:gap-24 items-center">
+        <div className="flex flex-col lg:flex-row-reverse gap-[32px] lg:gap-[64px] xl:gap-[96px] items-center">
           {contentLeft}
           {contentRight}
         </div>

@@ -88,9 +88,11 @@ export default function ContactForm() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-green-50 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-sm mb-6"
+      className="bg-green-50 border border-green-400 text-green-700 px-[24px] py-[16px] rounded-lg shadow-sm mb-[24px]"
     >
-      <h3 className="text-lg font-medium text-green-800 mb-1">Thank you!</h3>
+      <h3 className="text-[18px] font-medium text-green-800 mb-[4px]">
+        Thank you!
+      </h3>
       <p className="text-green-700">
         Your message has been received. We&apos;ll get back to you soon.
       </p>
@@ -102,9 +104,9 @@ export default function ContactForm() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-red-50 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-sm mb-6"
+      className="bg-red-50 border border-red-400 text-red-700 px-[24px] py-[16px] rounded-lg shadow-sm mb-[24px]"
     >
-      <h3 className="text-lg font-medium text-red-800 mb-1">
+      <h3 className="text-[18px] font-medium text-red-800 mb-[4px]">
         Something went wrong
       </h3>
       <p className="text-red-700">
@@ -114,26 +116,26 @@ export default function ContactForm() {
   );
 
   return (
-    <div className="py-16 md:py-24 lg:py-32 bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-[64px] md:py-[96px] lg:py-[128px] ">
+      <div className="max-w-[896px] mx-auto  sm:px-[12px] lg:px-[14px]">
         <motion.div
           variants={formVariants}
           initial="hidden"
           animate="visible"
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
+          className="bg-white rounded-[16px] shadow-xl overflow-hidden"
         >
           {/* Form header */}
-          <div className="bg_primary px-6 py-8 sm:px-10 sm:py-12">
-            <h2 className="text-3xl font-bold text-white tracking-tight">
-              Contact Us
+          <div className="bg_primary px-[24px] py-[16px] sm:px-[40px] sm:py-[24px]">
+            <h2 className="text-[30px] font-bold text-white tracking-tight">
+              CONTACT US
             </h2>
-            <p className="mt-2 text-white text-opacity-90 max-w-2xl">
+            <p className="mt-[8px] text-white text-opacity-90 max-w-[512px]">
               Have questions or want to learn more? Fill out the form below and
               our team will get back to you shortly.
             </p>
           </div>
 
-          <div className="px-6 py-10 sm:p-12">
+          <div className="px-[24px] py-[20px] sm:px-[48px] sm:py-[20px]">
             {formSubmitted && <SuccessMessage />}
             {formError && <ErrorMessage />}
 
@@ -144,7 +146,7 @@ export default function ContactForm() {
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
-                className="space-y-8"
+                className="space-y-[32px]"
               >
                 {/* Netlify required hidden fields */}
                 <input type="hidden" name="form-name" value="contact" />
@@ -160,20 +162,20 @@ export default function ContactForm() {
                     id="email"
                     value={formState.email}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Email address"
                     required
                   />
                   <label
                     htmlFor="email"
-                    className="absolute left-0 -top-1 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-1 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className="absolute left-0 -top-[4px] text-gray-600 text-[14px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-[12px] peer-focus:-top-[4px] peer-focus:text-gray-600 peer-focus:text-[14px]"
                   >
                     Email address
                   </label>
                 </motion.div>
 
                 {/* First name and Last name (grid) */}
-                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-[32px] sm:grid-cols-2">
                   <motion.div variants={itemVariants} className="relative">
                     <input
                       type="text"
@@ -181,13 +183,13 @@ export default function ContactForm() {
                       id="firstName"
                       value={formState.firstName}
                       onChange={handleInputChange}
-                      className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                      className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                       placeholder="First name"
                       required
                     />
                     <label
                       htmlFor="firstName"
-                      className="absolute left-0 -top-1 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-1 peer-focus:text-gray-600 peer-focus:text-sm"
+                      className="absolute left-0 -top-[4px] text-gray-600 text-[14px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-[12px] peer-focus:-top-[4px] peer-focus:text-gray-600 peer-focus:text-[14px]"
                     >
                       First name
                     </label>
@@ -200,13 +202,13 @@ export default function ContactForm() {
                       id="lastName"
                       value={formState.lastName}
                       onChange={handleInputChange}
-                      className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                      className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px]  px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                       placeholder="Last name"
                       required
                     />
                     <label
                       htmlFor="lastName"
-                      className="absolute left-0 -top-1 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-1 peer-focus:text-gray-600 peer-focus:text-sm"
+                      className="absolute left-0 -top-[4px] text-gray-600 text-[14px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-[12px] peer-focus:-top-[4px] peer-focus:text-gray-600 peer-focus:text-[14px]"
                     >
                       Last name
                     </label>
@@ -221,18 +223,18 @@ export default function ContactForm() {
                     id="phone"
                     value={formState.phone}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Phone number"
                     required
                   />
                   <label
                     htmlFor="phone"
-                    className="absolute left-0 -top-1 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-1 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className="absolute left-0 -top-[4px] text-gray-600 text-[14px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-[12px] peer-focus:-top-[4px] peer-focus:text-gray-600 peer-focus:text-[14px]"
                   >
                     Phone number
                   </label>
-                  <p className="mt-1 text-xs text-gray-500">
-                    Format: 123-456-7890
+                  <p className="mt-[4px] text-[12px] text-gray-500">
+                    Format: 92345 67896
                   </p>
                 </motion.div>
 
@@ -244,53 +246,49 @@ export default function ContactForm() {
                     id="company"
                     value={formState.company}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Company"
                     required
                   />
                   <label
                     htmlFor="company"
-                    className="absolute left-0 -top-1 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3 peer-focus:-top-1 peer-focus:text-gray-600 peer-focus:text-sm"
+                    className="absolute left-0 -top-[4px] text-gray-600 text-[14px] transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-[12px] peer-focus:-top-[4px] peer-focus:text-gray-600 peer-focus:text-[14px]"
                   >
                     Company
                   </label>
                 </motion.div>
 
                 {/* Message textarea */}
-                <motion.div variants={itemVariants} className="relative mt-10">
+                <motion.div
+                  variants={itemVariants}
+                  className="relative mt-[40px]"
+                >
                   <textarea
                     name="message"
                     id="message"
                     rows="5"
                     value={formState.message}
                     onChange={handleInputChange}
-                    className="w-full border-2 border-gray-300 rounded-lg bg-transparent p-4 text-gray-900 focus:border-[#fe6363] focus:outline-none focus:ring-0 resize-none"
+                    className="w-full border-2 border-gray-300 rounded-lg bg-transparent p-[16px] text-gray-900 focus:border-[#fe6363] focus:outline-none focus:ring-0 resize-none"
                     placeholder="Your message (optional)"
                   ></textarea>
-                  <label
-                    htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-gray-600"
-                  >
-                    Your message (optional)
-                  </label>
                 </motion.div>
 
                 {/* Submit button */}
                 <motion.div
                   variants={itemVariants}
-                  className="pt-4"
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.99 }}
                 >
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg_primary cursor-pointer hover:bg-[#ff4545] text-white font-medium py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
+                    className="w-full bg_primary cursor-pointer hover:bg-[#ff4545] text-white font-medium py-[16px] px-[24px] rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-[18px]"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">
                         <svg
-                          className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                          className="animate-spin -ml-[4px] mr-[12px] h-[20px] w-[20px] text-white"
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
                           viewBox="0 0 24 24"

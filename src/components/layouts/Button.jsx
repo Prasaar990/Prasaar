@@ -45,7 +45,7 @@ export default function Button({
       to={to}
       target={`${to !== "/form" ? "_blank" : ""}`}
       rel="noopener noreferrer"
-      className={`h-12 px-3 rounded-full text-xl flex items-center justify-center transition-all duration-300 z-10 relative ${
+      className={`lg:h-[48px] h-[44px]  px-3 rounded-full text-[20px] flex items-center justify-center transition-all duration-300 z-10 relative w-[275px]  ${
         primary ? "bg_primary text-white" : "bg-white text-black"
       }`}
       onMouseEnter={handleMouseEnter}
