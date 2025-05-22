@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function VocAssessment() {
-  const userData = { fullName: "xyz" };
-  function onBack() {}
+export default function VocAssessment({ userData, onBack }) {
   const [formData, setFormData] = useState({
     // Voice of Customer checkboxes
     nps: false,

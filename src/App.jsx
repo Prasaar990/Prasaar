@@ -4,7 +4,8 @@ import Main from "./components/main/Main";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GetStarted from "./components/main/GetStarted";
 import Terms from "./components/main/Terms";
-import Voc from "./components/main/VOC";
+import InitialForm from "./components/main/RedinessForm";
+import VocAssessment from "./components/main/VOC";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
           <Route path="/" element={<Main />}></Route>
           <Route path="/form" element={<GetStarted />}></Route>
           <Route path="/terms" element={<Terms />}></Route>
-          <Route path="/voc" element={<Voc />}>
+          <Route path="/voc" element={<VocAssessment />}></Route>
+          <Route path="/rediness-form" element={<InitialForm />}>
             {" "}
           </Route>
         </Routes>
