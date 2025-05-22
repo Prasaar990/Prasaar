@@ -96,13 +96,13 @@ export default function InitialForm() {
         Something went wrong
       </h3>
       <p className="text-red-700">
-        We couldn't process your submission. Please try again later.
+        We couldn&apos;t process your submission. Please try again later.
       </p>
     </motion.div>
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
         <motion.div
           variants={formVariants}
