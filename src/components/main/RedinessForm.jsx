@@ -1,14 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 export default function InitialForm() {
   const navigate = useNavigate();
-
-  function onFormSubmit(type, data) {
-    if (type == "voc") {
-      navigate("/voc");
-    } else navigate("/voe");
-  }
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -20,6 +15,30 @@ export default function InitialForm() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formError, setFormError] = useState(false);
+
+  // Animation variants
+  const formVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 },
+    },
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,6 +51,7 @@ export default function InitialForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setFormError(false);
 
     try {
       // Create FormData from form element for proper Netlify submission
@@ -48,25 +68,50 @@ export default function InitialForm() {
       });
 
       if (response.ok) {
-        // Pass the form type and user data to parent component
-        onFormSubmit(formData.formType, formData);
+        // Navigate based on form type selection
+        if (formData.formType === "voc") {
+          navigate("/voc");
+        } else if (formData.formType === "voe") {
+          navigate("/voe");
+        }
       } else {
-        alert("There was an error submitting the form. Please try again.");
+        setFormError(true);
       }
     } catch (error) {
       console.error("Form submission error:", error);
-      alert("There was an error submitting the form. Please try again.");
+      setFormError(true);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // Error message component
+  const ErrorMessage = () => (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-red-50 border border-red-400 text-red-700 px-6 py-4 rounded-lg shadow-sm mb-6"
+    >
+      <h3 className="text-lg font-medium text-red-800 mb-1">
+        Something went wrong
+      </h3>
+      <p className="text-red-700">
+        We couldn't process your submission. Please try again later.
+      </p>
+    </motion.div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
-          {/* Header with gradient background matching second form */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8 sm:px-10 sm:py-12">
+        <motion.div
+          variants={formVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white shadow-xl rounded-2xl overflow-hidden"
+        >
+          {/* Header with gradient background */}
+          <div className="bg-gradient-to-r from-[#fe6363] to-[#ff4545] px-6 py-8 sm:px-10 sm:py-12">
             <h1 className="text-3xl font-bold text-white tracking-tight mb-2">
               Readiness Assessment
             </h1>
@@ -77,23 +122,7 @@ export default function InitialForm() {
           </div>
 
           <div className="px-6 py-10 sm:p-12">
-            {/* Hidden Netlify form for form detection */}
-            <form
-              name="readiness-assessment"
-              netlify
-              hidden
-              data-netlify="true"
-            >
-              <input type="text" name="fullName" />
-              <input type="email" name="companyEmail" />
-              <input type="text" name="companyName" />
-              <input type="tel" name="mobile" />
-              <input type="text" name="jobRole" />
-              <select name="formType">
-                <option value="voc">Voice of Customer</option>
-                <option value="voe">Voice of Employee</option>
-              </select>
-            </form>
+            {formError && <ErrorMessage />}
 
             {/* Actual form */}
             <form
@@ -115,14 +144,17 @@ export default function InitialForm() {
               </div>
 
               <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-                <div className="sm:col-span-2 relative">
+                <motion.div
+                  variants={itemVariants}
+                  className="sm:col-span-2 relative"
+                >
                   <input
                     type="text"
                     id="fullName"
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-blue-600 focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Your Name"
                     required
                   />
@@ -132,16 +164,16 @@ export default function InitialForm() {
                   >
                     Your Name *
                   </label>
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div variants={itemVariants} className="relative">
                   <input
                     type="email"
                     id="companyEmail"
                     name="companyEmail"
                     value={formData.companyEmail}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-blue-600 focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Company Email"
                     required
                   />
@@ -151,16 +183,16 @@ export default function InitialForm() {
                   >
                     Company Email *
                   </label>
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div variants={itemVariants} className="relative">
                   <input
                     type="text"
                     id="companyName"
                     name="companyName"
                     value={formData.companyName}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-blue-600 focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Company Name"
                     required
                   />
@@ -170,16 +202,16 @@ export default function InitialForm() {
                   >
                     Company Name *
                   </label>
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div variants={itemVariants} className="relative">
                   <input
                     type="tel"
                     id="mobile"
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-blue-2 focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Mobile"
                     required
                   />
@@ -192,16 +224,16 @@ export default function InitialForm() {
                   <p className="mt-1 text-xs text-gray-500">
                     Format: 123-456-7890
                   </p>
-                </div>
+                </motion.div>
 
-                <div className="relative">
+                <motion.div variants={itemVariants} className="relative">
                   <input
                     type="text"
                     id="jobRole"
                     name="jobRole"
                     value={formData.jobRole}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-blue-600 focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-4 pb-2 px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     placeholder="Job Role"
                     required
                   />
@@ -211,35 +243,43 @@ export default function InitialForm() {
                   >
                     Job Role *
                   </label>
-                </div>
+                </motion.div>
 
-                <div className="sm:col-span-2 relative mt-10">
-                  <select
-                    id="formType"
-                    name="formType"
-                    value={formData.formType}
-                    onChange={handleInputChange}
-                    className="w-full border-2 border-gray-300 rounded-lg bg-transparent p-4 text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
-                    required
-                  >
-                    <option value="">Select Assessment Type</option>
-                    <option value="voc">Voice of Customer</option>
-                    <option value="voe">Voice of Employee</option>
-                  </select>
+                <motion.div
+                  variants={itemVariants}
+                  className="sm:col-span-2 relative mt-10"
+                >
                   <label
                     htmlFor="formType"
                     className="block mb-2 text-sm font-medium text-gray-600"
                   >
                     Assessment Type *
                   </label>
-                </div>
+                  <select
+                    id="formType"
+                    name="formType"
+                    value={formData.formType}
+                    onChange={handleInputChange}
+                    className="w-full border-2 border-gray-300 rounded-lg bg-transparent p-4 text-gray-900 focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    required
+                  >
+                    <option value="">Select Assessment Type</option>
+                    <option value="voc">Voice of Customer</option>
+                    <option value="voe">Voice of Employee</option>
+                  </select>
+                </motion.div>
               </div>
 
-              <div className="pt-4">
+              <motion.div
+                variants={itemVariants}
+                className="pt-4"
+                whileHover={{ scale: 1.01 }}
+                whileTap={{ scale: 0.99 }}
+              >
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
+                  className="w-full bg-[#fe6363] cursor-pointer hover:bg-[#ff4545] text-white font-medium py-4 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-lg"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center justify-center">
@@ -269,10 +309,10 @@ export default function InitialForm() {
                     "Start Assessment"
                   )}
                 </button>
-              </div>
+              </motion.div>
             </form>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
