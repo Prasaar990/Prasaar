@@ -129,11 +129,10 @@ export default function InitialForm() {
           {/* Header with gradient background */}
           <div className="bg-gradient-to-r from-[#fe6363] to-[#ff4545] px-6 py-8 sm:px-10 sm:py-12">
             <h1 className="text-3xl font-bold text-white tracking-tight mb-2">
-              Readiness Assessment
+              Readiness Score
             </h1>
             <p className="text-white text-opacity-90 max-w-2xl">
-              Please fill out your information to get started with your
-              assessment
+              Please fill out your information to get started
             </p>
           </div>
 
@@ -269,7 +268,7 @@ export default function InitialForm() {
                     htmlFor="formType"
                     className="block mb-2 text-sm font-medium text-gray-600"
                   >
-                    Assessment Type *
+                    Type *
                   </label>
                   <select
                     id="formType"
@@ -279,7 +278,7 @@ export default function InitialForm() {
                     className="w-full border-2 border-gray-300 rounded-lg bg-transparent p-4 text-gray-900 focus:border-[#fe6363] focus:outline-none focus:ring-0"
                     required
                   >
-                    <option value="">Select Assessment Type</option>
+                    <option value="">Select Type</option>
                     <option value="voc">Voice of Customer</option>
                     <option value="voe">Voice of Employee</option>
                   </select>
