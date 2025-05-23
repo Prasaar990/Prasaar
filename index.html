@@ -37,18 +37,11 @@
     <input type="text" name="companyName" />
     <input type="tel" name="mobile" />
     <input type="text" name="jobRole" />
-    <form name="readiness-assessment" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="fullName" />
-      <input type="email" name="companyEmail" />
-      <input type="text" name="companyName" />
-      <input type="tel" name="mobile" />
-      <input type="text" name="jobRole" />
-
-      <!-- Radio buttons to replace select -->
-      <input type="radio" name="formType" value="voc" />
-      <input type="radio" name="formType" value="voe" />
-    </form>
+    <!-- Radio buttons for form type -->
+    <input type="radio" name="formType" value="voc" />
+    <input type="radio" name="formType" value="voe" />
   </form>
+
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>

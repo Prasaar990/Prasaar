@@ -150,7 +150,7 @@ export default function InitialForm() {
               className="text-white text-opacity-90 max-w-[672px]"
               style={{ fontSize: "16px", lineHeight: "24px" }}
             >
-              Check Org&apos;s Readiness for
+              Check Your Org&apos;s Readiness for
               <strong>
                 {" "}
                 <em>Customer Trust </em>{" "}

@@ -3,10 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 export default function VoeAssessment() {
   const getUserDetails = () => {
-    const storedData = localStorage.getItem("userAssessmentDetails");
+    const storedData = localStorage.getItem("userDetails");
     return storedData ? JSON.parse(storedData) : null;
   };
-  const userData = getUserDetails() || { fullName: "no name provided" };
+  const userData = getUserDetails() || {
+    fullName: "no name provided",
+    companyEmail: "",
+    companyName: "",
+    jobRole: "",
+    formType: "VOE",
+  };
   const navigate = useNavigate();
   function onBack() {
     navigate(-1);
@@ -288,6 +294,10 @@ export default function VoeAssessment() {
               <p className="text-gray-600 text-[18px]">
                 Welcome, {userData.fullName}
               </p>
+              <p className="text-gray-600 text-[18px]">
+                {userData?.companyName} - {userData?.companyEmail}
+              </p>
+              <p className="text-gray-600 text-[18px]">{userData?.jobRole}</p>
             </div>
             <button
               onClick={onBack}
