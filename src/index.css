@@ -2,6 +2,7 @@
 
 :root {
   --color-primary: #b42642;
+  --color-primary-light: #a90f23;
   --color-secondary: #5e5eff;
   --color-text: #30384c;
 }
@@ -53,6 +54,11 @@ select {
 
 .bg_primary {
   background-color: var(--color-primary);
+  color: white;
+}
+
+.bg_primary:hover {
+  background-color: var(--color-primary-light);
   color: white;
 }
 

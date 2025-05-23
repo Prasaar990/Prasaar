@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -16,6 +16,38 @@ export default function InitialForm() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState(false);
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const loadStoredData = () => {
+      try {
+        const storedUserDetails = localStorage.getItem("userDetails");
+        if (storedUserDetails) {
+          const userDetails = JSON.parse(storedUserDetails);
+
+          // Auto-fill all fields except formType
+          setFormData({
+            fullName: userDetails.fullName || "",
+            companyEmail: userDetails.companyEmail || "",
+            companyName: userDetails.companyName || "",
+            mobile: userDetails.mobile || "",
+            jobRole: userDetails.jobRole || "",
+            // Smart form type selection - select the opposite of what was previously selected
+            formType:
+              userDetails.formType === "voc"
+                ? "voe"
+                : userDetails.formType === "voe"
+                ? "voc"
+                : "",
+          });
+        }
+      } catch (error) {
+        console.error("Error loading stored user data:", error);
+      }
+    };
+
+    loadStoredData();
+  }, []);
 
   // Animation variants
   const formVariants = {
@@ -53,12 +85,18 @@ export default function InitialForm() {
     setIsSubmitting(true);
     setFormError(false);
 
+    // Debug logging
+    console.log("Form data being submitted:", formData);
+
     try {
       // Create FormData from form element for proper Netlify submission
       const formDataForSubmission = new FormData(e.target);
 
       // Add the form-name field that Netlify requires
       formDataForSubmission.append("form-name", "readiness-assessment");
+
+      // Debug logging
+      console.log("FormData entries:", [...formDataForSubmission.entries()]);
 
       // Netlify form submission
       const response = await fetch("/", {
@@ -68,7 +106,7 @@ export default function InitialForm() {
       });
 
       if (response.ok) {
-        // Store form data in localStorage
+        // Store form data in localStorage with same identifier names as before
         const userDetails = {
           fullName: formData.fullName,
           companyEmail: formData.companyEmail,
@@ -416,7 +454,7 @@ export default function InitialForm() {
                         className="accent-[#fe6363] focus:ring-0 focus:outline-none"
                         required
                       />
-                      <span>Trust of Customer</span>
+                      <span>Customer Trust</span>
                     </label>
 
                     <label className="flex items-center space-x-2 text-gray-900">
@@ -429,7 +467,7 @@ export default function InitialForm() {
                         className="accent-[#fe6363] focus:ring-0 focus:outline-none"
                         required
                       />
-                      <span>Trust of Employee</span>
+                      <span>Employee Trust</span>
                     </label>
                   </div>
                 </motion.div>

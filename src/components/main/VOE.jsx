@@ -8,9 +8,9 @@ export default function VoeAssessment() {
   };
   const userData = getUserDetails() || {
     fullName: "no name provided",
-    companyEmail: "",
-    companyName: "",
-    jobRole: "",
+    companyEmail: "No email provided",
+    companyName: "No company provided",
+    jobRole: "No job role provided",
     formType: "VOE",
   };
   const navigate = useNavigate();
@@ -289,21 +289,26 @@ export default function VoeAssessment() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h1 className="text-[24px] sm:text-[30px] font-bold primaryColor mb-[8px]">
-                Voice of Employee
+                Employee Trust
               </h1>
               <p className="text-gray-600 text-[18px]">
                 Welcome, {userData.fullName}
               </p>
-              <p className="text-gray-600 text-[18px]">
-                {userData?.companyName} - {userData?.companyEmail}
-              </p>
               <p className="text-gray-600 text-[18px]">{userData?.jobRole}</p>
+              <p className="text-gray-600 text-[18px]">
+                {userData?.companyName}
+              </p>
+              <p className="text-gray-600 text-[18px]">
+                {userData?.companyEmail}
+              </p>
             </div>
             <button
-              onClick={onBack}
-              className="mt-[16px] sm:mt-0 px-[16px] py-[8px] text-[14px] font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors"
+              onClick={() => {
+                navigate("/readiness-check");
+              }}
+              className="pointer mt-[16px] sm:mt-0 px-[16px] py-[8px] text-[14px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
             >
-              ← Back to Form
+              Check Customer Trust
             </button>
           </div>
         </div>
