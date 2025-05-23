@@ -2,21 +2,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function VocAssessment() {
+  const navigate = useNavigate();
   const getUserDetails = () => {
     const storedData = localStorage.getItem("userDetails");
     return storedData ? JSON.parse(storedData) : null;
   };
   const userData = getUserDetails() || {
-    fullName: "no name provided",
+    fullName: "No name provided",
     companyEmail: "No email provided",
     companyName: "No company provided",
     jobRole: "No job role provided",
     formType: "VOE",
   };
-  const navigate = useNavigate();
-  function onBack() {
-    navigate(-1);
-  }
 
   const [formData, setFormData] = useState({
     // 1. Data Collection Capabilities
@@ -192,6 +189,312 @@ export default function VocAssessment() {
     }
   };
 
+  // Download function for PDF
+  const downloadResponse = () => {
+    const currentDate = new Date().toLocaleDateString();
+    const currentTime = new Date().toLocaleTimeString();
+
+    const dataCollectionItems = [
+      { key: "onlineSurveys", label: "Online Surveys" },
+      { key: "npsTools", label: "NPS Tools" },
+      { key: "inAppFeedback", label: "In-app Feedback Widgets" },
+      { key: "socialListening", label: "Social Listening" },
+      { key: "customerServiceForms", label: "Customer Service Feedback Forms" },
+      { key: "productReviewPlatforms", label: "Product Review Platforms" },
+      { key: "surveys", label: "Surveys" },
+      { key: "chatTextMessages", label: "Chat and Text Messages" },
+      { key: "phoneCalls", label: "Phone Calls" },
+      { key: "speechAnalytics", label: "Speech Analytics" },
+      { key: "emails", label: "Emails" },
+    ];
+
+    const touchpointItems = [
+      { key: "website", label: "Website" },
+      { key: "mobileApp", label: "Mobile App" },
+      { key: "email", label: "Email" },
+      { key: "socialMedia", label: "Social Media" },
+      { key: "callCenters", label: "Call Centers" },
+      { key: "physicalStores", label: "Physical Stores" },
+      { key: "chatbots", label: "Chatbots" },
+      { key: "onlineForums", label: "Online Forums" },
+      { key: "whatsapp", label: "WhatsApp" },
+      { key: "qr", label: "QR" },
+    ];
+
+    const organizationalItems = [
+      { key: "cxWorkshops", label: "CX Workshops & Training" },
+      { key: "cxKpis", label: "CX KPIs in Performance Reviews" },
+      { key: "leadershipReviews", label: "Leadership CX Review Meetings" },
+      {
+        key: "customerCentricVision",
+        label: "Customer-Centric Vision Statements",
+      },
+      { key: "other", label: "Other" },
+    ];
+
+    const technologyItems = [
+      { key: "crmTools", label: "CRM Tools" },
+      { key: "feedbackPlatforms", label: "Customer Feedback Platforms" },
+      { key: "dashboards", label: "Analytics Dashboards" },
+      { key: "integrationTools", label: "Integration Tools" },
+      { key: "dataLakes", label: "Data Lakes or Centralized Data Platforms" },
+      {
+        key: "apis",
+        label: "APIs to pull data from survey tools into CRM or BI tools",
+      },
+    ];
+
+    const governanceItems = [
+      { key: "dedicatedTeam", label: "Dedicated VoC Team" },
+      { key: "cxManager", label: "CX Manager" },
+      { key: "feedbackRouting", label: "Feedback Routing Workflows" },
+      { key: "dataGovernance", label: "Data Governance Policies" },
+      {
+        key: "centralizedRepository",
+        label: "Centralized Repository For Feedback",
+      },
+      { key: "feedbackPlaybooks", label: "Feedback-to-action Playbooks" },
+    ];
+
+    const generateSectionContent = (title, items, scoreKey) => {
+      const selectedItems = items.filter((item) => formData[item.key]);
+      const unselectedItems = items.filter((item) => !formData[item.key]);
+
+      return {
+        title,
+        score: readiness[scoreKey],
+        selectedItems,
+        unselectedItems,
+        total: items.length,
+      };
+    };
+
+    // Create PDF content using HTML
+    const pdfContent = `
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Customer Trust Assessment Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }
+            .header { text-align: center; border-bottom: 3px solid #b42642; padding-bottom: 20px; margin-bottom: 30px; }
+            .header h1 { color: #b42642; font-size: 28px; margin: 0; }
+            .header p { color: #6b7280; margin: 5px 0; }
+            .section { margin-bottom: 30px; }
+            .section-title { color: #b42642; font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+            .subsection-title { color: #374151; font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+            .score-container { background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+            .score-large { font-size: 36px; font-weight: bold; color: #b42642; text-align: center; }
+            .score-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+            .score-item { background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center; border-left: 4px solid #b42642; }
+            .score-item h4 { margin: 0 0 10px 0; color: #374151; font-size: 14px; }
+            .score-item p { margin: 0; font-size: 24px; font-weight: bold; color: #b42642; }
+            .assessment-section { background: #f9fafb; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+            .checkbox-list { margin: 15px 0; }
+            .checkbox-item { margin: 5px 0; padding: 5px 0; }
+            .selected { color: #059669; font-weight: 500; }
+            .unselected { color: #6b7280; }
+            .checkmark { color: #059669; font-weight: bold; }
+            .crossmark { color: #dc2626; font-weight: bold; }
+            .summary-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 6px solid #b42642; margin: 20px 0; }
+            .recommendations { background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 6px solid #f59e0b; }
+            .page-break { page-break-before: always; }
+            @media print { body { margin: 20px; } .page-break { page-break-before: always; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>VOICE OF CUSTOMER ASSESSMENT REPORT</h1>
+            <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
+            <div style="margin-top: 20px;">
+              <p><strong>Name:</strong> ${userData.fullName}</p>
+              <p><strong>Email:</strong> ${userData.companyEmail}</p>
+              <p><strong>Company:</strong> ${userData.companyName}</p>
+              <p><strong>Job Role:</strong> ${userData.jobRole}</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">OVERALL READINESS SCORE</div>
+            <div class="score-container">
+              <div class="score-large">${readiness.overall}%</div>
+              <div class="summary-box">
+                <strong>Assessment Summary:</strong><br>
+                ${getScoreMessage(readiness.overall)}
+              </div>
+            </div>
+            
+            <div class="score-breakdown">
+              <div class="score-item">
+                <h4>Data Collection</h4>
+                <p>${readiness.dataCollection}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Touchpoints</h4>
+                <p>${readiness.touchpoints}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Organizational</h4>
+                <p>${readiness.organizational}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Technology</h4>
+                <p>${readiness.technology}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Governance</h4>
+                <p>${readiness.governance}%</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-break"></div>
+
+          <div class="section">
+            <div class="section-title">DETAILED ASSESSMENT RESULTS</div>
+            
+            ${[
+              generateSectionContent(
+                "1) DATA COLLECTION CAPABILITIES",
+                dataCollectionItems,
+                "dataCollection"
+              ),
+              generateSectionContent(
+                "2) CUSTOMER TOUCHPOINTS",
+                touchpointItems,
+                "touchpoints"
+              ),
+              generateSectionContent(
+                "3) ORGANIZATIONAL ALIGNMENT",
+                organizationalItems,
+                "organizational"
+              ),
+              generateSectionContent(
+                "4) TECHNOLOGY READINESS",
+                technologyItems,
+                "technology"
+              ),
+              generateSectionContent(
+                "5) FEEDBACK GOVERNANCE",
+                governanceItems,
+                "governance"
+              ),
+            ]
+              .map(
+                (section) => `
+              <div class="assessment-section">
+                <div class="subsection-title">${section.title}</div>
+                <p><strong>Score: ${section.score}%</strong> (${
+                  section.selectedItems.length
+                }/${section.total} items selected)</p>
+                
+                <div class="checkbox-list">
+                  <p><strong>✓ Selected Items (${
+                    section.selectedItems.length
+                  }):</strong></p>
+                  ${
+                    section.selectedItems.length > 0
+                      ? section.selectedItems
+                          .map(
+                            (item) =>
+                              `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
+                          )
+                          .join("")
+                      : '<div class="checkbox-item unselected">None selected</div>'
+                  }
+                  
+                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${
+                    section.unselectedItems.length
+                  }):</strong></p>
+                  ${
+                    section.unselectedItems.length > 0
+                      ? section.unselectedItems
+                          .map(
+                            (item) =>
+                              `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
+                          )
+                          .join("")
+                      : '<div class="checkbox-item selected">All items selected</div>'
+                  }
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+
+          <div class="section">
+            <div class="section-title">RECOMMENDATIONS</div>
+            <div class="recommendations">
+              <p><strong>Based on your overall score of ${
+                readiness.overall
+              }%, here are key areas to focus on:</strong></p>
+              <ul>
+                ${
+                  readiness.dataCollection < 70
+                    ? "<li><strong>Improve Data Collection Capabilities</strong> - Consider implementing more feedback collection methods to capture comprehensive customer insights.</li>"
+                    : ""
+                }
+                ${
+                  readiness.touchpoints < 70
+                    ? "<li><strong>Expand Customer Touchpoints</strong> - Leverage additional channels to reach customers and gather feedback across more interaction points.</li>"
+                    : ""
+                }
+                ${
+                  readiness.organizational < 70
+                    ? "<li><strong>Strengthen Organizational Alignment</strong> - Enhance CX culture and leadership commitment to customer-centricity.</li>"
+                    : ""
+                }
+                ${
+                  readiness.technology < 70
+                    ? "<li><strong>Upgrade Technology Infrastructure</strong> - Invest in better tools and integration capabilities for effective data management.</li>"
+                    : ""
+                }
+                ${
+                  readiness.governance < 70
+                    ? "<li><strong>Establish Better Governance</strong> - Create structured processes and dedicated resources for managing customer feedback.</li>"
+                    : ""
+                }
+                ${
+                  readiness.overall >= 70
+                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced VoC strategies.</li>"
+                    : ""
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #e5e7eb; color: #6b7280;">
+            <p>Generated On Prasaar: https://prasaar.co </p>
+            <p style="font-size: 12px;">Report generated on ${currentDate} at ${currentTime}</p>
+          </div>
+        </body>
+      </html>
+    `;
+
+    // Create PDF using print functionality
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(pdfContent);
+    printWindow.document.close();
+
+    // Set title for the print dialog
+    printWindow.document.title = `VoC_Assessment_Report_${userData.fullName.replace(
+      /\s+/g,
+      "_"
+    )}_${currentDate.replace(/\//g, "-")}`;
+
+    // Wait for content to load then print
+    printWindow.onload = function () {
+      setTimeout(() => {
+        printWindow.print();
+        // Close the window after printing (optional)
+        setTimeout(() => {
+          printWindow.close();
+        }, 1000);
+      }, 500);
+    };
+  };
+
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
     <div>
       <h3 className="text-[18px] font-medium text-gray-800 mb-[16px]">
@@ -322,14 +625,35 @@ export default function VocAssessment() {
                 {userData?.companyEmail}
               </p>
             </div>
-            <button
-              onClick={() => {
-                navigate("/readiness-check");
-              }}
-              className="pointer mt-[16px] sm:mt-0 px-[16px] py-[8px] text-[14px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-            >
-              Check Employee Trust
-            </button>
+            <div className="flex flex-col sm:flex-row gap-[12px] mt-[16px] sm:mt-0">
+              <button
+                onClick={downloadResponse}
+                className="px-[16px] py-[8px] text-[14px] font-medium text-white bg-blue-600 hover:bg-blue-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center gap-2"
+              >
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Download PDF Response
+              </button>
+              <button
+                onClick={() => {
+                  navigate("/employee-trust");
+                }}
+                className="pointer px-[16px] py-[8px] text-[14px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              >
+                Check Employee Trust
+              </button>
+            </div>
           </div>
         </div>
 
