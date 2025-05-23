@@ -19,7 +19,10 @@ function App() {
           <Route path="/terms" element={<Terms />}></Route>
           <Route path="/voc" element={<VocAssessment />}></Route>
           <Route path="/voe" element={<VoeAssessment />}></Route>
-          <Route path="/rediness-form" element={<InitialForm />}>
+          <Route path="/readiness-check" element={<InitialForm />}>
+            {" "}
+          </Route>
+          <Route path="*" element={<Main />}>
             {" "}
           </Route>
         </Routes>

@@ -4,17 +4,17 @@ import { useMediaQuery } from "react-responsive";
 import Button from "./Button";
 import Solutions from "../dropdowns/SolutionsDropdown";
 import UseCases from "../dropdowns/UseCasesDropdown";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
   const [dropdownUseCases, setDropdownUseCases] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
-  const [isFormOpen, setFormOpen] = useState(
-    document.URL.includes("form") ||
-      document.URL.includes("voc") ||
-      document.URL.includes("voe")
-  );
+  const location = useLocation();
+
+  // Check if current page is home page
+  const isHomePage = location.pathname === "/" || location.pathname === "/home";
+
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",
   });
@@ -54,14 +54,16 @@ export default function Header() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("popstate", () => {
-      if (document.URL.includes("form")) setFormOpen(true);
-      else setFormOpen(false);
-      console.log("hash changed");
-    });
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Close dropdowns when location changes
+  useEffect(() => {
+    setDropdownSolutions(false);
+    setDropdownUseCases(false);
+    setDropdownNav(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -75,70 +77,49 @@ export default function Header() {
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <ul className="list-none ">
-            <li className="mt-8 sm:mt-6 md:mt-8">
-              <a href="#info" className="no-underline text-gray-800">
-                Why Prasaar ?
-              </a>
-            </li>
+            {/* Only show navigation items on home page */}
+            {isHomePage && (
+              <>
+                <li className="mt-8 sm:mt-6 md:mt-8">
+                  <a href="#info" className="no-underline text-gray-800">
+                    Why Prasaar ?
+                  </a>
+                </li>
 
-            {/* <li className="mt-8 sm:mt-6 md:mt-8">
-              <a href="#testimonials" className="no-underline text-gray-800">
-                Use Cases
-              </a>
-            </li> */}
+                <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center">
+                  Solutions
+                  <motion.button
+                    type="button"
+                    className="bg-transparent border-none cursor-pointer h-5 sm:h-6"
+                    onClick={() => {
+                      setDropdownSolutions((x) => !x);
+                      if (dropdownUseCases) {
+                        setDropdownUseCases(false);
+                      }
+                    }}
+                  >
+                    <motion.img
+                      src="./img/downArrow.svg"
+                      alt="show solution"
+                      className="h-5 w-5 lg:h-6 lg:w-6"
+                      animate={{ rotate: dropdownSolutions ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </motion.button>
+                </li>
+                <li>
+                  {dropdownSolutions ? (
+                    <Solutions
+                      dropdownSolutions={dropdownSolutions}
+                      isTablet={true}
+                    />
+                  ) : (
+                    ""
+                  )}
+                </li>
+              </>
+            )}
 
-            <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center">
-              Solutions
-              <motion.button
-                type="button"
-                className="bg-transparent border-none cursor-pointer h-5 sm:h-6"
-                onClick={() => {
-                  setDropdownSolutions((x) => !x);
-                  if (dropdownUseCases) {
-                    setDropdownUseCases(false);
-                  }
-                }}
-              >
-                <motion.img
-                  src="./img/downArrow.svg"
-                  alt="show solution"
-                  className="h-5 w-5 lg:h-6 lg:w-6"
-                  animate={{ rotate: dropdownSolutions ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            </li>
-            <li>
-              {dropdownSolutions ? (
-                <Solutions
-                  dropdownSolutions={dropdownSolutions}
-                  isTablet={true}
-                />
-              ) : (
-                ""
-              )}
-            </li>
-            {/* <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center gap-2">
-              UseCases
-              <motion.button
-                type="button"
-                className="bg-transparent border-none cursor-pointer h-5 sm:h-6"
-                onClick={() => {
-                  setDropdownUseCases((x) => !x);
-                  if (dropdownSolutions) {
-                    setDropdownSolutions(false);
-                  }
-                }}
-              >
-                <motion.img
-                  src="./img/downArrow.svg"
-                  alt="show more options"
-                  className="h-5 w-5 sm:h-6 sm:w-6"
-                  animate={{ rotate: dropdownUseCases ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                />
-              </motion.button>
-            </li> */}
             <li>
               {dropdownUseCases ? (
                 <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
@@ -187,7 +168,8 @@ export default function Header() {
         ) : (
           <>
             <div className="z-40">
-              {!isFormOpen ? (
+              {/* Only show navigation items on home page */}
+              {isHomePage && (
                 <ul className="list-none flex gap-6 lg:gap-12">
                   <li>
                     <a
@@ -220,8 +202,6 @@ export default function Header() {
                     </motion.button>
                   </li>
                 </ul>
-              ) : (
-                ""
               )}
             </div>
 
@@ -229,13 +209,14 @@ export default function Header() {
               <Button
                 text={"VoiceAgent Demo"}
                 to="https://call.prasaar.co/#demo"
-                handleFormOpen={setFormOpen}
+                handleFormOpen={() => {}} // Remove setFormOpen since we're not using it anymore
               />
             </div>
           </>
         )}
 
-        {!isTablet ? (
+        {/* Only show dropdowns on home page and not on tablet */}
+        {!isTablet && isHomePage ? (
           <Solutions
             dropdownSolutions={dropdownSolutions}
             isTablet={isTablet}
@@ -243,7 +224,7 @@ export default function Header() {
         ) : (
           ""
         )}
-        {!isTablet ? (
+        {!isTablet && isHomePage ? (
           <UseCases dropdownUseCases={dropdownUseCases} isTablet={isTablet} />
         ) : (
           ""

@@ -68,7 +68,7 @@ export default function InitialForm() {
       });
 
       if (response.ok) {
-        // Store form data in component state instead of localStorage
+        // Store form data in localStorage
         const userDetails = {
           fullName: formData.fullName,
           companyEmail: formData.companyEmail,
@@ -78,6 +78,9 @@ export default function InitialForm() {
           formType: formData.formType,
           submittedAt: new Date().toISOString(), // Optional: timestamp
         };
+
+        // Store in localStorage
+        localStorage.setItem("userDetails", JSON.stringify(userDetails));
 
         // Navigate based on form type selection
         if (formData.formType === "voc") {
@@ -138,16 +141,25 @@ export default function InitialForm() {
             }}
           >
             <h1
-              className="text-white tracking-tight mb-[8px] font-bold"
+              className="text-white tracking-tight mb-[8px] font-medium"
               style={{ fontSize: "30px", lineHeight: "36px" }}
             >
-              Readiness Score
+              Readiness Check
             </h1>
             <p
               className="text-white text-opacity-90 max-w-[672px]"
               style={{ fontSize: "16px", lineHeight: "24px" }}
             >
-              Please fill out your information to get started
+              Check Org&apos;s Readiness for
+              <strong>
+                {" "}
+                <em>Customer Trust </em>{" "}
+              </strong>{" "}
+              and{" "}
+              <strong>
+                {" "}
+                <em> Employee Trust. </em>
+              </strong>
             </p>
           </div>
 
@@ -334,7 +346,7 @@ export default function InitialForm() {
                       lineHeight: "16px",
                     }}
                   >
-                    Format: 123-456-7890
+                    Format: 1234567890
                   </p>
                 </motion.div>
 
@@ -375,7 +387,7 @@ export default function InitialForm() {
                   variants={itemVariants}
                   className="relative"
                   style={{
-                    marginTop: "40px",
+                    marginTop: "0px",
                     "@media (min-width: 640px)": {
                       gridColumn: "span 2",
                     },
@@ -392,24 +404,34 @@ export default function InitialForm() {
                   >
                     Type *
                   </label>
-                  <select
-                    id="formType"
-                    name="formType"
-                    value={formData.formType}
-                    onChange={handleInputChange}
-                    className="w-full bg-transparent text-gray-900 focus:border-[#fe6363] focus:outline-none focus:ring-0 rounded-lg"
-                    style={{
-                      border: "2px solid #d1d5db",
-                      padding: "16px",
-                      fontSize: "16px",
-                      lineHeight: "24px",
-                    }}
-                    required
-                  >
-                    <option value="">Select Type</option>
-                    <option value="voc">Voice of Customer</option>
-                    <option value="voe">Voice of Employee</option>
-                  </select>
+
+                  <div className="space-y-2">
+                    <label className="flex items-center space-x-2 text-gray-900">
+                      <input
+                        type="radio"
+                        name="formType"
+                        value="voc"
+                        checked={formData.formType === "voc"}
+                        onChange={handleInputChange}
+                        className="accent-[#fe6363] focus:ring-0 focus:outline-none"
+                        required
+                      />
+                      <span>Trust of Customer</span>
+                    </label>
+
+                    <label className="flex items-center space-x-2 text-gray-900">
+                      <input
+                        type="radio"
+                        name="formType"
+                        value="voe"
+                        checked={formData.formType === "voe"}
+                        onChange={handleInputChange}
+                        className="accent-[#fe6363] focus:ring-0 focus:outline-none"
+                        required
+                      />
+                      <span>Trust of Employee</span>
+                    </label>
+                  </div>
                 </motion.div>
               </div>
 
@@ -460,7 +482,7 @@ export default function InitialForm() {
                       Submitting...
                     </span>
                   ) : (
-                    "Start Assessment"
+                    "Check Readiness"
                   )}
                 </button>
               </motion.div>
