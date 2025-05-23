@@ -181,11 +181,11 @@ export default function VocAssessment() {
 
   const getScoreMessage = (score) => {
     if (score < 30) {
-      return "Your organization needs significant improvement in Voice of Customer readiness factors.";
+      return "Your organization needs significant improvement in Customer Trust  factors.";
     } else if (score >= 30 && score < 70) {
-      return "Your organization has moderate Voice of Customer readiness but there's room for improvement.";
+      return "Your organization has moderate Customer Trust but there's room for improvement.";
     } else {
-      return "Your organization demonstrates strong Voice of Customer readiness across key areas.";
+      return "Your organization demonstrates strong Customer Trust across key areas.";
     }
   };
 
@@ -304,7 +304,7 @@ export default function VocAssessment() {
         </head>
         <body>
           <div class="header">
-            <h1>VOICE OF CUSTOMER ASSESSMENT REPORT</h1>
+            <h1>Customer Trust ASSESSMENT REPORT</h1>
             <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
             <div style="margin-top: 20px;">
               <p><strong>Name:</strong> ${userData.fullName}</p>
@@ -611,7 +611,7 @@ export default function VocAssessment() {
         <div className="bg-white shadow-sm rounded-[8px] mb-[24px] p-[24px]">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-[24px] sm:text-[30px] font-bold primaryColor mb-[8px]">
+              <h1 className="text-[24px] sm:text-[30px] font-medium primaryColor mb-[8px]">
                 Customer Trust
               </h1>
               <p className="text-gray-600 text-[18px]">
@@ -658,11 +658,11 @@ export default function VocAssessment() {
         </div>
 
         <div className="space-y-[24px]">
-          {/* Voice of Customer Checklist */}
+          {/* Customer Trust Checklist */}
           <div className="bg-white shadow-sm rounded-[8px] overflow-hidden">
             <div className="bg-blue-50 px-[24px] py-[16px] border-b border-blue-100">
               <h2 className="text-[20px] font-semibold primaryColor">
-                Voice of Customer Checklist
+                Customer Trust Checklist
               </h2>
             </div>
 
@@ -710,7 +710,7 @@ export default function VocAssessment() {
           <div className="bg-white shadow-sm rounded-[8px] overflow-hidden">
             <div className="bg-gray-50 px-[24px] py-[16px] border-b border-gray-200">
               <h2 className="text-[20px] font-semibold text-gray-800">
-                Overall Voice of Customer Readiness Score
+                Overall Customer Trust Readiness Score
               </h2>
             </div>
 

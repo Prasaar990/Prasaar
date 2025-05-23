@@ -162,11 +162,11 @@ export default function VoeAssessment() {
 
   const getScoreMessage = (score) => {
     if (score < 30) {
-      return "Your organization needs significant improvement in Employee Trust readiness factors.";
+      return "Your organization needs significant improvement in Employee Trust factors.";
     } else if (score >= 30 && score < 70) {
-      return "Your organization has moderate Employee Trust readiness but there's room for improvement.";
+      return "Your organization has moderate Employee Trust but there's room for improvement.";
     } else {
-      return "Your organization demonstrates strong Employee Trust readiness across key areas.";
+      return "Your organization demonstrates strong Employee Trust across key areas.";
     }
   };
 
@@ -592,7 +592,7 @@ export default function VoeAssessment() {
         <div className="bg-white shadow-sm rounded-[8px] mb-[24px] p-[24px]">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-[24px] sm:text-[30px] font-bold primaryColor mb-[8px]">
+              <h1 className="text-[24px] sm:text-[30px] font-medium primaryColor mb-[8px]">
                 Employee Trust
               </h1>
               <p className="text-gray-600 text-[18px]">

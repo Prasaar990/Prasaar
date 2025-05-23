@@ -17,8 +17,8 @@ function App() {
           <Route path="/" element={<Main />}></Route>
           <Route path="/form" element={<GetStarted />}></Route>
           <Route path="/terms" element={<Terms />}></Route>
-          <Route path="/voc" element={<VocAssessment />}></Route>
-          <Route path="/voe" element={<VoeAssessment />}></Route>
+          <Route path="/customer-trust" element={<VocAssessment />}></Route>
+          <Route path="/employee-trust" element={<VoeAssessment />}></Route>
           <Route path="/readiness-check" element={<InitialForm />}>
             {" "}
           </Route>
