@@ -647,7 +647,7 @@ export default function VocAssessment() {
               </button>
               <button
                 onClick={() => {
-                  navigate("/employee-trust");
+                  navigate("/readiness-check");
                 }}
                 className="pointer px-[16px] py-[8px] text-[14px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
