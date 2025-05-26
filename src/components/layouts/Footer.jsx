@@ -66,20 +66,20 @@ export default function Footer() {
         >
           <ul className="space-y-[16px]">
             <li>
-              <h2 className="text-[24px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
+              <h2 className="text-[20px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
                 Products
               </h2>
             </li>
-            <li className="hover:translate-x-[4px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               CSAT Survey
             </li>
-            <li className="hover:translate-x-[4px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               Opinion Survey
             </li>
-            <li className="hover:translate-x-[4px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               Feedback
             </li>
-            <li className="hover:translate-x-[4px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               Complaint Management
             </li>
           </ul>
@@ -96,11 +96,11 @@ export default function Footer() {
         >
           <ul className="space-y-[16px]">
             <li>
-              <h2 className="text-[24px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
+              <h2 className="text-[20px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
                 Contact
               </h2>
             </li>
-            <li className="hover:translate-x-[4px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               Email: ashok@prasaar.co
             </li>
           </ul>
@@ -117,11 +117,11 @@ export default function Footer() {
         >
           <ul className="space-y-[16px]">
             <li>
-              <h2 className="text-[24px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
+              <h2 className="text-[20px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
                 About us
               </h2>
             </li>
-            <li>
+            <li className="text-[18px]">
               We help businesses connect with customers effortlessly through
               WhatsApp, combining automation and real-time interactions to
               enhance engagement, trust, and revenue.
@@ -139,7 +139,7 @@ export default function Footer() {
         className="flex flex-col items-center mt-[32px] space-y-[24px]"
       >
         <h2
-          className={`text-[24px] font-medium relative pb-[16px] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2 after:w-[96px] after:h-[3px] after:bg-gradient-to-r after:from-transparent after:via-white/80 after:to-transparent after:rounded-[4px] transition-all duration-1000 ${
+          className={`text-[20px] font-medium relative pb-[16px] after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:transform after:-translate-x-1/2 after:w-[96px] after:h-[3px] after:bg-gradient-to-r after:from-transparent after:via-white/80 after:to-transparent after:rounded-[4px] transition-all duration-1000 ${
             isVisible.social
               ? "opacity-100 transform translate-y-0"
               : "opacity-0 transform -translate-y-[32px]"

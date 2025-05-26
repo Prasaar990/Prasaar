@@ -5,6 +5,8 @@ export default function VoeAssessment() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [showOverallScore, setShowOverallScore] = useState(false);
+  const [isFormLocked, setIsFormLocked] = useState(false);
 
   const getUserDetails = () => {
     const storedData = localStorage.getItem("userDetails");
@@ -132,8 +134,10 @@ export default function VoeAssessment() {
     { key: "hrPlanningIntegration", label: "HR Planning Integration" },
   ];
 
-  // Handle checkbox changes
+  // Handle checkbox changes - only if form is not locked
   const handleInputChange = (e) => {
+    if (isFormLocked) return;
+
     const { name, checked } = e.target;
     setFormData({
       ...formData,
@@ -239,53 +243,50 @@ export default function VoeAssessment() {
     }
   };
 
-  // Submit form data
-  const submitToNetlify = async (e) => {
-    e.preventDefault();
+  // Submit form data to Netlify
+  const submitToNetlify = async () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
-      const netlifyFormData = new FormData();
+      // Create FormData object for submission
+      const submissionData = new FormData();
 
-      // Add user details
-      netlifyFormData.append("form-name", "employee-trust-assessment");
-      netlifyFormData.append("fullName", userData.fullName);
-      netlifyFormData.append("companyEmail", userData.companyEmail);
-      netlifyFormData.append("companyName", userData.companyName);
-      netlifyFormData.append("jobRole", userData.jobRole);
-      netlifyFormData.append("formType", "VOE");
+      // Add form name and user details
+      submissionData.append("form-name", "employee-trust-assessment");
+      submissionData.append("fullName", userData.fullName);
+      submissionData.append("companyEmail", userData.companyEmail);
+      submissionData.append("companyName", userData.companyName);
+      submissionData.append("jobRole", userData.jobRole);
+      submissionData.append("formType", "employee-trust");
 
-      // Add all checkbox values
-      Object.entries(formData).forEach(([key, value]) => {
-        netlifyFormData.append(key, value);
+      // Add all checkbox values from formData state
+      Object.keys(formData).forEach((key) => {
+        submissionData.append(key, formData[key] ? "true" : "false");
       });
 
-      // Add scores
-      netlifyFormData.append(
+      // Add readiness scores
+      submissionData.append(
         "responseMechanismsScore",
         readiness.responseMechanisms
       );
-      netlifyFormData.append("dataSecurityScore", readiness.dataSecurity);
-      netlifyFormData.append("leadershipScore", readiness.leadership);
-      netlifyFormData.append("cultureScore", readiness.culture);
-      netlifyFormData.append("engagementScore", readiness.engagement);
-      netlifyFormData.append("overallScore", readiness.overall);
+      submissionData.append("dataSecurityScore", readiness.dataSecurity);
+      submissionData.append("leadershipScore", readiness.leadership);
+      submissionData.append("cultureScore", readiness.culture);
+      submissionData.append("engagementScore", readiness.engagement);
+      submissionData.append("overallScore", readiness.overall);
 
-      // Add timestamp
-      netlifyFormData.append(
-        "submissionDate",
-        new Date().toISOString().split("T")[0]
-      );
-      netlifyFormData.append(
-        "submissionTime",
-        new Date().toISOString().split("T")[1]
-      );
+      // Add submission timestamp
+      const currentDate = new Date().toLocaleDateString();
+      const currentTime = new Date().toLocaleTimeString();
+      submissionData.append("submissionDate", currentDate);
+      submissionData.append("submissionTime", currentTime);
 
+      // Submit to Netlify
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(netlifyFormData).toString(),
+        body: new URLSearchParams(submissionData).toString(),
       });
 
       if (response.ok) {
@@ -299,6 +300,15 @@ export default function VoeAssessment() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Handle showing overall score and auto-submit (Fixed to match Customer Trust flow)
+  const handleShowOverallScore = async () => {
+    setShowOverallScore(true);
+    setIsFormLocked(true);
+
+    // Auto-submit the form when overall score is shown
+    await submitToNetlify();
   };
 
   // Download function for PDF
@@ -319,207 +329,127 @@ export default function VoeAssessment() {
       };
     };
 
-    // Create PDF content using HTML
+    // Generate PDF content
+    const sections = [
+      generateSectionContent(
+        "Employee Response Mechanisms",
+        responseMechanismsItems,
+        "responseMechanisms"
+      ),
+      generateSectionContent(
+        "Data Privacy & Security Measures",
+        dataSecurityItems,
+        "dataSecurity"
+      ),
+      generateSectionContent(
+        "Leadership Support",
+        leadershipItems,
+        "leadership"
+      ),
+      generateSectionContent(
+        "Culture of Openness & Feedback",
+        cultureItems,
+        "culture"
+      ),
+      generateSectionContent(
+        "Engagement Channels",
+        engagementItems,
+        "engagement"
+      ),
+    ];
+
     const pdfContent = `
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <title>Employee Trust Assessment Report</title>
-          <style>
-            body { font-family: Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }
-            .header { text-align: center; border-bottom: 3px solid #b42642; padding-bottom: 20px; margin-bottom: 30px; }
-            .header h1 { color: #b42642; font-size: 28px; margin: 0; }
-            .header p { color: #6b7280; margin: 5px 0; }
-            .section { margin-bottom: 30px; }
-            .section-title { color: #b42642; font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
-            .subsection-title { color: #374151; font-size: 16px; font-weight: bold; margin-bottom: 10px; }
-            .score-container { background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-            .score-large { font-size: 36px; font-weight: bold; color: #b42642; text-align: center; }
-            .score-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-            .score-item { background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center; border-left: 4px solid #b42642; }
-            .score-item h4 { margin: 0 0 10px 0; color: #374151; font-size: 14px; }
-            .score-item p { margin: 0; font-size: 24px; font-weight: bold; color: #b42642; }
-            .assessment-section { background: #f9fafb; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
-            .checkbox-list { margin: 15px 0; }
-            .checkbox-item { margin: 5px 0; padding: 5px 0; }
-            .selected { color: #059669; font-weight: 500; }
-            .unselected { color: #6b7280; }
-            .checkmark { color: #059669; font-weight: bold; }
-            .crossmark { color: #dc2626; font-weight: bold; }
-            .summary-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 6px solid #b42642; margin: 20px 0; }
-            .recommendations { background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 6px solid #f59e0b; }
-            .page-break { page-break-before: always; }
-            @media print { body { margin: 20px; } .page-break { page-break-before: always; } }
-          </style>
-        </head>
-        <body>
-          <div class="header">
-            <h1>Employee Trust ASSESSMENT REPORT</h1>
-            <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
-            <div style="margin-top: 20px;">
-              <p><strong>Name:</strong> ${userData.fullName}</p>
-              <p><strong>Email:</strong> ${userData.companyEmail}</p>
-              <p><strong>Company:</strong> ${userData.companyName}</p>
-              <p><strong>Job Role:</strong> ${userData.jobRole}</p>
-            </div>
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Employee Trust Assessment Report</title>
+      <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .section { margin-bottom: 25px; page-break-inside: avoid; }
+        .score-bar { height: 20px; background: #f0f0f0; border-radius: 10px; margin: 10px 0; }
+        .score-fill { height: 100%; border-radius: 10px; }
+        .low { background: #ef4444; }
+        .medium { background: #eab308; }
+        .high { background: #22c55e; }
+        .selected { color: #22c55e; }
+        .unselected { color: #ef4444; }
+        ul { margin: 10px 0; }
+        li { margin: 5px 0; }
+        @media print { body { margin: 0; } }
+      </style>
+    </head>
+    <body>
+      <div class="header">
+        <h1>Employee Trust Assessment Report</h1>
+        <h2>${userData.fullName}</h2>
+        <p><strong>Company:</strong> ${userData.companyName}</p>
+        <p><strong>Role:</strong> ${userData.jobRole}</p>
+        <p><strong>Email:</strong> ${userData.companyEmail}</p>
+        <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
+      </div>
+
+      <div class="section">
+        <h2>Overall Employee Trust Score: ${readiness.overall}%</h2>
+        <div class="score-bar">
+          <div class="score-fill ${
+            readiness.overall < 30
+              ? "low"
+              : readiness.overall < 70
+              ? "medium"
+              : "high"
+          }" 
+               style="width: ${readiness.overall}%"></div>
+        </div>
+        <p><strong>Summary:</strong> ${getScoreMessage(readiness.overall)}</p>
+      </div>
+
+      ${sections
+        .map(
+          (section) => `
+        <div class="section">
+          <h3>${section.title}: ${section.score}%</h3>
+          <div class="score-bar">
+            <div class="score-fill ${
+              section.score < 30
+                ? "low"
+                : section.score < 70
+                ? "medium"
+                : "high"
+            }" 
+                 style="width: ${section.score}%"></div>
           </div>
-
-          <div class="section">
-            <div class="section-title">OVERALL READINESS SCORE</div>
-            <div class="score-container">
-              <div class="score-large">${readiness.overall}%</div>
-              <div class="summary-box">
-                <strong>Assessment Summary:</strong><br>
-                ${getScoreMessage(readiness.overall)}
-              </div>
-            </div>
-            
-            <div class="score-breakdown">
-              <div class="score-item">
-                <h4>Response Mechanisms</h4>
-                <p>${readiness.responseMechanisms}%</p>
-              </div>
-              <div class="score-item">
-                <h4>Data Security</h4>
-                <p>${readiness.dataSecurity}%</p>
-              </div>
-              <div class="score-item">
-                <h4>Leadership</h4>
-                <p>${readiness.leadership}%</p>
-              </div>
-              <div class="score-item">
-                <h4>Culture</h4>
-                <p>${readiness.culture}%</p>
-              </div>
-              <div class="score-item">
-                <h4>Engagement</h4>
-                <p>${readiness.engagement}%</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="page-break"></div>
-
-          <div class="section">
-            <div class="section-title">DETAILED ASSESSMENT RESULTS</div>
-            
-            ${[
-              generateSectionContent(
-                "1) EMPLOYEE RESPONSE MECHANISMS",
-                responseMechanismsItems,
-                "responseMechanisms"
-              ),
-              generateSectionContent(
-                "2) DATA PRIVACY & SECURITY MEASURES",
-                dataSecurityItems,
-                "dataSecurity"
-              ),
-              generateSectionContent(
-                "3) LEADERSHIP SUPPORT",
-                leadershipItems,
-                "leadership"
-              ),
-              generateSectionContent(
-                "4) CULTURE OF OPENNESS & FEEDBACK",
-                cultureItems,
-                "culture"
-              ),
-              generateSectionContent(
-                "5) ENGAGEMENT CHANNELS",
-                engagementItems,
-                "engagement"
-              ),
-            ]
-              .map(
-                (section) => `
-              <div class="assessment-section">
-                <div class="subsection-title">${section.title}</div>
-                <p><strong>Score: ${section.score}%</strong> (${
-                  section.selectedItems.length
-                }/${section.total} items selected)</p>
-                
-                <div class="checkbox-list">
-                  <p><strong>✓ Selected Items (${
-                    section.selectedItems.length
-                  }):</strong></p>
-                  ${
-                    section.selectedItems.length > 0
-                      ? section.selectedItems
-                          .map(
-                            (item) =>
-                              `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
-                          )
-                          .join("")
-                      : '<div class="checkbox-item unselected">None selected</div>'
-                  }
-                  
-                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${
-                    section.unselectedItems.length
-                  }):</strong></p>
-                  ${
-                    section.unselectedItems.length > 0
-                      ? section.unselectedItems
-                          .map(
-                            (item) =>
-                              `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
-                          )
-                          .join("")
-                      : '<div class="checkbox-item selected">All items selected</div>'
-                  }
-                </div>
-              </div>
-            `
-              )
+          <p><strong>Selected (${section.selectedItems.length}/${
+            section.total
+          }):</strong></p>
+          <ul>
+            ${section.selectedItems
+              .map((item) => `<li class="selected">✓ ${item.label}</li>`)
               .join("")}
-          </div>
+            ${
+              section.selectedItems.length === 0 ? "<li>None selected</li>" : ""
+            }
+          </ul>
+          <p><strong>Not Selected (${section.unselectedItems.length}/${
+            section.total
+          }):</strong></p>
+          <ul>
+            ${section.unselectedItems
+              .map((item) => `<li class="unselected">✗ ${item.label}</li>`)
+              .join("")}
+            ${
+              section.unselectedItems.length === 0
+                ? "<li>All items selected</li>"
+                : ""
+            }
+          </ul>
+        </div>
+      `
+        )
+        .join("")}
 
-          <div class="section">
-            <div class="section-title">RECOMMENDATIONS</div>
-            <div class="recommendations">
-              <p><strong>Based on your overall score of ${
-                readiness.overall
-              }%, here are key areas to focus on:</strong></p>
-              <ul>
-                ${
-                  readiness.responseMechanisms < 70
-                    ? "<li><strong>Improve Employee Response Mechanisms</strong> - Consider implementing more feedback collection methods to capture comprehensive employee insights.</li>"
-                    : ""
-                }
-                ${
-                  readiness.dataSecurity < 70
-                    ? "<li><strong>Strengthen Data Privacy & Security</strong> - Enhance security measures and transparency to build employee trust in feedback systems.</li>"
-                    : ""
-                }
-                ${
-                  readiness.leadership < 70
-                    ? "<li><strong>Increase Leadership Support</strong> - Enhance leadership commitment and visible support for employee voice initiatives.</li>"
-                    : ""
-                }
-                ${
-                  readiness.culture < 70
-                    ? "<li><strong>Build Culture of Openness</strong> - Foster an environment where employees feel safe to provide honest feedback.</li>"
-                    : ""
-                }
-                ${
-                  readiness.engagement < 70
-                    ? "<li><strong>Improve Engagement Channels</strong> - Create better systems for acting on employee feedback and closing the loop.</li>"
-                    : ""
-                }
-                ${
-                  readiness.overall >= 70
-                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced employee voice strategies.</li>"
-                    : ""
-                }
-              </ul>
-            </div>
-          </div>
-
-          <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #e5e7eb; color: #6b7280;">
-            <p>Generated On Prasaar: https://prasaar.co </p>
-            <p style="font-size: 12px;">Report generated on ${currentDate} at ${currentTime}</p>
-          </div>
-        </body>
-      </html>
+    </body>
+    </html>
     `;
 
     // Create PDF using print functionality
@@ -528,7 +458,7 @@ export default function VoeAssessment() {
     printWindow.document.close();
 
     // Set title for the print dialog
-    printWindow.document.title = `Employee_Trust_Assessment_Report_${userData.fullName.replace(
+    printWindow.document.title = `Employee_Trust_Assessment_${userData.fullName.replace(
       /\s+/g,
       "_"
     )}_${currentDate.replace(/\//g, "-")}`;
@@ -546,7 +476,7 @@ export default function VoeAssessment() {
   };
 
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
-    <div>
+    <div className={isFormLocked ? "opacity-60" : ""}>
       <h3 className="text-[18px] font-medium text-gray-800 mb-[16px]">
         {title}
       </h3>
@@ -559,10 +489,15 @@ export default function VoeAssessment() {
               name={key}
               checked={formData[key]}
               onChange={handleInputChange}
-              className="w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+              disabled={isFormLocked}
+              className={`w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${
+                isFormLocked ? "cursor-not-allowed" : ""
+              }`}
             />
             <label
-              className="ml-[12px] text-[16px] text-gray-700"
+              className={`ml-[12px] text-[16px] text-gray-700 ${
+                isFormLocked ? "cursor-not-allowed" : ""
+              }`}
               htmlFor={key}
             >
               {label}
@@ -634,6 +569,11 @@ export default function VoeAssessment() {
               <h2 className="text-[20px] font-semibold primaryColor">
                 Employee Trust Checklist
               </h2>
+              {isFormLocked && (
+                <p className="text-sm text-gray-600 mt-1">
+                  Form is locked after viewing overall score
+                </p>
+              )}
             </div>
 
             <div className="p-[24px]">
@@ -676,94 +616,102 @@ export default function VoeAssessment() {
             </div>
           </div>
 
-          {/* Overall Readiness Score */}
-          <div className="bg-white shadow-sm rounded-[8px] overflow-hidden">
-            <div className="bg-gray-50 px-[24px] py-[16px] border-b border-gray-200">
-              <h2 className="text-[20px] font-semibold text-gray-800">
-                Overall Employee Trust Readiness Score
-              </h2>
+          {/* Overall Readiness Score - Only show if button was clicked */}
+          {showOverallScore && (
+            <div className="bg-white shadow-sm rounded-[8px] overflow-hidden">
+              <div className="bg-gray-50 px-[24px] py-[16px] border-b border-gray-200">
+                <h2 className="text-[20px] font-semibold text-gray-800">
+                  Overall Employee Trust Readiness Score
+                </h2>
+              </div>
+
+              <div className="p-[24px]">
+                <div className="mb-[24px]">
+                  <div className="flex justify-between items-center mb-[12px]">
+                    <span className="text-[18px] font-medium text-gray-900">
+                      Overall Score
+                    </span>
+                    <span className="text-[24px] font-bold text-gray-900">
+                      {readiness.overall}%
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-[16px]">
+                    <div
+                      className={`h-[16px] rounded-full transition-all duration-500 ${getProgressBarClass(
+                        readiness.overall
+                      )}`}
+                      style={{ width: `${readiness.overall}%` }}
+                    ></div>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-[8px] p-[16px] mb-[24px]">
+                  <h3 className="font-medium text-gray-800 mb-[8px]">
+                    Summary
+                  </h3>
+                  <p className="text-gray-700">
+                    {getScoreMessage(readiness.overall)}
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-[16px]">
+                  <div className="bg-blue-50 rounded-[8px] p-[16px]">
+                    <h4 className="font-medium text-blue-800 mb-[4px]">
+                      Response Mechanisms
+                    </h4>
+                    <p className="text-[24px] font-bold text-blue-900">
+                      {readiness.responseMechanisms}%
+                    </p>
+                  </div>
+                  <div className="bg-green-50 rounded-[8px] p-[16px]">
+                    <h4 className="font-medium text-green-800 mb-[4px]">
+                      Data Security
+                    </h4>
+                    <p className="text-[24px] font-bold text-green-900">
+                      {readiness.dataSecurity}%
+                    </p>
+                  </div>
+                  <div className="bg-purple-50 rounded-[8px] p-[16px]">
+                    <h4 className="font-medium text-purple-800 mb-[4px]">
+                      Leadership
+                    </h4>
+                    <p className="text-[24px] font-bold text-purple-900">
+                      {readiness.leadership}%
+                    </p>
+                  </div>
+                  <div className="bg-indigo-50 rounded-[8px] p-[16px]">
+                    <h4 className="font-medium text-indigo-800 mb-[4px]">
+                      Culture
+                    </h4>
+                    <p className="text-[24px] font-bold text-indigo-900">
+                      {readiness.culture}%
+                    </p>
+                  </div>
+                  <div className="bg-orange-50 rounded-[8px] p-[16px]">
+                    <h4 className="font-medium text-orange-800 mb-[4px]">
+                      Engagement
+                    </h4>
+                    <p className="text-[24px] font-bold text-orange-900">
+                      {readiness.engagement}%
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
+          )}
 
-            <div className="p-[24px]">
-              <div className="mb-[24px]">
-                <div className="flex justify-between items-center mb-[12px]">
-                  <span className="text-[18px] font-medium text-gray-900">
-                    Overall Score
-                  </span>
-                  <span className="text-[24px] font-bold text-gray-900">
-                    {readiness.overall}%
-                  </span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-[16px]">
-                  <div
-                    className={`h-[16px] rounded-full transition-all duration-500 ${getProgressBarClass(
-                      readiness.overall
-                    )}`}
-                    style={{ width: `${readiness.overall}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="bg-gray-50 rounded-[8px] p-[16px] mb-[24px]">
-                <h3 className="font-medium text-gray-800 mb-[8px]">Summary</h3>
-                <p className="text-gray-700">
-                  {getScoreMessage(readiness.overall)}
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-[16px]">
-                <div className="bg-blue-50 rounded-[8px] p-[16px]">
-                  <h4 className="font-medium text-blue-800 mb-[4px]">
-                    Response Mechanisms
-                  </h4>
-                  <p className="text-[24px] font-bold text-blue-900">
-                    {readiness.responseMechanisms}%
-                  </p>
-                </div>
-                <div className="bg-green-50 rounded-[8px] p-[16px]">
-                  <h4 className="font-medium text-green-800 mb-[4px]">
-                    Data Security
-                  </h4>
-                  <p className="text-[24px] font-bold text-green-900">
-                    {readiness.dataSecurity}%
-                  </p>
-                </div>
-                <div className="bg-purple-50 rounded-[8px] p-[16px]">
-                  <h4 className="font-medium text-purple-800 mb-[4px]">
-                    Leadership
-                  </h4>
-                  <p className="text-[24px] font-bold text-purple-900">
-                    {readiness.leadership}%
-                  </p>
-                </div>
-                <div className="bg-indigo-50 rounded-[8px] p-[16px]">
-                  <h4 className="font-medium text-indigo-800 mb-[4px]">
-                    Culture
-                  </h4>
-                  <p className="text-[24px] font-bold text-indigo-900">
-                    {readiness.culture}%
-                  </p>
-                </div>
-                <div className="bg-orange-50 rounded-[8px] p-[16px]">
-                  <h4 className="font-medium text-orange-800 mb-[4px]">
-                    Engagement
-                  </h4>
-                  <p className="text-[24px] font-bold text-orange-900">
-                    {readiness.engagement}%
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons Section - Moved to bottom with matching styles */}
+          {/* Action Buttons Section */}
           <div className="bg-white shadow-sm rounded-[8px] p-[24px]">
             <div className="border-b border-gray-200 pb-[16px] mb-[24px]">
               <h2 className="text-[20px] font-semibold text-gray-800">
-                Complete Your Assessment
+                {!showOverallScore
+                  ? "Assessment Actions"
+                  : "Complete Your Assessment"}
               </h2>
               <p className="text-gray-600 mt-[4px]">
-                Save your responses or download a copy of your results
+                {!showOverallScore
+                  ? "Click below to view your overall assessment score"
+                  : "Your assessment is complete. Download results or continue to Customer Trust."}
               </p>
             </div>
 
@@ -780,60 +728,68 @@ export default function VoeAssessment() {
             )}
 
             <div className="flex flex-col sm:flex-row gap-[12px] justify-center">
-              <button
-                onClick={downloadResponse}
-                className="px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100  hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+              {/* Show Overall Score Button - Only visible before score is shown */}
+              {!showOverallScore && (
+                <button
+                  onClick={handleShowOverallScore}
+                  disabled={isSubmitting}
+                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2 ${
+                    isSubmitting
+                      ? "bg-gray-400 cursor-not-allowed"
+                      : "bg_primary hover:bg-purple-700"
+                  }`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                Download PDF Response
-              </button>
-
-              <button
-                onClick={(e) => submitToNetlify(e)}
-                disabled={isSubmitting}
-                className={`px-[24px] py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors flex items-center justify-center gap-2 ${
-                  isSubmitting
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-green-600 hover:bg-green-700"
-                }`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <svg
-                      className="animate-spin w-5 h-5"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
+                  {isSubmitting ? (
+                    <>
+                      <svg
+                        className="animate-spin w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
                         stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Submitting...
-                  </>
-                ) : (
-                  <>
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002 2m0 0V5a2 2 0 012-2h2a2 2 0 012-2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                        />
+                      </svg>
+                      Show Overall Score
+                    </>
+                  )}
+                </button>
+              )}
+
+              {/* Action buttons - Only visible after score is shown */}
+              {showOverallScore && (
+                <>
+                  <button
+                    onClick={downloadResponse}
+                    className="cursor-pointer px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100 hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
+                  >
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -844,22 +800,35 @@ export default function VoeAssessment() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M5 13l4 4L19 7"
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                       />
                     </svg>
-                    Save Response
-                  </>
-                )}
-              </button>
+                    Download PDF Response
+                  </button>
 
-              <button
-                onClick={() => {
-                  navigate("/customer-trust");
-                }}
-                className="px-[24px] py-[12px] text-[16px] font-medium text-white bg_primary hover:bg-purple-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
-              >
-                Check Customer Trust
-              </button>
+                  <button
+                    onClick={() => {
+                      navigate("/customer-trust");
+                    }}
+                    className="cursor-pointer px-[24px] py-[12px] text-[16px] font-medium text-white bg_primary hover:bg-purple-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                    Check Customer Trust
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
