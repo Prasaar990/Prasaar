@@ -261,40 +261,48 @@ export default function VocAssessment() {
 
   // Submit form data
 
+  // Fixed submitToNetlify function - replace the existing one
   const submitToNetlify = async (e) => {
     setIsSubmitting(true);
     setSubmitStatus(null);
     e.preventDefault();
 
     try {
-      // Prepare form data
-      const formData = new FormData();
+      // Create FormData object for submission
+      const submissionData = new FormData();
 
-      // Add user details
-      formData.append("form-name", "voc-assessment");
-      formData.append("fullName", userData.fullName);
-      formData.append("companyEmail", userData.companyEmail);
-      formData.append("companyName", userData.companyName);
-      formData.append("jobRole", userData.jobRole);
+      // Add form name and user details
+      submissionData.append("form-name", "customer-trust-assessment");
+      submissionData.append("fullName", userData.fullName);
+      submissionData.append("companyEmail", userData.companyEmail);
+      submissionData.append("companyName", userData.companyName);
+      submissionData.append("jobRole", userData.jobRole);
+      submissionData.append("formType", "customer-trust");
 
-      // Add all checkbox values
+      // Add all checkbox values from formData state
       Object.keys(formData).forEach((key) => {
-        formData.append(key, formData[key] ? "true" : "false");
+        submissionData.append(key, formData[key] ? "true" : "false");
       });
 
       // Add readiness scores
-      formData.append("dataCollectionScore", readiness.dataCollection);
-      formData.append("touchpointsScore", readiness.touchpoints);
-      formData.append("organizationalScore", readiness.organizational);
-      formData.append("technologyScore", readiness.technology);
-      formData.append("governanceScore", readiness.governance);
-      formData.append("overallScore", readiness.overall);
+      submissionData.append("dataCollectionScore", readiness.dataCollection);
+      submissionData.append("touchpointsScore", readiness.touchpoints);
+      submissionData.append("organizationalScore", readiness.organizational);
+      submissionData.append("technologyScore", readiness.technology);
+      submissionData.append("governanceScore", readiness.governance);
+      submissionData.append("overallScore", readiness.overall);
+
+      // Add submission timestamp
+      const currentDate = new Date().toLocaleDateString();
+      const currentTime = new Date().toLocaleTimeString();
+      submissionData.append("submissionDate", currentDate);
+      submissionData.append("submissionTime", currentTime);
 
       // Submit to Netlify
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
+        body: new URLSearchParams(submissionData).toString(),
       });
 
       if (response.ok) {

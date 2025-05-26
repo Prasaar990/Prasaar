@@ -111,6 +111,67 @@
     <input type="text" name="submissionTime" />
   </form>
 
+  <!-- Hidden form for Netlify form detection - Employee Trust Assessment -->
+  <form name="employee-trust-assessment" netlify netlify-honeypot="bot-field" hidden>
+    <!-- User Details -->
+    <input type="text" name="fullName" />
+    <input type="email" name="companyEmail" />
+    <input type="text" name="companyName" />
+    <input type="text" name="jobRole" />
+    <input type="text" name="formType" />
+
+    <!-- Employee Response Mechanisms -->
+    <input type="checkbox" name="employeePulseSurveys" />
+    <input type="checkbox" name="anonymousFeedbackPlatforms" />
+    <input type="checkbox" name="internalSocialNetworks" />
+    <input type="checkbox" name="suggestionBoxes" />
+    <input type="checkbox" name="employeeForums" />
+    <input type="checkbox" name="mobileFeedbackApps" />
+
+    <!-- Data Privacy & Security Measures -->
+    <input type="checkbox" name="anonymousSurveyTools" />
+    <input type="checkbox" name="dataUseTransparency" />
+    <input type="checkbox" name="encryptedDataStorage" />
+    <input type="checkbox" name="roleBasedAccess" />
+    <input type="checkbox" name="privacyLawCompliance" />
+    <input type="checkbox" name="confidentialReportingChannels" />
+
+    <!-- Leadership Support -->
+    <input type="checkbox" name="executiveSponsorship" />
+    <input type="checkbox" name="voiceMetricsInDashboards" />
+    <input type="checkbox" name="leaderParticipationInFeedback" />
+    <input type="checkbox" name="employeeExperienceTeam" />
+    <input type="checkbox" name="hrListeningPolicies" />
+    <input type="checkbox" name="voiceProgramResourcing" />
+
+    <!-- Culture of Openness & Feedback -->
+    <input type="checkbox" name="openDoorPolicies" />
+    <input type="checkbox" name="regularFeedbackTraining" />
+    <input type="checkbox" name="recognitionPrograms" />
+    <input type="checkbox" name="feedbackFollowThrough" />
+    <input type="checkbox" name="activeLeaderListening" />
+
+    <!-- Engagement Channels -->
+    <input type="checkbox" name="feedbackAnalyticsTools" />
+    <input type="checkbox" name="actionTeams" />
+    <input type="checkbox" name="employeeCoCreation" />
+    <input type="checkbox" name="actionDashboards" />
+    <input type="checkbox" name="progressUpdates" />
+    <input type="checkbox" name="hrPlanningIntegration" />
+
+    <!-- Scores -->
+    <input type="number" name="responseMechanismsScore" />
+    <input type="number" name="dataSecurityScore" />
+    <input type="number" name="leadershipScore" />
+    <input type="number" name="cultureScore" />
+    <input type="number" name="engagementScore" />
+    <input type="number" name="overallScore" />
+
+    <!-- Submission timestamp -->
+    <input type="text" name="submissionDate" />
+    <input type="text" name="submissionTime" />
+  </form>
+
   <div id="root"></div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
