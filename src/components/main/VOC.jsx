@@ -262,9 +262,9 @@ export default function VocAssessment() {
   // Submit form data
 
   const submitToNetlify = async (e) => {
-    e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
+    e.preventDefault();
 
     try {
       // Prepare form data
@@ -810,7 +810,7 @@ export default function VocAssessment() {
               </button>
 
               <button
-                onClick={() => submitToNetlify(e)}
+                onClick={(e) => submitToNetlify(e)}
                 disabled={isSubmitting}
                 className={`px-[24px] py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors flex items-center justify-center gap-2 ${
                   isSubmitting
