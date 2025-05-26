@@ -264,8 +264,7 @@ export default function VocAssessment() {
   };
 
   // Submit form data
-  const submitToNetlify = async (e) => {
-    e.preventDefault();
+  const submitToNetlify = async () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
