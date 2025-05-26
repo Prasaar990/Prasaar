@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function VoeAssessment() {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   const getUserDetails = () => {
     const storedData = localStorage.getItem("userDetails");
     return storedData ? JSON.parse(storedData) : null;
@@ -67,6 +70,68 @@ export default function VoeAssessment() {
     overall: 0,
   });
 
+  const responseMechanismsItems = [
+    { key: "employeePulseSurveys", label: "Employee Pulse Surveys" },
+    {
+      key: "anonymousFeedbackPlatforms",
+      label: "Anonymous Feedback Platforms",
+    },
+    {
+      key: "internalSocialNetworks",
+      label: "Internal Social Networks and Collaboration Tools",
+    },
+    { key: "suggestionBoxes", label: "Suggestion Boxes" },
+    { key: "employeeForums", label: "Employee Forums and Discussion Boards" },
+    { key: "mobileFeedbackApps", label: "Mobile Feedback Apps" },
+  ];
+
+  const dataSecurityItems = [
+    { key: "anonymousSurveyTools", label: "Anonymous Survey Tools" },
+    { key: "dataUseTransparency", label: "Data Use Transparency" },
+    { key: "encryptedDataStorage", label: "Encrypted Data Storage" },
+    { key: "roleBasedAccess", label: "Role-Based Access" },
+    { key: "privacyLawCompliance", label: "Privacy Law Compliance" },
+    {
+      key: "confidentialReportingChannels",
+      label: "Confidential Reporting Channels",
+    },
+  ];
+
+  const leadershipItems = [
+    { key: "executiveSponsorship", label: "Executive Sponsorship" },
+    { key: "voiceMetricsInDashboards", label: "Voice Metrics in Dashboards" },
+    {
+      key: "leaderParticipationInFeedback",
+      label: "Leader Participation in Feedback",
+    },
+    { key: "employeeExperienceTeam", label: "Employee Experience Team" },
+    { key: "hrListeningPolicies", label: "HR Listening Policies" },
+    { key: "voiceProgramResourcing", label: "Voice Program Resourcing" },
+  ];
+
+  const cultureItems = [
+    { key: "openDoorPolicies", label: "Open-door policies" },
+    {
+      key: "regularFeedbackTraining",
+      label: "Regular Feedback Training for Managers and Employees",
+    },
+    {
+      key: "recognitionPrograms",
+      label: "Recognition Programs Celebrating Constructive Feedback",
+    },
+    { key: "feedbackFollowThrough", label: "Feedback Follow-Through" },
+    { key: "activeLeaderListening", label: "Active Leader Listening" },
+  ];
+
+  const engagementItems = [
+    { key: "feedbackAnalyticsTools", label: "Feedback Analytics Tools" },
+    { key: "actionTeams", label: "Action Teams" },
+    { key: "employeeCoCreation", label: "Employee Co-Creation" },
+    { key: "actionDashboards", label: "Action Dashboards" },
+    { key: "progressUpdates", label: "Progress Updates" },
+    { key: "hrPlanningIntegration", label: "HR Planning Integration" },
+  ];
+
   // Handle checkbox changes
   const handleInputChange = (e) => {
     const { name, checked } = e.target;
@@ -75,6 +140,10 @@ export default function VoeAssessment() {
       [name]: checked,
     });
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   // Calculate readiness scores whenever checkboxes change
   useEffect(() => {
@@ -170,72 +239,27 @@ export default function VoeAssessment() {
     }
   };
 
+  // Submit form data
+  const submitToNetlify = async () => {
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Simulate form submission
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setSubmitStatus("success");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Download function for PDF
   const downloadResponse = () => {
     const currentDate = new Date().toLocaleDateString();
     const currentTime = new Date().toLocaleTimeString();
-
-    const responseMechanismsItems = [
-      { key: "employeePulseSurveys", label: "Employee Pulse Surveys" },
-      {
-        key: "anonymousFeedbackPlatforms",
-        label: "Anonymous Feedback Platforms",
-      },
-      {
-        key: "internalSocialNetworks",
-        label: "Internal Social Networks and Collaboration Tools",
-      },
-      { key: "suggestionBoxes", label: "Suggestion Boxes" },
-      { key: "employeeForums", label: "Employee Forums and Discussion Boards" },
-      { key: "mobileFeedbackApps", label: "Mobile Feedback Apps" },
-    ];
-
-    const dataSecurityItems = [
-      { key: "anonymousSurveyTools", label: "Anonymous Survey Tools" },
-      { key: "dataUseTransparency", label: "Data Use Transparency" },
-      { key: "encryptedDataStorage", label: "Encrypted Data Storage" },
-      { key: "roleBasedAccess", label: "Role-Based Access" },
-      { key: "privacyLawCompliance", label: "Privacy Law Compliance" },
-      {
-        key: "confidentialReportingChannels",
-        label: "Confidential Reporting Channels",
-      },
-    ];
-
-    const leadershipItems = [
-      { key: "executiveSponsorship", label: "Executive Sponsorship" },
-      { key: "voiceMetricsInDashboards", label: "Voice Metrics in Dashboards" },
-      {
-        key: "leaderParticipationInFeedback",
-        label: "Leader Participation in Feedback",
-      },
-      { key: "employeeExperienceTeam", label: "Employee Experience Team" },
-      { key: "hrListeningPolicies", label: "HR Listening Policies" },
-      { key: "voiceProgramResourcing", label: "Voice Program Resourcing" },
-    ];
-
-    const cultureItems = [
-      { key: "openDoorPolicies", label: "Open-door policies" },
-      {
-        key: "regularFeedbackTraining",
-        label: "Regular Feedback Training for Managers and Employees",
-      },
-      {
-        key: "recognitionPrograms",
-        label: "Recognition Programs Celebrating Constructive Feedback",
-      },
-      { key: "feedbackFollowThrough", label: "Feedback Follow-Through" },
-      { key: "activeLeaderListening", label: "Active Leader Listening" },
-    ];
-
-    const engagementItems = [
-      { key: "feedbackAnalyticsTools", label: "Feedback Analytics Tools" },
-      { key: "actionTeams", label: "Action Teams" },
-      { key: "employeeCoCreation", label: "Employee Co-Creation" },
-      { key: "actionDashboards", label: "Action Dashboards" },
-      { key: "progressUpdates", label: "Progress Updates" },
-      { key: "hrPlanningIntegration", label: "HR Planning Integration" },
-    ];
 
     const generateSectionContent = (title, items, scoreKey) => {
       const selectedItems = items.filter((item) => formData[item.key]);
@@ -285,7 +309,7 @@ export default function VoeAssessment() {
         </head>
         <body>
           <div class="header">
-            <h1>EMPLOYEE TRUST ASSESSMENT REPORT</h1>
+            <h1>Employee Trust ASSESSMENT REPORT</h1>
             <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
             <div style="margin-top: 20px;">
               <p><strong>Name:</strong> ${userData.fullName}</p>
@@ -413,32 +437,32 @@ export default function VoeAssessment() {
               <ul>
                 ${
                   readiness.responseMechanisms < 70
-                    ? "<li><strong>Improve Employee Response Mechanisms</strong> - Implement more diverse feedback channels to ensure employees can voice their opinions through preferred methods.</li>"
+                    ? "<li><strong>Improve Employee Response Mechanisms</strong> - Consider implementing more feedback collection methods to capture comprehensive employee insights.</li>"
                     : ""
                 }
                 ${
                   readiness.dataSecurity < 70
-                    ? "<li><strong>Strengthen Data Privacy & Security</strong> - Enhance data protection measures to build employee confidence in providing honest feedback.</li>"
+                    ? "<li><strong>Strengthen Data Privacy & Security</strong> - Enhance security measures and transparency to build employee trust in feedback systems.</li>"
                     : ""
                 }
                 ${
                   readiness.leadership < 70
-                    ? "<li><strong>Increase Leadership Support</strong> - Ensure executives actively champion and participate in employee voice initiatives.</li>"
+                    ? "<li><strong>Increase Leadership Support</strong> - Enhance leadership commitment and visible support for employee voice initiatives.</li>"
                     : ""
                 }
                 ${
                   readiness.culture < 70
-                    ? "<li><strong>Foster Culture of Openness</strong> - Create an environment where employees feel safe and encouraged to share feedback.</li>"
+                    ? "<li><strong>Build Culture of Openness</strong> - Foster an environment where employees feel safe to provide honest feedback.</li>"
                     : ""
                 }
                 ${
                   readiness.engagement < 70
-                    ? "<li><strong>Enhance Engagement Channels</strong> - Develop better systems for acting on employee feedback and communicating progress.</li>"
+                    ? "<li><strong>Improve Engagement Channels</strong> - Create better systems for acting on employee feedback and closing the loop.</li>"
                     : ""
                 }
                 ${
                   readiness.overall >= 70
-                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your employee trust capabilities and consider advanced engagement strategies.</li>"
+                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced employee voice strategies.</li>"
                     : ""
                 }
               </ul>
@@ -523,118 +547,38 @@ export default function VoeAssessment() {
     </div>
   );
 
-  const responseMechanismsItems = [
-    { key: "employeePulseSurveys", label: "Employee Pulse Surveys" },
-    {
-      key: "anonymousFeedbackPlatforms",
-      label: "Anonymous Feedback Platforms",
-    },
-    {
-      key: "internalSocialNetworks",
-      label: "Internal Social Networks and Collaboration Tools",
-    },
-    { key: "suggestionBoxes", label: "Suggestion Boxes" },
-    { key: "employeeForums", label: "Employee Forums and Discussion Boards" },
-    { key: "mobileFeedbackApps", label: "Mobile Feedback Apps" },
-  ];
-
-  const dataSecurityItems = [
-    { key: "anonymousSurveyTools", label: "Anonymous Survey Tools" },
-    { key: "dataUseTransparency", label: "Data Use Transparency" },
-    { key: "encryptedDataStorage", label: "Encrypted Data Storage" },
-    { key: "roleBasedAccess", label: "Role-Based Access" },
-    { key: "privacyLawCompliance", label: "Privacy Law Compliance" },
-    {
-      key: "confidentialReportingChannels",
-      label: "Confidential Reporting Channels",
-    },
-  ];
-
-  const leadershipItems = [
-    { key: "executiveSponsorship", label: "Executive Sponsorship" },
-    { key: "voiceMetricsInDashboards", label: "Voice Metrics in Dashboards" },
-    {
-      key: "leaderParticipationInFeedback",
-      label: "Leader Participation in Feedback",
-    },
-    { key: "employeeExperienceTeam", label: "Employee Experience Team" },
-    { key: "hrListeningPolicies", label: "HR Listening Policies" },
-    { key: "voiceProgramResourcing", label: "Voice Program Resourcing" },
-  ];
-
-  const cultureItems = [
-    { key: "openDoorPolicies", label: "Open-door policies" },
-    {
-      key: "regularFeedbackTraining",
-      label: "Regular Feedback Training for Managers and Employees",
-    },
-    {
-      key: "recognitionPrograms",
-      label: "Recognition Programs Celebrating Constructive Feedback",
-    },
-    { key: "feedbackFollowThrough", label: "Feedback Follow-Through" },
-    { key: "activeLeaderListening", label: "Active Leader Listening" },
-  ];
-
-  const engagementItems = [
-    { key: "feedbackAnalyticsTools", label: "Feedback Analytics Tools" },
-    { key: "actionTeams", label: "Action Teams" },
-    { key: "employeeCoCreation", label: "Employee Co-Creation" },
-    { key: "actionDashboards", label: "Action Dashboards" },
-    { key: "progressUpdates", label: "Progress Updates" },
-    { key: "hrPlanningIntegration", label: "HR Planning Integration" },
-  ];
-
   return (
     <div className="min-h-screen bg-gray-50 py-[96px] px-[16px] sm:px-[24px] lg:px-[32px]">
       <div className="max-w-[1152px] mx-auto">
-        {/* Header */}
-        <div className="bg-white shadow-sm rounded-[8px] mb-[24px] p-[24px]">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className="text-[24px] sm:text-[30px] font-medium primaryColor mb-[8px]">
-                Employee Trust
-              </h1>
-              <p className="text-gray-600 text-[18px]">
-                Welcome, {userData.fullName}
+        {/* Header - Updated styling to match Customer Trust */}
+        <div className="bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-2xl p-8 mb-8 border border-gray-100">
+          <div className="space-y-2">
+            <h1 className="primaryColor text-2xl sm:text-3xl font-[600] text-primary mb-4 tracking-tight">
+              EMPLOYEE TRUST
+            </h1>
+            {userData?.fullName && (
+              <p className="text-gray-800 text-lg font-medium">
+                👋 Welcome,{" "}
+                <span className="font-semibold">{userData.fullName}</span>
               </p>
-              <p className="text-gray-600 text-[18px]">{userData?.jobRole}</p>
-              <p className="text-gray-600 text-[18px]">
-                {userData?.companyName}
+            )}
+            {userData?.jobRole && (
+              <p className="text-gray-700 text-base">
+                <span className="font-semibold">Role:</span> {userData.jobRole}
               </p>
-              <p className="text-gray-600 text-[18px]">
-                {userData?.companyEmail}
+            )}
+            {userData?.companyName && (
+              <p className="text-gray-700 text-base">
+                <span className="font-semibold">Company:</span>{" "}
+                {userData.companyName}
               </p>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-[12px] mt-[16px] sm:mt-0">
-              <button
-                onClick={downloadResponse}
-                className="px-[16px] py-[8px] text-[14px] font-medium text-white bg-blue-600 hover:bg-blue-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center gap-2"
-              >
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                Download PDF Response
-              </button>
-              <button
-                onClick={() => {
-                  navigate("/readiness-check");
-                }}
-                className="pointer px-[16px] py-[8px] text-[14px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
-              >
-                Check Customer Trust
-              </button>
-            </div>
+            )}
+            {userData?.companyEmail && (
+              <p className="text-gray-700 text-base">
+                <span className="font-semibold">Email:</span>{" "}
+                {userData.companyEmail}
+              </p>
+            )}
           </div>
         </div>
 
@@ -723,7 +667,7 @@ export default function VoeAssessment() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-[16px]">
-                <div className="bg-blue-50 rounded-lg p-[16px]">
+                <div className="bg-blue-50 rounded-[8px] p-[16px]">
                   <h4 className="font-medium text-blue-800 mb-[4px]">
                     Response Mechanisms
                   </h4>
@@ -731,7 +675,7 @@ export default function VoeAssessment() {
                     {readiness.responseMechanisms}%
                   </p>
                 </div>
-                <div className="bg-green-50 rounded-lg p-[16px]">
+                <div className="bg-green-50 rounded-[8px] p-[16px]">
                   <h4 className="font-medium text-green-800 mb-[4px]">
                     Data Security
                   </h4>
@@ -739,7 +683,7 @@ export default function VoeAssessment() {
                     {readiness.dataSecurity}%
                   </p>
                 </div>
-                <div className="bg-purple-50 rounded-lg p-[16px]">
+                <div className="bg-purple-50 rounded-[8px] p-[16px]">
                   <h4 className="font-medium text-purple-800 mb-[4px]">
                     Leadership
                   </h4>
@@ -747,7 +691,7 @@ export default function VoeAssessment() {
                     {readiness.leadership}%
                   </p>
                 </div>
-                <div className="bg-indigo-50 rounded-lg p-[16px]">
+                <div className="bg-indigo-50 rounded-[8px] p-[16px]">
                   <h4 className="font-medium text-indigo-800 mb-[4px]">
                     Culture
                   </h4>
@@ -755,7 +699,7 @@ export default function VoeAssessment() {
                     {readiness.culture}%
                   </p>
                 </div>
-                <div className="bg-orange-50 rounded-lg p-[16px]">
+                <div className="bg-orange-50 rounded-[8px] p-[16px]">
                   <h4 className="font-medium text-orange-800 mb-[4px]">
                     Engagement
                   </h4>
@@ -764,6 +708,113 @@ export default function VoeAssessment() {
                   </p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Action Buttons Section - Moved to bottom with matching styles */}
+          <div className="bg-white shadow-sm rounded-[8px] p-[24px]">
+            <div className="border-b border-gray-200 pb-[16px] mb-[24px]">
+              <h2 className="text-[20px] font-semibold text-gray-800">
+                Complete Your Assessment
+              </h2>
+              <p className="text-gray-600 mt-[4px]">
+                Save your responses or download a copy of your results
+              </p>
+            </div>
+
+            {/* Status Messages */}
+            {submitStatus === "success" && (
+              <div className="mb-[24px] p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                ✅ Form submitted successfully! Your response has been saved.
+              </div>
+            )}
+            {submitStatus === "error" && (
+              <div className="mb-[24px] p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                ❌ Error submitting form. Please try again.
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-[12px] justify-center">
+              <button
+                onClick={downloadResponse}
+                className="px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100  hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Download PDF Response
+              </button>
+
+              <button
+                onClick={submitToNetlify}
+                disabled={isSubmitting}
+                className={`px-[24px] py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors flex items-center justify-center gap-2 ${
+                  isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700"
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    Save Response
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={() => {
+                  navigate("/customer-trust");
+                }}
+                className="px-[24px] py-[12px] text-[16px] font-medium text-white bg_primary hover:bg-purple-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
+              >
+                Check Customer Trust
+              </button>
             </div>
           </div>
         </div>
