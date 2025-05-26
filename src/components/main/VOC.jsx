@@ -263,6 +263,63 @@ export default function VocAssessment() {
     }
   };
 
+  // Submit form data
+  const submitToNetlify = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Create FormData object for submission
+      const submissionData = new FormData();
+
+      // Add form name and user details
+      submissionData.append("form-name", "customer-trust-assessment");
+      submissionData.append("fullName", userData.fullName);
+      submissionData.append("companyEmail", userData.companyEmail);
+      submissionData.append("companyName", userData.companyName);
+      submissionData.append("jobRole", userData.jobRole);
+      submissionData.append("formType", "customer-trust");
+
+      // Add all checkbox values from formData state
+      Object.keys(formData).forEach((key) => {
+        submissionData.append(key, formData[key] ? "true" : "false");
+      });
+
+      // Add readiness scores
+      submissionData.append("dataCollectionScore", readiness.dataCollection);
+      submissionData.append("touchpointsScore", readiness.touchpoints);
+      submissionData.append("organizationalScore", readiness.organizational);
+      submissionData.append("technologyScore", readiness.technology);
+      submissionData.append("governanceScore", readiness.governance);
+      submissionData.append("overallScore", readiness.overall);
+
+      // Add submission timestamp
+      const currentDate = new Date().toLocaleDateString();
+      const currentTime = new Date().toLocaleTimeString();
+      submissionData.append("submissionDate", currentDate);
+      submissionData.append("submissionTime", currentTime);
+
+      // Submit to Netlify
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(submissionData).toString(),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+      } else {
+        throw new Error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   // Handle showing overall score
   const handleShowOverallScore = async () => {
     setShowOverallScore(true);
@@ -272,75 +329,224 @@ export default function VocAssessment() {
     await submitToNetlify();
   };
 
-  // Submit form data
-  const submitToNetlify = async () => {
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // Simulate form submission (replace with actual Netlify submission in real implementation)
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // In real implementation, you would create FormData and submit to Netlify here
-      console.log("Submitting form data:", {
-        userData,
-        formData,
-        readiness,
-        timestamp: new Date().toISOString(),
-      });
-
-      setSubmitStatus("success");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   // Download function for PDF
   const downloadResponse = () => {
     const currentDate = new Date().toLocaleDateString();
+    const currentTime = new Date().toLocaleTimeString();
+
+    const generateSectionContent = (title, items, scoreKey) => {
+      const selectedItems = items.filter((item) => formData[item.key]);
+      const unselectedItems = items.filter((item) => !formData[item.key]);
+
+      return {
+        title,
+        score: readiness[scoreKey],
+        selectedItems,
+        unselectedItems,
+        total: items.length,
+      };
+    };
 
     // Create PDF content using HTML
     const pdfContent = `
-      <!DOCTYPE html>
       <html>
-      <head>
-        <title>Customer Trust Assessment Report</title>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 20px; }
-          .header { border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 20px; }
-          .score-section { margin: 20px 0; padding: 15px; background: #f5f5f5; }
-          .section { margin: 20px 0; }
-          .section h3 { color: #333; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h1>Customer Trust Assessment Report</h1>
-          <p><strong>Name:</strong> ${userData.fullName}</p>
-          <p><strong>Company:</strong> ${userData.companyName}</p>
-          <p><strong>Role:</strong> ${userData.jobRole}</p>
-          <p><strong>Date:</strong> ${currentDate}</p>
-        </div>
-        
-        <div class="score-section">
-          <h2>Overall Customer Trust Score: ${readiness.overall}%</h2>
-          <p>${getScoreMessage(readiness.overall)}</p>
-        </div>
-        
-        <div class="section">
-          <h3>Detailed Scores:</h3>
-          <ul>
-            <li>Data Collection: ${readiness.dataCollection}%</li>
-            <li>Touchpoints: ${readiness.touchpoints}%</li>
-            <li>Organizational: ${readiness.organizational}%</li>
-            <li>Technology: ${readiness.technology}%</li>
-            <li>Governance: ${readiness.governance}%</li>
-          </ul>
-        </div>
-      </body>
+        <head>
+          <meta charset="utf-8">
+          <title>Customer Trust Assessment Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }
+            .header { text-align: center; border-bottom: 3px solid #b42642; padding-bottom: 20px; margin-bottom: 30px; }
+            .header h1 { color: #b42642; font-size: 28px; margin: 0; }
+            .header p { color: #6b7280; margin: 5px 0; }
+            .section { margin-bottom: 30px; }
+            .section-title { color: #b42642; font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+            .subsection-title { color: #374151; font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+            .score-container { background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+            .score-large { font-size: 36px; font-weight: bold; color: #b42642; text-align: center; }
+            .score-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+            .score-item { background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center; border-left: 4px solid #b42642; }
+            .score-item h4 { margin: 0 0 10px 0; color: #374151; font-size: 14px; }
+            .score-item p { margin: 0; font-size: 24px; font-weight: bold; color: #b42642; }
+            .assessment-section { background: #f9fafb; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+            .checkbox-list { margin: 15px 0; }
+            .checkbox-item { margin: 5px 0; padding: 5px 0; }
+            .selected { color: #059669; font-weight: 500; }
+            .unselected { color: #6b7280; }
+            .checkmark { color: #059669; font-weight: bold; }
+            .crossmark { color: #dc2626; font-weight: bold; }
+            .summary-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 6px solid #b42642; margin: 20px 0; }
+            .recommendations { background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 6px solid #f59e0b; }
+            .page-break { page-break-before: always; }
+            @media print { body { margin: 20px; } .page-break { page-break-before: always; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Customer Trust ASSESSMENT REPORT</h1>
+            <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
+            <div style="margin-top: 20px;">
+              <p><strong>Name:</strong> ${userData.fullName}</p>
+              <p><strong>Email:</strong> ${userData.companyEmail}</p>
+              <p><strong>Company:</strong> ${userData.companyName}</p>
+              <p><strong>Job Role:</strong> ${userData.jobRole}</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">OVERALL READINESS SCORE</div>
+            <div class="score-container">
+              <div class="score-large">${readiness.overall}%</div>
+              <div class="summary-box">
+                <strong>Assessment Summary:</strong><br>
+                ${getScoreMessage(readiness.overall)}
+              </div>
+            </div>
+            
+            <div class="score-breakdown">
+              <div class="score-item">
+                <h4>Data Collection</h4>
+                <p>${readiness.dataCollection}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Touchpoints</h4>
+                <p>${readiness.touchpoints}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Organizational</h4>
+                <p>${readiness.organizational}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Technology</h4>
+                <p>${readiness.technology}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Governance</h4>
+                <p>${readiness.governance}%</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-break"></div>
+
+          <div class="section">
+            <div class="section-title">DETAILED ASSESSMENT RESULTS</div>
+            
+            ${[
+              generateSectionContent(
+                "1) DATA COLLECTION CAPABILITIES",
+                dataCollectionItems,
+                "dataCollection"
+              ),
+              generateSectionContent(
+                "2) CUSTOMER TOUCHPOINTS",
+                touchpointItems,
+                "touchpoints"
+              ),
+              generateSectionContent(
+                "3) ORGANIZATIONAL ALIGNMENT",
+                organizationalItems,
+                "organizational"
+              ),
+              generateSectionContent(
+                "4) TECHNOLOGY READINESS",
+                technologyItems,
+                "technology"
+              ),
+              generateSectionContent(
+                "5) FEEDBACK GOVERNANCE",
+                governanceItems,
+                "governance"
+              ),
+            ]
+              .map(
+                (section) => `
+              <div class="assessment-section">
+                <div class="subsection-title">${section.title}</div>
+                <p><strong>Score: ${section.score}%</strong> (${
+                  section.selectedItems.length
+                }/${section.total} items selected)</p>
+                
+                <div class="checkbox-list">
+                  <p><strong>✓ Selected Items (${
+                    section.selectedItems.length
+                  }):</strong></p>
+                  ${
+                    section.selectedItems.length > 0
+                      ? section.selectedItems
+                          .map(
+                            (item) =>
+                              `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
+                          )
+                          .join("")
+                      : '<div class="checkbox-item unselected">None selected</div>'
+                  }
+                  
+                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${
+                    section.unselectedItems.length
+                  }):</strong></p>
+                  ${
+                    section.unselectedItems.length > 0
+                      ? section.unselectedItems
+                          .map(
+                            (item) =>
+                              `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
+                          )
+                          .join("")
+                      : '<div class="checkbox-item selected">All items selected</div>'
+                  }
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+
+          <div class="section">
+            <div class="section-title">RECOMMENDATIONS</div>
+            <div class="recommendations">
+              <p><strong>Based on your overall score of ${
+                readiness.overall
+              }%, here are key areas to focus on:</strong></p>
+              <ul>
+                ${
+                  readiness.dataCollection < 70
+                    ? "<li><strong>Improve Data Collection Capabilities</strong> - Consider implementing more feedback collection methods to capture comprehensive customer insights.</li>"
+                    : ""
+                }
+                ${
+                  readiness.touchpoints < 70
+                    ? "<li><strong>Expand Customer Touchpoints</strong> - Leverage additional channels to reach customers and gather feedback across more interaction points.</li>"
+                    : ""
+                }
+                ${
+                  readiness.organizational < 70
+                    ? "<li><strong>Strengthen Organizational Alignment</strong> - Enhance CX culture and leadership commitment to customer-centricity.</li>"
+                    : ""
+                }
+                ${
+                  readiness.technology < 70
+                    ? "<li><strong>Upgrade Technology Infrastructure</strong> - Invest in better tools and integration capabilities for effective data management.</li>"
+                    : ""
+                }
+                ${
+                  readiness.governance < 70
+                    ? "<li><strong>Establish Better Governance</strong> - Create structured processes and dedicated resources for managing customer feedback.</li>"
+                    : ""
+                }
+                ${
+                  readiness.overall >= 70
+                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced VoC strategies.</li>"
+                    : ""
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #e5e7eb; color: #6b7280;">
+            <p>Generated On Prasaar: https://prasaar.co </p>
+            <p style="font-size: 12px;">Report generated on ${currentDate} at ${currentTime}</p>
+          </div>
+        </body>
       </html>
     `;
 
@@ -621,10 +827,10 @@ export default function VocAssessment() {
                 <button
                   onClick={handleShowOverallScore}
                   disabled={isSubmitting}
-                  className={`px-[24px] py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2 ${
+                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2 ${
                     isSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700"
+                      : "bg_primary "
                   }`}
                 >
                   {isSubmitting ? (
@@ -676,7 +882,7 @@ export default function VocAssessment() {
                 <>
                   <button
                     onClick={downloadResponse}
-                    className="px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100 hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
+                    className="cursor-pointer px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100 hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
@@ -698,7 +904,7 @@ export default function VocAssessment() {
                     onClick={() => {
                       navigate("/employee-trust");
                     }}
-                    className="px-[24px] py-[12px] text-[16px] font-medium text-white bg-purple-600 hover:bg-purple-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
+                    className="cursor-pointer px-[24px] py-[12px] text-[16px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
                   >
                     <svg
                       className="w-5 h-5"
