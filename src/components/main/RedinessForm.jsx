@@ -121,10 +121,11 @@ export default function InitialForm() {
         localStorage.setItem("userDetails", JSON.stringify(userDetails));
 
         // Navigate based on form type selection
+        console.log(formData.formType);
         if (formData.formType === "voc") {
-          navigate("/voc");
+          navigate("/customer-trust");
         } else if (formData.formType === "voe") {
-          navigate("/voe");
+          navigate("/employee-trust");
         }
       } else {
         setFormError(true);
