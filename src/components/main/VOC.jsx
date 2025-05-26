@@ -5,8 +5,6 @@ export default function VocAssessment() {
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const [showOverallScore, setShowOverallScore] = useState(false);
-  const [isFormLocked, setIsFormLocked] = useState(false);
 
   const getUserDetails = () => {
     const storedData = localStorage.getItem("userDetails");
@@ -147,8 +145,6 @@ export default function VocAssessment() {
 
   // Handle checkbox changes
   const handleInputChange = (e) => {
-    if (isFormLocked) return; // Prevent changes when form is locked
-
     const { name, checked } = e.target;
     setFormData({
       ...formData,
@@ -264,7 +260,10 @@ export default function VocAssessment() {
   };
 
   // Submit form data
-  const submitToNetlify = async () => {
+
+  // Fixed submitToNetlify function - replace the existing one
+  const submitToNetlify = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -319,15 +318,6 @@ export default function VocAssessment() {
     }
   };
 
-  // Handle showing overall score
-  const handleShowOverallScore = async () => {
-    setShowOverallScore(true);
-    setIsFormLocked(true);
-
-    // Auto-submit the form when overall score is shown
-    await submitToNetlify();
-  };
-
   // Download function for PDF
   const downloadResponse = () => {
     const currentDate = new Date().toLocaleDateString();
@@ -347,19 +337,224 @@ export default function VocAssessment() {
     };
 
     // Create PDF content using HTML
+    const pdfContent = `
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <title>Customer Trust Assessment Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }
+            .header { text-align: center; border-bottom: 3px solid #b42642; padding-bottom: 20px; margin-bottom: 30px; }
+            .header h1 { color: #b42642; font-size: 28px; margin: 0; }
+            .header p { color: #6b7280; margin: 5px 0; }
+            .section { margin-bottom: 30px; }
+            .section-title { color: #b42642; font-size: 20px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; }
+            .subsection-title { color: #374151; font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+            .score-container { background: #f3f4f6; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+            .score-large { font-size: 36px; font-weight: bold; color: #b42642; text-align: center; }
+            .score-breakdown { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+            .score-item { background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center; border-left: 4px solid #b42642; }
+            .score-item h4 { margin: 0 0 10px 0; color: #374151; font-size: 14px; }
+            .score-item p { margin: 0; font-size: 24px; font-weight: bold; color: #b42642; }
+            .assessment-section { background: #f9fafb; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+            .checkbox-list { margin: 15px 0; }
+            .checkbox-item { margin: 5px 0; padding: 5px 0; }
+            .selected { color: #059669; font-weight: 500; }
+            .unselected { color: #6b7280; }
+            .checkmark { color: #059669; font-weight: bold; }
+            .crossmark { color: #dc2626; font-weight: bold; }
+            .summary-box { background: #dbeafe; padding: 20px; border-radius: 8px; border-left: 6px solid #b42642; margin: 20px 0; }
+            .recommendations { background: #fef3c7; padding: 20px; border-radius: 8px; border-left: 6px solid #f59e0b; }
+            .page-break { page-break-before: always; }
+            @media print { body { margin: 20px; } .page-break { page-break-before: always; } }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>Customer Trust ASSESSMENT REPORT</h1>
+            <p><strong>Assessment Date:</strong> ${currentDate} at ${currentTime}</p>
+            <div style="margin-top: 20px;">
+              <p><strong>Name:</strong> ${userData.fullName}</p>
+              <p><strong>Email:</strong> ${userData.companyEmail}</p>
+              <p><strong>Company:</strong> ${userData.companyName}</p>
+              <p><strong>Job Role:</strong> ${userData.jobRole}</p>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-title">OVERALL READINESS SCORE</div>
+            <div class="score-container">
+              <div class="score-large">${readiness.overall}%</div>
+              <div class="summary-box">
+                <strong>Assessment Summary:</strong><br>
+                ${getScoreMessage(readiness.overall)}
+              </div>
+            </div>
+            
+            <div class="score-breakdown">
+              <div class="score-item">
+                <h4>Data Collection</h4>
+                <p>${readiness.dataCollection}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Touchpoints</h4>
+                <p>${readiness.touchpoints}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Organizational</h4>
+                <p>${readiness.organizational}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Technology</h4>
+                <p>${readiness.technology}%</p>
+              </div>
+              <div class="score-item">
+                <h4>Governance</h4>
+                <p>${readiness.governance}%</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="page-break"></div>
+
+          <div class="section">
+            <div class="section-title">DETAILED ASSESSMENT RESULTS</div>
+            
+            ${[
+              generateSectionContent(
+                "1) DATA COLLECTION CAPABILITIES",
+                dataCollectionItems,
+                "dataCollection"
+              ),
+              generateSectionContent(
+                "2) CUSTOMER TOUCHPOINTS",
+                touchpointItems,
+                "touchpoints"
+              ),
+              generateSectionContent(
+                "3) ORGANIZATIONAL ALIGNMENT",
+                organizationalItems,
+                "organizational"
+              ),
+              generateSectionContent(
+                "4) TECHNOLOGY READINESS",
+                technologyItems,
+                "technology"
+              ),
+              generateSectionContent(
+                "5) FEEDBACK GOVERNANCE",
+                governanceItems,
+                "governance"
+              ),
+            ]
+              .map(
+                (section) => `
+              <div class="assessment-section">
+                <div class="subsection-title">${section.title}</div>
+                <p><strong>Score: ${section.score}%</strong> (${
+                  section.selectedItems.length
+                }/${section.total} items selected)</p>
+                
+                <div class="checkbox-list">
+                  <p><strong>✓ Selected Items (${
+                    section.selectedItems.length
+                  }):</strong></p>
+                  ${
+                    section.selectedItems.length > 0
+                      ? section.selectedItems
+                          .map(
+                            (item) =>
+                              `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
+                          )
+                          .join("")
+                      : '<div class="checkbox-item unselected">None selected</div>'
+                  }
+                  
+                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${
+                    section.unselectedItems.length
+                  }):</strong></p>
+                  ${
+                    section.unselectedItems.length > 0
+                      ? section.unselectedItems
+                          .map(
+                            (item) =>
+                              `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
+                          )
+                          .join("")
+                      : '<div class="checkbox-item selected">All items selected</div>'
+                  }
+                </div>
+              </div>
+            `
+              )
+              .join("")}
+          </div>
+
+          <div class="section">
+            <div class="section-title">RECOMMENDATIONS</div>
+            <div class="recommendations">
+              <p><strong>Based on your overall score of ${
+                readiness.overall
+              }%, here are key areas to focus on:</strong></p>
+              <ul>
+                ${
+                  readiness.dataCollection < 70
+                    ? "<li><strong>Improve Data Collection Capabilities</strong> - Consider implementing more feedback collection methods to capture comprehensive customer insights.</li>"
+                    : ""
+                }
+                ${
+                  readiness.touchpoints < 70
+                    ? "<li><strong>Expand Customer Touchpoints</strong> - Leverage additional channels to reach customers and gather feedback across more interaction points.</li>"
+                    : ""
+                }
+                ${
+                  readiness.organizational < 70
+                    ? "<li><strong>Strengthen Organizational Alignment</strong> - Enhance CX culture and leadership commitment to customer-centricity.</li>"
+                    : ""
+                }
+                ${
+                  readiness.technology < 70
+                    ? "<li><strong>Upgrade Technology Infrastructure</strong> - Invest in better tools and integration capabilities for effective data management.</li>"
+                    : ""
+                }
+                ${
+                  readiness.governance < 70
+                    ? "<li><strong>Establish Better Governance</strong> - Create structured processes and dedicated resources for managing customer feedback.</li>"
+                    : ""
+                }
+                ${
+                  readiness.overall >= 70
+                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced VoC strategies.</li>"
+                    : ""
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #e5e7eb; color: #6b7280;">
+            <p>Generated On Prasaar: https://prasaar.co </p>
+            <p style="font-size: 12px;">Report generated on ${currentDate} at ${currentTime}</p>
+          </div>
+        </body>
+      </html>
+    `;
 
     // Create PDF using print functionality
     const printWindow = window.open("", "_blank");
     printWindow.document.write(pdfContent);
     printWindow.document.close();
-    printWindow.document.title = `Customer_Trust_Assessment_${userData.fullName.replace(
+
+    // Set title for the print dialog
+    printWindow.document.title = `VoC_Assessment_Report_${userData.fullName.replace(
       /\s+/g,
       "_"
     )}_${currentDate.replace(/\//g, "-")}`;
 
+    // Wait for content to load then print
     printWindow.onload = function () {
       setTimeout(() => {
         printWindow.print();
+        // Close the window after printing (optional)
         setTimeout(() => {
           printWindow.close();
         }, 1000);
@@ -368,7 +563,7 @@ export default function VocAssessment() {
   };
 
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
-    <div className={isFormLocked ? "opacity-60" : ""}>
+    <div>
       <h3 className="text-[18px] font-medium text-gray-800 mb-[16px]">
         {title}
       </h3>
@@ -381,15 +576,10 @@ export default function VocAssessment() {
               name={key}
               checked={formData[key]}
               onChange={handleInputChange}
-              disabled={isFormLocked}
-              className={`w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${
-                isFormLocked ? "cursor-not-allowed" : ""
-              }`}
+              className="w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500"
             />
             <label
-              className={`ml-[12px] text-[16px] text-gray-700 ${
-                isFormLocked ? "cursor-not-allowed" : ""
-              }`}
+              className="ml-[12px] text-[16px] text-gray-700"
               htmlFor={key}
             >
               {label}
@@ -422,7 +612,7 @@ export default function VocAssessment() {
   return (
     <div className="min-h-screen bg-gray-50 py-[96px] px-[16px] sm:px-[24px] lg:px-[32px]">
       <div className="max-w-[1152px] mx-auto">
-        {/* Header */}
+        {/* Header - Now without action buttons */}
         <div className="bg-gradient-to-br from-white to-gray-50 shadow-lg rounded-2xl p-8 mb-8 border border-gray-100">
           <div className="space-y-2">
             <h1 className="primaryColor text-2xl sm:text-3xl font-[600] text-primary mb-4 tracking-tight">
@@ -461,11 +651,6 @@ export default function VocAssessment() {
               <h2 className="text-[20px] font-semibold primaryColor">
                 Customer Trust Checklist
               </h2>
-              {isFormLocked && (
-                <p className="text-sm text-gray-600 mt-1">
-                  Form is locked after viewing overall score
-                </p>
-              )}
             </div>
 
             <div className="p-[24px]">
@@ -508,102 +693,94 @@ export default function VocAssessment() {
             </div>
           </div>
 
-          {/* Overall Readiness Score - Only show if button was clicked */}
-          {showOverallScore && (
-            <div className="bg-white shadow-sm rounded-[8px] overflow-hidden">
-              <div className="bg-gray-50 px-[24px] py-[16px] border-b border-gray-200">
-                <h2 className="text-[20px] font-semibold text-gray-800">
-                  Overall Customer Trust Readiness Score
-                </h2>
+          {/* Overall Readiness Score */}
+          <div className="bg-white shadow-sm rounded-[8px] overflow-hidden">
+            <div className="bg-gray-50 px-[24px] py-[16px] border-b border-gray-200">
+              <h2 className="text-[20px] font-semibold text-gray-800">
+                Overall Customer Trust Readiness Score
+              </h2>
+            </div>
+
+            <div className="p-[24px]">
+              <div className="mb-[24px]">
+                <div className="flex justify-between items-center mb-[12px]">
+                  <span className="text-[18px] font-medium text-gray-900">
+                    Overall Score
+                  </span>
+                  <span className="text-[24px] font-bold text-gray-900">
+                    {readiness.overall}%
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-[16px]">
+                  <div
+                    className={`h-[16px] rounded-full transition-all duration-500 ${getProgressBarClass(
+                      readiness.overall
+                    )}`}
+                    style={{ width: `${readiness.overall}%` }}
+                  ></div>
+                </div>
               </div>
 
-              <div className="p-[24px]">
-                <div className="mb-[24px]">
-                  <div className="flex justify-between items-center mb-[12px]">
-                    <span className="text-[18px] font-medium text-gray-900">
-                      Overall Score
-                    </span>
-                    <span className="text-[24px] font-bold text-gray-900">
-                      {readiness.overall}%
-                    </span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-[16px]">
-                    <div
-                      className={`h-[16px] rounded-full transition-all duration-500 ${getProgressBarClass(
-                        readiness.overall
-                      )}`}
-                      style={{ width: `${readiness.overall}%` }}
-                    ></div>
-                  </div>
-                </div>
+              <div className="bg-gray-50 rounded-[8px] p-[16px] mb-[24px]">
+                <h3 className="font-medium text-gray-800 mb-[8px]">Summary</h3>
+                <p className="text-gray-700">
+                  {getScoreMessage(readiness.overall)}
+                </p>
+              </div>
 
-                <div className="bg-gray-50 rounded-[8px] p-[16px] mb-[24px]">
-                  <h3 className="font-medium text-gray-800 mb-[8px]">
-                    Summary
-                  </h3>
-                  <p className="text-gray-700">
-                    {getScoreMessage(readiness.overall)}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-[16px]">
+                <div className="bg-blue-50 rounded-[8px] p-[16px]">
+                  <h4 className="font-medium text-blue-800 mb-[4px]">
+                    Data Collection
+                  </h4>
+                  <p className="text-[24px] font-bold text-blue-900">
+                    {readiness.dataCollection}%
                   </p>
                 </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-[16px]">
-                  <div className="bg-blue-50 rounded-[8px] p-[16px]">
-                    <h4 className="font-medium text-blue-800 mb-[4px]">
-                      Data Collection
-                    </h4>
-                    <p className="text-[24px] font-bold text-blue-900">
-                      {readiness.dataCollection}%
-                    </p>
-                  </div>
-                  <div className="bg-green-50 rounded-[8px] p-[16px]">
-                    <h4 className="font-medium text-green-800 mb-[4px]">
-                      Touchpoints
-                    </h4>
-                    <p className="text-[24px] font-bold text-green-900">
-                      {readiness.touchpoints}%
-                    </p>
-                  </div>
-                  <div className="bg-purple-50 rounded-[8px] p-[16px]">
-                    <h4 className="font-medium text-purple-800 mb-[4px]">
-                      Organizational
-                    </h4>
-                    <p className="text-[24px] font-bold text-purple-900">
-                      {readiness.organizational}%
-                    </p>
-                  </div>
-                  <div className="bg-indigo-50 rounded-[8px] p-[16px]">
-                    <h4 className="font-medium text-indigo-800 mb-[4px]">
-                      Technology
-                    </h4>
-                    <p className="text-[24px] font-bold text-indigo-900">
-                      {readiness.technology}%
-                    </p>
-                  </div>
-                  <div className="bg-orange-50 rounded-[8px] p-[16px]">
-                    <h4 className="font-medium text-orange-800 mb-[4px]">
-                      Governance
-                    </h4>
-                    <p className="text-[24px] font-bold text-orange-900">
-                      {readiness.governance}%
-                    </p>
-                  </div>
+                <div className="bg-green-50 rounded-[8px] p-[16px]">
+                  <h4 className="font-medium text-green-800 mb-[4px]">
+                    Touchpoints
+                  </h4>
+                  <p className="text-[24px] font-bold text-green-900">
+                    {readiness.touchpoints}%
+                  </p>
+                </div>
+                <div className="bg-purple-50 rounded-[8px] p-[16px]">
+                  <h4 className="font-medium text-purple-800 mb-[4px]">
+                    Organizational
+                  </h4>
+                  <p className="text-[24px] font-bold text-purple-900">
+                    {readiness.organizational}%
+                  </p>
+                </div>
+                <div className="bg-indigo-50 rounded-[8px] p-[16px]">
+                  <h4 className="font-medium text-indigo-800 mb-[4px]">
+                    Technology
+                  </h4>
+                  <p className="text-[24px] font-bold text-indigo-900">
+                    {readiness.technology}%
+                  </p>
+                </div>
+                <div className="bg-orange-50 rounded-[8px] p-[16px]">
+                  <h4 className="font-medium text-orange-800 mb-[4px]">
+                    Governance
+                  </h4>
+                  <p className="text-[24px] font-bold text-orange-900">
+                    {readiness.governance}%
+                  </p>
                 </div>
               </div>
             </div>
-          )}
+          </div>
 
-          {/* Action Buttons Section */}
+          {/* Action Buttons Section - Now at the bottom */}
           <div className="bg-white shadow-sm rounded-[8px] p-[24px]">
             <div className="border-b border-gray-200 pb-[16px] mb-[24px]">
               <h2 className="text-[20px] font-semibold text-gray-800">
-                {!showOverallScore
-                  ? "Assessment Actions"
-                  : "Complete Your Assessment"}
+                Complete Your Assessment
               </h2>
               <p className="text-gray-600 mt-[4px]">
-                {!showOverallScore
-                  ? "Click below to view your overall assessment score"
-                  : "Your assessment is complete. Download results or continue to Employee Trust."}
+                Save your responses or download a copy of your results
               </p>
             </div>
 
@@ -620,68 +797,60 @@ export default function VocAssessment() {
             )}
 
             <div className="flex flex-col sm:flex-row gap-[12px] justify-center">
-              {/* Show Overall Score Button - Only visible before score is shown */}
-              {!showOverallScore && (
-                <button
-                  onClick={handleShowOverallScore}
-                  disabled={isSubmitting}
-                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2 ${
-                    isSubmitting
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg_primary "
-                  }`}
+              <button
+                onClick={downloadResponse}
+                className="px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100  hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
+              >
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                 >
-                  {isSubmitting ? (
-                    <>
-                      <svg
-                        className="animate-spin w-5 h-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                Download PDF Response
+              </button>
+
+              <button
+                onClick={(e) => submitToNetlify(e)}
+                disabled={isSubmitting}
+                className={`px-[24px] py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors flex items-center justify-center gap-2 ${
+                  isSubmitting
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-green-600 hover:bg-green-700"
+                }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
                         stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002 2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                        />
-                      </svg>
-                      Show Overall Score
-                    </>
-                  )}
-                </button>
-              )}
-
-              {/* Action buttons - Only visible after score is shown */}
-              {showOverallScore && (
-                <>
-                  <button
-                    onClick={downloadResponse}
-                    className="cursor-pointer px-[24px] py-[12px] text-[16px] font-medium text-black bg-gray-100 hover:bg-gray-300 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2"
-                  >
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Submitting...
+                  </>
+                ) : (
+                  <>
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -692,35 +861,22 @@ export default function VocAssessment() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={2}
-                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        d="M5 13l4 4L19 7"
                       />
                     </svg>
-                    Download PDF Response
-                  </button>
+                    Save Response
+                  </>
+                )}
+              </button>
 
-                  <button
-                    onClick={() => {
-                      navigate("/employee-trust");
-                    }}
-                    className="cursor-pointer px-[24px] py-[12px] text-[16px] font-medium text-white bg_primary border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
-                  >
-                    <svg
-                      className="w-5 h-5"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
-                    Check Employee Trust
-                  </button>
-                </>
-              )}
+              <button
+                onClick={() => {
+                  navigate("/employee-trust");
+                }}
+                className="px-[24px] py-[12px] text-[16px] font-medium text-white bg_primary hover:bg-purple-700 border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2"
+              >
+                Check Employee Trust
+              </button>
             </div>
           </div>
         </div>
