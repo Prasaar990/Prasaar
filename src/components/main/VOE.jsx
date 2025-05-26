@@ -245,9 +245,43 @@ export default function VoeAssessment() {
     setSubmitStatus(null);
 
     try {
-      // Simulate form submission
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setSubmitStatus("success");
+      const formData = new FormData();
+
+      // Add user details
+      formData.append("fullName", userData.fullName);
+      formData.append("companyEmail", userData.companyEmail);
+      formData.append("companyName", userData.companyName);
+      formData.append("jobRole", userData.jobRole);
+      formData.append("formType", "VOE");
+
+      // Add all checkbox values
+      Object.entries(formData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      // Add scores
+      formData.append("responseMechanismsScore", readiness.responseMechanisms);
+      formData.append("dataSecurityScore", readiness.dataSecurity);
+      formData.append("leadershipScore", readiness.leadership);
+      formData.append("cultureScore", readiness.culture);
+      formData.append("engagementScore", readiness.engagement);
+      formData.append("overallScore", readiness.overall);
+
+      // Add timestamp
+      formData.append("submissionDate", new Date().toISOString().split("T")[0]);
+      formData.append("submissionTime", new Date().toISOString().split("T")[1]);
+
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData).toString(),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+      } else {
+        throw new Error("Form submission failed");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
       setSubmitStatus("error");
