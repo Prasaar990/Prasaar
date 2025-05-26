@@ -246,37 +246,46 @@ export default function VoeAssessment() {
     setSubmitStatus(null);
 
     try {
-      const formData = new FormData();
+      const netlifyFormData = new FormData();
 
       // Add user details
-      formData.append("form-name", "employee-trust-assessment");
-      formData.append("fullName", userData.fullName);
-      formData.append("companyEmail", userData.companyEmail);
-      formData.append("companyName", userData.companyName);
-      formData.append("jobRole", userData.jobRole);
-      formData.append("formType", "VOE");
+      netlifyFormData.append("form-name", "employee-trust-assessment");
+      netlifyFormData.append("fullName", userData.fullName);
+      netlifyFormData.append("companyEmail", userData.companyEmail);
+      netlifyFormData.append("companyName", userData.companyName);
+      netlifyFormData.append("jobRole", userData.jobRole);
+      netlifyFormData.append("formType", "VOE");
 
       // Add all checkbox values
       Object.entries(formData).forEach(([key, value]) => {
-        formData.append(key, value);
+        netlifyFormData.append(key, value);
       });
 
       // Add scores
-      formData.append("responseMechanismsScore", readiness.responseMechanisms);
-      formData.append("dataSecurityScore", readiness.dataSecurity);
-      formData.append("leadershipScore", readiness.leadership);
-      formData.append("cultureScore", readiness.culture);
-      formData.append("engagementScore", readiness.engagement);
-      formData.append("overallScore", readiness.overall);
+      netlifyFormData.append(
+        "responseMechanismsScore",
+        readiness.responseMechanisms
+      );
+      netlifyFormData.append("dataSecurityScore", readiness.dataSecurity);
+      netlifyFormData.append("leadershipScore", readiness.leadership);
+      netlifyFormData.append("cultureScore", readiness.culture);
+      netlifyFormData.append("engagementScore", readiness.engagement);
+      netlifyFormData.append("overallScore", readiness.overall);
 
       // Add timestamp
-      formData.append("submissionDate", new Date().toISOString().split("T")[0]);
-      formData.append("submissionTime", new Date().toISOString().split("T")[1]);
+      netlifyFormData.append(
+        "submissionDate",
+        new Date().toISOString().split("T")[0]
+      );
+      netlifyFormData.append(
+        "submissionTime",
+        new Date().toISOString().split("T")[1]
+      );
 
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData).toString(),
+        body: new URLSearchParams(netlifyFormData).toString(),
       });
 
       if (response.ok) {
