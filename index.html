@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
   <!-- Hidden form for Netlify form detection - Contact Form -->
   <form name="contact" netlify netlify-honeypot="bot-field" hidden>
     <input type="email" name="email" />
@@ -40,6 +39,76 @@
     <!-- Radio buttons for form type -->
     <input type="radio" name="formType" value="voc" />
     <input type="radio" name="formType" value="voe" />
+  </form>
+
+  <!-- Hidden form for Netlify form detection - Customer Trust Assessment -->
+  <form name="customer-trust-assessment" netlify netlify-honeypot="bot-field" hidden>
+    <!-- User Details -->
+    <input type="text" name="fullName" />
+    <input type="email" name="companyEmail" />
+    <input type="text" name="companyName" />
+    <input type="text" name="jobRole" />
+    <input type="text" name="formType" />
+
+    <!-- Data Collection Capabilities -->
+    <input type="checkbox" name="onlineSurveys" />
+    <input type="checkbox" name="npsTools" />
+    <input type="checkbox" name="inAppFeedback" />
+    <input type="checkbox" name="socialListening" />
+    <input type="checkbox" name="customerServiceForms" />
+    <input type="checkbox" name="productReviewPlatforms" />
+    <input type="checkbox" name="surveys" />
+    <input type="checkbox" name="chatTextMessages" />
+    <input type="checkbox" name="phoneCalls" />
+    <input type="checkbox" name="speechAnalytics" />
+    <input type="checkbox" name="emails" />
+
+    <!-- Customer Touchpoints -->
+    <input type="checkbox" name="website" />
+    <input type="checkbox" name="mobileApp" />
+    <input type="checkbox" name="email" />
+    <input type="checkbox" name="socialMedia" />
+    <input type="checkbox" name="callCenters" />
+    <input type="checkbox" name="physicalStores" />
+    <input type="checkbox" name="chatbots" />
+    <input type="checkbox" name="onlineForums" />
+    <input type="checkbox" name="whatsapp" />
+    <input type="checkbox" name="qr" />
+
+    <!-- Organizational Alignment -->
+    <input type="checkbox" name="cxWorkshops" />
+    <input type="checkbox" name="cxKpis" />
+    <input type="checkbox" name="leadershipReviews" />
+    <input type="checkbox" name="customerCentricVision" />
+    <input type="checkbox" name="other" />
+
+    <!-- Technology Readiness -->
+    <input type="checkbox" name="crmTools" />
+    <input type="checkbox" name="feedbackPlatforms" />
+    <input type="checkbox" name="dashboards" />
+    <input type="checkbox" name="integrationTools" />
+    <input type="checkbox" name="dataLakes" />
+    <input type="checkbox" name="apis" />
+
+    <!-- Feedback Governance -->
+    <input type="checkbox" name="dedicatedTeam" />
+    <input type="checkbox" name="cxManager" />
+    <input type="checkbox" name="feedbackRouting" />
+    <input type="checkbox" name="dataGovernance" />
+    <input type="checkbox" name="centralizedRepository" />
+    <input type="checkbox" name="feedbackPlaybooks" />
+
+    <!-- Scores -->
+    <input type="number" name="dataCollectionScore" />
+    <input type="number" name="touchpointsScore" />
+    <input type="number" name="organizationalScore" />
+    <input type="number" name="technologyScore" />
+    <input type="number" name="governanceScore" />
+    <input type="number" name="overallScore" />
+
+    <!-- Submission timestamp -->
+    <input type="text" name="submissionDate" />
+    <input type="text" name="submissionTime" />
   </form>
 
   <div id="root"></div>
