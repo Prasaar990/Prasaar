@@ -10,6 +10,7 @@ export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
   const [dropdownUseCases, setDropdownUseCases] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false); // New state for scroll detection
   const location = useLocation();
 
   // Check if current page is home page
@@ -42,7 +43,12 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > lastScrollY) {
+      const currentScrollY = window.scrollY;
+
+      // Set isScrolled based on scroll position
+      setIsScrolled(currentScrollY > 10);
+
+      if (currentScrollY > lastScrollY) {
         setVisible(false); // Hide when scrolling down
         setDropdownSolutions(false);
         setDropdownUseCases(false);
@@ -50,7 +56,7 @@ export default function Header() {
       } else {
         setVisible(true); // Show when scrolling up
       }
-      lastScrollY = window.scrollY;
+      lastScrollY = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -73,24 +79,24 @@ export default function Header() {
             y: dropdownNav ? "0%" : "-100%",
             opacity: dropdownNav ? 1 : 0,
           }}
-          className="fixed w-screen h-1/2 px-10 sm:px-8 md:px-16 pt-[80px] sm:pt-32 md:pt-40 pb-8 sm:pb-12 md:pb-16 bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-xl md:text-2xl text-gray-800"
+          className="fixed w-screen h-1/2 px-[40px] sm:px-[32px] md:px-[64px] pt-[80px] sm:pt-[128px] md:pt-[160px] pb-[32px] sm:pb-[48px] md:pb-[64px] bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-[20px] md:text-[24px] text-gray-800"
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <ul className="list-none ">
             {/* Only show navigation items on home page */}
             {isHomePage && (
               <>
-                <li className="mt-8 sm:mt-6 md:mt-8">
+                <li className="mt-[32px] sm:mt-[24px] md:mt-[32px]">
                   <a href="#info" className="no-underline text-gray-800">
                     Why Prasaar ?
                   </a>
                 </li>
 
-                <li className="mt-8 sm:mt-6 md:mt-8 flex flex-row items-center">
+                <li className="mt-[32px] sm:mt-[24px] md:mt-[32px] flex flex-row items-center">
                   Solutions
                   <motion.button
                     type="button"
-                    className="bg-transparent border-none cursor-pointer h-5 sm:h-6"
+                    className="bg-transparent border-none cursor-pointer h-[20px] sm:h-[24px]"
                     onClick={() => {
                       setDropdownSolutions((x) => !x);
                       if (dropdownUseCases) {
@@ -101,7 +107,7 @@ export default function Header() {
                     <motion.img
                       src="./img/downArrow.svg"
                       alt="show solution"
-                      className="h-5 w-5 lg:h-6 lg:w-6"
+                      className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]"
                       animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     />
@@ -137,13 +143,15 @@ export default function Header() {
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed w-screen h-[64px] sm:h-[64px] lg:h-[68px] text-sm sm:text-base lg:text-lg flex justify-between items-center px-10 sm:px-8 lg:px-12 z-50 bg-white shadow-lg text-gray-800"
+        className={`fixed w-screen sm:py-10 h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center px-[40px] sm:px-[32px] lg:px-[48px] z-50 text-gray-800 transition-all duration-300 ${
+          isScrolled ? "bg-white shadow-lg" : "bg-transparent"
+        }`}
       >
         <Link to="/" className="cursor-pointer">
           <img
-            src="./img/prasaarLogo.png"
+            src="./img/prasaarLogo.jpg"
             alt="website logo"
-            className="w-[125px] h-[30px] sm:w-[130px] lg:w-[150px] lg:h-[40px]"
+            className="w-[135px] h-[32px] sm:w-[150px] lg:w-[160px] lg:h-[45px]"
           />
         </Link>
 
@@ -152,7 +160,7 @@ export default function Header() {
             <div>
               <button
                 type="button"
-                className="bg-transparent w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 border-none cursor-pointer"
+                className="bg-transparent w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] md:w-[56px] md:h-[56px] border-none cursor-pointer"
                 onClick={() => {
                   setDropdownNav((x) => !x);
                 }}
@@ -170,7 +178,7 @@ export default function Header() {
             <div className="z-40">
               {/* Only show navigation items on home page */}
               {isHomePage && (
-                <ul className="list-none flex gap-6 lg:gap-12">
+                <ul className="list-none flex gap-[24px] lg:gap-[48px]">
                   <li>
                     <a
                       href="#info"
@@ -184,7 +192,7 @@ export default function Header() {
                     Solutions
                     <motion.button
                       type="button"
-                      className="bg-transparent border-none cursor-pointer h-5 lg:h-6"
+                      className="bg-transparent border-none cursor-pointer h-[20px] lg:h-[24px]"
                       onClick={() => {
                         setDropdownSolutions((x) => !x);
                         if (dropdownUseCases) {
@@ -195,7 +203,7 @@ export default function Header() {
                       <motion.img
                         src="./img/downArrow.svg"
                         alt="show solution"
-                        className="h-5 w-5 lg:h-6 lg:w-6"
+                        className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]"
                         animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
                       />
@@ -205,7 +213,7 @@ export default function Header() {
               )}
             </div>
 
-            <div className="flex items-center gap-4 lg:gap-8">
+            <div className="flex items-center gap-[16px] lg:gap-[32px]">
               <Button
                 text={"VoiceAgent Demo"}
                 to="https://call.prasaar.co/#demo"
@@ -238,8 +246,8 @@ export default function Header() {
           className={`fixed z-20 bg-green-500 hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl
             ${
               isMobile
-                ? "right-4 bottom-4 w-[40px] h-[40px]"
-                : "right-6 bottom-6 w-[48px] h-[48px] sm:right-8 sm:bottom-8 lg:right-12 lg:bottom-12"
+                ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"
+                : "right-[24px] bottom-[24px] w-[48px] h-[48px] sm:right-[32px] sm:bottom-[32px] lg:right-[48px] lg:bottom-[48px]"
             }`}
           style={{
             transform: isHovered ? "scale(1.1)" : "scale(1)",
@@ -276,17 +284,17 @@ export default function Header() {
           className={`fixed bg-green-500 rounded-full opacity-30 animate-pulse
           ${
             isMobile
-              ? "right-4 bottom-4 w-10 h-10"
-              : "right-6 bottom-6 w-12 h-12 sm:right-8 sm:bottom-8 lg:right-12 lg:bottom-12"
+              ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"
+              : "right-[24px] bottom-[24px] w-[48px] h-[48px] sm:right-[32px] sm:bottom-[32px] lg:right-[48px] lg:bottom-[48px]"
           }`}
         />
 
         {/* Tooltip - Only show on larger screens */}
         {!isMobile && (
           <div
-            className={`fixed z-10 text-gray-800 font-medium border border-gray-300 px-3 py-2 sm:px-4 sm:py-2 lg:px-6 lg:py-3 rounded-lg bg-white shadow-md
-              text-xs sm:text-sm lg:text-base
-              bottom-6 right-16 sm:bottom-8 sm:right-20 lg:bottom-12 lg:right-32`}
+            className={`fixed z-10 text-gray-800 font-medium border border-gray-300 px-[12px] py-[8px] sm:px-[16px] sm:py-[8px] lg:px-[24px] lg:py-[12px] rounded-lg bg-white shadow-md
+              text-[12px] sm:text-[14px] lg:text-[16px]
+              bottom-[24px] right-[64px] sm:bottom-[32px] sm:right-[80px] lg:bottom-[48px] lg:right-[128px]`}
             style={{
               opacity: isHovered ? 1 : 0,
               transform: isHovered ? "translateX(0)" : "translateX(10px)",
@@ -296,7 +304,7 @@ export default function Header() {
           >
             Chat on WhatsApp
             {/* Tooltip arrow */}
-            <div className="absolute top-1/2 -right-2 transform -translate-y-1/2 rotate-45 w-3 h-3 sm:w-4 sm:h-4 bg-white border-r border-t border-gray-300" />
+            <div className="absolute top-1/2 -right-[8px] transform -translate-y-1/2 rotate-45 w-[12px] h-[12px] sm:w-[16px] sm:h-[16px] bg-white border-r border-t border-gray-300" />
           </div>
         )}
       </div>

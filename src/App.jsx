@@ -7,6 +7,7 @@ import Terms from "./components/main/Terms";
 import InitialForm from "./components/main/RedinessForm";
 import VocAssessment from "./components/main/VOC";
 import VoeAssessment from "./components/main/VOE";
+import Election from "./components/main/Election";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/terms" element={<Terms />}></Route>
           <Route path="/customer-trust" element={<VocAssessment />}></Route>
           <Route path="/employee-trust" element={<VoeAssessment />}></Route>
+          <Route path="/election" element={<Election />}></Route>
           <Route path="/readiness-check" element={<InitialForm />}>
             {" "}
           </Route>
