@@ -149,7 +149,7 @@ export default function Header() {
       >
         <Link to="/" className="cursor-pointer">
           <img
-            src="./img/prasaarLogo.jpg"
+            src="./img/prasaarLogo.png"
             alt="website logo"
             className="w-[135px] h-[32px] sm:w-[150px] lg:w-[160px] lg:h-[45px]"
           />
@@ -292,7 +292,7 @@ export default function Header() {
         {/* Tooltip - Only show on larger screens */}
         {!isMobile && (
           <div
-            className={`fixed z-10 text-gray-800 font-medium border border-gray-300 px-[12px] py-[8px] sm:px-[16px] sm:py-[8px] lg:px-[24px] lg:py-[12px] rounded-lg bg-white shadow-md
+            className={`fixed z-10 text-gray-800 font-medium border border-gray-300 px-[12px]  sm:px-[16px] sm:py-[8px] lg:px-[24px] lg:py-[12px] rounded-lg bg-white shadow-md
               text-[12px] sm:text-[14px] lg:text-[16px]
               bottom-[24px] right-[64px] sm:bottom-[32px] sm:right-[80px] lg:bottom-[48px] lg:right-[128px]`}
             style={{
