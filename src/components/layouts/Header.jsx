@@ -151,7 +151,7 @@ export default function Header() {
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className="w-[135px] h-[32px] sm:w-[150px] lg:w-[160px] lg:h-[45px]"
+            className="w-[135px] h-[40px] sm:w-[150px] sm:h-[40px] lg:w-[160px] lg:h-[45px]"
           />
         </Link>
 
@@ -160,7 +160,7 @@ export default function Header() {
             <div>
               <button
                 type="button"
-                className="bg-transparent w-[40px] h-[40px] sm:w-[48px] sm:h-[48px] md:w-[56px] md:h-[56px] border-none cursor-pointer"
+                className="bg-transparent w-[32px] h-[32px] sm:w-[38px] sm:h-[38px] md:w-[56px] md:h-[56px] border-none cursor-pointer"
                 onClick={() => {
                   setDropdownNav((x) => !x);
                 }}

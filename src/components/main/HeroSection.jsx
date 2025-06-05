@@ -19,9 +19,9 @@ export default function HeroSection({ words, title, subHeading }) {
   }, [wordIndex, words]);
 
   return (
-    <section className="w-full h-[500px] pt-50  lg:h-full sm:pt-40 px-8 lg:px-12 pb-12 flex justify-center">
+    <section className="w-full h-[600px] pt-[100px] lg:h-full sm:pt-40 px-[32px] lg:px-12 pb-10 flex justify-center">
       {/* Left section */}
-      <div className="lg:w-[55%] w-full  flex flex-col gap-5">
+      <div className="lg:w-[55%] w-full  flex flex-col gap-[25px]">
         {/* Heading with FlipWords */}
         <div className="flex items-center">
           <div className="text-[30px] sm:text-[36px] lg:text-[54px]  text-neutral-600 dark:text-neutral-400 font-semibold">
@@ -42,7 +42,7 @@ export default function HeroSection({ words, title, subHeading }) {
       </div>
 
       {/* Right section with image */}
-      <div className="w-1/4 h-[450px] cursor-pointer hidden md:block">
+      <div className="w-1/4 h-[450px] cursor-pointer hidden md:flex justify-center items-center">
         <img
           src="./img/heroImg.svg"
           alt="hero img"
