@@ -36,7 +36,7 @@ export default function Info() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="text-[36px] md:text-[48px] font-medium leading-tight"
+          className="text-[24px] md:text-[36px] font-medium leading-tight"
         >
           Why
           <span className="primaryColor font-semibold"> Prasaar?</span>
@@ -76,7 +76,7 @@ export default function Info() {
               className="w-full h-full"
             />
           </div>
-          <h3 className="text-[24px] font-medium mb-[16px] text-gray-800">
+          <h3 className="text-[20px] font-medium mb-[16px] text-gray-800">
             Easiest way to connect with business
           </h3>
           <p className="text-gray-600 leading-relaxed text-[16px]">
@@ -99,7 +99,7 @@ export default function Info() {
               className="w-full h-full"
             />
           </div>
-          <h3 className="text-[24px] font-medium mb-[16px] text-gray-800">
+          <h3 className="text-[20px] font-medium mb-[16px] text-gray-800">
             Take your business to the next level
           </h3>
           <p className="text-gray-600 leading-relaxed text-[16px]">
@@ -120,7 +120,7 @@ export default function Info() {
               className="w-full h-full"
             />
           </div>
-          <h3 className="text-[24px] font-medium mb-[16px] text-gray-800">
+          <h3 className="text-[20px] font-medium mb-[16px] text-gray-800">
             Build a trustworthy business and boost revenue with automation
           </h3>
           <p className="text-gray-600 leading-relaxed text-[16px]">
