@@ -79,7 +79,7 @@ export default function Header() {
             y: dropdownNav ? "0%" : "-100%",
             opacity: dropdownNav ? 1 : 0,
           }}
-          className="fixed w-screen h-1/2 px-[40px] sm:px-[32px] md:px-[64px] pt-[80px] sm:pt-[128px] md:pt-[160px] pb-[32px] sm:pb-[48px] md:pb-[64px] bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-[20px] md:text-[24px] text-gray-800"
+          className="fixed w-screen h-full px-[32px] sm:px-[32px] md:px-[64px] pt-[80px] sm:pt-[128px] md:pt-[160px] pb-[32px] sm:pb-[48px] md:pb-[64px] bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-[20px] md:text-[24px] text-gray-800"
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <ul className="list-none ">
@@ -143,7 +143,7 @@ export default function Header() {
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={`fixed w-screen sm:py-10 h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center px-[40px] sm:px-[32px] lg:px-[48px] z-50 text-gray-800 transition-all duration-300 ${
+        className={`fixed w-screen sm:py-10 h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center px-[32px] sm:px-[32px] lg:px-[48px] z-50 text-gray-800 transition-all duration-300 ${
           isScrolled ? "bg-white shadow-lg" : "bg-transparent"
         }`}
       >

@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { Settings, BarChart, MessageSquare, QrCode } from "lucide-react";
+import {
+  Settings,
+  BarChart,
+  MessageSquare,
+  QrCode,
+  ChevronRight,
+} from "lucide-react";
 
 export default function Solutions({ dropdownSolutions, isTablet = true }) {
   const [animateIn, setAnimateIn] = useState(false);
@@ -18,29 +24,29 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
       title: "QR Codes",
       description:
         "Create dynamic QR codes for your business to get seamlessly connected with customers.",
-      icon: <QrCode className="text-red-600" size={20} />,
+      icon: <QrCode className="primaryColor" size={18} />,
     },
     {
       title: "CSAT - Customer Satisfaction",
       description:
         "Understand how customer is satisfied with your product or service with CSAT survey.",
-      icon: <MessageSquare className="text-red-600" size={20} />,
+      icon: <MessageSquare className="primaryColor" size={18} />,
     },
     {
       title: "NPS - Net Promoter Score",
       description:
         "NPS shows probability of a customer recommending your product / service to others.",
-      icon: <BarChart className="text-red-600" size={20} />,
+      icon: <BarChart className="primaryColor" size={18} />,
     },
     {
       title: "Grievance Redressal",
       description:
         "Turn complaints into compliments with an easy-to-use Grievance Redressal / Complaint Management System.",
-      icon: <Settings className="text-red-600" size={20} />,
+      icon: <Settings className="primaryColor" size={18} />,
     },
   ];
 
-  // Desktop dropdown menu
+  // Desktop dropdown menu (unchanged for now)
   const DesktopMenu = () => (
     <div
       className={`fixed top-18 left-0 w-full bg-white shadow-lg z-50 transform transition-all duration-500 ease-in-out ${
@@ -51,7 +57,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
     >
       <div className="container mx-auto px-6 py-8 max-w-7xl">
         <div className="mb-6">
-          <h3 className="text-xl font-bold primaryColor mb-2">Solutions</h3>
+          <h3 className="text-xl font-bold primaryColor mb-2">SOLUTIONS</h3>
           <p className="text-gray-600">
             Our customer engagement solutions helps brands grow more
             organically.
@@ -66,7 +72,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
             >
               <div className="flex items-center mb-2">
                 {item.icon}
-                <h4 className="font-medium ml-2 text-gray-800 group-hover:text-red-600 transition-colors duration-300">
+                <h4 className="font-medium ml-2 text-gray-800 group-hover:primaryColor transition-colors duration-300">
                   {item.title}
                 </h4>
               </div>
@@ -78,24 +84,39 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
     </div>
   );
 
-  // Mobile dropdown menu
+  // Enhanced Mobile dropdown menu
   const MobileMenu = () => (
     <div
-      className={`bg-white/95 rounded-md overflow-hidden transition-all duration-300 ease-in-out ${
-        dropdownSolutions ? "max-h-[300px] opacity-100" : "max-h-0 opacity-0"
+      className={`bg-white  overflow-hidden transition-all duration-300 ease-in-out ${
+        dropdownSolutions ? "max-h-[384px] opacity-100" : "max-h-0 opacity-0"
       }`}
     >
-      <ul className="py-2 px-4">
+      <div className="py-3 mt-10">
         {solutionItems.map((item, index) => (
-          <li
+          <div
             key={index}
-            className="py-3 border-b border-gray-100 last:border-0 flex items-center text-gray-700 hover:text-red-600 transition-colors duration-200 cursor-pointer"
+            className="px-4 py-3 hover:bg-red-50 transition-colors duration-200 cursor-pointer group border-b border-gray-100 last:border-b-0"
           >
-            <span className="mr-2">{item.icon}</span>
-            {item.title}
-          </li>
+            <div className="flex items-center">
+              <div className="flex-shrink-0 w-[32px] h-[32px] rounded-lg bg-red-50 flex items-center justify-center group-hover:bg-red-100 transition-colors duration-200">
+                {item.icon}
+              </div>
+              <div className="ml-3 flex-1">
+                <h4 className="font-medium text-gray-800 text-sm group-hover:primaryColor transition-colors duration-200">
+                  {item.title}
+                </h4>
+                <p className="text-xs text-gray-600 mt-1 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+              <ChevronRight
+                size={14}
+                className="text-gray-400 group-hover:text-red-500 transition-colors duration-200 flex-shrink-0 w-[14px] h-[14px]"
+              />
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 
