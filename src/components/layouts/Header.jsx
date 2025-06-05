@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import Button from "./Button";
@@ -10,8 +10,15 @@ export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
   const [dropdownUseCases, setDropdownUseCases] = useState(false);
   const [dropdownNav, setDropdownNav] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false); // New state for scroll detection
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const [isHovered, setHovered] = useState(false);
+  const [isRippling, setRippling] = useState(false);
+
   const location = useLocation();
+  const lastScrollY = useRef(window.scrollY);
+  const ticking = useRef(false);
+  const scrollThreshold = useRef(5); // Minimum scroll distance to trigger hide/show
 
   // Check if current page is home page
   const isHomePage = location.pathname === "/" || location.pathname === "/home";
@@ -22,10 +29,6 @@ export default function Header() {
   const isMobile = useMediaQuery({
     query: "(max-width: 640px)",
   });
-  const [isHovered, setHovered] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const [isRippling, setRippling] = useState(false);
-  let lastScrollY = window.scrollY;
 
   const handleClick = () => {
     setRippling(true);
@@ -41,28 +44,54 @@ export default function Header() {
     }
   }, [isRippling]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+  // Smooth scroll handler with debouncing and threshold
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    const scrollDifference = Math.abs(currentScrollY - lastScrollY.current);
 
-      // Set isScrolled based on scroll position
-      setIsScrolled(currentScrollY > 10);
+    // Set background based on scroll position
+    setIsScrolled(currentScrollY > 10);
 
-      if (currentScrollY > lastScrollY) {
-        setVisible(false); // Hide when scrolling down
-        setDropdownSolutions(false);
-        setDropdownUseCases(false);
-        setDropdownNav(false);
-      } else {
-        setVisible(true); // Show when scrolling up
-      }
-      lastScrollY = currentScrollY;
-    };
+    // Only process if scroll difference exceeds threshold
+    if (scrollDifference < scrollThreshold.current) {
+      ticking.current = false;
+      return;
+    }
 
-    window.addEventListener("scroll", handleScroll);
+    // Determine scroll direction and visibility
+    if (currentScrollY < 10) {
+      // Always show at top
+      setVisible(true);
+    } else if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+      // Hide when scrolling down (after 100px)
+      setVisible(false);
+      // Close dropdowns when hiding
+      setDropdownSolutions(false);
+      setDropdownUseCases(false);
+      setDropdownNav(false);
+    } else if (currentScrollY < lastScrollY.current) {
+      // Show when scrolling up
+      setVisible(true);
+    }
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    lastScrollY.current = currentScrollY;
+    ticking.current = false;
   }, []);
+
+  // Throttled scroll event handler
+  const requestTick = useCallback(() => {
+    if (!ticking.current) {
+      requestAnimationFrame(handleScroll);
+      ticking.current = true;
+    }
+  }, [handleScroll]);
+
+  useEffect(() => {
+    // Use passive listener for better performance
+    window.addEventListener("scroll", requestTick, { passive: true });
+
+    return () => window.removeEventListener("scroll", requestTick);
+  }, [requestTick]);
 
   // Close dropdowns when location changes
   useEffect(() => {
@@ -142,10 +171,17 @@ export default function Header() {
       <motion.header
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className={`fixed w-screen sm:py-10 h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center px-[32px] sm:px-[32px] lg:px-[48px] z-50 text-gray-800 transition-all duration-300 ${
-          isScrolled ? "bg-white shadow-lg" : "bg-transparent"
+        transition={{
+          duration: 0.4,
+          ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother animation
+          type: "tween",
+        }}
+        className={`fixed w-screen sm:py-10 h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center px-[32px] sm:px-[32px] lg:px-[48px] z-50 text-gray-800 transition-all duration-500 ease-out ${
+          isScrolled ? "bg-white shadow-lg backdrop-blur-md" : "bg-transparent"
         }`}
+        style={{
+          willChange: "transform", // Optimize for animations
+        }}
       >
         <Link to="/" className="cursor-pointer">
           <img
