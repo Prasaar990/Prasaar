@@ -106,7 +106,7 @@ export default function Solution({
       >
         <Button
           text={btnText}
-          to="https://api.whatsapp.com/send/?phone=919356093930&text&type=phone_number&app_absent=0"
+          to="https://api.whatsapp.com/send/?phone=919226333789&text&type=phone_number&app_absent=0"
         />
       </motion.div>
     </motion.div>
