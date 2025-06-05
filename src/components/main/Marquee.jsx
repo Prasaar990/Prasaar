@@ -6,7 +6,7 @@ export default function Customers() {
   return (
     <div className="w-full py-[96px] overflow-hidden bg-gradient-to-r from-gray-50  to-gray-100">
       <div className="container mx-auto px-[16px]">
-        <h1 className="text-[24px] md:text-[48px] font-bold text-center mb-[64px] text-gray-800">
+        <h1 className="text-[16px] md:text-[28px] font-medium text-center mb-[64px] text-gray-800">
           <span className=" bg-clip-text primaryColor">
             Trusted by organizations
           </span>{" "}

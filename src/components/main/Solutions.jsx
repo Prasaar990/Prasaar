@@ -14,7 +14,7 @@ export default function Solutions() {
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="mb-[20px] md:mb-[20px]"
       >
-        <motion.h1 className="mx-auto max-w-[448px] text-center text-[30px] sm:text-[36px] lg:text-[48px] primaryColor font-medium">
+        <motion.h1 className="mx-auto max-w-[448px] text-center text-[30px] sm:text-[36px] lg:text-[36px] primaryColor font-semibold">
           Solutions
         </motion.h1>
         <motion.div

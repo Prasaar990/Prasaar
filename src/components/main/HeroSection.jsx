@@ -21,10 +21,10 @@ export default function HeroSection({ words, title, subHeading }) {
   return (
     <section className="w-full h-[600px] pt-[100px] lg:h-full sm:pt-40 px-[32px] lg:px-12 pb-10 flex justify-center">
       {/* Left section */}
-      <div className="lg:w-[55%] w-full  flex flex-col gap-[25px]">
+      <div className="lg:w-[55%] w-full  flex flex-col gap-[25px] sm:gap-5">
         {/* Heading with FlipWords */}
         <div className="flex items-center">
-          <div className="text-[30px] sm:text-[36px] lg:text-[54px]  text-neutral-600 dark:text-neutral-400 font-semibold">
+          <div className="text-[30px] sm:text-[36px] lg:text-[58px]  text-neutral-600 dark:text-neutral-400 font-semibold">
             <div>Increase Revenue and</div>
             <FlipWords words={words} /> <br />
           </div>
