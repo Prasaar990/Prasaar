@@ -211,7 +211,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .text-shadow {
           text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
         }

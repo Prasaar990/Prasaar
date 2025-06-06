@@ -9,12 +9,12 @@ export default function Main() {
     <div className="w-full">
       <HeroSection
         words={[
-          "Customer Satisfaction",
-          "Customer Experience",
-          "Customer Service",
+          // "Customer Satisfaction",
+          // "Customer Experience",
+          // "Customer Service",
+          "Employee Trust",
         ]}
-        subHeading="Prasaar is your Customer Platform to activate, retain, and grow the customer base organically🙂."
-        title={"Increase Revenue and"}
+        subHeading="Prasaar is a unified platform for customers and employees that boosts performance, builds reputation, and drives long-term success."
       />
 
       <Customers />

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const TermsAndConditions = () => {
@@ -176,7 +176,7 @@ const TermsAndConditions = () => {
                     </div>
                   </div>
                   <span className="ml-3 text-gray-700">
-                    WhatsApp Business API users must comply with Meta's
+                    WhatsApp Business API users must comply with Meta&apos;s
                     policies.
                   </span>
                 </motion.li>
@@ -305,7 +305,7 @@ const TermsAndConditions = () => {
             <motion.div variants={itemVariants} className="mb-8 text-gray-700">
               <p className="text-lg">
                 You consent to receive communications from us by way of e-mails,
-                phone calls, and SMS's regarding your transactions on our
+                phone calls, and SMS&apos;s regarding your transactions on our
                 platform. Users must register valid phone numbers and e-mail
                 addresses to enable communication. We may also use your e-mail
                 address to send updates, newsletters, and changes to our

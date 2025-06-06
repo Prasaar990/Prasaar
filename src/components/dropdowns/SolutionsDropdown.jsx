@@ -6,6 +6,18 @@ import {
   QrCode,
   ChevronRight,
 } from "lucide-react";
+import PropTypes from "prop-types";
+
+Solutions.propTypes = {
+  dropdownSolutions: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      href: PropTypes.string,
+      icon: PropTypes.element, // or PropTypes.func if you're passing icon components
+    })
+  ).isRequired,
+  isTablet: PropTypes.bool,
+};
 
 export default function Solutions({ dropdownSolutions, isTablet = true }) {
   const [animateIn, setAnimateIn] = useState(false);
@@ -20,12 +32,6 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
 
   // Solution items data
   const solutionItems = [
-    {
-      title: "QR Codes",
-      description:
-        "Create dynamic QR codes for your business to get seamlessly connected with customers.",
-      icon: <QrCode className="primaryColor" size={18} />,
-    },
     {
       title: "CSAT - Customer Satisfaction",
       description:
@@ -43,6 +49,12 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
       description:
         "Turn complaints into compliments with an easy-to-use Grievance Redressal / Complaint Management System.",
       icon: <Settings className="primaryColor" size={18} />,
+    },
+    {
+      title: "ENPS - Employee Net Promoter Score",
+      description:
+        "ENPS shows probability of an employee recommending your company as a great place to work.",
+      icon: <BarChart className="primaryColor" size={18} />,
     },
   ];
 

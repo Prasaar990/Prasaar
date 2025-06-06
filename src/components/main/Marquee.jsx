@@ -87,7 +87,7 @@ export default function Customers() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes marquee {
           0% {
             transform: translateX(0);

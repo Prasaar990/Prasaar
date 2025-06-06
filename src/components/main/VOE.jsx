@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
 export default function VoeAssessment() {
@@ -330,35 +331,6 @@ export default function VoeAssessment() {
       };
     };
 
-    // Generate PDF content
-    const sections = [
-      generateSectionContent(
-        "Employee Response Mechanisms",
-        responseMechanismsItems,
-        "responseMechanisms"
-      ),
-      generateSectionContent(
-        "Data Privacy & Security Measures",
-        dataSecurityItems,
-        "dataSecurity"
-      ),
-      generateSectionContent(
-        "Leadership Support",
-        leadershipItems,
-        "leadership"
-      ),
-      generateSectionContent(
-        "Culture of Openness & Feedback",
-        cultureItems,
-        "culture"
-      ),
-      generateSectionContent(
-        "Engagement Channels",
-        engagementItems,
-        "engagement"
-      ),
-    ];
-
     const pdfContent = `
       <html>
         <head>
@@ -582,6 +554,18 @@ export default function VoeAssessment() {
         }, 1000);
       }, 500);
     };
+  };
+
+  CheckboxSection.propTypes = {
+    title: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    scoreKey: PropTypes.string.isRequired,
+    scoreLabel: PropTypes.string.isRequired,
   };
 
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (

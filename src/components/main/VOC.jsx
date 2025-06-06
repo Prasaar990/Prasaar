@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function VocAssessment() {
   const navigate = useNavigate();
@@ -566,6 +567,18 @@ export default function VocAssessment() {
         }, 1000);
       }, 500);
     };
+  };
+
+  CheckboxSection.propTypes = {
+    title: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    scoreKey: PropTypes.string.isRequired,
+    scoreLabel: PropTypes.string.isRequired,
   };
 
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (

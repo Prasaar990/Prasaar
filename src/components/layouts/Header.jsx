@@ -252,8 +252,8 @@ export default function Header() {
 
             <div className="flex items-center gap-[16px] lg:gap-[32px]">
               <Button
-                text={"VoiceAgent Demo"}
-                to="https://call.prasaar.co/#demo"
+                text={"Readiness Check"}
+                to="/readiness-check"
                 handleFormOpen={() => {}} // Remove setFormOpen since we're not using it anymore
               />
             </div>

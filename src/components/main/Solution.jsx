@@ -1,5 +1,15 @@
 import { motion } from "framer-motion";
 import Button from "../layouts/Button";
+import PropTypes from "prop-types";
+
+Solution.propTypes = {
+  title: PropTypes.string.isRequired,
+  list: PropTypes.arrayOf(PropTypes.string).isRequired,
+  img: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  side: PropTypes.string,
+  btnText: PropTypes.string,
+};
 
 export default function Solution({
   title,

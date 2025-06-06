@@ -4,7 +4,7 @@ import { FlipWords } from "../ui/flip-words"; // Keeping this component as is
 import ImageCarousel from "../layouts/ImageCarousel";
 import PropTypes from "prop-types";
 
-export default function HeroSection({ words, title, subHeading }) {
+export default function HeroSection({ words, subHeading }) {
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -44,10 +44,11 @@ export default function HeroSection({ words, title, subHeading }) {
       {/* Left section */}
       <div className="lg:w-[65%] sm:w-[67%] flex flex-col gap-[20px] sm:gap-5 text-center sm:text-left">
         {/* Heading with FlipWords */}
-        <div className="flex items-center lg:h-[250px] md:h-[100px] h-[100px]">
+        <div className="flex items-center justify-center sm:justify-start lg:h-[250px] md:h-[100px] h-[100px]">
           <div className="text-[28px] sm:text-[36px] lg:text-[58px]  text-neutral-600 dark:text-neutral-400 font-semibold">
-            <div>Increase Revenue and</div>
-            <FlipWords words={words} /> <br />
+            <div className="primaryColor">Build Customer and </div>
+            <div className="primaryColor">Employee Trust</div>
+            {/* <FlipWords words={words} /> <br /> */}
           </div>
         </div>
 
@@ -58,7 +59,7 @@ export default function HeroSection({ words, title, subHeading }) {
 
         {/* Button */}
         <div className="flex gap-2 lg:flex-row md:flex-col md:gap-8 justify-center sm:justify-start">
-          <Button text={"VoiceAgent Demo"} to="https://call.prasaar.co/#demo" />
+          <Button text={"Start Your Readiness Check"} to="/readiness-check" />
         </div>
       </div>
 

@@ -1,6 +1,14 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import "../../index.css";
+import proptypes from "prop-types";
+
+Button.propTypes = {
+  text: proptypes.string.isRequired,
+  to: proptypes.string,
+  handleFormOpen: proptypes.func,
+  primary: proptypes.bool,
+};
 
 export default function Button({
   text,
@@ -43,9 +51,10 @@ export default function Button({
     <Link
       ref={elementRef}
       to={to}
-      target={`${to !== "/form" ? "_blank" : ""}`}
+      // target={`${to !== "/form" ? "_blank" : ""}`}
+      target={`${to !== "/form" ? "" : ""}`}
       rel="noopener noreferrer"
-      className={`lg:h-[48px] h-[44px]  px-3 rounded-full text-[20px] flex items-center justify-center transition-all duration-300 z-10 relative w-[275px]  ${
+      className={`py-[6px]  px-[20px] rounded-full text-[20px] flex items-center justify-center transition-all duration-300 z-10 relative   ${
         primary ? "bg_primary text-white" : "bg-white text-black"
       }`}
       onMouseEnter={handleMouseEnter}
