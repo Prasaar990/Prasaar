@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Button from "../layouts/Button"; // Assuming this is your Tailwind Button component
 import { FlipWords } from "../ui/flip-words"; // Keeping this component as is
+import ImageCarousel from "../layouts/ImageCarousel";
+import PropTypes from "prop-types";
 
 export default function HeroSection({ words, title, subHeading }) {
   const [wordIndex, setWordIndex] = useState(0);
@@ -18,8 +20,27 @@ export default function HeroSection({ words, title, subHeading }) {
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, [wordIndex, words]);
 
+  const images = [
+    {
+      src: "./img/heroImg.svg",
+      alt: "Hero Image 1",
+    },
+    {
+      src: "./img/automation.svg",
+      alt: "Hero Image 2",
+    },
+    {
+      src: "./img/ce.svg",
+      alt: "Hero Image 3",
+    },
+    {
+      src: "./img/survey.svg",
+      alt: "Hero Image 4",
+    },
+  ];
+
   return (
-    <section className="w-full pt-[100px] mb-[100px] lg:h-full sm:pt-40 lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] flex justify-center items-center flex-col-reverse sm:flex-row sm:gap-0 md:gap-[50px]">
+    <section className="w-full pt-[80px] mb-[100px] lg:h-full sm:pt-40 lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] flex justify-center items-center flex-col-reverse sm:flex-row sm:gap-0 md:gap-[50px]">
       {/* Left section */}
       <div className="lg:w-[65%] sm:w-[67%] flex flex-col gap-[20px] sm:gap-5 text-center sm:text-left">
         {/* Heading with FlipWords */}
@@ -43,12 +64,14 @@ export default function HeroSection({ words, title, subHeading }) {
 
       {/* Right section with image */}
       <div className="md:w-1/4 w-full sm:h-[450px] h-[300px] cursor-pointer md:flex justify-center items-center">
-        <img
-          src="./img/heroImg.svg"
-          alt="hero img"
-          className="w-full h-full transition-transform duration-300 ease-in-out hover:scale-105"
-        />
+        <ImageCarousel images={images} interval={3600} />
       </div>
     </section>
   );
 }
+
+HeroSection.propTypes = {
+  words: PropTypes.arrayOf(PropTypes.string),
+  title: PropTypes.string,
+  subHeading: PropTypes.string,
+};

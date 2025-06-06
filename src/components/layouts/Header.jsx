@@ -115,13 +115,13 @@ export default function Header() {
             {/* Only show navigation items on home page */}
             {isHomePage && (
               <>
-                <li className="mt-[32px] sm:mt-[24px] md:mt-[32px]">
+                <li className="mt-[20px] sm:mt-[12px] text-[20px] font-medium">
                   <a href="#info" className="no-underline text-gray-800">
                     Why Prasaar ?
                   </a>
                 </li>
 
-                <li className="mt-[32px] sm:mt-[24px] md:mt-[32px] flex flex-row items-center">
+                <li className="mt-[20px] sm:mt-[24px] flex flex-row items-center text-[20px] font-medium gap-[3px]">
                   Solutions
                   <motion.button
                     type="button"
@@ -136,7 +136,7 @@ export default function Header() {
                     <motion.img
                       src="./img/downArrow.svg"
                       alt="show solution"
-                      className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]"
+                      className="h-[22px] w-[24px]"
                       animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                       transition={{ duration: 0.3 }}
                     />
@@ -176,9 +176,9 @@ export default function Header() {
           ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother animation
           type: "tween",
         }}
-        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] z-50 text-gray-800 transition-all duration-500 ease-out ${
+        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] z-50  transition-all duration-500 ease-out ${
           isScrolled ? "bg-white shadow-lg backdrop-blur-md" : "bg-transparent"
-        }`}
+        } ${dropdownNav ? "border-b-2 border-gray-200" : ""}`}
         style={{
           willChange: "transform", // Optimize for animations
         }}
