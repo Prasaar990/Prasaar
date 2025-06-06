@@ -64,7 +64,7 @@ export default function HeroSection({ words, title, subHeading }) {
 
       {/* Right section with image */}
       <div className="md:w-1/4 w-full sm:h-[450px] h-[300px] cursor-pointer md:flex justify-center items-center">
-        <ImageCarousel images={images} interval={3600} />
+        <ImageCarousel images={images} interval={3000} />
       </div>
     </section>
   );
