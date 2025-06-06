@@ -40,11 +40,11 @@ export default function HeroSection({ words, subHeading }) {
   ];
 
   return (
-    <section className="w-full pt-[80px] mb-[100px] lg:h-full sm:pt-40 lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] flex justify-center items-center flex-col-reverse sm:flex-row sm:gap-0 md:gap-[50px]">
+    <section className="w-full pt-[80px] mb-[100px] lg:h-full sm:pt-40 lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] flex justify-center items-center flex-col-reverse sm:flex-row sm:gap-0 md:gap-[50px] lg:gap-[20px]">
       {/* Left section */}
       <div className="lg:w-[65%] sm:w-[67%] flex flex-col gap-[20px] sm:gap-5 text-center sm:text-left">
         {/* Heading with FlipWords */}
-        <div className="flex items-center justify-center sm:justify-start lg:h-[250px] md:h-[100px] h-[100px]">
+        <div className="flex items-center justify-center sm:justify-start lg:h-[180px] h-[100px] ">
           <div className="text-[28px] sm:text-[36px] lg:text-[58px]  text-neutral-600 dark:text-neutral-400 font-semibold">
             <div className="text-[#343c50]">Build Customer and </div>
             <div className="text-[#343c50]">Employee Trust</div>
@@ -54,7 +54,7 @@ export default function HeroSection({ words, subHeading }) {
 
         {/* Subheading */}
         <div className="w-[100%]  text-[18px] lg:text-[22px] md:w-[80%] sm:w-[90%]">
-          <p className="mt-0 sm:mt-8">{subHeading}</p>
+          <p className="mt-0">{subHeading}</p>
         </div>
 
         {/* Button */}
