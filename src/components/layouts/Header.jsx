@@ -5,6 +5,7 @@ import Button from "./Button";
 import Solutions from "../dropdowns/SolutionsDropdown";
 import UseCases from "../dropdowns/UseCasesDropdown";
 import { Link, useLocation } from "react-router-dom";
+import { AlignJustify, X } from "lucide-react";
 
 export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
@@ -201,11 +202,11 @@ export default function Header() {
                   setDropdownNav((x) => !x);
                 }}
               >
-                <img
-                  src={dropdownNav ? "./img/close.svg" : "./img/ham.svg"}
-                  alt="ham icon"
-                  className="w-full h-full"
-                />
+                {dropdownNav ? (
+                  <X className="w-full h-full" style={{ color: "#333" }} />
+                ) : (
+                  <AlignJustify className="w-full h-full" />
+                )}
               </button>
             </div>
           </>
