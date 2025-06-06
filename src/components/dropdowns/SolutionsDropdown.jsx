@@ -51,9 +51,9 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
       icon: <Settings className="primaryColor" size={18} />,
     },
     {
-      title: "ENPS - Employee Net Promoter Score",
+      title: "eNPS - Employee Net Promoter Score",
       description:
-        "ENPS shows probability of an employee recommending your company as a great place to work.",
+        "eNPS shows probability of an employee recommending your company as a great place to work.",
       icon: <BarChart className="primaryColor" size={18} />,
     },
   ];

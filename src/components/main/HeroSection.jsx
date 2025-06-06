@@ -46,8 +46,8 @@ export default function HeroSection({ words, subHeading }) {
         {/* Heading with FlipWords */}
         <div className="flex items-center justify-center sm:justify-start lg:h-[250px] md:h-[100px] h-[100px]">
           <div className="text-[28px] sm:text-[36px] lg:text-[58px]  text-neutral-600 dark:text-neutral-400 font-semibold">
-            <div className="primaryColor">Build Customer and </div>
-            <div className="primaryColor">Employee Trust</div>
+            <div className="text-[#343c50]">Build Customer and </div>
+            <div className="text-[#343c50]">Employee Trust</div>
             {/* <FlipWords words={words} /> <br /> */}
           </div>
         </div>
