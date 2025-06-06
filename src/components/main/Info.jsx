@@ -27,7 +27,7 @@ export default function Info() {
 
   return (
     <div
-      className="w-full py-[128px] px-[32px] lg:px-[80px] mt-[80px] bg-gradient-to-b from-white to-gray-50"
+      className="w-full py-[128px] lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] mt-[80px] bg-gradient-to-b from-white to-gray-50"
       id="info"
     >
       {/* Header section */}

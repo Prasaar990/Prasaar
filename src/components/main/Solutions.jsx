@@ -4,7 +4,7 @@ import Solution from "./Solution";
 export default function Solutions() {
   return (
     <div
-      className="w-full overflow-hidden mt-[100px] lg:mt-[200px] px-[24px] sm:px-[48px] md:px-[96px] lg:px-[128px]"
+      className="w-full overflow-hidden mt-[100px] lg:mt-[200px] lg:px-[50px] md:px-[32px] px-[20px]"
       id="solutions"
     >
       <motion.div

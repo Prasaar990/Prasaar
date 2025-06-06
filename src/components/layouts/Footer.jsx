@@ -36,7 +36,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full bg-gradient-to-b from-[#333b4f] to-[#596789] text-white text-[18px] md:text-[20px] px-[24px] md:px-[48px] lg:px-[80px] pt-[64px] pb-[32px] mt-[160px] rounded-t-[16px] shadow-[0_-5px_15px_rgba(0,0,0,0.1)]">
+    <footer className="w-full bg-gradient-to-b from-[#333b4f] to-[#596789] text-white text-[18px] md:text-[20px] lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] pt-[64px] pb-[32px] mt-[160px] rounded-t-[16px] shadow-[0_-5px_15px_rgba(0,0,0,0.1)]">
       {/* Logo Section */}
       <div
         data-section="logo"

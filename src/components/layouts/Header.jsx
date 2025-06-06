@@ -108,7 +108,7 @@ export default function Header() {
             y: dropdownNav ? "0%" : "-100%",
             opacity: dropdownNav ? 1 : 0,
           }}
-          className="fixed w-screen h-full px-[32px] sm:px-[32px] md:px-[64px] pt-[80px] sm:pt-[128px] md:pt-[160px] pb-[32px] sm:pb-[48px] md:pb-[64px] bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-[20px] md:text-[24px] text-gray-800"
+          className="fixed w-screen h-full lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] pt-[80px] sm:pt-[128px] md:pt-[160px] pb-[32px] sm:pb-[48px] md:pb-[64px] bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-[20px] md:text-[24px] text-gray-800"
           transition={{ duration: 0.4, ease: "easeOut" }}
         >
           <ul className="list-none ">
@@ -176,7 +176,7 @@ export default function Header() {
           ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother animation
           type: "tween",
         }}
-        className={`fixed w-screen sm:py-10 h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center px-[32px] sm:px-[32px] lg:px-[48px] z-50 text-gray-800 transition-all duration-500 ease-out ${
+        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] z-50 text-gray-800 transition-all duration-500 ease-out ${
           isScrolled ? "bg-white shadow-lg backdrop-blur-md" : "bg-transparent"
         }`}
         style={{
@@ -196,7 +196,7 @@ export default function Header() {
             <div>
               <button
                 type="button"
-                className="bg-transparent w-[32px] h-[32px] sm:w-[38px] sm:h-[38px] md:w-[56px] md:h-[56px] border-none cursor-pointer"
+                className="bg-transparent w-[32px] h-[32px]  md:w-[40px] md:h-[40px] border-none cursor-pointer"
                 onClick={() => {
                   setDropdownNav((x) => !x);
                 }}
