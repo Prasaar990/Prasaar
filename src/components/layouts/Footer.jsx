@@ -100,9 +100,11 @@ export default function Footer() {
               <h2 className="text-[20px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
                 Contact
               </h2>
+            </li>            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+              Email: ashok@prasaar.co
             </li>
             <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
-              Email: ashok@prasaar.co
+              Office 615, Fortuna Business Center, Pimple Saudagar, Pune - 411025
             </li>
           </ul>
         </div>
