@@ -100,11 +100,13 @@ export default function Footer() {
               <h2 className="text-[20px] font-medium mb-[24px] relative after:content-[''] after:absolute after:left-0 after:bottom-[-10px] after:w-[64px] after:h-[3px] after:bg-gradient-to-r after:from-white after:to-transparent after:rounded-[4px]">
                 Contact
               </h2>
-            </li>            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+            </li>{" "}
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               Email: ashok@prasaar.co
             </li>
             <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
-              Office 615, Fortuna Business Center, Pimple Saudagar, Pune - 411025
+              Office 615, Fortuna Business Center, Pimple Saudagar, Pune -
+              411025
             </li>
           </ul>
         </div>
@@ -204,11 +206,13 @@ export default function Footer() {
             className="text-white no-underline text-[16px] mx-[24px] relative transition-all duration-300 hover:text-shadow after:content-['|'] after:absolute after:right-[-24px] after:text-white/50 last:after:content-none"
           >
             Terms and Conditions
-          </Link>
-
+          </Link>{" "}
           <span className="block mt-[24px] text-white/70 text-[14px]">
             © {new Date().getFullYear()} Prasaar Technology. All rights
             reserved.
+          </span>
+          <span className="block mt-[12px] text-white/60 text-[12px]">
+            Powered by Eitot Technologies
           </span>
         </div>
       </div>
