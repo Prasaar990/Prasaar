@@ -8,6 +8,8 @@ import InitialForm from "./components/main/RedinessForm";
 import VocAssessment from "./components/main/VOC";
 import VoeAssessment from "./components/main/VOE";
 import Election from "./components/main/Election";
+import PrivacyPolicy from "./components/main/privacy";
+import ContactUs from "./components/main/ContactUs";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
           <Route path="/" element={<Main />}></Route>
           <Route path="/form" element={<GetStarted />}></Route>
           <Route path="/terms" element={<Terms />}></Route>
+          <Route path="/privacy" element={<PrivacyPolicy />}></Route>
+          <Route path="/contact" element={<ContactUs />}></Route>
           <Route path="/customer-trust" element={<VocAssessment />}></Route>
           <Route path="/employee-trust" element={<VoeAssessment />}></Route>
           <Route path="/election" element={<Election />}></Route>
