@@ -9,4 +9,7 @@ export default defineConfig({
   build: {
     outDir: "dist", // Default output directory
   },
+  server: {
+    port: 4000, // change to your desired port
+  },
 });
