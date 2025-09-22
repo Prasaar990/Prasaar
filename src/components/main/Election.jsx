@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 
-const DocumentViewer = () => {
-  const [scale, setScale] = useState(1.0);
+const Election = () => {
+  const [scale, setScale] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [documentLoaded, setDocumentLoaded] = useState(false);
@@ -111,6 +111,18 @@ const DocumentViewer = () => {
     setSelectedLanguage(language);
   };
 
+  // Group pages into pairs for side-by-side display
+  const groupedPages = useMemo(() => {
+    const groups = [];
+    for (let i = 0; i < renderedPages.length; i += 2) {
+      groups.push({
+        left: renderedPages[i],
+        right: renderedPages[i + 1] || null,
+      });
+    }
+    return groups;
+  }, [renderedPages]);
+
   return (
     <div className="w-full mx-auto p-4 bg-gray-50 min-h-screen py-24">
       {/* Language Toggle Header */}
@@ -154,17 +166,32 @@ const DocumentViewer = () => {
         </div>
       )}
 
-      {/* Document Pages */}
+      {/* Document Pages - Two side by side */}
       {documentLoaded && !isLoading && !error && renderedPages.length > 0 && (
         <div className="space-y-4">
-          {renderedPages.map((page, index) => (
+          {groupedPages.map((pagePair, index) => (
             <div key={index} className="flex justify-center">
-              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 w-full max-w-3xl lg:max-w-4xl xl:max-w-5xl">
-                <img
-                  src={page.imageData}
-                  alt={`Page ${page.pageNumber}`}
-                  className="w-full h-auto block"
-                />
+              <div className="bg-white rounded-lg overflow-hidden border border-gray-200 w-full max-w-6xl xl:max-w-7xl">
+                <div className="flex">
+                  {/* Left page */}
+                  <div className="flex-1">
+                    <img
+                      src={pagePair.left.imageData}
+                      alt={`Page ${pagePair.left.pageNumber}`}
+                      className="w-full h-auto block"
+                    />
+                  </div>
+                  {/* Right page */}
+                  {pagePair.right && (
+                    <div className="flex-1 border-l border-gray-200">
+                      <img
+                        src={pagePair.right.imageData}
+                        alt={`Page ${pagePair.right.pageNumber}`}
+                        className="w-full h-auto block"
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
@@ -183,4 +210,4 @@ const DocumentViewer = () => {
   );
 };
 
-export default DocumentViewer;
+export default Election;

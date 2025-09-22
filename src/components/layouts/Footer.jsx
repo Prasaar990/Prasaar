@@ -1,6 +1,6 @@
 import { LinkedinIcon } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Footer() {
   // Intersection Observer for animations
@@ -12,6 +12,7 @@ export default function Footer() {
     social: false,
     legal: false,
   });
+  const location = useLocation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -105,8 +106,10 @@ export default function Footer() {
               Email: ashok@prasaar.co
             </li>
             <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
-              Office 615, Fortuna Business Center, Pimple Saudagar, Pune -
-              411025
+              {location.pathname.includes("/election")
+                ? "Office no 301, 4th floor , Bhagwat Complex , above Bata show room , in front of Police Colony , Anishabad , Patna 800002"
+                : `Office 615, Fortuna Business Center, Pimple Saudagar, Pune -
+              411025`}
             </li>
           </ul>
         </div>
