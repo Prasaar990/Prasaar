@@ -11,7 +11,8 @@ import Election from "./components/main/Election";
 import PrivacyPolicy from "./components/main/privacy";
 import ContactUs from "./components/main/ContactUs";
 import AboutUs from "./components/main/AboutUs";
-import Payment from "./components/main/Payment";
+import PaymentPage from "./components/main/Payment";
+import PaymentSuccessPage from "./components/main/PaymentSuccesspage";
 
 function App() {
   return (
@@ -31,9 +32,10 @@ function App() {
           <Route path="/readiness-check" element={<InitialForm />}>
             {" "}
           </Route>
-          <Route path="/payment" element={<Payment />}>
+          <Route path="/success" element={<PaymentSuccessPage />}></Route>
+          <Route path="/payment" element={<PaymentPage />}>
             {" "}
-          </Route>
+          </Route>{" "}
           <Route path="*" element={<Main />}>
             {" "}
           </Route>
