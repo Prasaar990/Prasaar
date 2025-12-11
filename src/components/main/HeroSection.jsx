@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Button from "../layouts/Button"; // Assuming this is your Tailwind Button component
-import { FlipWords } from "../ui/flip-words"; // Keeping this component as is
 import ImageCarousel from "../layouts/ImageCarousel";
 import PropTypes from "prop-types";
 

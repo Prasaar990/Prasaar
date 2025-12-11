@@ -11,6 +11,7 @@ import Election from "./components/main/Election";
 import PrivacyPolicy from "./components/main/privacy";
 import ContactUs from "./components/main/ContactUs";
 import AboutUs from "./components/main/AboutUs";
+import Payment from "./components/main/Payment";
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
           <Route path="/about" element={<AboutUs />}></Route>
           <Route path="/election" element={<Election />}></Route>
           <Route path="/readiness-check" element={<InitialForm />}>
+            {" "}
+          </Route>
+          <Route path="/payment" element={<Payment />}>
             {" "}
           </Route>
           <Route path="*" element={<Main />}>
