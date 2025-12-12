@@ -183,7 +183,7 @@ Payment screenshot is attached below.`;
 
               <div className="p-6">
                 <div className="border rounded bg-white p-4 mb-4">
-                  <h3 className="text-xl lg:text-sm font-semibold text-gray-900 mb-3 text-center">
+                  <h3 className="text-2xl lg:text-sm font-semibold text-gray-900 mb-3 text-center">
                     Scan QR Code / QR कोड स्कॅन करा
                   </h3>
 
@@ -208,7 +208,7 @@ Payment screenshot is attached below.`;
                     <div className="bg-gray-50 rounded p-3">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="text-xl lg:text-base text-gray-600 mb-1">
+                          <p className="text-2xl lg:text-base text-gray-600 mb-1">
                             UPI ID
                           </p>
                           <p className="text-xl lg:text-base font-medium">
@@ -234,7 +234,7 @@ Payment screenshot is attached below.`;
                     <div className="bg-gray-50 rounded p-3">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="text-lg lg:text-sm text-gray-600 mb-1">
+                          <p className="text-2xl  lg:text-sm text-gray-600 mb-1">
                             Pay To Mobile Number / मोबाईल क्रमांकावर पेमेंट करा
                           </p>
                           <p className="text-xl lg:text-sm font-medium">
@@ -288,7 +288,7 @@ Payment screenshot is attached below.`;
               {!showPayment ? (
                 <div className="space-y-8">
                   <div>
-                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-base font-medium text-gray-700 mb-1">
                       Corporation / महानगरपालिका *
                     </label>
                     <input
@@ -412,10 +412,10 @@ Payment screenshot is attached below.`;
               ) : (
                 <div>
                   <div className="bg-gray-50 rounded p-4 mb-4">
-                    <h3 className="text-lg lg:text-sm font-semibold text-gray-900 mb-3">
+                    <h3 className="text-2xl lg:text-sm font-semibold text-gray-900 mb-3">
                       Registration Details / नोंदणी तपशील
                     </h3>
-                    <div className="space-y-2 text-base lg:text-sm">
+                    <div className="space-y-2 text-xl lg:text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">
                           Corporation / महानगरपालिका:
