@@ -22,7 +22,10 @@ export default function Header() {
   const scrollThreshold = useRef(5); // Minimum scroll distance to trigger hide/show
 
   // Check if current page is home page
-  const isHomePage = location.pathname === "/" || location.pathname === "/home";
+  const isHomePage =
+    location.pathname === "/" ||
+    location.pathname === "/home" ||
+    location.pathname === "/pay";
 
   const isTablet = useMediaQuery({
     query: "(max-width: 900px)",

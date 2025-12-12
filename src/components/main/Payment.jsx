@@ -139,7 +139,7 @@ const PaymentPage = () => {
   const downloadQR = () => {
     const link = document.createElement("a");
     link.href = paymentDetails.qrCode;
-    link.download = "payment-qr-code.svg";
+    link.download = "Prasaar-payment-qr-code.svg";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -166,16 +166,120 @@ Payment screenshot is attached below.`;
   };
 
   return (
-    <div className="min-h-screen py-20 px-4 bg-gray-50">
+    <div className="min-h-screen lg:py-24 py-32 px-4 bg-gray-50">
       <div className={`mx-auto ${showPayment ? "max-w-6xl" : "max-w-xl"}`}>
         <div
           className={`bg-white rounded-lg shadow-sm border border-gray-200 ${
             showPayment ? "grid lg:grid-cols-2 gap-0" : ""
           }`}
         >
+          {showPayment && (
+            <div className="border-l border-gray-200 bg-gray-50">
+              <div className="py-6 px-6 bg-gradient-to-r from-[#a00235] to-[#c60240] border-b">
+                <h2 className="text-xl lg:text-xl text-2xl font-semibold text-white text-center">
+                  Payment Details / पेमेंट तपशील
+                </h2>
+              </div>
+
+              <div className="p-6">
+                <div className="border rounded bg-white p-4 mb-4">
+                  <h3 className="text-base lg:text-sm font-semibold text-gray-900 mb-3 text-center">
+                    Scan QR Code / QR कोड स्कॅन करा
+                  </h3>
+
+                  <div className="flex justify-center mb-4">
+                    <div className="relative">
+                      <img
+                        src={paymentDetails.qrCode}
+                        alt="Payment QR Code"
+                        className="w-48 h-48 border-2 border-gray-200 rounded"
+                      />
+                      <button
+                        onClick={downloadQR}
+                        className="absolute top-1 right-1 bg-white p-1.5 rounded shadow-md hover:bg-gray-50"
+                        title="Download QR"
+                      >
+                        <Download className="w-4 h-4 text-gray-700" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 rounded p-3">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm lg:text-xs text-gray-600 mb-1">
+                            UPI ID
+                          </p>
+                          <p className="text-base lg:text-sm font-medium">
+                            {paymentDetails.upiId}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() =>
+                            copyToClipboard(paymentDetails.upiId, "upi")
+                          }
+                          className="p-2 hover:bg-gray-200 rounded transition-colors"
+                          title="Copy UPI ID"
+                        >
+                          {copiedField === "upi" ? (
+                            <Check className="w-5 h-5 lg:w-4 lg:h-4 text-green-600" />
+                          ) : (
+                            <Copy className="w-5 h-5 lg:w-4 lg:h-4 text-gray-600" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-50 rounded p-3">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-sm lg:text-xs text-gray-600 mb-1">
+                            Pay To Mobile Number / मोबाईल क्रमांकावर पेमेंट करा
+                          </p>
+                          <p className="text-base lg:text-sm font-medium">
+                            {paymentDetails.mobileNumber}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() =>
+                            copyToClipboard(
+                              paymentDetails.mobileNumber,
+                              "mobile"
+                            )
+                          }
+                          className="p-2 hover:bg-gray-200 rounded transition-colors"
+                          title="Copy Mobile Number"
+                        >
+                          {copiedField === "mobile" ? (
+                            <Check className="w-5 h-5 lg:w-4 lg:h-4 text-green-600" />
+                          ) : (
+                            <Copy className="w-5 h-5 lg:w-4 lg:h-4 text-gray-600" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded p-3 text-sm lg:text-xs text-blue-800">
+                  <p className="font-medium mb-1">Note / टीप:</p>
+                  <p>
+                    After payment, click "Payment Done" and send screenshot on
+                    WhatsApp for verification.
+                  </p>
+                  <p className="mt-1">
+                    पेमेंट केल्यानंतर, "पेमेंट झाले" वर क्लिक करा आणि
+                    पडताळणीसाठी व्हाट्सअॅपवर स्क्रीनशॉट पाठवा.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className={showPayment ? "" : ""}>
             <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
-              <h1 className="text-xl font-semibold text-white text-center">
+              <h1 className="text-xl lg:text-xl  font-semibold text-white text-center">
                 Payment Registration / पेमेंट नोंदणी
               </h1>
             </div>
@@ -184,7 +288,7 @@ Payment screenshot is attached below.`;
               {!showPayment ? (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-base lg:text-sm font-medium text-gray-700 mb-1">
                       Corporation / महानगरपालिका *
                     </label>
                     <input
@@ -192,7 +296,7 @@ Payment screenshot is attached below.`;
                       name="corporation"
                       value={formData.corporation}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2 text-sm border ${
+                      className={`w-full px-3 py-2.5 lg:py-2 text-base lg:text-sm border ${
                         errors.corporation
                           ? "border-red-500"
                           : "border-gray-300"
@@ -200,14 +304,14 @@ Payment screenshot is attached below.`;
                       placeholder="Enter corporation / महानगरपालिका प्रविष्ट करा"
                     />
                     {errors.corporation && (
-                      <p className="mt-1 text-xs text-red-600">
+                      <p className="mt-1 text-sm lg:text-xs text-red-600">
                         {errors.corporation}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-base lg:text-sm font-medium text-gray-700 mb-1">
                       Candidate Name / उमेदवाराचे नाव *
                     </label>
                     <input
@@ -215,7 +319,7 @@ Payment screenshot is attached below.`;
                       name="candidateName"
                       value={formData.candidateName}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2 text-sm border ${
+                      className={`w-full px-3 py-2.5 lg:py-2 text-base lg:text-sm border ${
                         errors.candidateName
                           ? "border-red-500"
                           : "border-gray-300"
@@ -223,14 +327,14 @@ Payment screenshot is attached below.`;
                       placeholder="Enter candidate name / उमेदवाराचे नाव प्रविष्ट करा"
                     />
                     {errors.candidateName && (
-                      <p className="mt-1 text-xs text-red-600">
+                      <p className="mt-1 text-sm lg:text-xs text-red-600">
                         {errors.candidateName}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-base lg:text-sm font-medium text-gray-700 mb-1">
                       Ward / प्रभाग *
                     </label>
                     <input
@@ -238,18 +342,20 @@ Payment screenshot is attached below.`;
                       name="ward"
                       value={formData.ward}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2 text-sm border ${
+                      className={`w-full px-3 py-2.5 lg:py-2 text-base lg:text-sm border ${
                         errors.ward ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter ward / प्रभाग प्रविष्ट करा"
                     />
                     {errors.ward && (
-                      <p className="mt-1 text-xs text-red-600">{errors.ward}</p>
+                      <p className="mt-1 text-sm lg:text-xs text-red-600">
+                        {errors.ward}
+                      </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-base lg:text-sm font-medium text-gray-700 mb-1">
                       Mobile Number / मोबाईल नंबर *
                     </label>
                     <input
@@ -258,20 +364,20 @@ Payment screenshot is attached below.`;
                       value={formData.mobile}
                       onChange={handleChange}
                       maxLength="10"
-                      className={`w-full px-3 py-2 text-sm border ${
+                      className={`w-full px-3 py-2.5 lg:py-2 text-base lg:text-sm border ${
                         errors.mobile ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter 10-digit mobile / १० अंकी मोबाईल नंबर"
                     />
                     {errors.mobile && (
-                      <p className="mt-1 text-xs text-red-600">
+                      <p className="mt-1 text-sm lg:text-xs text-red-600">
                         {errors.mobile}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-base lg:text-sm font-medium text-gray-700 mb-1">
                       Payment Amount (₹) / पेमेंट रक्कम (₹) *
                     </label>
                     <input
@@ -279,13 +385,13 @@ Payment screenshot is attached below.`;
                       name="amount"
                       value={formData.amount}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2 text-sm border ${
+                      className={`w-full px-3 py-2.5 lg:py-2 text-base lg:text-sm border ${
                         errors.amount ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter amount / रक्कम प्रविष्ट करा"
                     />
                     {errors.amount && (
-                      <p className="mt-1 text-xs text-red-600">
+                      <p className="mt-1 text-sm lg:text-xs text-red-600">
                         {errors.amount}
                       </p>
                     )}
@@ -294,7 +400,7 @@ Payment screenshot is attached below.`;
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="w-full bg-[#c60240] text-white py-2.5 text-sm rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#c60240] text-white py-3 lg:py-2.5 text-base lg:text-sm rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting
                       ? "Processing... / प्रक्रिया सुरू आहे..."
@@ -306,10 +412,10 @@ Payment screenshot is attached below.`;
               ) : (
                 <div>
                   <div className="bg-gray-50 rounded p-4 mb-4">
-                    <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                    <h3 className="text-base lg:text-sm font-semibold text-gray-900 mb-3">
                       Registration Details / नोंदणी तपशील
                     </h3>
-                    <div className="space-y-2 text-xs">
+                    <div className="space-y-2 text-sm lg:text-xs">
                       <div className="flex justify-between">
                         <span className="text-gray-600">
                           Corporation / महानगरपालिका:
@@ -347,7 +453,7 @@ Payment screenshot is attached below.`;
 
                   <button
                     onClick={() => setShowSuccessModal(true)}
-                    className="w-full bg-green-600 text-white py-2.5 text-sm rounded font-medium hover:bg-green-700 transition-colors"
+                    className="w-full bg-green-600 text-white py-3 lg:py-2.5 text-base lg:text-sm rounded font-medium hover:bg-green-700 transition-colors"
                   >
                     Payment Done / पेमेंट झाले
                   </button>
@@ -355,108 +461,6 @@ Payment screenshot is attached below.`;
               )}
             </div>
           </div>
-
-          {showPayment && (
-            <div className="border-l border-gray-200 bg-gray-50">
-              <div className="py-6 px-6 bg-gradient-to-r from-[#a00235] to-[#c60240] border-b">
-                <h2 className="text-xl font-semibold text-white text-center">
-                  Payment Details / पेमेंट तपशील
-                </h2>
-              </div>
-
-              <div className="p-6">
-                <div className="border rounded bg-white p-4 mb-4">
-                  <h3 className="text-sm font-semibold text-gray-900 mb-3 text-center">
-                    Scan QR Code / QR कोड स्कॅन करा
-                  </h3>
-
-                  <div className="flex justify-center mb-4">
-                    <div className="relative">
-                      <img
-                        src={paymentDetails.qrCode}
-                        alt="Payment QR Code"
-                        className="w-48 h-48 border-2 border-gray-200 rounded"
-                      />
-                      <button
-                        onClick={downloadQR}
-                        className="absolute top-1 right-1 bg-white p-1.5 rounded shadow-md hover:bg-gray-50"
-                        title="Download QR"
-                      >
-                        <Download className="w-4 h-4 text-gray-700" />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="bg-gray-50 rounded p-3">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="text-xs text-gray-600 mb-1">UPI ID</p>
-                          <p className="text-sm font-medium">
-                            {paymentDetails.upiId}
-                          </p>
-                        </div>
-                        <button
-                          onClick={() =>
-                            copyToClipboard(paymentDetails.upiId, "upi")
-                          }
-                          className="p-2 hover:bg-gray-200 rounded transition-colors"
-                          title="Copy UPI ID"
-                        >
-                          {copiedField === "upi" ? (
-                            <Check className="w-4 h-4 text-green-600" />
-                          ) : (
-                            <Copy className="w-4 h-4 text-gray-600" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div className="bg-gray-50 rounded p-3">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="text-xs text-gray-600 mb-1">
-                            Mobile Number / मोबाईल नंबर
-                          </p>
-                          <p className="text-sm font-medium">
-                            {paymentDetails.mobileNumber}
-                          </p>
-                        </div>
-                        <button
-                          onClick={() =>
-                            copyToClipboard(
-                              paymentDetails.mobileNumber,
-                              "mobile"
-                            )
-                          }
-                          className="p-2 hover:bg-gray-200 rounded transition-colors"
-                          title="Copy Mobile Number"
-                        >
-                          {copiedField === "mobile" ? (
-                            <Check className="w-4 h-4 text-green-600" />
-                          ) : (
-                            <Copy className="w-4 h-4 text-gray-600" />
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-blue-50 border border-blue-200 rounded p-3 text-xs text-blue-800">
-                  <p className="font-medium mb-1">Note / टीप:</p>
-                  <p>
-                    After payment, click "Payment Done" and send screenshot on
-                    WhatsApp for verification.
-                  </p>
-                  <p className="mt-1">
-                    पेमेंट केल्यानंतर, "पेमेंट झाले" वर क्लिक करा आणि
-                    पडताळणीसाठी व्हाट्सअॅपवर स्क्रीनशॉट पाठवा.
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {showSuccessModal && (
@@ -472,13 +476,13 @@ Payment screenshot is attached below.`;
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Check className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-xl lg:text-lg font-semibold text-gray-900 mb-2">
                   Payment Confirmed! / पेमेंट पूर्ण झाले!
                 </h3>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-base lg:text-sm text-gray-600 mb-4">
                   Please send payment screenshot on WhatsApp to verify.
                 </p>
-                <p className="text-sm text-gray-600 mb-4">
+                <p className="text-base lg:text-sm text-gray-600 mb-4">
                   कृपया पडताळणीसाठी पेमेंट स्क्रीनशॉट व्हाट्सअॅपवर पाठवा.
                 </p>
                 <button
@@ -487,7 +491,7 @@ Payment screenshot is attached below.`;
                     sendWhatsAppMessage();
                     setTimeout(() => handleReset(), 1000);
                   }}
-                  className="w-full bg-green-600 text-white py-2.5 text-sm rounded font-medium hover:bg-green-700 transition-colors mb-2"
+                  className="w-full bg-green-600 text-white py-3 lg:py-2.5 text-base lg:text-sm rounded font-medium hover:bg-green-700 transition-colors mb-2"
                 >
                   Send on WhatsApp / व्हाट्सअॅपवर पाठवा
                 </button>
@@ -496,7 +500,7 @@ Payment screenshot is attached below.`;
                     setShowSuccessModal(false);
                     handleReset();
                   }}
-                  className="w-full bg-gray-200 text-gray-700 py-2 text-sm rounded font-medium hover:bg-gray-300 transition-colors"
+                  className="w-full bg-gray-200 text-gray-700 py-2.5 lg:py-2 text-base lg:text-sm rounded font-medium hover:bg-gray-300 transition-colors"
                 >
                   Close / बंद करा
                 </button>
