@@ -183,7 +183,7 @@ Payment screenshot is attached below.`;
 
               <div className="p-6">
                 <div className="border rounded bg-white p-4 mb-4">
-                  <h3 className="text-lg lg:text-sm font-semibold text-gray-900 mb-3 text-center">
+                  <h3 className="text-xl lg:text-sm font-semibold text-gray-900 mb-3 text-center">
                     Scan QR Code / QR कोड स्कॅन करा
                   </h3>
 
@@ -208,10 +208,10 @@ Payment screenshot is attached below.`;
                     <div className="bg-gray-50 rounded p-3">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="text-lg lg:text-base text-gray-600 mb-1">
+                          <p className="text-xl lg:text-base text-gray-600 mb-1">
                             UPI ID
                           </p>
-                          <p className="text-lg lg:text-base font-medium">
+                          <p className="text-xl lg:text-base font-medium">
                             {paymentDetails.upiId}
                           </p>
                         </div>
@@ -234,10 +234,10 @@ Payment screenshot is attached below.`;
                     <div className="bg-gray-50 rounded p-3">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="text-base lg:text-sm text-gray-600 mb-1">
+                          <p className="text-lg lg:text-sm text-gray-600 mb-1">
                             Pay To Mobile Number / मोबाईल क्रमांकावर पेमेंट करा
                           </p>
-                          <p className="text-lg lg:text-sm font-medium">
+                          <p className="text-xl lg:text-sm font-medium">
                             {paymentDetails.mobileNumber}
                           </p>
                         </div>
@@ -278,17 +278,17 @@ Payment screenshot is attached below.`;
           )}
 
           <div className={showPayment ? "" : ""}>
-            <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
+            <div className="py-10 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
               <h1 className="text-3xl lg:text-xl font-medium text-white text-center">
                 Payment Registration / पेमेंट नोंदणी
               </h1>
             </div>
 
-            <div className="p-6">
+            <div className="p-8">
               {!showPayment ? (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-lg lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
                       Corporation / महानगरपालिका *
                     </label>
                     <input
@@ -296,7 +296,7 @@ Payment screenshot is attached below.`;
                       name="corporation"
                       value={formData.corporation}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-lg lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
                         errors.corporation
                           ? "border-red-500"
                           : "border-gray-300"
@@ -311,7 +311,7 @@ Payment screenshot is attached below.`;
                   </div>
 
                   <div>
-                    <label className="block text-lg lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
                       Candidate Name / उमेदवाराचे नाव *
                     </label>
                     <input
@@ -319,7 +319,7 @@ Payment screenshot is attached below.`;
                       name="candidateName"
                       value={formData.candidateName}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-lg lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
                         errors.candidateName
                           ? "border-red-500"
                           : "border-gray-300"
@@ -334,7 +334,7 @@ Payment screenshot is attached below.`;
                   </div>
 
                   <div>
-                    <label className="block text-lg lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
                       Ward / प्रभाग *
                     </label>
                     <input
@@ -342,7 +342,7 @@ Payment screenshot is attached below.`;
                       name="ward"
                       value={formData.ward}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-lg lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
                         errors.ward ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter ward / प्रभाग प्रविष्ट करा"
@@ -355,7 +355,7 @@ Payment screenshot is attached below.`;
                   </div>
 
                   <div>
-                    <label className="block text-lg lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
                       Mobile Number / मोबाईल नंबर *
                     </label>
                     <input
@@ -364,7 +364,7 @@ Payment screenshot is attached below.`;
                       value={formData.mobile}
                       onChange={handleChange}
                       maxLength="10"
-                      className={`w-full px-3 py-3 lg:py-2 text-lg lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
                         errors.mobile ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter 10-digit mobile / १० अंकी मोबाईल नंबर"
@@ -377,7 +377,7 @@ Payment screenshot is attached below.`;
                   </div>
 
                   <div>
-                    <label className="block text-lg lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
                       Payment Amount (₹) / पेमेंट रक्कम (₹) *
                     </label>
                     <input
@@ -385,7 +385,7 @@ Payment screenshot is attached below.`;
                       name="amount"
                       value={formData.amount}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-lg lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
                         errors.amount ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter amount / रक्कम प्रविष्ट करा"
@@ -400,7 +400,7 @@ Payment screenshot is attached below.`;
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="w-full bg-[#c60240] text-white py-4 lg:py-2.5 text-lg lg:text-sm rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#c60240] text-white py-4 lg:py-2.5 text-2xl lg:text-sm rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting
                       ? "Processing... / प्रक्रिया सुरू आहे..."
