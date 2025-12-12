@@ -80,7 +80,7 @@ const PaymentPage = () => {
 
     try {
       const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbzh6-C2h4J8Xern6sLZbvfet6HcTu8aDkxbowZ_9RtIs8je85BKlxo8EIIoJg_86eIbLw/exec";
+        "https://script.google.com/macros/s/AKfycbxzd1MiSzWFBBLd0bihUOUKES81KpzFqu7A1pnjTblwp43ug3UW0I1FwmZsHg19SvcMjA/exec";
 
       // Get IST date and time
       const now = new Date();
