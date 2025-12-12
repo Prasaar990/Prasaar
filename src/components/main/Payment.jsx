@@ -183,7 +183,7 @@ Payment screenshot is attached below.`;
 
               <div className="p-6">
                 <div className="border rounded bg-white p-4 mb-4">
-                  <h3 className="text-2xl lg:text-sm font-semibold text-gray-900 mb-3 text-center">
+                  <h3 className="text-2xl lg:text-base font-semibold text-gray-900 mb-3 text-center">
                     Scan QR Code / QR कोड स्कॅन करा
                   </h3>
 
@@ -234,10 +234,10 @@ Payment screenshot is attached below.`;
                     <div className="bg-gray-50 rounded p-3">
                       <div className="flex justify-between items-center">
                         <div>
-                          <p className="text-2xl  lg:text-sm text-gray-600 mb-1">
+                          <p className="text-2xl  lg:text-base text-gray-600 mb-1">
                             Pay To Mobile Number / मोबाईल क्रमांकावर पेमेंट करा
                           </p>
-                          <p className="text-xl lg:text-sm font-medium">
+                          <p className="text-xl lg:text-base font-medium">
                             {paymentDetails.mobileNumber}
                           </p>
                         </div>
@@ -262,7 +262,7 @@ Payment screenshot is attached below.`;
                   </div>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-200 rounded p-3 text-base lg:text-sm text-blue-800">
+                <div className="bg-blue-50 border border-blue-200 rounded p-3 text-xl lg:text-base text-blue-800">
                   <p className="font-medium mb-1">Note / टीप:</p>
                   <p>
                     After payment, click "Payment Done" and send screenshot on
@@ -296,7 +296,7 @@ Payment screenshot is attached below.`;
                       name="corporation"
                       value={formData.corporation}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-base border ${
                         errors.corporation
                           ? "border-red-500"
                           : "border-gray-300"
@@ -304,14 +304,14 @@ Payment screenshot is attached below.`;
                       placeholder="Enter corporation / महानगरपालिका प्रविष्ट करा"
                     />
                     {errors.corporation && (
-                      <p className="mt-1 text-base lg:text-sm text-red-600">
+                      <p className="mt-1 text-base lg:text-base text-red-600">
                         {errors.corporation}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-base font-medium text-gray-700 mb-1">
                       Candidate Name / उमेदवाराचे नाव *
                     </label>
                     <input
@@ -319,7 +319,7 @@ Payment screenshot is attached below.`;
                       name="candidateName"
                       value={formData.candidateName}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-base border ${
                         errors.candidateName
                           ? "border-red-500"
                           : "border-gray-300"
@@ -327,14 +327,14 @@ Payment screenshot is attached below.`;
                       placeholder="Enter candidate name / उमेदवाराचे नाव प्रविष्ट करा"
                     />
                     {errors.candidateName && (
-                      <p className="mt-1 text-base lg:text-sm text-red-600">
+                      <p className="mt-1 text-base lg:text-base text-red-600">
                         {errors.candidateName}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-base font-medium text-gray-700 mb-1">
                       Ward / प्रभाग *
                     </label>
                     <input
@@ -342,20 +342,20 @@ Payment screenshot is attached below.`;
                       name="ward"
                       value={formData.ward}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-base border ${
                         errors.ward ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter ward / प्रभाग प्रविष्ट करा"
                     />
                     {errors.ward && (
-                      <p className="mt-1 text-base lg:text-sm text-red-600">
+                      <p className="mt-1 text-base lg:text-base text-red-600">
                         {errors.ward}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-base font-medium text-gray-700 mb-1">
                       Mobile Number / मोबाईल नंबर *
                     </label>
                     <input
@@ -364,20 +364,20 @@ Payment screenshot is attached below.`;
                       value={formData.mobile}
                       onChange={handleChange}
                       maxLength="10"
-                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-base border ${
                         errors.mobile ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter 10-digit mobile / १० अंकी मोबाईल नंबर"
                     />
                     {errors.mobile && (
-                      <p className="mt-1 text-base lg:text-sm text-red-600">
+                      <p className="mt-1 text-base lg:text-base text-red-600">
                         {errors.mobile}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-2xl lg:text-base font-medium text-gray-700 mb-1">
                       Payment Amount (₹) / पेमेंट रक्कम (₹) *
                     </label>
                     <input
@@ -385,13 +385,13 @@ Payment screenshot is attached below.`;
                       name="amount"
                       value={formData.amount}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-base border ${
                         errors.amount ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter amount / रक्कम प्रविष्ट करा"
                     />
                     {errors.amount && (
-                      <p className="mt-1 text-base lg:text-sm text-red-600">
+                      <p className="mt-1 text-base lg:text-base text-red-600">
                         {errors.amount}
                       </p>
                     )}
@@ -400,7 +400,7 @@ Payment screenshot is attached below.`;
                   <button
                     onClick={handleSubmit}
                     disabled={isSubmitting}
-                    className="w-full bg-[#c60240] text-white py-4 lg:py-2.5 text-2xl lg:text-sm rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-[#c60240] text-white py-4 lg:py-2.5 text-2xl lg:text-base rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting
                       ? "Processing... / प्रक्रिया सुरू आहे..."
@@ -412,10 +412,10 @@ Payment screenshot is attached below.`;
               ) : (
                 <div>
                   <div className="bg-gray-50 rounded p-4 mb-4">
-                    <h3 className="text-2xl lg:text-sm font-semibold text-gray-900 mb-3">
+                    <h3 className="text-2xl lg:text-base font-semibold text-gray-900 mb-3">
                       Registration Details / नोंदणी तपशील
                     </h3>
-                    <div className="space-y-2 text-xl lg:text-sm">
+                    <div className="space-y-2 text-2xl lg:text-base">
                       <div className="flex justify-between">
                         <span className="text-gray-600">
                           Corporation / महानगरपालिका:
@@ -453,7 +453,7 @@ Payment screenshot is attached below.`;
 
                   <button
                     onClick={() => setShowSuccessModal(true)}
-                    className="w-full bg-green-600 text-white py-4 lg:py-2.5 text-lg lg:text-sm rounded font-medium hover:bg-green-700 transition-colors"
+                    className="w-full bg-green-600 text-white py-4 lg:py-2.5 text-2xl lg:text-base rounded font-medium hover:bg-green-700 transition-colors"
                   >
                     Payment Done / पेमेंट झाले &#8594;
                   </button>
@@ -465,11 +465,11 @@ Payment screenshot is attached below.`;
 
         {showSuccessModal && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center px-12 z-50"
             onClick={() => setShowSuccessModal(false)}
           >
             <div
-              className="bg-white rounded-lg p-6 max-w-sm w-full shadow-xl"
+              className="bg-white rounded-lg px-8 py-8 lg:w-[400px] w-full shadow-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="text-center">
@@ -479,10 +479,10 @@ Payment screenshot is attached below.`;
                 <h3 className="text-2xl lg:text-lg font-semibold text-gray-900 mb-2">
                   Payment Confirmed! / पेमेंट पूर्ण झाले!
                 </h3>
-                <p className="text-lg lg:text-sm text-gray-600 mb-4">
+                <p className="text-xl lg:text-base text-gray-600 mb-4">
                   Please send payment screenshot on WhatsApp to verify.
                 </p>
-                <p className="text-lg lg:text-sm text-gray-600 mb-4">
+                <p className="text-xl lg:text-base text-gray-600 mb-4">
                   कृपया पडताळणीसाठी पेमेंट स्क्रीनशॉट व्हाट्सअॅपवर पाठवा.
                 </p>
                 <button
@@ -491,7 +491,7 @@ Payment screenshot is attached below.`;
                     sendWhatsAppMessage();
                     setTimeout(() => handleReset(), 1000);
                   }}
-                  className="w-full bg-green-600 text-white py-4 lg:py-2.5 text-lg lg:text-sm rounded font-medium hover:bg-green-700 transition-colors mb-2"
+                  className="w-full bg-green-600 text-white py-4 lg:py-2.5 text-lg lg:text-base rounded font-medium hover:bg-green-700 transition-colors mb-2"
                 >
                   Send on WhatsApp / व्हाट्सअॅपवर पाठवा
                 </button>
@@ -500,7 +500,7 @@ Payment screenshot is attached below.`;
                     setShowSuccessModal(false);
                     handleReset();
                   }}
-                  className="w-full bg-gray-200 text-gray-700 py-3 lg:py-2 text-lg lg:text-sm rounded font-medium hover:bg-gray-300 transition-colors"
+                  className="w-full bg-gray-200 text-gray-700 py-3 lg:py-2 text-lg lg:text-base rounded font-medium hover:bg-gray-300 transition-colors"
                 >
                   Close / बंद करा
                 </button>
