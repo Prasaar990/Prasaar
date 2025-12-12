@@ -33,9 +33,10 @@ function App() {
             {" "}
           </Route>
           <Route path="/success" element={<PaymentSuccessPage />}></Route>
-          <Route path="/payment" element={<PaymentPage />}>
+          <Route path="/pay" element={<PaymentPage />}>
             {" "}
           </Route>{" "}
+          <Route path="/pay" element={<PaymentPage />}></Route>{" "}
           <Route path="*" element={<Main />}>
             {" "}
           </Route>

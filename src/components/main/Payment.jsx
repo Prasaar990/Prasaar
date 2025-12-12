@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import RazorpayButton from "../layouts/RazorpayButton";
+import { Copy, Download, Check } from "lucide-react";
 
 const PaymentPage = () => {
   const [formData, setFormData] = useState({
@@ -8,11 +7,20 @@ const PaymentPage = () => {
     candidateName: "",
     ward: "",
     mobile: "",
+    amount: "",
   });
   const [showPayment, setShowPayment] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [copiedField, setCopiedField] = useState(null);
+
+  // Payment details
+  const paymentDetails = {
+    upiId: "9226333789@hdfc",
+    mobileNumber: "9226333789",
+    qrCode: "/img/qrImage.jpeg",
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,21 +30,27 @@ const PaymentPage = () => {
     const newErrors = {};
 
     if (!formData.corporation.trim()) {
-      newErrors.corporation = "Corporation is required";
+      newErrors.corporation = "Required";
     }
 
     if (!formData.candidateName.trim()) {
-      newErrors.candidateName = "Candidate name is required";
+      newErrors.candidateName = "Required";
     }
 
     if (!formData.ward.trim()) {
-      newErrors.ward = "Ward is required";
+      newErrors.ward = "Required";
     }
 
     if (!formData.mobile.trim()) {
-      newErrors.mobile = "Mobile number is required";
+      newErrors.mobile = "Required";
     } else if (!/^[6-9]\d{9}$/.test(formData.mobile)) {
-      newErrors.mobile = "Please enter a valid 10-digit mobile number";
+      newErrors.mobile = "Invalid mobile number";
+    }
+
+    if (!formData.amount.trim()) {
+      newErrors.amount = "Required";
+    } else if (isNaN(formData.amount) || parseFloat(formData.amount) <= 0) {
+      newErrors.amount = "Invalid amount";
     }
 
     setErrors(newErrors);
@@ -57,9 +71,7 @@ const PaymentPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (!validateForm()) {
       return;
     }
@@ -68,7 +80,15 @@ const PaymentPage = () => {
 
     try {
       const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbyaUOUwkmTXS43f9m1OHhkWttHKvgElwXZjeFGxWyaxbwl3Lf5tPGUWEyyCBKbUC_YPsw/exec";
+        "https://script.google.com/macros/s/AKfycbzh6-C2h4J8Xern6sLZbvfet6HcTu8aDkxbowZ_9RtIs8je85BKlxo8EIIoJg_86eIbLw/exec";
+
+      // Get IST date and time
+      const now = new Date();
+      const istTime = new Date(
+        now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })
+      );
+      const date = istTime.toLocaleDateString("en-IN");
+      const time = istTime.toLocaleTimeString("en-IN");
 
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
@@ -77,15 +97,20 @@ const PaymentPage = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          ...formData,
-          timestamp: new Date().toISOString(),
+          corporation: formData.corporation,
+          candidateName: formData.candidateName,
+          ward: formData.ward,
+          mobile: formData.mobile,
+          amount: formData.amount,
+          date: date,
+          time: time,
         }),
       });
 
       setShowPayment(true);
     } catch (error) {
       console.error("Error saving data:", error);
-      alert("There was an error saving your information. Please try again.");
+      alert("Error saving information. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -97,320 +122,388 @@ const PaymentPage = () => {
       candidateName: "",
       ward: "",
       mobile: "",
+      amount: "",
     });
     setShowPayment(false);
     setShowSuccessModal(false);
     setErrors({});
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
+  const copyToClipboard = (text, field) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(null), 2000);
+    });
+  };
+
+  const downloadQR = () => {
+    const link = document.createElement("a");
+    link.href = paymentDetails.qrCode;
+    link.download = "payment-qr-code.svg";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const sendWhatsAppMessage = () => {
+    const message = `नमस्कार / Hello,
+
+मी पेमेंट केले आहे. खालील माहिती पहा:
+I have completed the payment. Please find details below:
+
+नाव / Name: ${formData.candidateName}
+मोबाईल / Mobile: ${formData.mobile}
+महानगरपालिका / Corporation: ${formData.corporation}
+प्रभाग / Ward: ${formData.ward}
+रक्कम / Amount: ₹${formData.amount}
+
+पेमेंट स्क्रीनशॉट खाली आहे.
+Payment screenshot is attached below.`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=919226333789&text=${encodedMessage}&type=phone_number&app_absent=0`;
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
-    <div className="min-h-screen py-32 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100"
+    <div className="min-h-screen py-20 px-4 bg-gray-50">
+      <div className={`mx-auto ${showPayment ? "max-w-6xl" : "max-w-xl"}`}>
+        <div
+          className={`bg-white rounded-lg shadow-sm border border-gray-200 ${
+            showPayment ? "grid lg:grid-cols-2 gap-0" : ""
+          }`}
         >
-          <div className="relative py-12 px-8 bg-gradient-to-r from-red-600 to-red-700">
-            <div className="absolute inset-0 bg-black opacity-10"></div>
-            <div className="relative text-center">
-              <h1 className="text-3xl text-white mb-2">Payment Registration</h1>
-              <p className="text-red-100 text-lg">
-                Complete your registration to proceed with payment
-              </p>
+          <div className={showPayment ? "" : ""}>
+            <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
+              <h1 className="text-xl font-semibold text-white text-center">
+                Payment Registration / पेमेंट नोंदणी
+              </h1>
+            </div>
+
+            <div className="p-6">
+              {!showPayment ? (
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Corporation / महानगरपालिका *
+                    </label>
+                    <input
+                      type="text"
+                      name="corporation"
+                      value={formData.corporation}
+                      onChange={handleChange}
+                      className={`w-full px-3 py-2 text-sm border ${
+                        errors.corporation
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      placeholder="Enter corporation / महानगरपालिका प्रविष्ट करा"
+                    />
+                    {errors.corporation && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.corporation}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Candidate Name / उमेदवाराचे नाव *
+                    </label>
+                    <input
+                      type="text"
+                      name="candidateName"
+                      value={formData.candidateName}
+                      onChange={handleChange}
+                      className={`w-full px-3 py-2 text-sm border ${
+                        errors.candidateName
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      placeholder="Enter candidate name / उमेदवाराचे नाव प्रविष्ट करा"
+                    />
+                    {errors.candidateName && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.candidateName}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Ward / प्रभाग *
+                    </label>
+                    <input
+                      type="text"
+                      name="ward"
+                      value={formData.ward}
+                      onChange={handleChange}
+                      className={`w-full px-3 py-2 text-sm border ${
+                        errors.ward ? "border-red-500" : "border-gray-300"
+                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      placeholder="Enter ward / प्रभाग प्रविष्ट करा"
+                    />
+                    {errors.ward && (
+                      <p className="mt-1 text-xs text-red-600">{errors.ward}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Mobile Number / मोबाईल नंबर *
+                    </label>
+                    <input
+                      type="tel"
+                      name="mobile"
+                      value={formData.mobile}
+                      onChange={handleChange}
+                      maxLength="10"
+                      className={`w-full px-3 py-2 text-sm border ${
+                        errors.mobile ? "border-red-500" : "border-gray-300"
+                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      placeholder="Enter 10-digit mobile / १० अंकी मोबाईल नंबर"
+                    />
+                    {errors.mobile && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.mobile}
+                      </p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Payment Amount (₹) / पेमेंट रक्कम (₹) *
+                    </label>
+                    <input
+                      type="number"
+                      name="amount"
+                      value={formData.amount}
+                      onChange={handleChange}
+                      className={`w-full px-3 py-2 text-sm border ${
+                        errors.amount ? "border-red-500" : "border-gray-300"
+                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      placeholder="Enter amount / रक्कम प्रविष्ट करा"
+                    />
+                    {errors.amount && (
+                      <p className="mt-1 text-xs text-red-600">
+                        {errors.amount}
+                      </p>
+                    )}
+                  </div>
+
+                  <button
+                    onClick={handleSubmit}
+                    disabled={isSubmitting}
+                    className="w-full bg-[#c60240] text-white py-2.5 text-sm rounded font-medium hover:bg-[#a00235] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting
+                      ? "Processing... / प्रक्रिया सुरू आहे..."
+                      : `Pay ₹${formData.amount || "0"} / पेमेंट करा ₹${
+                          formData.amount || "0"
+                        }`}
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <div className="bg-gray-50 rounded p-4 mb-4">
+                    <h3 className="text-sm font-semibold text-gray-900 mb-3">
+                      Registration Details / नोंदणी तपशील
+                    </h3>
+                    <div className="space-y-2 text-xs">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">
+                          Corporation / महानगरपालिका:
+                        </span>
+                        <span className="font-medium">
+                          {formData.corporation}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">
+                          Candidate / उमेदवार:
+                        </span>
+                        <span className="font-medium">
+                          {formData.candidateName}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Ward / प्रभाग:</span>
+                        <span className="font-medium">{formData.ward}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Mobile / मोबाईल:</span>
+                        <span className="font-medium">{formData.mobile}</span>
+                      </div>
+                      <div className="flex justify-between pt-2 border-t">
+                        <span className="text-gray-900 font-medium">
+                          Amount / रक्कम:
+                        </span>
+                        <span className="font-semibold text-[#c60240]">
+                          ₹{formData.amount}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setShowSuccessModal(true)}
+                    className="w-full bg-green-600 text-white py-2.5 text-sm rounded font-medium hover:bg-green-700 transition-colors"
+                  >
+                    Payment Done / पेमेंट झाले
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
-          <div className="px-8 sm:px-12 lg:px-16 py-12">
-            <AnimatePresence mode="wait">
-              {!showPayment ? (
-                <motion.div
-                  key="form"
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                  exit={{ opacity: 0, y: -20 }}
-                >
-                  <div className="space-y-6">
-                    <div>
-                      <label
-                        htmlFor="corporation"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Corporation <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="corporation"
-                        name="corporation"
-                        value={formData.corporation}
-                        onChange={handleChange}
-                        className={`w-full px-4 py-3 border ${
-                          errors.corporation
-                            ? "border-red-500"
-                            : "border-gray-300"
-                        } rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all`}
-                        placeholder="Enter corporation name"
-                      />
-                      {errors.corporation && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.corporation}
-                        </p>
-                      )}
-                    </div>
+          {showPayment && (
+            <div className="border-l border-gray-200 bg-gray-50">
+              <div className="py-6 px-6 bg-gradient-to-r from-[#a00235] to-[#c60240] border-b">
+                <h2 className="text-xl font-semibold text-white text-center">
+                  Payment Details / पेमेंट तपशील
+                </h2>
+              </div>
 
-                    <div>
-                      <label
-                        htmlFor="candidateName"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Candidate Name <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="candidateName"
-                        name="candidateName"
-                        value={formData.candidateName}
-                        onChange={handleChange}
-                        className={`w-full px-4 py-3 border ${
-                          errors.candidateName
-                            ? "border-red-500"
-                            : "border-gray-300"
-                        } rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all`}
-                        placeholder="Enter candidate name"
-                      />
-                      {errors.candidateName && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.candidateName}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="ward"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Ward <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="ward"
-                        name="ward"
-                        value={formData.ward}
-                        onChange={handleChange}
-                        className={`w-full px-4 py-3 border ${
-                          errors.ward ? "border-red-500" : "border-gray-300"
-                        } rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all`}
-                        placeholder="Enter ward number or name"
-                      />
-                      {errors.ward && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.ward}
-                        </p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label
-                        htmlFor="mobile"
-                        className="block text-sm font-medium text-gray-700 mb-2"
-                      >
-                        Mobile Number <span className="text-red-600">*</span>
-                      </label>
-                      <input
-                        type="tel"
-                        id="mobile"
-                        name="mobile"
-                        value={formData.mobile}
-                        onChange={handleChange}
-                        maxLength="10"
-                        className={`w-full px-4 py-3 border ${
-                          errors.mobile ? "border-red-500" : "border-gray-300"
-                        } rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all`}
-                        placeholder="Enter 10-digit mobile number"
-                      />
-                      {errors.mobile && (
-                        <p className="mt-1 text-sm text-red-600">
-                          {errors.mobile}
-                        </p>
-                      )}
-                    </div>
-
-                    <motion.button
-                      type="button"
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-4 rounded-lg font-medium hover:from-red-700 hover:to-red-800 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? (
-                        <span className="flex items-center justify-center">
-                          <svg
-                            className="animate-spin h-5 w-5 mr-3"
-                            viewBox="0 0 24 24"
-                          >
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                              fill="none"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                            />
-                          </svg>
-                          Processing...
-                        </span>
-                      ) : (
-                        "Proceed to Payment"
-                      )}
-                    </motion.button>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="payment"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-center"
-                >
-                  <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-8 border border-gray-200 mb-8">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-6">
-                      Registration Details
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-                      <div className="p-4 bg-white rounded-lg border border-gray-100">
-                        <p className="text-sm text-gray-500 mb-1">
-                          Corporation
-                        </p>
-                        <p className="font-medium text-gray-900">
-                          {formData.corporation}
-                        </p>
-                      </div>
-                      <div className="p-4 bg-white rounded-lg border border-gray-100">
-                        <p className="text-sm text-gray-500 mb-1">
-                          Candidate Name
-                        </p>
-                        <p className="font-medium text-gray-900">
-                          {formData.candidateName}
-                        </p>
-                      </div>
-                      <div className="p-4 bg-white rounded-lg border border-gray-100">
-                        <p className="text-sm text-gray-500 mb-1">Ward</p>
-                        <p className="font-medium text-gray-900">
-                          {formData.ward}
-                        </p>
-                      </div>
-                      <div className="p-4 bg-white rounded-lg border border-gray-100">
-                        <p className="text-sm text-gray-500 mb-1">Mobile</p>
-                        <p className="font-medium text-gray-900">
-                          {formData.mobile}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl p-8 border border-red-100 mb-6">
-                    <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-                      Complete Your Payment
-                    </h3>
-                    <p className="text-gray-600 mb-6">
-                      Click the button below to proceed with secure payment
-                    </p>
-                    <div className="flex justify-center">
-                      <RazorpayButton
-                        formData={formData}
-                        onSuccess={() => setShowSuccessModal(true)}
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={handleReset}
-                    className="text-red-600 hover:text-red-700 font-medium underline"
-                  >
-                    ← Edit Registration Details
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
-
-        <AnimatePresence>
-          {showSuccessModal && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
-              onClick={() => setShowSuccessModal(false)}
-            >
-              <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
-              >
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg
-                      className="w-10 h-10 text-green-600"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                    Payment Successful!
+              <div className="p-6">
+                <div className="border rounded bg-white p-4 mb-4">
+                  <h3 className="text-sm font-semibold text-gray-900 mb-3 text-center">
+                    Scan QR Code / QR कोड स्कॅन करा
                   </h3>
-                  <p className="text-gray-600 mb-6">
-                    Your registration has been completed successfully. You will
-                    receive a confirmation on your mobile number.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setShowSuccessModal(false);
-                      handleReset();
-                    }}
-                    className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-3 rounded-lg font-medium hover:from-red-700 hover:to-red-800 transition-all"
-                  >
-                    Close
-                  </button>
+
+                  <div className="flex justify-center mb-4">
+                    <div className="relative">
+                      <img
+                        src={paymentDetails.qrCode}
+                        alt="Payment QR Code"
+                        className="w-48 h-48 border-2 border-gray-200 rounded"
+                      />
+                      <button
+                        onClick={downloadQR}
+                        className="absolute top-1 right-1 bg-white p-1.5 rounded shadow-md hover:bg-gray-50"
+                        title="Download QR"
+                      >
+                        <Download className="w-4 h-4 text-gray-700" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div className="bg-gray-50 rounded p-3">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-xs text-gray-600 mb-1">UPI ID</p>
+                          <p className="text-sm font-medium">
+                            {paymentDetails.upiId}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() =>
+                            copyToClipboard(paymentDetails.upiId, "upi")
+                          }
+                          className="p-2 hover:bg-gray-200 rounded transition-colors"
+                          title="Copy UPI ID"
+                        >
+                          {copiedField === "upi" ? (
+                            <Check className="w-4 h-4 text-green-600" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-gray-600" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-50 rounded p-3">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="text-xs text-gray-600 mb-1">
+                            Mobile Number / मोबाईल नंबर
+                          </p>
+                          <p className="text-sm font-medium">
+                            {paymentDetails.mobileNumber}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() =>
+                            copyToClipboard(
+                              paymentDetails.mobileNumber,
+                              "mobile"
+                            )
+                          }
+                          className="p-2 hover:bg-gray-200 rounded transition-colors"
+                          title="Copy Mobile Number"
+                        >
+                          {copiedField === "mobile" ? (
+                            <Check className="w-4 h-4 text-green-600" />
+                          ) : (
+                            <Copy className="w-4 h-4 text-gray-600" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </motion.div>
-            </motion.div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded p-3 text-xs text-blue-800">
+                  <p className="font-medium mb-1">Note / टीप:</p>
+                  <p>
+                    After payment, click "Payment Done" and send screenshot on
+                    WhatsApp for verification.
+                  </p>
+                  <p className="mt-1">
+                    पेमेंट केल्यानंतर, "पेमेंट झाले" वर क्लिक करा आणि
+                    पडताळणीसाठी व्हाट्सअॅपवर स्क्रीनशॉट पाठवा.
+                  </p>
+                </div>
+              </div>
+            </div>
           )}
-        </AnimatePresence>
+        </div>
+
+        {showSuccessModal && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
+            onClick={() => setShowSuccessModal(false)}
+          >
+            <div
+              className="bg-white rounded-lg p-6 max-w-sm w-full shadow-xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Check className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Payment Confirmed! / पेमेंट पूर्ण झाले!
+                </h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  Please send payment screenshot on WhatsApp to verify.
+                </p>
+                <p className="text-sm text-gray-600 mb-4">
+                  कृपया पडताळणीसाठी पेमेंट स्क्रीनशॉट व्हाट्सअॅपवर पाठवा.
+                </p>
+                <button
+                  onClick={() => {
+                    setShowSuccessModal(false);
+                    sendWhatsAppMessage();
+                    setTimeout(() => handleReset(), 1000);
+                  }}
+                  className="w-full bg-green-600 text-white py-2.5 text-sm rounded font-medium hover:bg-green-700 transition-colors mb-2"
+                >
+                  Send on WhatsApp / व्हाट्सअॅपवर पाठवा
+                </button>
+                <button
+                  onClick={() => {
+                    setShowSuccessModal(false);
+                    handleReset();
+                  }}
+                  className="w-full bg-gray-200 text-gray-700 py-2 text-sm rounded font-medium hover:bg-gray-300 transition-colors"
+                >
+                  Close / बंद करा
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
