@@ -286,7 +286,7 @@ Payment screenshot is attached below.`;
 
             <div className="p-8">
               {!showPayment ? (
-                <div className="space-y-4">
+                <div className="space-y-8">
                   <div>
                     <label className="block text-2xl lg:text-sm font-medium text-gray-700 mb-1">
                       Corporation / महानगरपालिका *
@@ -296,7 +296,7 @@ Payment screenshot is attached below.`;
                       name="corporation"
                       value={formData.corporation}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
                         errors.corporation
                           ? "border-red-500"
                           : "border-gray-300"
