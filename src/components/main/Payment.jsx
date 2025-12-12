@@ -319,7 +319,7 @@ Payment screenshot is attached below.`;
                       name="candidateName"
                       value={formData.candidateName}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
                         errors.candidateName
                           ? "border-red-500"
                           : "border-gray-300"
@@ -342,7 +342,7 @@ Payment screenshot is attached below.`;
                       name="ward"
                       value={formData.ward}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
                         errors.ward ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter ward / प्रभाग प्रविष्ट करा"
@@ -364,7 +364,7 @@ Payment screenshot is attached below.`;
                       value={formData.mobile}
                       onChange={handleChange}
                       maxLength="10"
-                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
                         errors.mobile ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter 10-digit mobile / १० अंकी मोबाईल नंबर"
@@ -385,7 +385,7 @@ Payment screenshot is attached below.`;
                       name="amount"
                       value={formData.amount}
                       onChange={handleChange}
-                      className={`w-full px-3 py-3 lg:py-2 text-2xl lg:text-sm border ${
+                      className={`w-full px-3 py-3 lg:py-2 text-xl lg:text-sm border ${
                         errors.amount ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter amount / रक्कम प्रविष्ट करा"
