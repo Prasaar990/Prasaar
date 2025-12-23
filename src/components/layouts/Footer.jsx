@@ -103,6 +103,9 @@ export default function Footer() {
               </h2>
             </li>{" "}
             <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
+              Mobile: +91 9226333789
+            </li>
+            <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">
               Email: ashok@prasaar.co
             </li>
             <li className="hover:translate-x-[4px] text-[18px] transition-transform duration-300 hover:text-shadow cursor-pointer">

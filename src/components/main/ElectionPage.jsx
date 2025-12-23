@@ -66,7 +66,7 @@ const ElectionPage = () => {
         "Help voters easily identify you on the EVM. Displays your name, serial number, photo & election symbol clearly.",
       imageSpace: true,
       imageSrc: "./img/evm_demo.png",
-      demoLink: "/demo/evm",
+      demoLink: "https://myevm.in/demo/demo",
       buttonText: "Try EVM Demo",
     },
     {
@@ -132,7 +132,7 @@ const ElectionPage = () => {
                   }
                   className="cursor-pointer bg-white text-[#c60240] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base lg:text-lg rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl"
                 >
-                  Get Started Today
+                  Connect on Whatsapp
                 </button>
                 {/* Call Button - Mobile Only */}
                 <button
@@ -254,7 +254,7 @@ const ElectionPage = () => {
               }
               className="cursor-pointer bg-white text-[#c60240] px-6 sm:px-8 py-3 sm:py-3.5 text-sm sm:text-base lg:text-lg rounded-lg font-semibold hover:bg-gray-50 transition-all shadow-lg hover:shadow-xl"
             >
-              Schedule a Demo
+              Get Demo
             </button>
             {/* Call Button - Mobile Only */}
             <button
