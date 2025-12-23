@@ -7,12 +7,13 @@ import Terms from "./components/main/Terms";
 import InitialForm from "./components/main/RedinessForm";
 import VocAssessment from "./components/main/VOC";
 import VoeAssessment from "./components/main/VOE";
-import Election from "./components/main/Election";
+// import Election from "./components/main/Election";
 import PrivacyPolicy from "./components/main/privacy";
 import ContactUs from "./components/main/ContactUs";
 import AboutUs from "./components/main/AboutUs";
 import PaymentPage from "./components/main/Payment";
 import PaymentSuccessPage from "./components/main/PaymentSuccesspage";
+import ElectionPage from "./components/main/ElectionPage";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Main />}></Route>
+          {/* <Route path="/" element={<Main />}></Route> */}
+          <Route path="/" element={<ElectionPage />}></Route>
           <Route path="/form" element={<GetStarted />}></Route>
           <Route path="/terms" element={<Terms />}></Route>
           <Route path="/privacy" element={<PrivacyPolicy />}></Route>
@@ -28,7 +30,7 @@ function App() {
           <Route path="/employee-trust" element={<VoeAssessment />}></Route>
           <Route path="/contact" element={<ContactUs />}></Route>
           <Route path="/about" element={<AboutUs />}></Route>
-          <Route path="/election" element={<Election />}></Route>
+          <Route path="/election" element={<ElectionPage />}></Route>
           <Route path="/readiness-check" element={<InitialForm />}>
             {" "}
           </Route>
@@ -37,7 +39,7 @@ function App() {
             {" "}
           </Route>{" "}
           <Route path="/pay" element={<PaymentPage />}></Route>{" "}
-          <Route path="*" element={<Main />}>
+          <Route path="*" element={<ElectionPage />}>
             {" "}
           </Route>
         </Routes>

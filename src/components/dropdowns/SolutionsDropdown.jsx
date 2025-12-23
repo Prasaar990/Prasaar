@@ -67,9 +67,9 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
           : "opacity-0 -translate-y-8 pointer-events-none"
       }`}
     >
-      <div className="container mx-auto px-6 py-8 max-w-7xl">
+      {/* <div className="container mx-auto px-6 py-8 max-w-7xl">
         <div className="mb-6">
-          <h3 className="text-xl font-bold primaryColor mb-2">SOLUTIONS</h3>
+          <h3 className="text-xl font-semibold primaryColor mb-2">SOLUTIONS</h3>
           <p className="text-gray-600">
             Our customer engagement solutions helps brands grow more
             organically.
@@ -92,7 +92,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 
@@ -103,7 +103,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
         dropdownSolutions ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
       }`}
     >
-      <div className="py-3 mt-10">
+      {/* <div className="py-3 mt-10">
         {solutionItems.map((item, index) => (
           <div
             key={index}
@@ -128,7 +128,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 

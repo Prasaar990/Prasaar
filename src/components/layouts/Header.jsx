@@ -117,7 +117,7 @@ export default function Header() {
         >
           <ul className="list-none ">
             {/* Only show navigation items on home page */}
-            {isHomePage && (
+            {/* {isHomePage && (
               <>
                 <li className="mt-[20px] sm:mt-[12px] text-[20px] font-medium">
                   <a href="#info" className="no-underline text-gray-800">
@@ -157,15 +157,15 @@ export default function Header() {
                   )}
                 </li>
               </>
-            )}
+            )} */}
 
-            <li>
+            {/* <li>
               {dropdownUseCases ? (
                 <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
               ) : (
                 ""
               )}
-            </li>
+            </li> */}
           </ul>
         </motion.nav>
       ) : (
@@ -215,8 +215,7 @@ export default function Header() {
           </>
         ) : (
           <>
-            <div className="z-40">
-              {/* Only show navigation items on home page */}
+            {/* <div className="z-40">
               {isHomePage && (
                 <ul className="list-none flex gap-[24px] lg:gap-[48px]">
                   <li>
@@ -251,13 +250,13 @@ export default function Header() {
                   </li>
                 </ul>
               )}
-            </div>
+            </div> */}
 
             <div className="flex items-center gap-[16px] lg:gap-[32px]">
               <Button
-                text={"Readiness Check"}
-                to="/readiness-check"
-                handleFormOpen={() => {}} // Remove setFormOpen since we're not using it anymore
+                text={"Contact Us"}
+                to="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
+                handleFormOpen={() => {}}
               />
             </div>
           </>
