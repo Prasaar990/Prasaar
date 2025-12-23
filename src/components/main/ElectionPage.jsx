@@ -112,7 +112,7 @@ const ElectionPage = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen pt-12 sm:pt-16 lg:pt-20">
+    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen pt-16 sm:pt-16 lg:pt-20">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-[#a00235] via-[#c60240] to-[#d4034a] text-white py-12 sm:py-16 lg:py-24 px-4">
         <div className="max-w-7xl mx-auto">

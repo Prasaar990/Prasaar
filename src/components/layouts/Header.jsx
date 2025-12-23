@@ -197,7 +197,7 @@ export default function Header() {
 
         {isTablet ? (
           <>
-            <div>
+            {/* <div>
               <button
                 type="button"
                 className="bg-transparent w-[32px] h-[32px]  md:w-[40px] md:h-[40px] border-none cursor-pointer"
@@ -211,7 +211,7 @@ export default function Header() {
                   <AlignJustify className="w-full h-full" />
                 )}
               </button>
-            </div>
+            </div> */}
           </>
         ) : (
           <>
