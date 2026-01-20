@@ -281,7 +281,7 @@ https://prasaar.co/pay`;
 
           <div className={showPayment ? "" : ""}>
             <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
-              <h1 className="text-xl font-medium text-white text-center">
+              <h1 className="text-lg font-medium text-white text-center">
                 सर्व्हिसेस नोंदणी साठी पेमेंट - Payment Registration for
                 Services
               </h1>
