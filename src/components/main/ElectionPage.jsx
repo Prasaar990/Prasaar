@@ -65,7 +65,7 @@ const ElectionPage = () => {
       description:
         "Help voters easily identify you on the EVM. Displays your name, serial number, photo & election symbol clearly.",
       imageSpace: true,
-      imageSrc: "./img/evm_demo.png",
+      imageSrc: "./img/evm_demo1.png",
       demoLink: "https://myevm.in/demo/demo",
       buttonText: "Try EVM Demo",
     },

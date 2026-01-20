@@ -8,7 +8,6 @@ const PaymentPage = () => {
     ward: "",
     mobile: "",
     amount: "",
-    gan: "",
   });
   const [showPayment, setShowPayment] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -81,7 +80,7 @@ const PaymentPage = () => {
 
     try {
       const GOOGLE_SCRIPT_URL =
-        "https://script.google.com/macros/s/AKfycbwwLCFryaa81xPViBOKTVzISZIUKhHeqg98ztWlX14md4YARPuxtBV9r8IEKo1qLfsmuw/exec";
+        "https://script.google.com/macros/s/AKfycbxzd1MiSzWFBBLd0bihUOUKES81KpzFqu7A1pnjTblwp43ug3UW0I1FwmZsHg19SvcMjA/exec";
 
       // Get IST date and time
       const now = new Date();
@@ -103,7 +102,6 @@ const PaymentPage = () => {
           ward: formData.ward,
           mobile: formData.mobile,
           amount: formData.amount,
-          gan: formData.gan,
           date: date,
           time: time,
         }),
@@ -282,8 +280,7 @@ https://prasaar.co/pay`;
           <div className={showPayment ? "" : ""}>
             <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
               <h1 className="text-xl font-medium text-white text-center">
-                सर्व्हिसेस नोंदणी साठी पेमेंट - Payment Registration for
-                Services
+                Payment Registration / पेमेंट नोंदणी
               </h1>
             </div>
 
@@ -292,7 +289,7 @@ https://prasaar.co/pay`;
                 <div className="space-y-8">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      जिल्हा परिषद / ZP (आपल्या जिल्हा परिषदेचे नाव लिहा) *
+                      Corporation / महानगरपालिका *
                     </label>
                     <input
                       type="text"
@@ -304,7 +301,7 @@ https://prasaar.co/pay`;
                           ? "border-red-500"
                           : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
-                      placeholder="Enter ZP / जिल्हा परिषद प्रविष्ट करा"
+                      placeholder="Enter corporation / महानगरपालिका प्रविष्ट करा"
                     />
                     {errors.corporation && (
                       <p className="mt-1 text-sm text-red-600">
@@ -338,7 +335,7 @@ https://prasaar.co/pay`;
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ZP Gat / जिल्हा परिषद गट (आपल्या गटाचे नाव लिहा) *
+                      Ward / प्रभाग *
                     </label>
                     <input
                       type="text"
@@ -348,29 +345,10 @@ https://prasaar.co/pay`;
                       className={`w-full px-3 py-2.5 text-base border ${
                         errors.ward ? "border-red-500" : "border-gray-300"
                       } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
-                      placeholder="Enter ZP Gat / जिल्हा परिषद गट प्रविष्ट करा"
+                      placeholder="Enter ward / प्रभाग प्रविष्ट करा"
                     />
                     {errors.ward && (
                       <p className="mt-1 text-sm text-red-600">{errors.ward}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ZP Gan / पंचायत समिती गण (आपल्या गणाचे नाव लिहा) *
-                    </label>
-                    <input
-                      type="text"
-                      name="gan"
-                      value={formData.gan}
-                      onChange={handleChange}
-                      className={`w-full px-3 py-2.5 text-base border ${
-                        errors.gan ? "border-red-500" : "border-gray-300"
-                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
-                      placeholder="पंचायत समिती गण प्रविष्ट करा"
-                    />
-                    {errors.gan && (
-                      <p className="mt-1 text-sm text-red-600">{errors.gan}</p>
                     )}
                   </div>
 
@@ -438,7 +416,7 @@ https://prasaar.co/pay`;
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-gray-600">
-                          ZP / जिल्हा परिषद :
+                          Corporation / महानगरपालिका:
                         </span>
                         <span className="font-medium">
                           {formData.corporation}
@@ -452,18 +430,9 @@ https://prasaar.co/pay`;
                           {formData.candidateName}
                         </span>
                       </div>
-
                       <div className="flex justify-between">
-                        <span className="text-gray-600">
-                          ZP Gat / जिल्हा परिषद गट:
-                        </span>
+                        <span className="text-gray-600">Ward / प्रभाग:</span>
                         <span className="font-medium">{formData.ward}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">
-                          ZP Gan / पंचायत समिती गण:
-                        </span>
-                        <span className="font-medium">{formData.gan}</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">Mobile / मोबाईल:</span>
