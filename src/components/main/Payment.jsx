@@ -180,7 +180,7 @@ https://prasaar.co/pay`;
           {showPayment && (
             <div className="border-l border-gray-200 bg-gray-50">
               <div className="py-6 px-6 bg-gradient-to-r from-[#a00235] to-[#c60240] border-b">
-                <h2 className="text-lg font-medium text-white text-center">
+                <h2 className="text-lg lg:text-xl font-medium text-white text-center">
                   Payment Details / पेमेंट तपशील
                 </h2>
               </div>
@@ -281,7 +281,7 @@ https://prasaar.co/pay`;
 
           <div className={showPayment ? "" : ""}>
             <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
-              <h1 className="text-lg font-medium text-white text-center">
+              <h1 className="text-lg lg:text-xl font-medium text-white text-center">
                 सर्व्हिसेस नोंदणी साठी पेमेंट - Payment Registration for
                 Services
               </h1>
