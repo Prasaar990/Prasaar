@@ -287,9 +287,9 @@ https://prasaar.co/pay`;
               </h1>
             </div>
 
-            <div className="p-8">
+            <div className="lg:p-6 px-2 py-3">
               {!showPayment ? (
-                <div className="space-y-8">
+                <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       जिल्हा परिषद / ZP (आपल्या जिल्हा परिषदेचे नाव लिहा) *

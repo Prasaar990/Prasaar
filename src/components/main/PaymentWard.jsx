@@ -278,15 +278,15 @@ https://prasaar.co/pay`;
           )}
 
           <div className={showPayment ? "" : ""}>
-            <div className="py-6 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
+            <div className="py-0 px-6 bg-gradient-to-r from-[#c60240] to-[#a00235] border-b">
               <h1 className="text-xl font-medium text-white text-center">
                 Payment Registration / पेमेंट नोंदणी
               </h1>
             </div>
 
-            <div className="p-8">
+            <div className="px-8 py-4">
               {!showPayment ? (
-                <div className="space-y-8">
+                <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Corporation / महानगरपालिका *
