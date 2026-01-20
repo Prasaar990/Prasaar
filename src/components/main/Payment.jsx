@@ -180,7 +180,7 @@ https://prasaar.co/pay`;
           {showPayment && (
             <div className="border-l border-gray-200 bg-gray-50">
               <div className="py-6 px-6 bg-gradient-to-r from-[#a00235] to-[#c60240] border-b">
-                <h2 className="text-xl font-medium text-white text-center">
+                <h2 className="text-lg font-medium text-white text-center">
                   Payment Details / पेमेंट तपशील
                 </h2>
               </div>
@@ -357,7 +357,7 @@ https://prasaar.co/pay`;
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      ZP Gan / पंचायत समिती गण (आपल्या गणाचे नाव लिहा) *
+                      Gan / पंचायत समिती गण (आपल्या गणाचे नाव लिहा) *
                     </label>
                     <input
                       type="text"
@@ -461,7 +461,7 @@ https://prasaar.co/pay`;
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-600">
-                          ZP Gan / पंचायत समिती गण:
+                          Gan / पंचायत समिती गण:
                         </span>
                         <span className="font-medium">{formData.gan}</span>
                       </div>
