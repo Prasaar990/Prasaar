@@ -287,7 +287,7 @@ https://prasaar.co/pay`;
               </h1>
             </div>
 
-            <div className="lg:p-6 px-2 py-3">
+            <div className="lg:p-6 px-4 py-4">
               {!showPayment ? (
                 <div className="space-y-4">
                   <div>
