@@ -3,11 +3,12 @@ import {
   Smartphone,
   MessageSquare,
   Zap,
-  QrCode,
+  FileDown,
   Vote,
   Users,
   X,
   Phone,
+  Download,
 } from "lucide-react";
 
 const ElectionPage = () => {
@@ -16,6 +17,22 @@ const ElectionPage = () => {
   const whatsappLink =
     "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
   const phoneNumber = "tel:+919226333789";
+
+  const voterSlipPDFs = [
+    { name: "Booth 23 Voter Slip", file: "./booth_23_removed.pdf" },
+    { name: "Booth Voters List Table", file: "./booth_voters_list_table_removed.pdf" },
+    { name: "Family Voters List", file: "./family_voters_list_removed.pdf" },
+    { name: "Voters List", file: "./voters_list_removed.pdf" },
+  ];
+
+  const handleDownload = (filePath, fileName) => {
+    const link = document.createElement("a");
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const services = [
     {
@@ -50,14 +67,11 @@ const ElectionPage = () => {
       buttonText: "Try WhatsappBot Demo",
     },
     {
-      icon: <QrCode className="w-6 h-6" />,
-      title: "Candidate Profile Link + QR Code",
+      icon: <FileDown className="w-6 h-6" />,
+      title: "Voter Slips & Reports",
       description:
-        "Showcase your work, vision, and achievements. One link. One QR. Stronger voter connection.",
-      imageSpace: true,
-      imageSrc: "./img/candidate_profile.png",
-      demoLink: "https://hiroqr.com/mydemo",
-      buttonText: "View Demo Profile",
+        "Download ready-made voter slips and detailed electoral reports. These are sample reports — we generate many more customized PDF reports based on your constituency data.",
+      isVoterSlips: true,
     },
     {
       icon: <Vote className="w-6 h-6" />,
@@ -216,6 +230,27 @@ const ElectionPage = () => {
                 <p className="text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed mb-3 sm:mb-4">
                   {service.description}
                 </p>
+
+                {/* Voter Slips PDF Download List */}
+                {service.isVoterSlips && (
+                  <div className="space-y-2 mb-3 sm:mb-4">
+                    {voterSlipPDFs.map((pdf, pdfIndex) => (
+                      <button
+                        key={pdfIndex}
+                        onClick={() => handleDownload(pdf.file, pdf.file.split('/').pop())}
+                        className="cursor-pointer w-full flex items-center gap-2 sm:gap-3 bg-gray-50 hover:bg-gradient-to-r hover:from-[#a00235]/10 hover:to-[#c60240]/10 border border-gray-200 hover:border-[#c60240]/30 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 text-left transition-all duration-200 group/pdf"
+                      >
+                        <Download className="w-4 h-4 text-[#c60240] flex-shrink-0 group-hover/pdf:scale-110 transition-transform" />
+                        <span className="text-xs sm:text-sm text-gray-700 group-hover/pdf:text-[#c60240] transition-colors truncate">
+                          {pdf.name}
+                        </span>
+                      </button>
+                    ))}
+                    <p className="text-[10px] sm:text-xs text-gray-500 italic mt-2 px-1">
+                      📄 These are sample reports. We provide many more customized PDF reports tailored to your constituency.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {service.buttonText && (

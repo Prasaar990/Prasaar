@@ -21,8 +21,8 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          {/* <Route path="/" element={<Main />}></Route> */}
-          <Route path="/" element={<ElectionPage />}></Route>
+          <Route path="/" element={<Main />}></Route>
+          <Route path="/election" element={<ElectionPage />}></Route>
           <Route path="/form" element={<GetStarted />}></Route>
           <Route path="/terms" element={<Terms />}></Route>
           <Route path="/privacy" element={<PrivacyPolicy />}></Route>
@@ -30,7 +30,6 @@ function App() {
           <Route path="/employee-trust" element={<VoeAssessment />}></Route>
           <Route path="/contact" element={<ContactUs />}></Route>
           <Route path="/about" element={<AboutUs />}></Route>
-          <Route path="/election" element={<ElectionPage />}></Route>
           <Route path="/readiness-check" element={<InitialForm />}>
             {" "}
           </Route>
