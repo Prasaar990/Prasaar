@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Button from "../layouts/Button"; // Assuming this is your Tailwind Button component
+import Button from "../layouts/Button";
 import ImageCarousel from "../layouts/ImageCarousel";
 import PropTypes from "prop-types";
 
-export default function HeroSection({ words, subHeading }) {
+export default function HeroSection({ words, subHeading, title }) {
   const [wordIndex, setWordIndex] = useState(0);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export default function HeroSection({ words, subHeading }) {
       1800
     );
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, [wordIndex, words]);
 
   const images = [
@@ -39,31 +39,40 @@ export default function HeroSection({ words, subHeading }) {
   ];
 
   return (
-    <section className="w-full pt-[80px] mb-[100px] lg:h-full sm:pt-40 lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] flex justify-center items-center flex-col-reverse sm:flex-row sm:gap-0 md:gap-[50px] lg:gap-[20px]">
+    <section className="w-full pt-24 sm:pt-32 lg:pt-36 pb-12 lg:pb-20 px-5 sm:px-6 md:px-8 lg:px-12 flex justify-center items-center flex-col-reverse sm:flex-row gap-8 sm:gap-6 md:gap-12 lg:gap-8 max-w-7xl mx-auto">
       {/* Left section */}
-      <div className="lg:w-[65%] sm:w-[67%] flex flex-col gap-[20px] sm:gap-5 text-center sm:text-left">
-        {/* Heading with FlipWords */}
-        <div className="flex items-center justify-center sm:justify-start lg:h-[180px] h-[100px] ">
-          <div className="text-[28px] sm:text-[36px] lg:text-[58px]  text-neutral-600 dark:text-neutral-400 font-semibold">
-            <div className="text-[#343c50]">Build Customer and </div>
-            <div className="text-[#343c50]">Employee Trust</div>
-            {/* <FlipWords words={words} /> <br /> */}
+      <div className="lg:w-[60%] sm:w-[60%] flex flex-col gap-5 sm:gap-6 text-center sm:text-left">
+        {/* Heading */}
+        <div className="flex items-center justify-center sm:justify-start min-h-[80px] lg:min-h-[150px]">
+          <div className="text-3xl sm:text-4xl lg:text-[56px] leading-tight font-semibold text-gray-900">
+            {title ? (
+              <div>{title}</div>
+            ) : (
+              <>
+                <div>Build Customer and</div>
+                <div className="text-[#c60240]">Employee Trust</div>
+              </>
+            )}
           </div>
         </div>
 
         {/* Subheading */}
-        <div className="w-[100%]  text-[18px] lg:text-[22px] md:w-[80%] sm:w-[90%]">
-          <p className="mt-0">{subHeading}</p>
-        </div>
+        {subHeading && (
+          <div className="w-full md:w-[85%]">
+            <p className="text-base lg:text-lg text-gray-600 leading-relaxed">
+              {subHeading}
+            </p>
+          </div>
+        )}
 
         {/* Button */}
-        <div className="flex gap-2 lg:flex-row md:flex-col md:gap-8 justify-center sm:justify-start">
+        <div className="flex gap-3 lg:flex-row md:flex-col md:gap-6 justify-center sm:justify-start mt-2">
           <Button text={"Start Your Readiness Check"} to="/readiness-check" />
         </div>
       </div>
 
       {/* Right section with image */}
-      <div className="md:w-1/4 sm:w-[40%] w-full sm:h-[450px] h-[300px] cursor-pointer md:flex justify-center items-center">
+      <div className="md:w-[35%] sm:w-[40%] w-full sm:h-[400px] h-[280px] lg:h-[450px] cursor-pointer flex justify-center items-center">
         <ImageCarousel images={images} interval={3000} />
       </div>
     </section>

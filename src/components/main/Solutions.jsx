@@ -4,7 +4,7 @@ import Solution from "./Solution";
 export default function Solutions() {
   return (
     <div
-      className="w-full overflow-hidden mt-[100px] lg:mt-[200px] lg:px-[50px] md:px-[32px] px-[20px]"
+      className="w-full overflow-hidden py-20 lg:py-28 px-5 sm:px-6 md:px-8 lg:px-12"
       id="solutions"
     >
       <motion.div
@@ -12,21 +12,44 @@ export default function Solutions() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="mb-[20px] md:mb-[20px]"
+        className="text-center mb-6 md:mb-10"
       >
-        <motion.h1 className="mx-auto max-w-[448px] text-center text-[30px] sm:text-[36px] lg:text-[36px] primaryColor font-semibold">
-          Solutions
-        </motion.h1>
         <motion.div
-          className="h-[4px] w-[96px] bg-black mt-[12px] mx-auto rounded-full"
-          initial={{ width: 0 }}
-          whileInView={{ width: 96 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c60240]/10 text-[#c60240] text-sm font-medium mb-5"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.5 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#c60240] animate-pulse" />
+          Our Solutions
+        </motion.div>
+
+        <motion.h2 className="mx-auto max-w-lg text-center text-3xl sm:text-4xl font-semibold text-gray-900">
+          Powerful{" "}
+          <span className="text-[#c60240]">Solutions</span>
+        </motion.h2>
+
+        <motion.p
+          className="mt-4 text-gray-600 text-base md:text-lg max-w-2xl mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          Comprehensive tools designed to elevate your customer engagement and service quality
+        </motion.p>
+
+        <motion.div
+          className="h-1 w-16 bg-gradient-to-r from-[#c60240] to-[#a00235] mt-6 mx-auto rounded-full"
+          initial={{ width: 0 }}
+          whileInView={{ width: 64 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.5 }}
         />
       </motion.div>
 
-      <div className="space-y-[40px] lg:space-y-[80px]">
+      <div className="space-y-12 lg:space-y-20 max-w-6xl mx-auto">
         <Solution
           title="Real Time Feedback"
           list={[
