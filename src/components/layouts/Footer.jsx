@@ -75,11 +75,10 @@ export default function Footer() {
         {/* Logo Section */}
         <div
           data-section="logo"
-          className={`flex justify-center mb-12 lg:mb-16 transition-all duration-1000 ${
-            isVisible.logo
+          className={`flex justify-center mb-12 lg:mb-16 transition-all duration-1000 ${isVisible.logo
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-12"
-          }`}
+            }`}
         >
           <img
             src="./img/prasaar.webp"
@@ -93,11 +92,10 @@ export default function Footer() {
           {/* About Section */}
           <div
             data-section="about"
-            className={`lg:col-span-1 transition-all duration-1000 delay-100 ${
-              isVisible.about
+            className={`lg:col-span-1 transition-all duration-1000 delay-100 ${isVisible.about
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
+              }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
               About Prasaar
@@ -128,11 +126,10 @@ export default function Footer() {
           {/* Products Section */}
           <div
             data-section="products"
-            className={`transition-all duration-1000 delay-200 ${
-              isVisible.products
+            className={`transition-all duration-1000 delay-200 ${isVisible.products
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
+              }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
               Products
@@ -152,11 +149,10 @@ export default function Footer() {
           {/* Contact Section */}
           <div
             data-section="contact"
-            className={`transition-all duration-1000 delay-300 ${
-              isVisible.contact
+            className={`transition-all duration-1000 delay-300 ${isVisible.contact
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
+              }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
               Contact
@@ -202,11 +198,10 @@ export default function Footer() {
           {/* Quick Links Section */}
           <div
             data-section="social"
-            className={`transition-all duration-1000 delay-[400ms] ${
-              isVisible.social
+            className={`transition-all duration-1000 delay-[400ms] ${isVisible.social
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
-            }`}
+              }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
               Quick Links
@@ -248,15 +243,14 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div
           data-section="legal"
-          className={`mt-14 lg:mt-16 pt-6 border-t border-white/10 transition-all duration-1000 delay-500 ${
-            isVisible.legal
+          className={`mt-14 lg:mt-16 pt-6 border-t border-white/10 transition-all duration-1000 delay-500 ${isVisible.legal
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-4"
-          }`}
+            }`}
         >
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <span className="text-xs text-gray-500">
-              © {new Date().getFullYear()} Prasaar Technology. All rights
+              © {new Date().getFullYear()} Prasaar Technologies. All rights
               reserved.
             </span>
             <span className="text-xs text-gray-600">

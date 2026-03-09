@@ -432,112 +432,100 @@ export default function VocAssessment() {
             <div class="section-title">DETAILED ASSESSMENT RESULTS</div>
             
             ${[
-              generateSectionContent(
-                "1) DATA COLLECTION CAPABILITIES",
-                dataCollectionItems,
-                "dataCollection"
-              ),
-              generateSectionContent(
-                "2) CUSTOMER TOUCHPOINTS",
-                touchpointItems,
-                "touchpoints"
-              ),
-              generateSectionContent(
-                "3) ORGANIZATIONAL ALIGNMENT",
-                organizationalItems,
-                "organizational"
-              ),
-              generateSectionContent(
-                "4) TECHNOLOGY READINESS",
-                technologyItems,
-                "technology"
-              ),
-              generateSectionContent(
-                "5) FEEDBACK GOVERNANCE",
-                governanceItems,
-                "governance"
-              ),
-            ]
-              .map(
-                (section) => `
+        generateSectionContent(
+          "1) DATA COLLECTION CAPABILITIES",
+          dataCollectionItems,
+          "dataCollection"
+        ),
+        generateSectionContent(
+          "2) CUSTOMER TOUCHPOINTS",
+          touchpointItems,
+          "touchpoints"
+        ),
+        generateSectionContent(
+          "3) ORGANIZATIONAL ALIGNMENT",
+          organizationalItems,
+          "organizational"
+        ),
+        generateSectionContent(
+          "4) TECHNOLOGY READINESS",
+          technologyItems,
+          "technology"
+        ),
+        generateSectionContent(
+          "5) FEEDBACK GOVERNANCE",
+          governanceItems,
+          "governance"
+        ),
+      ]
+        .map(
+          (section) => `
               <div class="assessment-section">
                 <div class="subsection-title">${section.title}</div>
-                <p><strong>Score: ${section.score}%</strong> (${
-                  section.selectedItems.length
-                }/${section.total} items selected)</p>
+                <p><strong>Score: ${section.score}%</strong> (${section.selectedItems.length
+            }/${section.total} items selected)</p>
                 
                 <div class="checkbox-list">
-                  <p><strong>✓ Selected Items (${
-                    section.selectedItems.length
-                  }):</strong></p>
-                  ${
-                    section.selectedItems.length > 0
-                      ? section.selectedItems
-                          .map(
-                            (item) =>
-                              `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
-                          )
-                          .join("")
-                      : '<div class="checkbox-item unselected">None selected</div>'
-                  }
+                  <p><strong>✓ Selected Items (${section.selectedItems.length
+            }):</strong></p>
+                  ${section.selectedItems.length > 0
+              ? section.selectedItems
+                .map(
+                  (item) =>
+                    `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
+                )
+                .join("")
+              : '<div class="checkbox-item unselected">None selected</div>'
+            }
                   
-                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${
-                    section.unselectedItems.length
-                  }):</strong></p>
-                  ${
-                    section.unselectedItems.length > 0
-                      ? section.unselectedItems
-                          .map(
-                            (item) =>
-                              `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
-                          )
-                          .join("")
-                      : '<div class="checkbox-item selected">All items selected</div>'
-                  }
+                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${section.unselectedItems.length
+            }):</strong></p>
+                  ${section.unselectedItems.length > 0
+              ? section.unselectedItems
+                .map(
+                  (item) =>
+                    `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
+                )
+                .join("")
+              : '<div class="checkbox-item selected">All items selected</div>'
+            }
                 </div>
               </div>
             `
-              )
-              .join("")}
+        )
+        .join("")}
           </div>
 
           <div class="section">
             <div class="section-title">RECOMMENDATIONS</div>
             <div class="recommendations">
-              <p><strong>Based on your overall score of ${
-                readiness.overall
-              }%, here are key areas to focus on:</strong></p>
+              <p><strong>Based on your overall score of ${readiness.overall
+      }%, here are key areas to focus on:</strong></p>
               <ul>
-                ${
-                  readiness.dataCollection < 70
-                    ? "<li><strong>Improve Data Collection Capabilities</strong> - Consider implementing more feedback collection methods to capture comprehensive customer insights.</li>"
-                    : ""
-                }
-                ${
-                  readiness.touchpoints < 70
-                    ? "<li><strong>Expand Customer Touchpoints</strong> - Leverage additional channels to reach customers and gather feedback across more interaction points.</li>"
-                    : ""
-                }
-                ${
-                  readiness.organizational < 70
-                    ? "<li><strong>Strengthen Organizational Alignment</strong> - Enhance CX culture and leadership commitment to customer-centricity.</li>"
-                    : ""
-                }
-                ${
-                  readiness.technology < 70
-                    ? "<li><strong>Upgrade Technology Infrastructure</strong> - Invest in better tools and integration capabilities for effective data management.</li>"
-                    : ""
-                }
-                ${
-                  readiness.governance < 70
-                    ? "<li><strong>Establish Better Governance</strong> - Create structured processes and dedicated resources for managing customer feedback.</li>"
-                    : ""
-                }
-                ${
-                  readiness.overall >= 70
-                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced VoC strategies.</li>"
-                    : ""
-                }
+                ${readiness.dataCollection < 70
+        ? "<li><strong>Improve Data Collection Capabilities</strong> - Consider implementing more feedback collection methods to capture comprehensive customer insights.</li>"
+        : ""
+      }
+                ${readiness.touchpoints < 70
+        ? "<li><strong>Expand Customer Touchpoints</strong> - Leverage additional channels to reach customers and gather feedback across more interaction points.</li>"
+        : ""
+      }
+                ${readiness.organizational < 70
+        ? "<li><strong>Strengthen Organizational Alignment</strong> - Enhance CX culture and leadership commitment to customer-centricity.</li>"
+        : ""
+      }
+                ${readiness.technology < 70
+        ? "<li><strong>Upgrade Technology Infrastructure</strong> - Invest in better tools and integration capabilities for effective data management.</li>"
+        : ""
+      }
+                ${readiness.governance < 70
+        ? "<li><strong>Establish Better Governance</strong> - Create structured processes and dedicated resources for managing customer feedback.</li>"
+        : ""
+      }
+                ${readiness.overall >= 70
+        ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced VoC strategies.</li>"
+        : ""
+      }
               </ul>
             </div>
           </div>
@@ -569,17 +557,7 @@ export default function VocAssessment() {
     };
   };
 
-  CheckboxSection.propTypes = {
-    title: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    scoreKey: PropTypes.string.isRequired,
-    scoreLabel: PropTypes.string.isRequired,
-  };
+
 
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
     <div className={isFormLocked ? "opacity-60" : ""}>
@@ -596,14 +574,12 @@ export default function VocAssessment() {
               checked={formData[key]}
               onChange={handleInputChange}
               disabled={isFormLocked}
-              className={`w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${
-                isFormLocked ? "cursor-not-allowed" : ""
-              }`}
+              className={`w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${isFormLocked ? "cursor-not-allowed" : ""
+                }`}
             />
             <label
-              className={`ml-[12px] text-[16px] text-gray-700 ${
-                isFormLocked ? "cursor-not-allowed" : ""
-              }`}
+              className={`ml-[12px] text-[16px] text-gray-700 ${isFormLocked ? "cursor-not-allowed" : ""
+                }`}
               htmlFor={key}
             >
               {label}
@@ -632,6 +608,18 @@ export default function VocAssessment() {
       </div>
     </div>
   );
+
+  CheckboxSection.propTypes = {
+    title: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    scoreKey: PropTypes.string.isRequired,
+    scoreLabel: PropTypes.string.isRequired,
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-[96px] px-[16px] sm:px-[24px] lg:px-[32px]">
@@ -839,11 +827,10 @@ export default function VocAssessment() {
                 <button
                   onClick={handleShowOverallScore}
                   disabled={isSubmitting}
-                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2 ${
-                    isSubmitting
+                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors flex items-center justify-center gap-2 ${isSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg_primary "
-                  }`}
+                    }`}
                 >
                   {isSubmitting ? (
                     <>

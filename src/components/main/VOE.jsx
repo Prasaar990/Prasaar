@@ -415,112 +415,100 @@ export default function VoeAssessment() {
             <div class="section-title">DETAILED ASSESSMENT RESULTS</div>
             
             ${[
-              generateSectionContent(
-                "1) EMPLOYEE RESPONSE MECHANISMS",
-                responseMechanismsItems,
-                "responseMechanisms"
-              ),
-              generateSectionContent(
-                "2) DATA PRIVACY & SECURITY MEASURES",
-                dataSecurityItems,
-                "dataSecurity"
-              ),
-              generateSectionContent(
-                "3) LEADERSHIP SUPPORT",
-                leadershipItems,
-                "leadership"
-              ),
-              generateSectionContent(
-                "4) CULTURE OF OPENNESS & FEEDBACK",
-                cultureItems,
-                "culture"
-              ),
-              generateSectionContent(
-                "5) ENGAGEMENT CHANNELS",
-                engagementItems,
-                "engagement"
-              ),
-            ]
-              .map(
-                (section) => `
+        generateSectionContent(
+          "1) EMPLOYEE RESPONSE MECHANISMS",
+          responseMechanismsItems,
+          "responseMechanisms"
+        ),
+        generateSectionContent(
+          "2) DATA PRIVACY & SECURITY MEASURES",
+          dataSecurityItems,
+          "dataSecurity"
+        ),
+        generateSectionContent(
+          "3) LEADERSHIP SUPPORT",
+          leadershipItems,
+          "leadership"
+        ),
+        generateSectionContent(
+          "4) CULTURE OF OPENNESS & FEEDBACK",
+          cultureItems,
+          "culture"
+        ),
+        generateSectionContent(
+          "5) ENGAGEMENT CHANNELS",
+          engagementItems,
+          "engagement"
+        ),
+      ]
+        .map(
+          (section) => `
               <div class="assessment-section">
                 <div class="subsection-title">${section.title}</div>
-                <p><strong>Score: ${section.score}%</strong> (${
-                  section.selectedItems.length
-                }/${section.total} items selected)</p>
+                <p><strong>Score: ${section.score}%</strong> (${section.selectedItems.length
+            }/${section.total} items selected)</p>
                 
                 <div class="checkbox-list">
-                  <p><strong>✓ Selected Items (${
-                    section.selectedItems.length
-                  }):</strong></p>
-                  ${
-                    section.selectedItems.length > 0
-                      ? section.selectedItems
-                          .map(
-                            (item) =>
-                              `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
-                          )
-                          .join("")
-                      : '<div class="checkbox-item unselected">None selected</div>'
-                  }
+                  <p><strong>✓ Selected Items (${section.selectedItems.length
+            }):</strong></p>
+                  ${section.selectedItems.length > 0
+              ? section.selectedItems
+                .map(
+                  (item) =>
+                    `<div class="checkbox-item selected"><span class="checkmark">✓</span> ${item.label}</div>`
+                )
+                .join("")
+              : '<div class="checkbox-item unselected">None selected</div>'
+            }
                   
-                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${
-                    section.unselectedItems.length
-                  }):</strong></p>
-                  ${
-                    section.unselectedItems.length > 0
-                      ? section.unselectedItems
-                          .map(
-                            (item) =>
-                              `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
-                          )
-                          .join("")
-                      : '<div class="checkbox-item selected">All items selected</div>'
-                  }
+                  <p style="margin-top: 15px;"><strong>✗ Not Selected Items (${section.unselectedItems.length
+            }):</strong></p>
+                  ${section.unselectedItems.length > 0
+              ? section.unselectedItems
+                .map(
+                  (item) =>
+                    `<div class="checkbox-item unselected"><span class="crossmark">✗</span> ${item.label}</div>`
+                )
+                .join("")
+              : '<div class="checkbox-item selected">All items selected</div>'
+            }
                 </div>
               </div>
             `
-              )
-              .join("")}
+        )
+        .join("")}
           </div>
 
           <div class="section">
             <div class="section-title">RECOMMENDATIONS</div>
             <div class="recommendations">
-              <p><strong>Based on your overall score of ${
-                readiness.overall
-              }%, here are key areas to focus on:</strong></p>
+              <p><strong>Based on your overall score of ${readiness.overall
+      }%, here are key areas to focus on:</strong></p>
               <ul>
-                ${
-                  readiness.responseMechanisms < 70
-                    ? "<li><strong>Improve Employee Response Mechanisms</strong> - Consider implementing more feedback collection methods to capture comprehensive employee insights.</li>"
-                    : ""
-                }
-                ${
-                  readiness.dataSecurity < 70
-                    ? "<li><strong>Strengthen Data Privacy & Security</strong> - Enhance security measures and transparency to build employee trust in feedback systems.</li>"
-                    : ""
-                }
-                ${
-                  readiness.leadership < 70
-                    ? "<li><strong>Increase Leadership Support</strong> - Enhance leadership commitment and visible support for employee voice initiatives.</li>"
-                    : ""
-                }
-                ${
-                  readiness.culture < 70
-                    ? "<li><strong>Build Culture of Openness</strong> - Foster an environment where employees feel safe to provide honest feedback.</li>"
-                    : ""
-                }
-                ${
-                  readiness.engagement < 70
-                    ? "<li><strong>Improve Engagement Channels</strong> - Create better systems for acting on employee feedback and closing the loop.</li>"
-                    : ""
-                }
-                ${
-                  readiness.overall >= 70
-                    ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced employee voice strategies.</li>"
-                    : ""
-                }
+                ${readiness.responseMechanisms < 70
+        ? "<li><strong>Improve Employee Response Mechanisms</strong> - Consider implementing more feedback collection methods to capture comprehensive employee insights.</li>"
+        : ""
+      }
+                ${readiness.dataSecurity < 70
+        ? "<li><strong>Strengthen Data Privacy & Security</strong> - Enhance security measures and transparency to build employee trust in feedback systems.</li>"
+        : ""
+      }
+                ${readiness.leadership < 70
+        ? "<li><strong>Increase Leadership Support</strong> - Enhance leadership commitment and visible support for employee voice initiatives.</li>"
+        : ""
+      }
+                ${readiness.culture < 70
+        ? "<li><strong>Build Culture of Openness</strong> - Foster an environment where employees feel safe to provide honest feedback.</li>"
+        : ""
+      }
+                ${readiness.engagement < 70
+        ? "<li><strong>Improve Engagement Channels</strong> - Create better systems for acting on employee feedback and closing the loop.</li>"
+        : ""
+      }
+                ${readiness.overall >= 70
+        ? "<li><strong>Maintain Excellence</strong> - Continue to strengthen your existing capabilities and consider advanced employee voice strategies.</li>"
+        : ""
+      }
               </ul>
             </div>
           </div>
@@ -556,18 +544,6 @@ export default function VoeAssessment() {
     };
   };
 
-  CheckboxSection.propTypes = {
-    title: PropTypes.string.isRequired,
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        key: PropTypes.string.isRequired,
-        label: PropTypes.string.isRequired,
-      })
-    ).isRequired,
-    scoreKey: PropTypes.string.isRequired,
-    scoreLabel: PropTypes.string.isRequired,
-  };
-
   const CheckboxSection = ({ title, items, scoreKey, scoreLabel }) => (
     <div className={isFormLocked ? "opacity-60" : ""}>
       <h3 className="text-[18px] font-medium text-gray-800 mb-[16px]">
@@ -583,14 +559,12 @@ export default function VoeAssessment() {
               checked={formData[key]}
               onChange={handleInputChange}
               disabled={isFormLocked}
-              className={`w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${
-                isFormLocked ? "cursor-not-allowed" : ""
-              }`}
+              className={`w-[16px] h-[16px] text-blue-600 border-gray-300 rounded focus:ring-blue-500 ${isFormLocked ? "cursor-not-allowed" : ""
+                }`}
             />
             <label
-              className={`ml-[12px] text-[16px] text-gray-700 ${
-                isFormLocked ? "cursor-not-allowed" : ""
-              }`}
+              className={`ml-[12px] text-[16px] text-gray-700 ${isFormLocked ? "cursor-not-allowed" : ""
+                }`}
               htmlFor={key}
             >
               {label}
@@ -619,6 +593,18 @@ export default function VoeAssessment() {
       </div>
     </div>
   );
+
+  CheckboxSection.propTypes = {
+    title: PropTypes.string.isRequired,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      })
+    ).isRequired,
+    scoreKey: PropTypes.string.isRequired,
+    scoreLabel: PropTypes.string.isRequired,
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-[96px] px-[16px] sm:px-[24px] lg:px-[32px]">
@@ -826,11 +812,10 @@ export default function VoeAssessment() {
                 <button
                   onClick={handleShowOverallScore}
                   disabled={isSubmitting}
-                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2 ${
-                    isSubmitting
+                  className={`px-[24px] cursor-pointer py-[12px] text-[16px] font-medium text-white border-gray-300 rounded-[6px] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors flex items-center justify-center gap-2 ${isSubmitting
                       ? "bg-gray-400 cursor-not-allowed"
                       : "bg_primary hover:bg-purple-700"
-                  }`}
+                    }`}
                 >
                   {isSubmitting ? (
                     <>

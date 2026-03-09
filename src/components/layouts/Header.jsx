@@ -117,7 +117,7 @@ export default function Header() {
         >
           <ul className="list-none ">
             {/* Only show navigation items on home page */}
-            {/* {isHomePage && (
+            {isHomePage && (
               <>
                 <li className="mt-[20px] sm:mt-[12px] text-[20px] font-medium">
                   <a href="#info" className="no-underline text-gray-800">
@@ -157,15 +157,15 @@ export default function Header() {
                   )}
                 </li>
               </>
-            )} */}
+            )}
 
-            {/* <li>
+            <li>
               {dropdownUseCases ? (
                 <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
               ) : (
                 ""
               )}
-            </li> */}
+            </li>
           </ul>
         </motion.nav>
       ) : (
@@ -180,9 +180,8 @@ export default function Header() {
           ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother animation
           type: "tween",
         }}
-        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] z-50  transition-all duration-500 ease-out ${
-          isScrolled ? "bg-white shadow-lg backdrop-blur-md" : "bg-transparent"
-        } ${dropdownNav ? "border-b-2 border-gray-200" : ""}`}
+        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] z-50  transition-all duration-500 ease-out ${isScrolled ? "bg-white shadow-lg backdrop-blur-md" : "bg-transparent"
+          } ${dropdownNav ? "border-b-2 border-gray-200" : ""}`}
         style={{
           willChange: "transform", // Optimize for animations
         }}
@@ -197,7 +196,7 @@ export default function Header() {
 
         {isTablet ? (
           <>
-            {/* <div>
+            <div>
               <button
                 type="button"
                 className="bg-transparent w-[32px] h-[32px]  md:w-[40px] md:h-[40px] border-none cursor-pointer"
@@ -211,11 +210,11 @@ export default function Header() {
                   <AlignJustify className="w-full h-full" />
                 )}
               </button>
-            </div> */}
+            </div>
           </>
         ) : (
           <>
-            {/* <div className="z-40">
+            <div className="z-40">
               {isHomePage && (
                 <ul className="list-none flex gap-[24px] lg:gap-[48px]">
                   <li>
@@ -250,13 +249,13 @@ export default function Header() {
                   </li>
                 </ul>
               )}
-            </div> */}
+            </div>
 
             <div className="flex items-center gap-[16px] lg:gap-[32px]">
               <Button
                 text={"Contact Us"}
                 to="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
-                handleFormOpen={() => {}}
+                handleFormOpen={() => { }}
               />
             </div>
           </>
@@ -283,10 +282,9 @@ export default function Header() {
         <a
           href="https://api.whatsapp.com/send/?phone=919226333789&text&type=phone_number&app_absent=0"
           className={`fixed z-20 bg-green-500 hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl
-            ${
-              isMobile
-                ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"
-                : "right-[24px] bottom-[24px] w-[48px] h-[48px] sm:right-[32px] sm:bottom-[32px] lg:right-[48px] lg:bottom-[48px]"
+            ${isMobile
+              ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"
+              : "right-[24px] bottom-[24px] w-[48px] h-[48px] sm:right-[32px] sm:bottom-[32px] lg:right-[48px] lg:bottom-[48px]"
             }`}
           style={{
             transform: isHovered ? "scale(1.1)" : "scale(1)",
@@ -321,11 +319,10 @@ export default function Header() {
         {/* Pulse animation behind button */}
         <span
           className={`fixed bg-green-500 rounded-full opacity-30 animate-pulse
-          ${
-            isMobile
+          ${isMobile
               ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"
               : "right-[24px] bottom-[24px] w-[48px] h-[48px] sm:right-[32px] sm:bottom-[32px] lg:right-[48px] lg:bottom-[48px]"
-          }`}
+            }`}
         />
 
         {/* Tooltip - Only show on larger screens */}

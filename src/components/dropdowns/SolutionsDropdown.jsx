@@ -61,13 +61,12 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
   // Desktop dropdown menu (unchanged for now)
   const DesktopMenu = () => (
     <div
-      className={`fixed top-18 left-0 w-full bg-white shadow-lg z-50 transform transition-all duration-500 ease-in-out ${
-        animateIn
+      className={`fixed top-18 left-0 w-full bg-white shadow-lg z-50 transform transition-all duration-500 ease-in-out ${animateIn
           ? "opacity-100 translate-y-0"
           : "opacity-0 -translate-y-8 pointer-events-none"
-      }`}
+        }`}
     >
-      {/* <div className="container mx-auto px-6 py-8 max-w-7xl">
+      <div className="container mx-auto px-6 py-8 max-w-7xl">
         <div className="mb-6">
           <h3 className="text-xl font-semibold primaryColor mb-2">SOLUTIONS</h3>
           <p className="text-gray-600">
@@ -92,18 +91,17 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
             </div>
           ))}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 
   // Enhanced Mobile dropdown menu
   const MobileMenu = () => (
     <div
-      className={`bg-white  overflow-hidden transition-all duration-300 ease-in-out ${
-        dropdownSolutions ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
-      }`}
+      className={`bg-white  overflow-hidden transition-all duration-300 ease-in-out ${dropdownSolutions ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        }`}
     >
-      {/* <div className="py-3 mt-10">
+      <div className="py-3 mt-10">
         {solutionItems.map((item, index) => (
           <div
             key={index}
@@ -128,7 +126,7 @@ export default function Solutions({ dropdownSolutions, isTablet = true }) {
             </div>
           </div>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 
