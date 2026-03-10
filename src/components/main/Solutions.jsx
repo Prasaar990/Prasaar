@@ -26,8 +26,8 @@ export default function Solutions() {
         </motion.div>
 
         <motion.h2 className="mx-auto max-w-lg text-center text-3xl sm:text-4xl font-semibold text-gray-900">
-          Powerful{" "}
-          <span className="text-[#c60240]">Solutions</span>
+          Solutions for{" "}
+          <span className="text-[#c60240]">Businesses</span>
         </motion.h2>
 
         <motion.p
@@ -51,6 +51,23 @@ export default function Solutions() {
 
       <div className="space-y-12 lg:space-y-20 max-w-6xl mx-auto">
         <Solution
+          title="Complaint Management System"
+          list={[
+            "Efficiently track, manage, and resolve customer complaints in real-time.",
+            "Enhance service quality and customer satisfaction with seamless issue handling.",
+            "Automate ticketing and categorize issues for faster resolution.",
+            "Gain valuable insights to optimize operations and improve efficiency.",
+          ]}
+          img="./img/complaint.jpeg"
+          
+          btnText="Get Started"
+        >
+          <p>
+            Convert <em>complaints</em> into <em>compliments</em>
+          </p>
+        </Solution>
+
+        <Solution
           title="Real Time Feedback"
           list={[
             "Collect real-time customer feedback effortlessly via WhatsApp.",
@@ -60,28 +77,12 @@ export default function Solutions() {
             "Seamlessly integrate surveys into your workflow for better decision-making.",
           ]}
           img="./img/service_images/cms.png"
+          side="rowReverse"
           btnText="Get Started"
         >
           <p>
             Conduct Opinion-Poll, Customer Satisfaction (CSAT) surveys, NPS -
             Net Promoter Score, Employee Feedback.
-          </p>
-        </Solution>
-
-        <Solution
-          title="Complaint Management System"
-          list={[
-            "Efficiently track, manage, and resolve customer complaints in real-time.",
-            "Enhance service quality and customer satisfaction with seamless issue handling.",
-            "Automate ticketing and categorize issues for faster resolution.",
-            "Gain valuable insights to optimize operations and improve efficiency.",
-          ]}
-          img="./img/complaint.jpeg"
-          side="rowReverse"
-          btnText="Get Started"
-        >
-          <p>
-            Convert <em>complaints</em> into <em>compliments</em>
           </p>
         </Solution>
       </div>

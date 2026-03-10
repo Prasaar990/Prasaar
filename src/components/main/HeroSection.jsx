@@ -20,7 +20,10 @@ export default function HeroSection({ words, subHeading, title }) {
   }, [wordIndex, words]);
 
   const images = [
-
+    {
+      src: "./img/hero_section/dashboardMain.jpeg",
+      alt: "Hero Image 2",
+    },
     {
       src: "./img/hero_section/whatsapp1.webp",
       alt: "Hero Image 2",

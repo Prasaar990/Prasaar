@@ -31,7 +31,7 @@ export default function CustomFlows() {
       title: "Analytics Dashboard",
       description:
         "Track engagement metrics, such as response rates and resolution times, to continuously optimize flows continuously.",
-      image: "./img/complaint.jpeg",
+      image: "./img/dashboard.jpeg",
       iconBg: "bg-emerald-100/80 text-emerald-600",
       activeBg: "bg-gradient-to-r from-emerald-50 to-white",
       activeBorder: "border-emerald-200",
@@ -172,11 +172,11 @@ export default function CustomFlows() {
                 <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-amber-400" />
                 <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-green-400" />
               </div>
-              <div className="mx-auto flex-1 flex justify-center mt-1">
+              {/* <div className="mx-auto flex-1 flex justify-center mt-1">
                 <div className="h-4 sm:h-5 w-32 sm:w-48 bg-gray-100 rounded-full flex items-center justify-center">
                   <span className="text-[10px] text-gray-400 font-medium">app.prasaar.com</span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

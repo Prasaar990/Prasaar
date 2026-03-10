@@ -19,11 +19,11 @@ export default function Main() {
 
       <Customers />
 
-      <Info />
-
       <Solutions />
 
       <CustomFlows />
+
+        <Info />
 
       {/* CTA Section */}
       <section className="relative overflow-hidden my-16 lg:my-24 mx-4 sm:mx-6 lg:mx-12 rounded-2xl sm:rounded-3xl">
