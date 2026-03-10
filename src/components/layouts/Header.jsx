@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
 import Button from "./Button";
 import Solutions from "../dropdowns/SolutionsDropdown";
 import UseCases from "../dropdowns/UseCasesDropdown";
 import { Link, useLocation } from "react-router-dom";
-import { AlignJustify, X } from "lucide-react";
+import { AlignJustify, X, ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [dropdownSolutions, setDropdownSolutions] = useState(false);
@@ -106,152 +106,155 @@ export default function Header() {
 
   return (
     <>
-      {isTablet ? (
-        <motion.nav
-          animate={{
-            y: dropdownNav ? "0%" : "-100%",
-            opacity: dropdownNav ? 1 : 0,
-          }}
-          className="fixed w-screen h-full lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] pt-[80px] sm:pt-[128px] md:pt-[160px] pb-[32px] sm:pb-[48px] md:pb-[64px] bg-white z-50 shadow-lg flex flex-col text-[18px] sm:text-[20px] md:text-[24px] text-gray-800"
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <ul className="list-none ">
-            {/* Only show navigation items on home page */}
-            {isHomePage && (
-              <>
-                <li className="mt-[20px] sm:mt-[12px] text-[20px] font-medium">
-                  <a href="#info" className="no-underline text-gray-800">
-                    Why Prasaar ?
-                  </a>
-                </li>
+      {/* Mobile Navigation Overlay */}
+      <AnimatePresence>
+        {isTablet && dropdownNav && (
+          <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="fixed inset-0 w-screen h-full bg-white/95 backdrop-blur-xl z-50 flex flex-col px-6 sm:px-10 md:px-12 pt-24 sm:pt-28 pb-10 overflow-y-auto"
+          >
+            <ul className="list-none space-y-6">
+              {isHomePage && (
+                <>
+                  <li>
+                    <a
+                      href="#info"
+                      className="no-underline text-gray-900 uppercase text-lg font-semibold tracking-wide hover:text-[#c60240] transition-colors duration-200"
+                      onClick={() => setDropdownNav(false)}
+                    >
+                      Why Prasaar?
+                    </a>
+                  </li>
 
-                <li className="mt-[20px] sm:mt-[24px] flex flex-row items-center text-[20px] font-medium gap-[3px]">
-                  Solutions
-                  <motion.button
-                    type="button"
-                    className="bg-transparent border-none cursor-pointer h-[20px] sm:h-[24px]"
-                    onClick={() => {
-                      setDropdownSolutions((x) => !x);
-                      if (dropdownUseCases) {
-                        setDropdownUseCases(false);
-                      }
-                    }}
-                  >
-                    <motion.img
-                      src="./img/downArrow.svg"
-                      alt="show solution"
-                      className="h-[22px] w-[24px]"
-                      animate={{ rotate: dropdownSolutions ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </motion.button>
-                </li>
-                <li>
-                  {dropdownSolutions ? (
-                    <Solutions
-                      dropdownSolutions={dropdownSolutions}
-                      isTablet={true}
-                    />
-                  ) : (
-                    ""
+                  <li>
+                    <button
+                      type="button"
+                      className="bg-transparent border-none cursor-pointer flex items-center gap-2 text-gray-900 uppercase text-lg font-semibold tracking-wide hover:text-[#c60240] transition-colors duration-200 p-0"
+                      onClick={() => {
+                        setDropdownSolutions((x) => !x);
+                        if (dropdownUseCases) setDropdownUseCases(false);
+                      }}
+                    >
+                      Solutions
+                      <motion.div
+                        animate={{ rotate: dropdownSolutions ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-5 h-5" />
+                      </motion.div>
+                    </button>
+                  </li>
+                  {dropdownSolutions && (
+                    <li className="pl-4">
+                      <Solutions dropdownSolutions={dropdownSolutions} isTablet={true} />
+                    </li>
                   )}
-                </li>
-              </>
-            )}
-
-            <li>
-              {dropdownUseCases ? (
-                <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
-              ) : (
-                ""
+                </>
               )}
-            </li>
-          </ul>
-        </motion.nav>
-      ) : (
-        <></>
-      )}
+
+              {dropdownUseCases && (
+                <li className="pl-4">
+                  <UseCases dropdownUseCases={dropdownUseCases} isTablet={true} />
+                </li>
+              )}
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
       <motion.header
         initial={{ y: 0 }}
         animate={{ y: visible ? 0 : "-100%" }}
         transition={{
           duration: 0.4,
-          ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for smoother animation
+          ease: [0.25, 0.46, 0.45, 0.94],
           type: "tween",
         }}
-        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[68px] text-[14px] sm:text-[16px] lg:text-[18px] flex justify-between items-center lg:px-[50px] md:px-[32px] sm:px-[24px] px-[20px] z-50  transition-all duration-500 ease-out ${isScrolled ? "bg-white shadow-lg backdrop-blur-md" : "bg-transparent"
-          } ${dropdownNav ? "border-b-2 border-gray-200" : ""}`}
-        style={{
-          willChange: "transform", // Optimize for animations
-        }}
+        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[72px] text-[14px] sm:text-[15px] lg:text-[15px] flex justify-between items-center lg:px-12 md:px-8 sm:px-6 px-5 z-50 transition-all duration-500 ease-out ${
+          isScrolled
+            ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-b border-gray-100"
+            : "bg-transparent"
+        }`}
+        style={{ willChange: "transform" }}
       >
-        <Link to="/" className="cursor-pointer">
+        <Link to="/" className="cursor-pointer flex-shrink-0">
           <img
             src="./img/prasaarLogo.png"
             alt="website logo"
-            className="w-[135px] h-[40px] sm:w-[150px] sm:h-[40px] lg:w-[160px] lg:h-[45px]"
+            className="w-[130px] h-[38px] sm:w-[145px] sm:h-[40px] lg:w-[155px] lg:h-[43px]"
           />
         </Link>
 
         {isTablet ? (
-          <>
-            <div>
-              <button
-                type="button"
-                className="bg-transparent w-[32px] h-[32px]  md:w-[40px] md:h-[40px] border-none cursor-pointer"
-                onClick={() => {
-                  setDropdownNav((x) => !x);
-                }}
-              >
-                {dropdownNav ? (
-                  <X className="w-full h-full" style={{ color: "#333" }} />
-                ) : (
-                  <AlignJustify className="w-full h-full" />
-                )}
-              </button>
-            </div>
-          </>
+          <button
+            type="button"
+            className="relative z-[60] bg-transparent w-9 h-9 md:w-10 md:h-10 border-none cursor-pointer flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            onClick={() => setDropdownNav((x) => !x)}
+          >
+            <AnimatePresence mode="wait">
+              {dropdownNav ? (
+                <motion.div
+                  key="close"
+                  initial={{ opacity: 0, rotate: -90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-6 h-6 text-gray-800" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ opacity: 0, rotate: 90 }}
+                  animate={{ opacity: 1, rotate: 0 }}
+                  exit={{ opacity: 0, rotate: -90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <AlignJustify className="w-6 h-6 text-gray-800" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
         ) : (
           <>
-            <div className="z-40">
+            <nav className="z-40">
               {isHomePage && (
-                <ul className="list-none flex gap-[24px] lg:gap-[48px]">
+                <ul className="list-none flex items-center gap-8 lg:gap-12">
                   <li>
                     <a
                       href="#info"
-                      className="text-gray-800 no-underline transition-all duration-300 border-b-2 border-white hover:border-gray-800"
+                      className="uppercase text-gray-700 no-underline text-[13px] lg:text-[14px] font-semibold tracking-[0.08em] transition-colors duration-200 hover:text-[#c60240] relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#c60240] after:transition-all after:duration-300 hover:after:w-full"
                     >
-                      Why Prasaar ?
+                      Why Prasaar?
                     </a>
                   </li>
 
-                  <li className="flex flex-row items-center justify-center ">
-                    Solutions
-                    <motion.button
+                  <li>
+                    <button
                       type="button"
-                      className="bg-transparent border-none cursor-pointer h-[20px] lg:h-[24px]"
+                      className="bg-transparent border-none cursor-pointer p-0 flex items-center gap-1.5 uppercase text-gray-700 text-[13px] lg:text-[14px] font-semibold tracking-[0.08em] transition-colors duration-200 hover:text-[#c60240] relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-[#c60240] after:transition-all after:duration-300 hover:after:w-full"
                       onClick={() => {
                         setDropdownSolutions((x) => !x);
-                        if (dropdownUseCases) {
-                          setDropdownUseCases(false);
-                        }
+                        if (dropdownUseCases) setDropdownUseCases(false);
                       }}
                     >
-                      <motion.img
-                        src="./img/downArrow.svg"
-                        alt="show solution"
-                        className="h-[20px] w-[20px] lg:h-[24px] lg:w-[24px]"
+                      Solutions
+                      <motion.div
                         animate={{ rotate: dropdownSolutions ? 180 : 0 }}
                         transition={{ duration: 0.3 }}
-                      />
-                    </motion.button>
+                      >
+                        <ChevronDown className="w-4 h-4" />
+                      </motion.div>
+                    </button>
                   </li>
                 </ul>
               )}
-            </div>
+            </nav>
 
-            <div className="flex items-center gap-[16px] lg:gap-[32px]">
+            <div className="flex items-center gap-4 lg:gap-6">
               <Button
                 text={"Contact Us"}
                 to="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
