@@ -44,13 +44,13 @@ export default function HeroSection({ words, subHeading, title }) {
       <div className="lg:w-[60%] sm:w-[60%] flex flex-col gap-5 sm:gap-6 text-center sm:text-left">
         {/* Heading */}
         <div className="flex items-center justify-center sm:justify-start min-h-[80px] lg:min-h-[150px]">
-          <div className="text-3xl sm:text-4xl lg:text-[56px] leading-tight font-semibold text-gray-900">
+          <div className="text-3xl sm:text-4xl lg:text-[40px] leading-tight font-semibold text-gray-900">
             {title ? (
               <div>{title}</div>
             ) : (
               <>
-                <div>Build Customer and</div>
-                <div className="text-[#c60240]">Employee Trust</div>
+                <div>WhatsApp Automation for</div>
+                <div className="text-[#c60240]">Customer Engagement and Service.</div>
               </>
             )}
           </div>
@@ -67,7 +67,7 @@ export default function HeroSection({ words, subHeading, title }) {
 
         {/* Button */}
         <div className="flex gap-3 lg:flex-row md:flex-col md:gap-6 justify-center sm:justify-start mt-2">
-          <Button text={"Start Your Readiness Check"} to="/readiness-check" />
+          <Button text={"Get Started"} to="/form" />
         </div>
       </div>
 

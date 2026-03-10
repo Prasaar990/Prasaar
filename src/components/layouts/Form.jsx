@@ -67,6 +67,13 @@ export default function ContactForm() {
 
       // Handle success
       setFormSubmitted(true);
+
+      // WhatsApp redirection
+      const whatsappNumber = "919226333789";
+      const whatsappMessage = `Hi Prasaar Technologies,\n\nI am ${formState.firstName} ${formState.lastName}.\n\nMy details are:\n- Email: ${formState.email}\n- Phone: ${formState.phone}\n- Company: ${formState.company}\n\nMessage: ${formState.message || 'N/A'}`;
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
+
       setFormState({
         email: "",
         firstName: "",
@@ -116,26 +123,15 @@ export default function ContactForm() {
   );
 
   return (
-    <div className="py-[64px] md:py-[96px] lg:py-[128px] ">
-      <div className="max-w-[896px] mx-auto  sm:px-[12px] lg:px-[14px]">
+    <div className="w-full">
+      <div className="max-w-[480px] mx-auto">
         <motion.div
           variants={formVariants}
           initial="hidden"
           animate="visible"
-          className="bg-white rounded-[16px] shadow-xl overflow-hidden"
+          className="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden"
         >
-          {/* Form header */}
-          <div className="bg_primary px-[24px] py-[16px] sm:px-[40px] sm:py-[24px]">
-            <h2 className="text-[30px] font-bold text-white tracking-tight">
-              CONTACT US
-            </h2>
-            <p className="mt-[8px] text-white text-opacity-90 max-w-[512px]">
-              Have questions or want to learn more? Fill out the form below and
-              our team will get back to you shortly.
-            </p>
-          </div>
-
-          <div className="px-[24px] py-[20px] sm:px-[48px] sm:py-[20px]">
+          <div className="px-6 py-6 sm:px-8 sm:py-8">
             {formSubmitted && <SuccessMessage />}
             {formError && <ErrorMessage />}
 
@@ -146,7 +142,7 @@ export default function ContactForm() {
                 data-netlify="true"
                 netlify-honeypot="bot-field"
                 onSubmit={handleSubmit}
-                className="space-y-[32px]"
+                className="space-y-5"
               >
                 {/* Netlify required hidden fields */}
                 <input type="hidden" name="form-name" value="contact" />
@@ -162,7 +158,7 @@ export default function ContactForm() {
                     id="email"
                     value={formState.email}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-200 bg-transparent pt-4 pb-1.5 px-0 text-gray-900 placeholder-transparent focus:border-[#c60240] focus:outline-none focus:ring-0 text-sm"
                     placeholder="Email address"
                     required
                   />
@@ -175,7 +171,7 @@ export default function ContactForm() {
                 </motion.div>
 
                 {/* First name and Last name (grid) */}
-                <div className="grid grid-cols-1 gap-[32px] sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <motion.div variants={itemVariants} className="relative">
                     <input
                       type="text"
@@ -183,7 +179,7 @@ export default function ContactForm() {
                       id="firstName"
                       value={formState.firstName}
                       onChange={handleInputChange}
-                      className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                      className="peer w-full border-0 border-b-2 border-gray-200 bg-transparent pt-4 pb-1.5 px-0 text-gray-900 placeholder-transparent focus:border-[#c60240] focus:outline-none focus:ring-0 text-sm"
                       placeholder="First name"
                       required
                     />
@@ -202,7 +198,7 @@ export default function ContactForm() {
                       id="lastName"
                       value={formState.lastName}
                       onChange={handleInputChange}
-                      className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px]  px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                      className="peer w-full border-0 border-b-2 border-gray-200 bg-transparent pt-4 pb-1.5 px-0 text-gray-900 placeholder-transparent focus:border-[#c60240] focus:outline-none focus:ring-0 text-sm"
                       placeholder="Last name"
                       required
                     />
@@ -223,7 +219,7 @@ export default function ContactForm() {
                     id="phone"
                     value={formState.phone}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-200 bg-transparent pt-4 pb-1.5 px-0 text-gray-900 placeholder-transparent focus:border-[#c60240] focus:outline-none focus:ring-0 text-sm"
                     placeholder="Phone number"
                     required
                   />
@@ -246,7 +242,7 @@ export default function ContactForm() {
                     id="company"
                     value={formState.company}
                     onChange={handleInputChange}
-                    className="peer w-full border-0 border-b-2 border-gray-300 bg-transparent pt-[16px] pb-[8px] px-0 text-gray-900 placeholder-transparent focus:border-[#fe6363] focus:outline-none focus:ring-0"
+                    className="peer w-full border-0 border-b-2 border-gray-200 bg-transparent pt-4 pb-1.5 px-0 text-gray-900 placeholder-transparent focus:border-[#c60240] focus:outline-none focus:ring-0 text-sm"
                     placeholder="Company"
                     required
                   />
@@ -261,15 +257,15 @@ export default function ContactForm() {
                 {/* Message textarea */}
                 <motion.div
                   variants={itemVariants}
-                  className="relative mt-[40px]"
+                  className="relative mt-6"
                 >
                   <textarea
                     name="message"
                     id="message"
-                    rows="5"
+                    rows="3"
                     value={formState.message}
                     onChange={handleInputChange}
-                    className="w-full border-2 border-gray-300 rounded-lg bg-transparent p-[16px] text-gray-900 focus:border-[#fe6363] focus:outline-none focus:ring-0 resize-none"
+                    className="w-full border-2 border-gray-200 rounded-lg bg-transparent p-3 text-sm text-gray-900 focus:border-[#c60240] focus:outline-none focus:ring-0 resize-none"
                     placeholder="Your message (optional)"
                   ></textarea>
                 </motion.div>
@@ -283,7 +279,7 @@ export default function ContactForm() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg_primary cursor-pointer hover:bg-[#ff4545] text-white font-medium py-[16px] px-[24px] rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#fe6363] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-[18px]"
+                    className="w-full bg-[#c60240] cursor-pointer hover:bg-[#a00235] text-white font-medium py-3 px-6 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#c60240] focus:ring-opacity-50 disabled:opacity-70 disabled:cursor-not-allowed text-base"
                   >
                     {isSubmitting ? (
                       <span className="flex items-center justify-center">

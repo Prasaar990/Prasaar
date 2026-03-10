@@ -2,6 +2,7 @@ import HeroSection from "./HeroSection";
 import Customers from "./Marquee";
 import Info from "./Info";
 import Solutions from "./Solutions";
+import CustomFlows from "./CustomFlows";
 import { ArrowRight, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -13,7 +14,7 @@ export default function Main() {
     <div className="w-full">
       <HeroSection
         words={["Employee Trust"]}
-        subHeading="Prasaar is a unified platform for customers and employees that boosts performance, builds reputation, and drives long-term success."
+        subHeading="Prasaar empowers businesses to automate WhatsApp interactions through intuitive flow builders, enabling seamless customer engagement and support at scale."
       />
 
       <Customers />
@@ -21,6 +22,8 @@ export default function Main() {
       <Info />
 
       <Solutions />
+
+      <CustomFlows />
 
       {/* CTA Section */}
       <section className="relative overflow-hidden my-16 lg:my-24 mx-4 sm:mx-6 lg:mx-12 rounded-2xl sm:rounded-3xl">
@@ -65,7 +68,7 @@ export default function Main() {
         </div>
       </section>
 
-      <HeroSection
+      {/* <HeroSection
         words={[
           "Customer Service",
           "Customer Experience",
@@ -74,7 +77,7 @@ export default function Main() {
         ]}
         subheading=""
         title={"How Prasaar is helping drive better"}
-      />
+      /> */}
     </div>
   );
 }

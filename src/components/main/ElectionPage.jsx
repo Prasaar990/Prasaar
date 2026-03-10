@@ -12,6 +12,7 @@ import {
   ArrowRight,
   ExternalLink,
   ChevronRight,
+  QrCode,
 } from "lucide-react";
 
 const ElectionPage = () => {
@@ -22,13 +23,13 @@ const ElectionPage = () => {
   const phoneNumber = "tel:+919226333789";
 
   const voterSlipPDFs = [
-    { name: "Booth 23 Voter Slip", file: "./booth_23_removed.pdf" },
+    { name: "Booth Voter Slip", file: "./prasaar_demo_voter_slip.pdf" },
     {
-      name: "Booth Voters List Table",
-      file: "./booth_voters_list_table_removed.pdf",
+      name: "Booth Voters List",
+      file: "./prasaar_demo_boothwise_voter_list.pdf",
     },
-    { name: "Family Voters List", file: "./family_voters_list_removed.pdf" },
-    { name: "Voters List", file: "./voters_list_removed.pdf" },
+    { name: "Family Voters List", file: "./prasaar_demo_family_voter_list.pdf" },
+    { name: "Alphabetical Voters List", file: "./prasaar_demo_alphabetical_voters_list.pdf" },
   ];
 
   const handleDownload = (filePath, fileName) => {
@@ -90,16 +91,26 @@ const ElectionPage = () => {
       buttonText: "Try EVM Demo",
     },
     {
-      icon: <Zap className="w-6 h-6" />,
-      title: "Blasto – Auto WhatsApp & SMS",
+      icon: <QrCode className="w-6 h-6" />,
+      title: "Candidate Profile Link + QR Code",
       description:
-        "Automatically send WhatsApp & SMS messages after every call",
+        "Showcase your work, vision, and achievements. One link. One QR. Stronger voter connection.",
       imageSpace: true,
-      imageSrc: "./img/getblasto.webp",
-      demoLink:
-        "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Blasto%20app%20that%20automatically%20sends%20WhatsApp%20and%20SMS%20messages%20after%20every%20call.%20Please%20share%20the%20details.&type=phone_number&app_absent=0",
-      buttonText: "Get Blasto App",
+      imageSrc: "./img/candidate_profile.png",
+      demoLink: "https://hiroqr.com/mydemo",
+      buttonText: "View Demo Profile",
     },
+    // {
+    //   icon: <Zap className="w-6 h-6" />,
+    //   title: "Blasto – Auto WhatsApp & SMS",
+    //   description:
+    //     "Automatically send WhatsApp & SMS messages after every call",
+    //   imageSpace: true,
+    //   imageSrc: "./img/getblasto.webp",
+    //   demoLink:
+    //     "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Blasto%20app%20that%20automatically%20sends%20WhatsApp%20and%20SMS%20messages%20after%20every%20call.%20Please%20share%20the%20details.&type=phone_number&app_absent=0",
+    //   buttonText: "Get Blasto App",
+    // },
   ];
 
   const handleImageLoad = (e, imageSrc) => {
@@ -425,11 +436,10 @@ const ElectionPage = () => {
             <img
               src={selectedImage}
               alt="Full view"
-              className={`${
-                imageOrientation === "portrait"
+              className={`${imageOrientation === "portrait"
                   ? "max-h-[90vh] w-auto"
                   : "max-w-[90vw] h-auto"
-              } object-contain rounded-xl shadow-2xl`}
+                } object-contain rounded-xl shadow-2xl`}
               loading="lazy"
             />
           </div>
