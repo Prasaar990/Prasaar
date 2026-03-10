@@ -76,7 +76,7 @@ export default function Solutions() {
             "Automate ticketing and categorize issues for faster resolution.",
             "Gain valuable insights to optimize operations and improve efficiency.",
           ]}
-          img="./img/service_images/ws.png"
+          img="./img/complaint.jpeg"
           side="rowReverse"
           btnText="Get Started"
         >

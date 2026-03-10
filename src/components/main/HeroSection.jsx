@@ -20,21 +20,22 @@ export default function HeroSection({ words, subHeading, title }) {
   }, [wordIndex, words]);
 
   const images = [
+
     {
-      src: "./img/heroImg.svg",
-      alt: "Hero Image 1",
-    },
-    {
-      src: "./img/automation.svg",
+      src: "./img/hero_section/whatsapp1.webp",
       alt: "Hero Image 2",
     },
     {
-      src: "./img/ce.svg",
+      src: "./img/hero_section/whatsapp2.webp",
       alt: "Hero Image 3",
     },
     {
-      src: "./img/survey.svg",
+      src: "./img/hero_section/whatsapp3.webp",
       alt: "Hero Image 4",
+    },
+    {
+      src: "./img/hero_section/whatsapp4.webp",
+      alt: "Hero Image 5",
     },
   ];
 
