@@ -59,7 +59,7 @@ export default function Solutions() {
             "Gain valuable insights to optimize operations and improve efficiency.",
           ]}
           img="./img/complaint.jpeg"
-          
+
           btnText="Get Started"
         >
           <p>
@@ -76,7 +76,7 @@ export default function Solutions() {
             "Automate feedback collection and analyze responses efficiently.",
             "Seamlessly integrate surveys into your workflow for better decision-making.",
           ]}
-          img="./img/service_images/cms.png"
+          img="./img/survey.jpeg"
           side="rowReverse"
           btnText="Get Started"
         >
