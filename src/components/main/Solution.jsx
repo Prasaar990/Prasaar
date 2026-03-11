@@ -106,7 +106,7 @@ export default function Solution({
         ))}
       </motion.ul>
 
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -116,7 +116,7 @@ export default function Solution({
           text={btnText}
           to="https://api.whatsapp.com/send/?phone=919226333789&text&type=phone_number&app_absent=0"
         />
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 
