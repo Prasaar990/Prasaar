@@ -81,7 +81,7 @@ export default function Footer() {
             }`}
         >
           <img
-            src="./img/prasaar.webp"
+            src="/img/prasaar.webp"
             alt="Prasaar Logo"
             className="w-28 lg:w-36 transition-transform duration-300 hover:scale-105"
           />

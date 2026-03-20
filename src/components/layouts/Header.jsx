@@ -182,7 +182,7 @@ export default function Header() {
       >
         <Link to="/" className="cursor-pointer flex-shrink-0">
           <img
-            src="./img/prasaarLogo.png"
+            src="/img/prasaarLogo.png"
             alt="website logo"
             className="w-[130px] h-[38px] sm:w-[145px] sm:h-[40px] lg:w-[155px] lg:h-[43px]"
           />

@@ -14,10 +14,13 @@ import AboutUs from "./components/main/AboutUs";
 import PaymentPage from "./components/main/Payment";
 import PaymentSuccessPage from "./components/main/PaymentSuccesspage";
 import ElectionPage from "./components/main/ElectionPage";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import ZPPayment from "./components/main/ZPPayment";
+import VidhanSabhaPayment from "./components/main/VidhanSabhaPayment";
 
 function App() {
   return (
-    <>
+    <LanguageProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -34,17 +37,19 @@ function App() {
             {" "}
           </Route>
           <Route path="/success" element={<PaymentSuccessPage />}></Route>
-          <Route path="/pay" element={<PaymentPage />}>
+          <Route path="/zp/pay" element={<PaymentPage />}>
             {" "}
           </Route>{" "}
           <Route path="/pay" element={<PaymentPage />}></Route>{" "}
+          <Route path="/zp" element={<ZPPayment />}></Route>
+          <Route path="/assembly" element={<VidhanSabhaPayment />}></Route>
           <Route path="*" element={<ElectionPage />}>
             {" "}
           </Route>
         </Routes>
         <Footer />
       </BrowserRouter>
-    </>
+    </LanguageProvider>
   );
 }
 export default App;

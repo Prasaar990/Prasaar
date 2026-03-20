@@ -1,7 +1,7 @@
 import BasePayment from '../common/BasePayment';
 
-const PaymentPage = () => {
+const ZPPayment = () => {
   return <BasePayment type="zp" />;
 };
 
-export default PaymentPage;
+export default ZPPayment;
