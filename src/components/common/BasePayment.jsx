@@ -302,12 +302,7 @@ const BasePayment = ({
                 <div className="bg-blue-50 border border-blue-200 rounded p-3 text-sm text-blue-800">
                   <p className="font-medium mb-1">{getTranslation(language, 'note')}:</p>
                   <p>
-                    After payment, click "Payment Done" and send screenshot on
-                    WhatsApp for verification.
-                  </p>
-                  <p className="mt-1">
-                    पेमेंट केल्यानंतर, "पेमेंट झाले" वर क्लिक करा आणि
-                    पडताळणीसाठी व्हाट्सअॅपवर स्क्रीनशॉट पाठवा.
+                    {getTranslation(language, 'paymentNote')}
                   </p>
                 </div>
               </div>

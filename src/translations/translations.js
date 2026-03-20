@@ -11,6 +11,7 @@ export const translations = {
     downloadQR: 'Download QR',
     copy: 'Copy',
     note: 'Note',
+    paymentNote: 'After payment, click "Payment Done" and send screenshot on WhatsApp for verification.',
     
     // Form Labels
     candidateName: 'Candidate Name',
@@ -73,6 +74,7 @@ https://prasaar.co/pay`,
     downloadQR: 'QR डाउनलोड करा',
     copy: 'कॉपी करा',
     note: 'टीप',
+    paymentNote: 'पेमेंट केल्यानंतर, "पेमेंट झाले" वर क्लिक करा आणि पडताळणीसाठी व्हाट्सअॅपवर स्क्रीनशॉट पाठवा.',
     
     // Form Labels
     candidateName: 'उमेदवाराचे नाव',
@@ -135,6 +137,7 @@ https://prasaar.co/pay`,
     downloadQR: 'QR பதிவிறக்கு',
     copy: 'நகலெடு',
     note: 'குறிப்பு',
+    paymentNote: 'கட்டணம் செலுத்திய பிறகு, "கட்டணம் செலுத்தப்பட்டது" என்பதைக் கிளிக் செய்து, சரிபார்ப்புக்காக வாட்ஸ்அப்பில் ஸ்கிரீன்ஷாட் அனுப்பவும்.',
     
     // Form Labels
     candidateName: 'வேட்பாளர் பெயர்',
