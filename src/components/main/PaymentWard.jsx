@@ -160,7 +160,7 @@ I have completed the payment. Please find details below:
 पेमेंट स्क्रीनशॉट खाली आहे.
 Payment screenshot is attached below. 
   
-https://prasaar.co/pay`;
+https://prasaar.co/election`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=919226333789&text=${encodedMessage}&type=phone_number&app_absent=0`;
