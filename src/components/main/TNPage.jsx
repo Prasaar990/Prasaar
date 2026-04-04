@@ -16,6 +16,13 @@ import {
 } from "lucide-react";
 import initialData from "./tnElectionData.json";
 
+/* party-specific bar colours */
+const PARTY_COLORS = {
+  dmk: { from: "#c60240", to: "#ff4d7a" },
+  admk: { from: "#1a8c3a", to: "#4ae06a" },
+  tvk_others: { from: "#d4a017", to: "#f5d34e" },
+};
+
 const TNPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageOrientation, setImageOrientation] = useState("landscape");
@@ -25,7 +32,6 @@ const TNPage = () => {
   const [hasVoted, setHasVoted] = useState(false);
 
   useEffect(() => {
-    // Load from local storage or initial data
     const storedData = localStorage.getItem("tn_poll_data");
     const votedStatus = localStorage.getItem("tn_has_voted");
 
@@ -47,11 +53,11 @@ const TNPage = () => {
         const newData = currentData.map((party) => {
           let increase = 0;
           if (party.id === "dmk") {
-            increase = Math.floor(Math.random() * 3) + 5; // 5 to 7
+            increase = Math.floor(Math.random() * 3) + 5;
           } else if (party.id === "admk") {
-            increase = Math.floor(Math.random() * 3) + 3; // 3 to 5
+            increase = Math.floor(Math.random() * 3) + 3;
           } else if (party.id === "tvk_others") {
-            increase = Math.floor(Math.random() * 3) + 1; // 1 to 3
+            increase = Math.floor(Math.random() * 3) + 1;
           }
           return { ...party, votes: party.votes + increase };
         });
@@ -82,10 +88,6 @@ const TNPage = () => {
   };
 
   const totalVotes = pollData.reduce((acc, party) => acc + party.votes, 0);
-
-  const whatsappLink =
-    "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.&type=phone_number&app_absent=0";
-  const phoneNumber = "tel:+919226333789";
 
   const voterSlipPDFs = [
     { name: "Booth Voter Slip", file: "./prasaar_demo_voter_slip.pdf" },
@@ -190,142 +192,170 @@ const TNPage = () => {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-[#f8f9fb] min-h-screen">
       {/* ===== HERO SECTION ===== */}
       <div className="relative overflow-hidden pt-8 sm:pt-8 lg:pt-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1a1f2e] via-[#242a3a] to-[#1a1f2e]" />
+        {/* Background – deep dark with subtle angled split */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f1320] via-[#181d2e] to-[#1e2436]" />
 
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-32 -right-32 w-96 h-96 bg-[#c60240]/15 rounded-full blur-3xl" />
-          <div className="absolute -bottom-32 -left-32 w-80 h-80 bg-[#c60240]/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c60240]/5 rounded-full blur-3xl" />
+        {/* Decorative orbs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -top-40 right-0 w-[500px] h-[500px] bg-[#c60240]/12 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 -left-24 w-[400px] h-[400px] bg-[#4338ca]/10 rounded-full blur-[100px]" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-[#c60240]/[0.04] rounded-full blur-[80px]" />
         </div>
 
+        {/* Fine grid pattern */}
         <div
-          className="absolute inset-0 opacity-[0.03]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
+              "linear-gradient(rgba(255,255,255,.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.15) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
           }}
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 md:px-8 lg:px-12 py-16 sm:py-20 lg:py-28">
-          <div className="flex flex-col items-center gap-10">
-            {/* Titles */}
+        <div className="relative z-10 max-w-5xl mx-auto px-5 sm:px-6 md:px-8 lg:px-12 py-14 sm:py-20 lg:py-24">
+          <div className="flex flex-col items-center gap-8 sm:gap-10">
+            {/* Hero copy */}
             <div className="w-full text-center">
-
-              <h1 className="text-3xl sm:text-4xl lg:text-4xl font-medium text-white mb-4 leading-tight">
-                Tamil Nadu Assembly Elections 2026 ePoll
+              <h1 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-semibold text-white mb-3 leading-tight tracking-tight">
+                Tamil Nadu Assembly Elections 2026
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#c60240] to-[#ff4d7a] mt-1">
+                  ePoll
+                </span>
               </h1>
 
-              <h2 className="text-xl sm:text-2xl text-gray-300 font-medium mb-8">
-                Vote for your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c60240] to-[#ff4d7a]">Future</span>
-              </h2>
+              <p className="text-base sm:text-lg text-gray-400 font-normal max-w-md mx-auto">
+                Vote for your{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c60240] to-[#ff4d7a] font-medium">
+                  Future
+                </span>
+              </p>
             </div>
 
-            {/* Poll Section */}
-            <div className="w-full max-w-3xl bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl">
-              <div className="flex justify-between items-end mb-8">
-                <h3 className="text-2xl font-medium text-white">Live Poll</h3>
-                <p className="text-gray-400 font-medium">
-                  Total Votes: <span className="text-white font-medium">{totalVotes.toLocaleString()}</span>
+            {/* Poll Card */}
+            <div className="w-full max-w-2xl bg-white/[0.06] backdrop-blur-xl border border-white/[0.08] rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl shadow-black/30">
+              {/* Header row */}
+              <div className="flex items-center justify-between mb-7">
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-60" />
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
+                  </span>
+                  <h3 className="text-lg sm:text-xl font-semibold text-white tracking-tight">Live Poll</h3>
+                </div>
+                <p className="text-sm text-gray-400">
+                  <span className="text-gray-500">Total</span>{" "}
+                  <span className="text-white font-semibold tabular-nums">{totalVotes.toLocaleString()}</span>
                 </p>
               </div>
 
-              <div className="space-y-6">
+              {/* Party rows */}
+              <div className="space-y-5">
                 {pollData.map((party) => {
                   const percentage = totalVotes === 0 ? 0 : ((party.votes / totalVotes) * 100).toFixed(1);
+                  const colors = PARTY_COLORS[party.id] || PARTY_COLORS.dmk;
+
                   return (
-                    <div key={party.id} className="relative">
-                      <div className="flex items-center justify-between mb-2 z-10 relative">
-                        <div className="flex items-center gap-4">
+                    <div key={party.id}>
+                      {/* Party info row */}
+                      <div className="flex items-center justify-between mb-2.5">
+                        <div className="flex items-center gap-3">
                           <img
                             src={party.logo}
                             alt={party.name}
-                            className="w-12 h-12 rounded-full border-2 border-white/20 bg-white"
+                            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-white/10 bg-white object-cover"
                           />
-                          <span className="text-white font-semibold text-lg">{party.name}</span>
+                          <span className="text-white font-medium text-base sm:text-lg tracking-tight">{party.name}</span>
                         </div>
-                        <div className="flex items-center gap-4">
-                          {hasVoted && (
-                            <div className="text-right">
-                              <div className="text-white font-bold">{percentage}%</div>
-                              <div className="text-gray-400 text-sm">{party.votes.toLocaleString()} votes</div>
-                            </div>
-                          )}
-                          {!hasVoted && (
-                            <button
-                              onClick={() => handleVote(party.id)}
-                              className="px-6 py-2 bg-gradient-to-r from-[#c60240] to-[#a00235] text-white rounded-lg font-medium hover:scale-105 transition-all shadow-lg"
-                            >
-                              Vote
-                            </button>
-                          )}
-                        </div>
+
+                        {hasVoted ? (
+                          <div className="text-right">
+                            <span className="text-white font-semibold text-lg tabular-nums">{percentage}%</span>
+                            <p className="text-gray-500 text-xs tabular-nums">{party.votes.toLocaleString()} votes</p>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleVote(party.id)}
+                            className="cursor-pointer px-5 py-2 text-sm font-semibold rounded-lg text-white transition-all duration-200 hover:brightness-110"
+                            style={{
+                              background: `linear-gradient(135deg, ${colors.from}, ${colors.to})`,
+                            }}
+                          >
+                            Vote
+                          </button>
+                        )}
                       </div>
-                      {/* Percent Bar */}
-                      {hasVoted && (
-                        <div className="w-full h-3 bg-white/10 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-gradient-to-r from-[#c60240] to-[#ff4d7a] rounded-full transition-all duration-1000"
-                            style={{ width: `${percentage}%` }}
-                          />
-                        </div>
-                      )}
+
+                      {/* Progress bar – always visible, grows when voted */}
+                      <div className="w-full h-2.5 bg-white/[0.06] rounded-full overflow-hidden">
+                        <div
+                          className="h-full rounded-full transition-all duration-[1200ms] ease-out"
+                          style={{
+                            width: hasVoted ? `${percentage}%` : "0%",
+                            background: `linear-gradient(90deg, ${colors.from}, ${colors.to})`,
+                          }}
+                        />
+                      </div>
                     </div>
                   );
                 })}
               </div>
 
               {hasVoted && (
-                <div className="mt-8 p-4 bg-green-500/20 border border-green-500/30 rounded-xl text-center">
-                  <p className="text-green-400 font-medium">Thank you for voting. Your vote has been recorded!</p>
+                <div className="mt-7 px-4 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-center">
+                  <p className="text-emerald-400 text-sm font-medium">✓ Thank you for voting. Your vote has been recorded!</p>
                 </div>
               )}
             </div>
-
           </div>
         </div>
       </div>
 
       {/* ===== SERVICES SECTION ===== */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-8 lg:px-12 py-16 sm:py-20 lg:py-28">
-        <div className="text-center mb-12 sm:mb-14 lg:mb-20">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 md:px-8 lg:px-12 py-16 sm:py-20 lg:py-24">
+        {/* Section Header */}
+        <div className="text-center mb-12 sm:mb-14 lg:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#c60240]/10 text-[#c60240] text-sm font-medium mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-[#c60240] animate-pulse" />
             Prasaar Services
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 px-2">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 px-2">
             All-in-One Voter <span className="text-[#c60240]">Engagement</span> Platform
           </h2>
+          <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
+            Comprehensive digital solutions to modernize your campaign strategy
+          </p>
         </div>
 
+        {/* Services Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7">
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="group relative bg-white rounded-2xl flex flex-col h-full border border-gray-100 hover:border-[#c60240]/20 p-6 sm:p-7 transition-all duration-300 hover:shadow-xl hover:shadow-[#c60240]/5 hover:-translate-y-1"
+              className="group relative bg-white rounded-2xl flex flex-col h-full border border-gray-200/70 p-5 sm:p-6 transition-all duration-300 hover:shadow-lg hover:shadow-gray-200/50 hover:border-[#c60240]/15 hover:-translate-y-0.5"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#c60240]/[0.02] to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
               <div className="relative z-10 flex-grow">
-                <div className="flex items-start justify-between mb-5">
-                  <div className="bg-gradient-to-br from-[#c60240] to-[#a00235] text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg shadow-[#c60240]/20 group-hover:shadow-xl group-hover:shadow-[#c60240]/30 group-hover:scale-105 transition-all duration-300">
+                {/* Icon + number */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="bg-gradient-to-br from-[#c60240] to-[#a00235] text-white w-11 h-11 rounded-xl flex items-center justify-center shadow-md shadow-[#c60240]/15 group-hover:shadow-lg group-hover:shadow-[#c60240]/25 transition-shadow duration-300">
                     {service.icon}
                   </div>
-                  <span className="text-xs font-mono text-gray-300 mt-1">
+                  <span className="text-[11px] font-mono text-gray-300 mt-1 select-none">
                     0{index + 1}
                   </span>
                 </div>
 
-                <h3 className="text-lg font-semibold text-gray-900 mb-3 leading-snug group-hover:text-[#c60240] transition-colors duration-300">
+                {/* Title */}
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2.5 leading-snug group-hover:text-[#c60240] transition-colors duration-300">
                   {service.title}
                 </h3>
 
+                {/* Image preview – portrait friendly */}
                 {service.imageSpace && service.imageSrc && (
                   <div
-                    className="mb-4 bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl h-64 sm:h-72 w-full flex items-center justify-center overflow-hidden cursor-pointer group/img border border-gray-100 hover:border-[#c60240]/20 transition-all duration-300 p-3"
+                    className="mb-4 bg-gradient-to-b from-gray-50 to-gray-100/80 rounded-xl h-64 sm:h-72 w-full flex items-center justify-center overflow-hidden cursor-pointer border border-gray-100 hover:border-[#c60240]/15 transition-all duration-300 p-2"
                     onClick={(e) => {
                       if (e.target.tagName === "IMG") {
                         openImageModal(service.imageSrc, e);
@@ -335,7 +365,7 @@ const TNPage = () => {
                     <img
                       src={service.imageSrc}
                       alt={service.title}
-                      className="w-full h-full object-contain transition-transform duration-500 hover:scale-105"
+                      className="w-full h-full object-contain rounded-lg drop-shadow-md transition-transform duration-300 hover:scale-[1.03]"
                       loading="lazy"
                       onLoad={(e) => handleImageLoad(e, service.imageSrc)}
                       onError={(e) => {
@@ -347,17 +377,19 @@ const TNPage = () => {
                   </div>
                 )}
 
+                {/* Description */}
                 <p className="text-sm text-gray-500 leading-relaxed mb-4">
                   {service.description}
                 </p>
 
+                {/* Voter Slips PDF List */}
                 {service.isVoterSlips && (
                   <div className="space-y-2 mb-4">
                     {voterSlipPDFs.map((pdf, pdfIndex) => (
                       <button
                         key={pdfIndex}
                         onClick={() => handleDownload(pdf.file, pdf.file.split("/").pop())}
-                        className="cursor-pointer w-full flex items-center gap-3 bg-gray-50 hover:bg-gradient-to-r hover:from-[#c60240]/5 hover:to-[#c60240]/10 border border-gray-100 hover:border-[#c60240]/25 rounded-xl px-4 py-2.5 text-left transition-all duration-200 group/pdf"
+                        className="cursor-pointer w-full flex items-center gap-3 bg-gray-50 hover:bg-[#c60240]/[0.04] border border-gray-100 hover:border-[#c60240]/20 rounded-xl px-4 py-2.5 text-left transition-all duration-200 group/pdf"
                       >
                         <div className="w-8 h-8 rounded-lg bg-[#c60240]/10 flex items-center justify-center flex-shrink-0 group-hover/pdf:bg-[#c60240]/15 transition-colors">
                           <Download className="w-4 h-4 text-[#c60240]" />
@@ -365,7 +397,7 @@ const TNPage = () => {
                         <span className="text-sm text-gray-600 group-hover/pdf:text-gray-900 transition-colors truncate flex-grow">
                           {pdf.name}
                         </span>
-                        <ChevronRight className="w-4 h-4 text-gray-300 group-hover/pdf:text-[#c60240] group-hover/pdf:translate-x-0.5 transition-all flex-shrink-0" />
+                        <ChevronRight className="w-4 h-4 text-gray-300 group-hover/pdf:text-[#c60240] transition-all flex-shrink-0" />
                       </button>
                     ))}
                   </div>
@@ -373,16 +405,17 @@ const TNPage = () => {
               </div>
 
               {/* Action buttons */}
-              <div className="relative z-10 w-full mt-auto flex flex-col sm:flex-row gap-3 pt-4">
+              <div className="relative z-10 w-full mt-auto flex gap-2.5 pt-3 border-t border-gray-100">
                 <button
                   onClick={() => handleGeneralLink(service.demoLink)}
-                  className="cursor-pointer flex-1 inline-flex items-center justify-center gap-2 border-2 border-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-semibold hover:border-[#c60240] hover:text-[#c60240] transition-all duration-300"
+                  className="cursor-pointer flex-1 inline-flex items-center justify-center gap-1.5 border border-gray-200 text-gray-600 px-4 py-2.5 rounded-xl text-sm font-semibold hover:border-[#c60240]/40 hover:text-[#c60240] hover:bg-[#c60240]/[0.03] transition-all duration-200"
                 >
+                  <ExternalLink className="w-3.5 h-3.5" />
                   Demo
                 </button>
                 <button
                   onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20need%20the%20${encodeURIComponent(service.title)}%20service.&type=phone_number&app_absent=0`)}
-                  className="cursor-pointer flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#c60240] to-[#a00235] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:shadow-lg hover:shadow-[#c60240]/20 hover:scale-[1.02] transition-all duration-300"
+                  className="cursor-pointer flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#c60240] to-[#a00235] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:shadow-md hover:shadow-[#c60240]/20 transition-all duration-200"
                 >
                   Need this service
                 </button>
@@ -395,7 +428,7 @@ const TNPage = () => {
       {/* ===== IMAGE MODAL ===== */}
       {selectedImage && (
         <div
-          className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4"
           onClick={closeModal}
         >
           <button
