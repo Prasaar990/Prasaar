@@ -3,18 +3,18 @@
     "id": "dmk",
     "name": "DMK+",
     "logo": "./img/extra_page/dmk.jpeg",
-    "votes": 0
+    "votes": 500
   },
   {
     "id": "admk",
     "name": "ADMK+",
     "logo": "./img/extra_page/AIADMK.jpeg",
-    "votes": 0
+    "votes": 203
   },
   {
     "id": "tvk_others",
     "name": "TVK / Others",
     "logo": "./img/extra_page/TVK.jpeg",
-    "votes": 0
+    "votes": 89
   }
 ]

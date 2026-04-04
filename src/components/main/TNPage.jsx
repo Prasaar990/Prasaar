@@ -66,7 +66,7 @@ const TNPage = () => {
       });
     };
 
-    const interval = setInterval(updateVotes, 90000);
+    const interval = setInterval(updateVotes, 9000);
     return () => clearInterval(interval);
   }, []);
 
