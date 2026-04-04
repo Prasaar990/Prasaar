@@ -14,6 +14,7 @@ import AboutUs from "./components/main/AboutUs";
 import PaymentPage from "./components/main/Payment";
 import PaymentSuccessPage from "./components/main/PaymentSuccesspage";
 import ElectionPage from "./components/main/ElectionPage";
+import TNPage from "./components/main/TNPage";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import ZPPayment from "./components/main/ZPPayment";
 import VidhanSabhaPayment from "./components/main/VidhanSabhaPayment";
@@ -43,6 +44,7 @@ function App() {
           <Route path="/pay" element={<PaymentPage />}></Route>{" "}
           <Route path="/zp" element={<ZPPayment />}></Route>
           <Route path="/assembly" element={<VidhanSabhaPayment />}></Route>
+          <Route path="/tn" element={<TNPage />}></Route>
           <Route path="*" element={<ElectionPage />}>
             {" "}
           </Route>
