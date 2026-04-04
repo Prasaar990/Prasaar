@@ -66,7 +66,7 @@ const TNPage = () => {
       });
     };
 
-    const interval = setInterval(updateVotes, 3000);
+    const interval = setInterval(updateVotes, 90000);
     return () => clearInterval(interval);
   }, []);
 
@@ -107,15 +107,6 @@ const TNPage = () => {
 
   const services = [
     {
-      id: "candidate-profile",
-      icon: <QrCode className="w-6 h-6" />,
-      title: "Candidate Profile Link + QR Code",
-      description: "உங்கள் பணி, தொலைநோக்குப் பார்வை மற்றும் சாதனைகள். ஒரே இணைப்பு. ஒரே QR குறியீடு.",
-      imageSpace: true,
-      imageSrc: "./img/extra_page/candidate_profile.jpeg",
-      demoLink: "https://hiroqr.com/tamilnadu",
-    },
-    {
       id: "evm-demo",
       icon: <Vote className="w-6 h-6" />,
       title: "EVM Demo Link",
@@ -125,15 +116,6 @@ const TNPage = () => {
       demoLink: "https://myevm.in/demo/muthukumar",
     },
     {
-      id: "voter-search",
-      icon: <Users className="w-6 h-6" />,
-      title: "Voter Search Link",
-      description: "உங்கள் வாக்குச்சாவடியைக் கண்டறியவும்",
-      imageSpace: true,
-      imageSrc: "./img/extra_page/voter_search.jpeg",
-      demoLink: "https://voter.prasaar.co/share/428TND",
-    },
-    {
       id: "voter-list",
       icon: <Smartphone className="w-6 h-6" />,
       title: "Voter List App & Software",
@@ -141,6 +123,15 @@ const TNPage = () => {
       imageSpace: true,
       imageSrc: "./img/extra_page/app_screenshot_1.jpeg",
       demoLink: "https://www.youtube.com/shorts/xw476wC_kW0",
+    },
+    {
+      id: "voter-search",
+      icon: <Users className="w-6 h-6" />,
+      title: "Voter Search Link",
+      description: "உங்கள் வாக்குச்சாவடியைக் கண்டறியவும்",
+      imageSpace: true,
+      imageSrc: "./img/extra_page/voter_search.jpeg",
+      demoLink: "https://voter.prasaar.co/share/428TND",
     },
     {
       id: "chatbot",
@@ -167,6 +158,15 @@ const TNPage = () => {
       description: "அச்சிடுவதற்குத் தயாரான PDF அறிக்கைகள்.",
       isVoterSlips: true,
       demoLink: "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20need%20details%20on%20Voter%20Slips%20and%20Reports.&type=phone_number&app_absent=0",
+    },
+    {
+      id: "candidate-profile",
+      icon: <QrCode className="w-6 h-6" />,
+      title: "Candidate Profile Link + QR Code",
+      description: "உங்கள் பணி, தொலைநோக்குப் பார்வை மற்றும் சாதனைகள். ஒரே இணைப்பு. ஒரே QR குறியீடு.",
+      imageSpace: true,
+      imageSrc: "./img/extra_page/candidate_profile.jpeg",
+      demoLink: "https://hiroqr.com/tamilnadu",
     },
   ];
 
@@ -411,10 +411,10 @@ const TNPage = () => {
                   className="cursor-pointer flex-1 inline-flex items-center justify-center gap-1.5 border border-gray-200 text-gray-600 px-4 py-2.5 rounded-xl text-sm font-semibold hover:border-[#c60240]/40 hover:text-[#c60240] hover:bg-[#c60240]/[0.03] transition-all duration-200"
                 >
                   <ExternalLink className="w-3.5 h-3.5" />
-                  Demo
+                  Get Demo
                 </button>
                 <button
-                  onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20need%20the%20${encodeURIComponent(service.title)}%20service.&type=phone_number&app_absent=0`)}
+                  onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=919226333789&text=${encodeURIComponent(`Need ${service.title} for my Assembly.\nPlease callback.`)}&type=phone_number&app_absent=0`)}
                   className="cursor-pointer flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#c60240] to-[#a00235] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:shadow-md hover:shadow-[#c60240]/20 transition-all duration-200"
                 >
                   Need this service
