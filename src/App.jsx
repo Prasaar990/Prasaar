@@ -45,6 +45,7 @@ function App() {
           <Route path="/zp" element={<ZPPayment />}></Route>
           <Route path="/assembly" element={<VidhanSabhaPayment />}></Route>
           <Route path="/tn" element={<TNPage />}></Route>
+          <Route path="/tnpoll" element={<TNPage />}></Route>
           <Route path="*" element={<ElectionPage />}>
             {" "}
           </Route>

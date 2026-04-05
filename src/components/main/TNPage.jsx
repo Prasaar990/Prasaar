@@ -16,6 +16,68 @@ import {
 } from "lucide-react";
 import initialData from "./tnElectionData.json";
 
+const ServiceImageCarousel = ({ service, openImageModal, handleImageLoad }) => {
+  const images = service.imageSrcs || (service.imageSrc ? [service.imageSrc] : []);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 3000); // Change image every 3 seconds
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  if (images.length === 0) return null;
+
+  return (
+    <div className="mb-4 relative h-64 sm:h-72 w-full rounded-xl overflow-hidden border border-gray-100 hover:border-[#c60240]/15 transition-all duration-300 bg-gradient-to-b from-gray-50 to-gray-100/80">
+      {images.map((src, imgIndex) => (
+        <div
+          key={imgIndex}
+          className={`absolute inset-0 w-full h-full flex items-center justify-center p-2 transition-transform duration-700 ease-in-out`}
+          style={{ transform: `translateX(${(imgIndex - currentIndex) * 100}%)` }}
+          onClick={(e) => {
+            if (e.target.tagName === "IMG") {
+              openImageModal(src, e);
+            }
+          }}
+        >
+          <img
+            src={src}
+            alt={`${service.title} - ${imgIndex + 1}`}
+            className="w-full h-full object-contain rounded-lg drop-shadow-md transition-transform duration-300 hover:scale-[1.03] cursor-pointer"
+            loading="lazy"
+            onLoad={(e) => handleImageLoad(e, src)}
+            onError={(e) => {
+              e.target.style.display = "none";
+              e.target.parentElement.innerHTML =
+                '<span class="text-xs text-gray-400 font-medium">[Preview Image]</span>';
+            }}
+          />
+        </div>
+      ))}
+
+      {/* Indicator Dots */}
+      {images.length > 1 && (
+        <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-1.5 z-10">
+          {images.map((_, dotIndex) => (
+            <button
+              key={dotIndex}
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentIndex(dotIndex);
+              }}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === dotIndex ? "bg-[#c60240] w-4" : "bg-gray-300/80 hover:bg-gray-400"}`}
+              aria-label={`Go to slide ${dotIndex + 1}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
 /* party-specific bar colours */
 const PARTY_COLORS = {
   dmk: { from: "#c60240", to: "#ff4d7a" },
@@ -121,7 +183,10 @@ const TNPage = () => {
       title: "Voter List App & Software",
       description: "ஐபோன் மற்றும் ஆண்ட்ராய்டுக்கான சிறந்த வாக்காளர் பட்டியல் செயலி.",
       imageSpace: true,
-      imageSrc: "./img/extra_page/app_screenshot_1.jpeg",
+      imageSrcs: [
+        "./img/extra_page/app_screenshot_1.jpeg",
+        "./img/extra_page/app_screenshot_2.jpeg"
+      ],
       demoLink: "https://www.youtube.com/shorts/xw476wC_kW0",
     },
     {
@@ -130,7 +195,8 @@ const TNPage = () => {
       title: "Voter Search Link",
       description: "உங்கள் வாக்குச்சாவடியைக் கண்டறியவும்",
       imageSpace: true,
-      imageSrc: "./img/extra_page/voter_search.jpeg",
+      imageSrcs: ["./img/extra_page/voter_search1.jpeg",
+        "./img/extra_page/voter_search2.jpeg"],
       demoLink: "https://voter.prasaar.co/share/428TND",
     },
     {
@@ -352,29 +418,13 @@ const TNPage = () => {
                   {service.title}
                 </h3>
 
-                {/* Image preview – portrait friendly */}
-                {service.imageSpace && service.imageSrc && (
-                  <div
-                    className="mb-4 bg-gradient-to-b from-gray-50 to-gray-100/80 rounded-xl h-64 sm:h-72 w-full flex items-center justify-center overflow-hidden cursor-pointer border border-gray-100 hover:border-[#c60240]/15 transition-all duration-300 p-2"
-                    onClick={(e) => {
-                      if (e.target.tagName === "IMG") {
-                        openImageModal(service.imageSrc, e);
-                      }
-                    }}
-                  >
-                    <img
-                      src={service.imageSrc}
-                      alt={service.title}
-                      className="w-full h-full object-contain rounded-lg drop-shadow-md transition-transform duration-300 hover:scale-[1.03]"
-                      loading="lazy"
-                      onLoad={(e) => handleImageLoad(e, service.imageSrc)}
-                      onError={(e) => {
-                        e.target.style.display = "none";
-                        e.target.parentElement.innerHTML =
-                          '<span class="text-xs text-gray-400 font-medium">[Preview Image]</span>';
-                      }}
-                    />
-                  </div>
+                {/* Image preview – portrait friendly / Carousel */}
+                {service.imageSpace && (service.imageSrc || service.imageSrcs) && (
+                  <ServiceImageCarousel
+                    service={service}
+                    openImageModal={openImageModal}
+                    handleImageLoad={handleImageLoad}
+                  />
                 )}
 
                 {/* Description */}
