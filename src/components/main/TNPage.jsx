@@ -14,7 +14,6 @@ import {
   QrCode,
   ScanLine,
 } from "lucide-react";
-import initialData from "./tnElectionData.json";
 
 const ServiceImageCarousel = ({ service, openImageModal, handleImageLoad }) => {
   const images = service.imageSrcs || (service.imageSrc ? [service.imageSrc] : []);
@@ -92,61 +91,62 @@ const TNPage = () => {
   // Voting state
   const [pollData, setPollData] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
+  const [isVoting, setIsVoting] = useState(false);
+
+  const API_BASE_URL = "http://13.232.227.78:8080";
+
+  const fetchPollData = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/polls`);
+      if (res.ok) {
+        const data = await res.json();
+        setPollData(data);
+      }
+    } catch (error) {
+      console.error("Error fetching poll data:", error);
+    }
+  };
 
   useEffect(() => {
-    const storedData = localStorage.getItem("tn_poll_data");
     const votedStatus = localStorage.getItem("tn_has_voted");
-
-    if (storedData) {
-      setPollData(JSON.parse(storedData));
-    } else {
-      setPollData(initialData);
-    }
-
     if (votedStatus === "true") {
       setHasVoted(true);
     }
+    fetchPollData();
   }, []);
 
   useEffect(() => {
-    const updateVotes = () => {
-      setPollData((currentData) => {
-        if (!currentData || currentData.length === 0) return currentData;
-        const newData = currentData.map((party) => {
-          let increase = 0;
-          if (party.id === "dmk") {
-            increase = Math.floor(Math.random() * 3) + 5;
-          } else if (party.id === "admk") {
-            increase = Math.floor(Math.random() * 3) + 3;
-          } else if (party.id === "tvk_others") {
-            increase = Math.floor(Math.random() * 3) + 1;
-          }
-          return { ...party, votes: party.votes + increase };
-        });
-        localStorage.setItem("tn_poll_data", JSON.stringify(newData));
-        return newData;
-      });
-    };
-
-    const interval = setInterval(updateVotes, 9000);
+    // Poll the server every 9 seconds to update dummy and actual counts
+    const interval = setInterval(fetchPollData, 9000);
     return () => clearInterval(interval);
   }, []);
 
-  const handleVote = (id) => {
-    if (hasVoted) return;
+  const handleVote = async (id) => {
+    if (hasVoted || isVoting) return;
 
-    const updatedData = pollData.map((party) => {
-      if (party.id === id) {
-        return { ...party, votes: party.votes + 1 };
+    setIsVoting(true);
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/polls/${id}/vote`, {
+        method: "POST",
+      });
+
+      if (res.ok) {
+        setHasVoted(true);
+        localStorage.setItem("tn_has_voted", "true");
+        fetchPollData();
+      } else if (res.status === 400 || res.status === 429) {
+        // IP already voted or Rate Limited -> lock voting for them client-side too
+        setHasVoted(true);
+        localStorage.setItem("tn_has_voted", "true");
+        fetchPollData();
+      } else {
+        console.error("Failed to vote");
       }
-      return party;
-    });
-
-    setPollData(updatedData);
-    setHasVoted(true);
-
-    localStorage.setItem("tn_poll_data", JSON.stringify(updatedData));
-    localStorage.setItem("tn_has_voted", "true");
+    } catch (error) {
+      console.error("Error casting vote:", error);
+    } finally {
+      setIsVoting(false);
+    }
   };
 
   const totalVotes = pollData.reduce((acc, party) => acc + party.votes, 0);
