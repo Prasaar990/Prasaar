@@ -13,6 +13,7 @@ import {
   ChevronRight,
   QrCode,
   ScanLine,
+  Share2,
 } from "lucide-react";
 
 const ServiceImageCarousel = ({ service, openImageModal, handleImageLoad }) => {
@@ -257,6 +258,25 @@ const TNPage = () => {
     window.open(link, "_blank", "noopener,noreferrer");
   };
 
+  const handleShare = async () => {
+    const shareData = {
+      title: "Tamil Nadu Assembly Elections 2026",
+      text: "Vote for your Future! Check out the current poll results and voter services at: ",
+      url: window.location.href,
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      navigator.clipboard.writeText(`${shareData.title}\n${shareData.text} ${shareData.url}`);
+      alert("Page link and details copied to clipboard!");
+    }
+  };
+
   return (
     <div className="bg-[#f8f9fb] min-h-screen">
       {/* ===== HERO SECTION ===== */}
@@ -318,7 +338,7 @@ const TNPage = () => {
               </div>
 
               {/* Party rows */}
-              <div className="space-y-5">
+              <div className="space-y-4 sm:space-y-5">
                 {pollData.map((party) => {
                   const percentage = totalVotes === 0 ? 0 : ((party.votes / totalVotes) * 100).toFixed(1);
                   const colors = PARTY_COLORS[party.id] || PARTY_COLORS.dmk;
@@ -326,25 +346,25 @@ const TNPage = () => {
                   return (
                     <div key={party.id}>
                       {/* Party info row */}
-                      <div className="flex items-center justify-between mb-2.5">
-                        <div className="flex items-center gap-3">
+                      <div className="flex items-center justify-between mb-2 sm:mb-2.5">
+                        <div className="flex items-center gap-2.5 sm:gap-3">
                           <img
                             src={party.logo}
                             alt={party.name}
-                            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-white/10 bg-white object-cover"
+                            className="w-8 h-8 sm:w-11 sm:h-11 rounded-full border-2 border-white/10 bg-white object-cover"
                           />
-                          <span className="text-white font-medium text-base sm:text-lg tracking-tight">{party.name}</span>
+                          <span className="text-white font-medium text-[15px] sm:text-lg tracking-tight">{party.name}</span>
                         </div>
 
                         {hasVoted ? (
                           <div className="text-right">
-                            <span className="text-white font-semibold text-lg tabular-nums">{percentage}%</span>
-                            <p className="text-gray-500 text-xs tabular-nums">{party.votes.toLocaleString()} votes</p>
+                            <span className="text-white font-semibold text-base sm:text-lg tabular-nums">{percentage}%</span>
+                            <p className="text-gray-500 text-[11px] sm:text-xs tabular-nums">{party.votes.toLocaleString()} votes</p>
                           </div>
                         ) : (
                           <button
                             onClick={() => handleVote(party.id)}
-                            className="cursor-pointer px-5 py-2 text-sm font-semibold rounded-lg text-white transition-all duration-200 hover:brightness-110"
+                            className="cursor-pointer px-4 py-1.5 sm:px-5 sm:py-2 text-[13px] sm:text-sm font-semibold rounded-lg text-white transition-all duration-200 hover:brightness-110"
                             style={{
                               background: `linear-gradient(135deg, ${colors.from}, ${colors.to})`,
                             }}
@@ -355,7 +375,7 @@ const TNPage = () => {
                       </div>
 
                       {/* Progress bar – always visible, grows when voted */}
-                      <div className="w-full h-2.5 bg-white/[0.06] rounded-full overflow-hidden">
+                      <div className="w-full h-2 sm:h-2.5 bg-white/[0.06] rounded-full overflow-hidden">
                         <div
                           className="h-full rounded-full transition-all duration-[1200ms] ease-out"
                           style={{
@@ -370,10 +390,21 @@ const TNPage = () => {
               </div>
 
               {hasVoted && (
-                <div className="mt-7 px-4 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-center">
-                  <p className="text-emerald-400 text-sm font-medium">✓ Thank you for voting. Your vote has been recorded!</p>
+                <div className="mt-4 sm:mt-7 px-4 py-2.5 sm:py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-center">
+                  <p className="text-emerald-400 text-[13px] sm:text-sm font-medium">✓ Thank you for voting. Your vote has been recorded!</p>
                 </div>
               )}
+
+              {/* Share Button */}
+              <div className="mt-5 sm:mt-7 flex justify-center">
+                <button
+                  onClick={handleShare}
+                  className="w-full sm:w-auto cursor-pointer inline-flex items-center justify-center gap-2 bg-[#c60240] hover:bg-[#a00235] text-white px-6 py-2.5 rounded-xl text-[15px] sm:text-sm font-semibold shadow-lg shadow-[#c60240]/20 transition-all duration-200"
+                >
+                  <Share2 className="w-[18px] h-[18px] sm:w-4 sm:h-4" />
+                  Share this page
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -464,7 +495,7 @@ const TNPage = () => {
                   Get Demo
                 </button>
                 <button
-                  onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=919226333789&text=${encodeURIComponent(`Need ${service.title} for my Assembly.\nPlease callback.`)}&type=phone_number&app_absent=0`)}
+                  onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=919960969076&text=${encodeURIComponent(`Need ${service.title} for my Assembly.\nPlease callback.`)}&type=phone_number&app_absent=0`)}
                   className="cursor-pointer flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#c60240] to-[#a00235] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:shadow-md hover:shadow-[#c60240]/20 transition-all duration-200"
                 >
                   Need this service
