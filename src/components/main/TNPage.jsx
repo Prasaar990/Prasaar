@@ -153,10 +153,9 @@ const TNPage = () => {
   const totalVotes = pollData.reduce((acc, party) => acc + party.votes, 0);
 
   const voterSlipPDFs = [
-    { name: "Booth Voter Slip", file: "./prasaar_demo_voter_slip.pdf" },
-    { name: "Booth Voters List", file: "./prasaar_demo_boothwise_voter_list.pdf" },
-    { name: "Family Voters List", file: "./prasaar_demo_family_voter_list.pdf" },
-    { name: "Alphabetical Voters List", file: "./prasaar_demo_alphabetical_voters_list.pdf" },
+    { name: "Booth Voter Slip", file: "./img/extra_page/booth_1.pdf" },
+    { name: "Booth Voters List", file: "./img/extra_page/booth_voters_list_table.pdf" },
+    { name: "Alphabetical Voters List", file: "./img/extra_page/voters_list.pdf" },
   ];
 
   const handleDownload = (filePath, fileName) => {
