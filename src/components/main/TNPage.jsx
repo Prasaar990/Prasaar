@@ -259,10 +259,17 @@ const TNPage = () => {
   };
 
   const handleShare = async () => {
+    const shareText = `🗳️ தமிழ்நாடு சட்டமன்ற தேர்தல் கருத்துக்கணிப்பு இப்போது LIVE!
+
+உங்கள் கருத்தை தெரிவித்து, மற்றவர்கள் என்ன நினைக்கிறார்கள் என்பதையும் பாருங்கள் 👇
+https://prasaar.co/tn
+
+உங்கள் கருத்து முக்கியம் — இப்போதே வாக்களித்து, நண்பர்களுடன் பகிர்ந்து செய்தியை பரப்புங்கள்!
+நன்றி!`;
+
     const shareData = {
       title: "Tamil Nadu Assembly Elections 2026",
-      text: "Vote for your Future! Check out the current poll results and voter services at: ",
-      url: window.location.href,
+      text: shareText,
     };
 
     if (navigator.share) {
@@ -272,7 +279,7 @@ const TNPage = () => {
         console.error("Error sharing:", err);
       }
     } else {
-      navigator.clipboard.writeText(`${shareData.title}\n${shareData.text} ${shareData.url}`);
+      navigator.clipboard.writeText(shareText);
       alert("Page link and details copied to clipboard!");
     }
   };
@@ -419,10 +426,10 @@ const TNPage = () => {
             Prasaar Services
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 px-2">
-            All-in-One Voter <span className="text-[#c60240]">Engagement</span> Platform
+            All-in-One Voter <span className="text-[#c60240]">Election Management</span> Platform
           </h2>
           <p className="text-gray-500 text-sm sm:text-base max-w-xl mx-auto">
-            Comprehensive digital solutions to modernize your campaign strategy
+            Use Prasaar services to Connect, Engage, and WIN.
           </p>
         </div>
 
