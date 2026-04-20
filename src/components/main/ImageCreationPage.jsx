@@ -224,8 +224,8 @@ const ImageCreationPage = () => {
         {/* ── Header ── */}
         <div className="text-center mb-10 mt-10">
           <h1 className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight tracking-tight">
-            Create Your{" "}
-            <span style={{ color: PRIMARY }}>Campaign Image</span>
+            உங்கள்{" "}
+            <span style={{ color: PRIMARY }}>DP / WhatsApp Status உருவாக்குங்கள்</span>
           </h1>
         </div>
 
@@ -250,7 +250,7 @@ const ImageCreationPage = () => {
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
             <span className="text-xs font-medium text-gray-400 tracking-wide">
-              {state.processedImage ? "Adjust & Export" : "Upload a Photo"}
+              {state.processedImage ? "Adjust & Export" : "புகைப்படத்தை பதிவேற்றுங்கள்"}
             </span>
             <div className="w-16" />
           </div>
@@ -322,8 +322,8 @@ const ImageCreationPage = () => {
                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <p className="text-gray-700 font-semibold text-sm">Upload from Gallery</p>
-                      <p className="text-gray-400 text-xs">Your photo will appear here</p>
+                      <p className="text-gray-700 font-semibold text-sm">கேலரியில் இருந்து பதிவேற்றுங்கள்</p>
+                      <p className="text-gray-400 text-xs">உங்கள் புகைப்படம் இங்கே தோன்றும்</p>
                     </div>
                   </div>
                 )}
@@ -360,7 +360,7 @@ const ImageCreationPage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {state.processedImage ? "Change Photo" : "Upload from Gallery"}
+                {state.processedImage ? "Change Photo" : "கேலரியில் இருந்து பதிவேற்றுங்கள்"}
               </button>
               <input ref={fileInputRef} type="file" accept="image/*,.heic,.heif" onChange={handleFileSelect} className="hidden" />
             </div>
@@ -372,7 +372,7 @@ const ImageCreationPage = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="flex-1 h-px bg-gray-100" />
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-                    Adjustments
+                    Adjust your photo
                   </span>
                   <div className="flex-1 h-px bg-gray-100" />
                 </div>
@@ -506,7 +506,7 @@ const ImageCreationPage = () => {
       </div>
 
       {/* ── Fixed Share FAB (bottom-right) ── */}
-      <div className="fixed mg:bottom-28 bottom-16 mg:right-5 right-2 flex flex-col items-end gap-2 z-50">
+      <div className="fixed lg:bottom-28 bottom-16 lg:right-10 right-2 flex flex-col items-end gap-2 z-50">
         {/* Share this page */}
         <button
           onClick={handleShare}
