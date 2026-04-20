@@ -20,6 +20,28 @@ const ImageCreationPage = () => {
 
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "Create Your Campaign Image",
+        text: "Create a professional campaign image with your photo!",
+        url: window.location.href,
+      }).catch(() => { });
+    } else {
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => alert("Link copied to clipboard!"))
+        .catch(() => { });
+    }
+  };
+
+  const whatsappShare = () => {
+    const text = encodeURIComponent(
+      "Create your campaign image here: " + window.location.href
+    );
+    window.open(`https://wa.me/?text=${text}`, "_blank");
+  };
 
   const [frameImages, setFrameImages] = useState({
     background: null,
@@ -201,22 +223,10 @@ const ImageCreationPage = () => {
 
         {/* ── Header ── */}
         <div className="text-center mb-10 mt-10">
-          {/* <span
-            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-4 border"
-            style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
-          >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            Image Creator
-          </span> */}
           <h1 className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight tracking-tight">
             Create Your{" "}
             <span style={{ color: PRIMARY }}>Campaign Image</span>
           </h1>
-          {/* <p className="mt-3 text-base text-gray-500 max-w-lg mx-auto">
-            Upload your photo and we&apos;ll composite it into a professional campaign frame automatically.
-          </p> */}
         </div>
 
         {/* ── Error Banner ── */}
@@ -292,37 +302,28 @@ const ImageCreationPage = () => {
                   </div>
                 )}
 
-                {/* Upload prompt — shown only before user image, small centred pill */}
+                {/* Upload prompt — clickable, opens gallery */}
                 {!state.processedImage && !isProcessing && (
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div
+                    className="absolute inset-0 mg:-translate-y-20  -translate-y-10 flex items-center justify-center"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => fileInputRef.current?.click()}
+                  >
                     <div
-                      className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl shadow-lg backdrop-blur-sm"
+                      className="flex flex-col items-center gap-2 mg:px-6 mg:py-4 px-3 py-2 rounded-2xl shadow-lg backdrop-blur-sm select-none"
                       style={{ background: "rgba(255,255,255,0.88)" }}
                     >
                       <div
-                        className="w-11 h-11 rounded-2xl flex items-center justify-center"
+                        className="w-12 h-12 rounded-2xl flex items-center justify-center"
                         style={{ background: "#fef0f4" }}
                       >
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke={PRIMARY}
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 4v16m8-8H4"
-                          />
+                        <svg className="w-6 h-6" fill="none" stroke={PRIMARY} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <p className="text-gray-700 font-semibold text-sm">
-                        Your photo will appear here
-                      </p>
-                      <p className="text-gray-400 text-xs">
-                        Upload from gallery below
-                      </p>
+                      <p className="text-gray-700 font-semibold text-sm">Upload from Gallery</p>
+                      <p className="text-gray-400 text-xs">Your photo will appear here</p>
                     </div>
                   </div>
                 )}
@@ -350,36 +351,18 @@ const ImageCreationPage = () => {
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isProcessing}
-                className="group inline-flex items-center gap-3 px-8 py-3.5 text-white text-sm font-semibold rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{
-                  background: PRIMARY,
-                  boxShadow: `0 4px 14px rgba(198,2,64,0.25)`,
-                }}
+                className="group inline-flex items-center gap-2.5 px-8 py-3.5 text-white text-sm font-semibold rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{ background: PRIMARY, boxShadow: `0 4px 14px rgba(198,2,64,0.22)` }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "#a8012e")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = PRIMARY)}
               >
-                <svg
-                  className="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                  />
+                <svg className="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {state.processedImage ? "Upload a Different Photo" : "Upload from Gallery"}
+                {state.processedImage ? "Change Photo" : "Upload from Gallery"}
               </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*,.heic,.heif"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
+              <input ref={fileInputRef} type="file" accept="image/*,.heic,.heif" onChange={handleFileSelect} className="hidden" />
             </div>
 
             {/* ── Adjustment Controls ── */}
@@ -520,6 +503,25 @@ const ImageCreationPage = () => {
           </svg>
           For best results, use a clear photo with good lighting and a simple background.
         </div>
+      </div>
+
+      {/* ── Fixed Share FAB (bottom-right) ── */}
+      <div className="fixed mg:bottom-28 bottom-16 mg:right-5 right-2 flex flex-col items-end gap-2 z-50">
+        {/* Share this page */}
+        <button
+          onClick={handleShare}
+          className="flex items-center gap-2 px-4 py-2.5 text-white text-xs font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
+          style={{ background: PRIMARY, boxShadow: `0 4px 16px rgba(198,2,64,0.35)` }}
+          title="Share this page"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          Share this page
+        </button>
+
+
       </div>
     </div>
   );
