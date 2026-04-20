@@ -1,8 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const CANVAS_SIZE = 1080;
-// const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
-const API_URL = "http://localhost:8087";
+const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
+// const API_URL = "http://localhost:8087";
 
 const PRIMARY = "#c60240";
 

@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getCanvasData } from '../../lib/api';
 
 const CANVAS_SIZE = 1080;
-// const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
-const API_URL = "http://localhost:8087";
+const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
+// const API_URL = "http://localhost:8087";
 
 const PublicCanvasPage = () => {
   const { client_id } = useParams();
