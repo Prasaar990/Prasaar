@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { uploadClientImage } from '../../lib/api';
+import { uploadClientImage, getCanvasData } from '../../lib/api';
 
 const ImageUploadModal = ({ client, onClose }) => {
   const [backgroundImage, setBackgroundImage] = useState(null);
@@ -7,9 +7,10 @@ const ImageUploadModal = ({ client, onClose }) => {
   const [backgroundPreview, setBackgroundPreview] = useState(null);
   const [overlayPreview, setOverlayPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  
+
   const backgroundInputRef = useRef(null);
   const overlayInputRef = useRef(null);
 
@@ -17,15 +18,33 @@ const ImageUploadModal = ({ client, onClose }) => {
   const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp'];
   const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
+  // Fetch existing images from canvas-data API
   useEffect(() => {
-    // Load existing images if available
-    if (client.background_image_url) {
-      setBackgroundPreview(client.background_image_url);
-    }
-    if (client.overlay_image_url) {
-      setOverlayPreview(client.overlay_image_url);
-    }
-  }, [client]);
+    const fetchCanvasData = async () => {
+      if (!client?.client_id) return;
+
+      setIsFetching(true);
+      try {
+        const data = await getCanvasData(client.client_id);
+        if (data?.canvas_config) {
+          // Set previews from base64 data URIs
+          if (data.canvas_config.background_image) {
+            setBackgroundPreview(data.canvas_config.background_image);
+          }
+          if (data.canvas_config.overlay_image) {
+            setOverlayPreview(data.canvas_config.overlay_image);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch canvas data:', err);
+        // Don't show error - just leave previews empty if fetch fails
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    fetchCanvasData();
+  }, [client?.client_id]);
 
   const validateFile = (file) => {
     if (!ALLOWED_TYPES.includes(file.type)) {
@@ -106,12 +125,17 @@ const ImageUploadModal = ({ client, onClose }) => {
   const ImageUploadZone = ({ type, preview, inputRef, title }) => (
     <div className="border border-slate-200 rounded-xl p-4">
       <h3 className="text-sm font-semibold text-slate-700 mb-4">{title}</h3>
-      
+
       {/* Preview area */}
       <div className="mb-4 aspect-video bg-slate-50 rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center">
-        {preview ? (
-          <img 
-            src={preview} 
+        {isFetching ? (
+          <div className="text-center p-8">
+            <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+            <p className="text-sm text-slate-400">Loading...</p>
+          </div>
+        ) : preview ? (
+          <img
+            src={preview}
             alt={`${title} preview`}
             className="w-full h-full object-contain"
           />
