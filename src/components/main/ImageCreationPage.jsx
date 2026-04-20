@@ -223,7 +223,7 @@ const ImageCreationPage = () => {
 
         {/* ── Header ── */}
         <div className="text-center mb-10 mt-10">
-          <h1 className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-medium text-gray-900 leading-tight tracking-tight">
             உங்கள்{" "}
             <span style={{ color: PRIMARY }}>DP / WhatsApp Status உருவாக்குங்கள்</span>
           </h1>
