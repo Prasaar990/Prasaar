@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 
 const CANVAS_SIZE = 1080;
-const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8087";
+const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
 
 const ImageCreationPage = () => {
   const [state, setState] = useState({
