@@ -21,6 +21,9 @@ const PublicCanvasPage = () => {
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
 
+  const SHARE_TEXT = `நான் Prasaar மூலம் என் DP / WhatsApp Status படத்தை உருவாக்கியுள்ளேன்.\nநீங்களும் இப்போது உங்கள் படத்தை உருவாக்குங்கள்!\nஉருவாக்க லிங்க்: ${window.location.href}`;
+
+
 
   const handleShare = () => {
     if (navigator.share) {
