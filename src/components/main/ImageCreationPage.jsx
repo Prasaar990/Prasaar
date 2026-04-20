@@ -3,6 +3,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 const CANVAS_SIZE = 1080;
 const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
 
+const PRIMARY = "#c60240";
+
 const ImageCreationPage = () => {
   const [state, setState] = useState({
     originalImage: null,
@@ -13,13 +15,12 @@ const ImageCreationPage = () => {
   const [error, setError] = useState(null);
   const [verticalOffset, setVerticalOffset] = useState(0);
   const [scale, setScale] = useState(1);
-  const [step, setStep] = useState("upload"); // upload, preview, result
+  const [rotation, setRotation] = useState(0); // degrees
+  const [step, setStep] = useState("upload");
 
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
-  const cameraInputRef = useRef(null);
 
-  // Cache frame images
   const [frameImages, setFrameImages] = useState({
     background: null,
     overlay: null,
@@ -57,8 +58,13 @@ const ImageCreationPage = () => {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
-      setError("Please select an image file");
+    const isValidImage =
+      file.type.startsWith("image/") ||
+      file.name.toLowerCase().endsWith(".heic") ||
+      file.name.toLowerCase().endsWith(".heif");
+
+    if (!isValidImage) {
+      setError("Please select an image file (JPG, PNG, HEIC, etc.)");
       return;
     }
 
@@ -66,11 +72,9 @@ const ImageCreationPage = () => {
     setIsProcessing(true);
 
     try {
-      // Read original image
       const originalUrl = URL.createObjectURL(file);
       setState((prev) => ({ ...prev, originalImage: originalUrl }));
 
-      // Send to backend for background removal
       const formData = new FormData();
       formData.append("file", file);
 
@@ -87,6 +91,7 @@ const ImageCreationPage = () => {
       const processedUrl = URL.createObjectURL(processedBlob);
 
       setState((prev) => ({ ...prev, processedImage: processedUrl }));
+      setRotation(0);
       setStep("preview");
     } catch (err) {
       console.error("Processing error:", err);
@@ -105,342 +110,415 @@ const ImageCreationPage = () => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
-    // Clear canvas
     ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    // Layer 1: Draw background frame
+    // Layer 1: background frame
     ctx.drawImage(frameImages.background, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-    // Layer 2: Draw user image (if processed)
+    // Layer 2: user image (with rotation)
     if (state.processedImage) {
       const userImg = new Image();
       userImg.crossOrigin = "anonymous";
       userImg.src = state.processedImage;
 
       userImg.onload = () => {
-        // Calculate aspect-ratio-preserving dimensions
         const imgAspect = userImg.width / userImg.height;
-        const canvasAspect = CANVAS_SIZE / CANVAS_SIZE; // 1:1
 
         let drawWidth, drawHeight;
-        if (imgAspect > canvasAspect) {
-          // Image is wider - fit to width
+        if (imgAspect > 1) {
           drawWidth = CANVAS_SIZE * scale;
           drawHeight = drawWidth / imgAspect;
         } else {
-          // Image is taller - fit to height
           drawHeight = CANVAS_SIZE * scale;
           drawWidth = drawHeight * imgAspect;
         }
 
-        // Center horizontally, apply vertical offset
-        const x = (CANVAS_SIZE - drawWidth) / 2;
-        const y = (CANVAS_SIZE - drawHeight) / 2 + verticalOffset;
+        const cx = CANVAS_SIZE / 2;
+        const cy = CANVAS_SIZE / 2 + verticalOffset;
+        const angleRad = (rotation * Math.PI) / 180;
 
-        // Add shadow for realism
         ctx.save();
-        ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+        ctx.shadowColor = "rgba(0,0,0,0.3)";
         ctx.shadowBlur = 20;
         ctx.shadowOffsetY = 10;
 
-        ctx.drawImage(userImg, x, y, drawWidth, drawHeight);
+        ctx.translate(cx, cy);
+        ctx.rotate(angleRad);
+        ctx.drawImage(userImg, -drawWidth / 2, -drawHeight / 2, drawWidth, drawHeight);
         ctx.restore();
 
-        // Layer 3: Draw foreground overlay (after user image is drawn)
+        // Layer 3: foreground overlay
         ctx.drawImage(frameImages.overlay, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-        // Update final image state
         setState((prev) => ({
           ...prev,
           finalImage: canvas.toDataURL("image/png"),
         }));
       };
 
-      // Handle if image is already loaded
       if (userImg.complete) {
         userImg.onload();
       }
     } else {
-      // Just draw overlay if no user image
+      // Always show overlay even before upload
       ctx.drawImage(frameImages.overlay, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
     }
-  }, [frameImages, state.processedImage, verticalOffset, scale]);
+  }, [frameImages, state.processedImage, verticalOffset, scale, rotation]);
 
-  // Re-render when adjustments change
   useEffect(() => {
-    if (step === "preview" && state.processedImage) {
+    if (frameImages.background && frameImages.overlay) {
       renderCanvas();
     }
-  }, [step, state.processedImage, verticalOffset, scale, renderCanvas]);
+  }, [frameImages, state.processedImage, verticalOffset, scale, rotation, renderCanvas]);
 
-  // Initial canvas render
-  useEffect(() => {
-    if (step === "preview" && state.processedImage) {
-      // Small delay to ensure canvas is ready
-      setTimeout(renderCanvas, 100);
-    }
-  }, [step, state.processedImage, renderCanvas]);
-
-  // Download final image
   const handleDownload = () => {
     if (!canvasRef.current) return;
-
     const link = document.createElement("a");
     link.download = "my-composed-image.png";
     link.href = canvasRef.current.toDataURL("image/png", 1.0);
     link.click();
   };
 
-  // Retake - clear and go back to upload
   const handleRetake = () => {
-    // Clean up object URLs
     if (state.originalImage) URL.revokeObjectURL(state.originalImage);
     if (state.processedImage) URL.revokeObjectURL(state.processedImage);
 
-    setState({
-      originalImage: null,
-      processedImage: null,
-      finalImage: null,
-    });
+    setState({ originalImage: null, processedImage: null, finalImage: null });
     setVerticalOffset(0);
     setScale(1);
+    setRotation(0);
     setStep("upload");
     setError(null);
 
-    // Reset file inputs
     if (fileInputRef.current) fileInputRef.current.value = "";
-    if (cameraInputRef.current) cameraInputRef.current.value = "";
   };
 
+  const rotateBy = (deg) => setRotation((r) => (r + deg + 360) % 360);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 py-8 px-4 ">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8 mt-12">
-          <h1 className="text-3xl md:text-4xl font-medium text-slate-800 mb-2">
-            Create Your Image
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-10 px-4">
+      <div className="max-w-5xl mx-auto">
+
+        {/* ── Header ── */}
+        <div className="text-center mb-10 mt-10">
+          <span
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-4 border"
+            style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
+          >
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Image Creator
+          </span>
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight">
+            Create Your{" "}
+            <span style={{ color: PRIMARY }}>Campaign Image</span>
           </h1>
-          <p className="text-slate-600">
-            Upload or capture a photo, and we&apos;ll blend it into a beautiful frame
+          <p className="mt-3 text-base text-gray-500 max-w-lg mx-auto">
+            Upload your photo and we&apos;ll composite it into a professional campaign frame automatically.
           </p>
         </div>
 
-        {/* Error Display */}
+        {/* ── Error Banner ── */}
         {error && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
-            {error}
+          <div className="flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6 text-sm">
+            <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{error}</span>
           </div>
         )}
 
-        {/* Upload Step */}
-        {step === "upload" && (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Upload from Gallery */}
+        {/* ── Main Card ── */}
+        <div className="bg-white border border-gray-200 rounded-3xl shadow-xl shadow-gray-100 overflow-hidden">
+
+          {/* Card chrome bar */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-400" />
+              <div className="w-3 h-3 rounded-full bg-yellow-400" />
+              <div className="w-3 h-3 rounded-full bg-green-400" />
+            </div>
+            <span className="text-xs font-medium text-gray-400 tracking-wide">
+              {state.processedImage ? "Adjust & Export" : "Upload a Photo"}
+            </span>
+            <div className="w-16" />
+          </div>
+
+          <div className="p-6 md:p-8">
+
+            {/* ── Canvas Preview ── */}
+            <div className="relative flex justify-center mb-8">
+              <div
+                className="relative rounded-2xl overflow-hidden border border-gray-200 shadow-lg bg-gray-50"
+                style={{ maxWidth: "100%" }}
+              >
+                {/* Canvas — always visible, always shows both frame layers */}
+                <canvas
+                  ref={canvasRef}
+                  width={CANVAS_SIZE}
+                  height={CANVAS_SIZE}
+                  className="block max-w-full h-auto"
+                  style={{ maxHeight: "55vh" }}
+                />
+
+                {/* ── Floating rotate buttons — top-left of canvas ── */}
+                {state.processedImage && !isProcessing && (
+                  <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+                    <button
+                      onClick={() => rotateBy(-90)}
+                      title="Rotate −90°"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-white shadow-md transition-all duration-150 hover:scale-105 active:scale-95"
+                      style={{ background: "rgba(198,2,64,0.88)", backdropFilter: "blur(6px)" }}
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
+                          d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                      </svg>
+                      −90°
+                    </button>
+                    <button
+                      onClick={() => rotateBy(90)}
+                      title="Rotate +90°"
+                      className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold text-white shadow-md transition-all duration-150 hover:scale-105 active:scale-95"
+                      style={{ background: "rgba(198,2,64,0.88)", backdropFilter: "blur(6px)" }}
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5}
+                          d="M15 15l6-6m0 0l-6-6m6 6H9a6 6 0 000 12h3" />
+                      </svg>
+                      +90°
+                    </button>
+                  </div>
+                )}
+
+                {/* Upload prompt — shown only before user image, small centred pill */}
+                {!state.processedImage && !isProcessing && (
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div
+                      className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl shadow-lg backdrop-blur-sm"
+                      style={{ background: "rgba(255,255,255,0.88)" }}
+                    >
+                      <div
+                        className="w-11 h-11 rounded-2xl flex items-center justify-center"
+                        style={{ background: "#fef0f4" }}
+                      >
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke={PRIMARY}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 4v16m8-8H4"
+                          />
+                        </svg>
+                      </div>
+                      <p className="text-gray-700 font-semibold text-sm">
+                        Your photo will appear here
+                      </p>
+                      <p className="text-gray-400 text-xs">
+                        Upload from gallery below
+                      </p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Processing overlay */}
+                {isProcessing && (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm"
+                    style={{ background: "rgba(255,255,255,0.82)" }}>
+                    <div className="relative mb-4">
+                      <div className="w-12 h-12 border-4 border-gray-100 rounded-full" />
+                      <div
+                        className="w-12 h-12 border-4 border-t-transparent rounded-full animate-spin absolute inset-0"
+                        style={{ borderColor: `${PRIMARY} transparent transparent transparent` }}
+                      />
+                    </div>
+                    <p className="text-gray-700 font-semibold">Removing background…</p>
+                    <p className="text-gray-400 text-sm mt-1">This may take a few seconds</p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* ── Upload Button ── */}
+            <div className="flex justify-center mb-8">
               <button
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isProcessing}
-                className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all group disabled:opacity-50"
+                className="group inline-flex items-center gap-3 px-8 py-3.5 text-white text-sm font-semibold rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  background: PRIMARY,
+                  boxShadow: `0 4px 14px rgba(198,2,64,0.25)`,
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "#a8012e")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = PRIMARY)}
               >
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors">
-                  <svg
-                    className="w-8 h-8 text-blue-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-                <span className="text-lg font-semibold text-slate-700">
-                  Upload from Gallery
-                </span>
-                <span className="text-sm text-slate-500 mt-1">
-                  Select an existing photo
-                </span>
+                <svg
+                  className="w-5 h-5 transition-transform duration-200 group-hover:-translate-y-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                {state.processedImage ? "Upload a Different Photo" : "Upload from Gallery"}
               </button>
-
-              {/* Capture from Camera */}
-              <button
-                onClick={() => cameraInputRef.current?.click()}
-                disabled={isProcessing}
-                className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-slate-300 rounded-xl hover:border-green-500 hover:bg-green-50 transition-all group disabled:opacity-50"
-              >
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors">
-                  <svg
-                    className="w-8 h-8 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                    />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                    />
-                  </svg>
-                </div>
-                <span className="text-lg font-semibold text-slate-700">
-                  Take a Photo
-                </span>
-                <span className="text-sm text-slate-500 mt-1">
-                  Use your camera
-                </span>
-              </button>
-            </div>
-
-            {/* Hidden file inputs */}
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleFileSelect}
-              className="hidden"
-            />
-            <input
-              ref={cameraInputRef}
-              type="file"
-              accept="image/*"
-              capture="environment"
-              onChange={handleFileSelect}
-              className="hidden"
-            />
-
-            {/* Loading State */}
-            {isProcessing && (
-              <div className="mt-8 text-center">
-                <div className="inline-flex items-center gap-3">
-                  <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-slate-600">
-                    Removing background... Please wait
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Preview/Edit Step */}
-        {step === "preview" && state.processedImage && (
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            {/* Canvas */}
-            <div className="flex justify-center mb-6 overflow-auto">
-              <canvas
-                ref={canvasRef}
-                width={CANVAS_SIZE}
-                height={CANVAS_SIZE}
-                className="max-w-full h-auto border border-slate-200 rounded-lg shadow-md"
-                style={{ maxHeight: "60vh" }}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*,.heic,.heif"
+                onChange={handleFileSelect}
+                className="hidden"
               />
             </div>
 
-            {/* Controls */}
-            <div className="space-y-6 mb-6">
-              {/* Vertical Position */}
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Vertical Position
-                </label>
-                <input
-                  type="range"
-                  min="-200"
-                  max="200"
-                  value={verticalOffset}
-                  onChange={(e) => setVerticalOffset(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-                <div className="flex justify-between text-xs text-slate-500 mt-1">
-                  <span>Up</span>
-                  <span>Center</span>
-                  <span>Down</span>
+            {/* ── Adjustment Controls ── */}
+            {state.processedImage && (
+              <>
+                {/* Divider */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="flex-1 h-px bg-gray-100" />
+                  <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
+                    Adjustments
+                  </span>
+                  <div className="flex-1 h-px bg-gray-100" />
                 </div>
-              </div>
 
-              {/* Scale */}
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
-                  Zoom / Scale
-                </label>
-                <input
-                  type="range"
-                  min="0.5"
-                  max="1.5"
-                  step="0.05"
-                  value={scale}
-                  onChange={(e) => setScale(Number(e.target.value))}
-                  className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-                <div className="flex justify-between text-xs text-slate-500 mt-1">
-                  <span>Smaller</span>
-                  <span>{Math.round(scale * 100)}%</span>
-                  <span>Larger</span>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+
+                  {/* Vertical Position */}
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-7 h-7 rounded-lg flex items-center justify-center"
+                          style={{ background: "#fef0f4" }}
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke={PRIMARY} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" />
+                          </svg>
+                        </div>
+                        <span className="text-sm font-semibold text-gray-700">Position</span>
+                      </div>
+                      <span
+                        className="text-xs font-bold tabular-nums px-2.5 py-0.5 rounded-full border"
+                        style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
+                      >
+                        {verticalOffset > 0 ? `+${verticalOffset}` : verticalOffset}px
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="-200"
+                      max="200"
+                      value={verticalOffset}
+                      onChange={(e) => setVerticalOffset(Number(e.target.value))}
+                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer"
+                      style={{ accentColor: PRIMARY }}
+                    />
+                    <div className="flex justify-between text-xs text-gray-400 mt-2 px-0.5">
+                      <span>↑ Up</span>
+                      <span>Center</span>
+                      <span>Down ↓</span>
+                    </div>
+                  </div>
+
+                  {/* Scale */}
+                  <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <div
+                          className="w-7 h-7 rounded-lg flex items-center justify-center"
+                          style={{ background: "#fef0f4" }}
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke={PRIMARY} viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                          </svg>
+                        </div>
+                        <span className="text-sm font-semibold text-gray-700">Zoom</span>
+                      </div>
+                      <span
+                        className="text-xs font-bold tabular-nums px-2.5 py-0.5 rounded-full border"
+                        style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
+                      >
+                        {Math.round(scale * 100)}%
+                      </span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0.5"
+                      max="1.5"
+                      step="0.05"
+                      value={scale}
+                      onChange={(e) => setScale(Number(e.target.value))}
+                      className="w-full h-2 bg-gray-200 rounded-full appearance-none cursor-pointer"
+                      style={{ accentColor: PRIMARY }}
+                    />
+                    <div className="flex justify-between text-xs text-gray-400 mt-2 px-0.5">
+                      <span>Smaller</span>
+                      <span>1:1</span>
+                      <span>Larger</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button
-                onClick={handleRetake}
-                className="flex-1 px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:border-slate-400 hover:bg-slate-50 transition-colors"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                {/* ── Action Buttons ── */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={handleRetake}
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 text-sm font-semibold rounded-xl transition-all duration-200 shadow-sm hover:shadow"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                  Retake
-                </span>
-              </button>
-              <button
-                onClick={handleDownload}
-                className="flex-1 px-6 py-3 bg-blue-600 text-white rounded-xl font-semibold hover:bg-blue-700 transition-colors shadow-lg shadow-blue-200"
-              >
-                <span className="flex items-center justify-center gap-2">
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Reset &amp; Start Over
+                  </button>
+                  <button
+                    onClick={handleDownload}
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-white text-sm font-semibold rounded-xl transition-all duration-200"
+                    style={{
+                      background: "linear-gradient(135deg, #16a34a, #15803d)",
+                      boxShadow: "0 4px 14px rgba(22,163,74,0.25)",
+                    }}
+                    onMouseEnter={(e) =>
+                    (e.currentTarget.style.background =
+                      "linear-gradient(135deg, #15803d, #166534)")
+                    }
+                    onMouseLeave={(e) =>
+                    (e.currentTarget.style.background =
+                      "linear-gradient(135deg, #16a34a, #15803d)")
+                    }
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-                    />
-                  </svg>
-                  Download
-                </span>
-              </button>
-            </div>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    Download Image
+                  </button>
+                </div>
+              </>
+            )}
           </div>
-        )}
+        </div>
 
-        {/* Instructions */}
-        <div className="mt-8 text-center text-sm text-slate-500">
-          <p>For best results, use a photo with good lighting and clear subject separation.</p>
+        {/* ── Footer tip ── */}
+        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-gray-400">
+          <svg className="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          For best results, use a clear photo with good lighting and a simple background.
         </div>
       </div>
     </div>
