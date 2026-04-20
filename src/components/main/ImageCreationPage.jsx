@@ -22,24 +22,24 @@ const ImageCreationPage = () => {
   const fileInputRef = useRef(null);
   const cameraInputRef = useRef(null);
 
+  const SHARE_TEXT = `நான் Prasaar மூலம் என் DP / WhatsApp Status படத்தை உருவாக்கியுள்ளேன்.\nநீங்களும் இப்போது உங்கள் படத்தை உருவாக்குங்கள்!\nஉருவாக்க லிங்க்: ${window.location.href}`;
+
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: "Create Your Campaign Image",
-        text: "Create a professional campaign image with your photo!",
+        title: "DP / WhatsApp Status உருவாக்குங்கள் – Prasaar",
+        text: SHARE_TEXT,
         url: window.location.href,
       }).catch(() => { });
     } else {
-      navigator.clipboard.writeText(window.location.href)
-        .then(() => alert("Link copied to clipboard!"))
+      navigator.clipboard.writeText(SHARE_TEXT)
+        .then(() => alert("லிங்க் காப்பி ஆனது!"))
         .catch(() => { });
     }
   };
 
   const whatsappShare = () => {
-    const text = encodeURIComponent(
-      "Create your campaign image here: " + window.location.href
-    );
+    const text = encodeURIComponent(SHARE_TEXT);
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
 
