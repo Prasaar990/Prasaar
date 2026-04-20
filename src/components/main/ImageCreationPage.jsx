@@ -201,7 +201,7 @@ const ImageCreationPage = () => {
 
         {/* ── Header ── */}
         <div className="text-center mb-10 mt-10">
-          <span
+          {/* <span
             className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase mb-4 border"
             style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
           >
@@ -209,14 +209,14 @@ const ImageCreationPage = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             Image Creator
-          </span>
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight tracking-tight">
+          </span> */}
+          <h1 className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight tracking-tight">
             Create Your{" "}
             <span style={{ color: PRIMARY }}>Campaign Image</span>
           </h1>
-          <p className="mt-3 text-base text-gray-500 max-w-lg mx-auto">
+          {/* <p className="mt-3 text-base text-gray-500 max-w-lg mx-auto">
             Upload your photo and we&apos;ll composite it into a professional campaign frame automatically.
-          </p>
+          </p> */}
         </div>
 
         {/* ── Error Banner ── */}
@@ -394,7 +394,7 @@ const ImageCreationPage = () => {
                   <div className="flex-1 h-px bg-gray-100" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
 
                   {/* Vertical Position */}
                   <div className="bg-gray-50 border border-gray-100 rounded-2xl p-5">
@@ -411,7 +411,7 @@ const ImageCreationPage = () => {
                         <span className="text-sm font-semibold text-gray-700">Position</span>
                       </div>
                       <span
-                        className="text-xs font-bold tabular-nums px-2.5 py-0.5 rounded-full border"
+                        className="text-xs font-medium tabular-nums px-2.5 py-0.5 rounded-full border"
                         style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
                       >
                         {verticalOffset > 0 ? `+${verticalOffset}` : verticalOffset}px
@@ -448,7 +448,7 @@ const ImageCreationPage = () => {
                         <span className="text-sm font-semibold text-gray-700">Zoom</span>
                       </div>
                       <span
-                        className="text-xs font-bold tabular-nums px-2.5 py-0.5 rounded-full border"
+                        className="text-xs font-medium tabular-nums px-2.5 py-0.5 rounded-full border"
                         style={{ background: "#fef0f4", borderColor: "#f9b3c6", color: PRIMARY }}
                       >
                         {Math.round(scale * 100)}%
