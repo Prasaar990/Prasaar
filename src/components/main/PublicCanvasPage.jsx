@@ -21,6 +21,21 @@ const PublicCanvasPage = () => {
   const canvasRef = useRef(null);
   const fileInputRef = useRef(null);
 
+
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: "DP / WhatsApp Status உருவாக்குங்கள் – Prasaar",
+        text: SHARE_TEXT,
+        url: window.location.href,
+      }).catch(() => { });
+    } else {
+      navigator.clipboard.writeText(SHARE_TEXT)
+        .then(() => alert("லிங்க் காப்பி ஆனது!"))
+        .catch(() => { });
+    }
+  };
+
   // Load canvas config and frame images
   useEffect(() => {
     loadCanvasData();
@@ -261,7 +276,7 @@ const PublicCanvasPage = () => {
               <div className="w-3 h-3 rounded-full bg-yellow-400" />
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
-            <span className="text-l font-medium text-gray-400 tracking-wide">
+            <span className="text-l pl-3 font-medium text-gray-400 tracking-wide">
               {processedImage ? 'Adjust your photo' : 'புகைப்படத்தை பதிவேற்றுங்கள்'}
             </span>
             <div className="w-16" />
@@ -315,12 +330,12 @@ const PublicCanvasPage = () => {
                 {/* Upload prompt */}
                 {!processedImage && !isProcessing && (
                   <div
-                    className="absolute inset-0 flex items-center justify-center"
+                    className="absolute inset-0 lg:-translate-y-20  -translate-y-10 flex items-center justify-center"
                     style={{ cursor: 'pointer' }}
                     onClick={() => fileInputRef.current?.click()}
                   >
                     <div
-                      className="flex flex-col items-center gap-2 px-6 py-4 rounded-2xl shadow-lg backdrop-blur-sm select-none"
+                      className="flex flex-col items-center gap-2 px-3 py-2 lg:px-6 lg:py-4 rounded-2xl shadow-lg backdrop-blur-sm select-none"
                       style={{ background: 'rgba(255,255,255,0.88)' }}
                     >
                       <div
@@ -499,6 +514,24 @@ const PublicCanvasPage = () => {
           </svg>
           For best results, use a clear photo with good lighting and a simple background. And background should be other than white.
         </div>
+      </div>
+      {/* ── Fixed Share FAB (bottom-right) ── */}
+      <div className="fixed lg:bottom-26 bottom-16 lg:right-10 right-2 flex flex-col items-end gap-2 z-50">
+        {/* Share this page */}
+        <button
+          onClick={handleShare}
+          className="flex items-center gap-2 px-4 py-2.5 text-white text-xs font-semibold rounded-full shadow-lg transition-all duration-200 hover:scale-105 active:scale-95"
+          style={{ background: PRIMARY, boxShadow: `0 4px 16px rgba(198,2,64,0.35)` }}
+          title="Share this page"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+          </svg>
+          Share this page
+        </button>
+
+
       </div>
     </div>
   );
