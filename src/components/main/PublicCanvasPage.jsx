@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getCanvasData } from '../../lib/api';
 
 const CANVAS_SIZE = 1080;
-const API_URL = import.meta.env.VITE_API_URL || 'https://electionmanagementworkshop.in';
+// const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
+const API_URL = "http://localhost:8087";
 
 const PublicCanvasPage = () => {
   const { client_id } = useParams();
@@ -43,17 +44,19 @@ const PublicCanvasPage = () => {
   const loadFrameImages = async (config) => {
     const loadImage = (src) =>
       new Promise((resolve, reject) => {
+        if (!src) return resolve(null);
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => resolve(img);
         img.onerror = reject;
-        img.src = src.startsWith('http') ? src : `${API_URL}${src}`;
+        // src is now base64 data URI directly from API
+        img.src = src;
       });
 
     try {
       const [bg, overlay] = await Promise.all([
-        config.background_image_url ? loadImage(config.background_image_url) : Promise.resolve(null),
-        config.overlay_image_url ? loadImage(config.overlay_image_url) : Promise.resolve(null),
+        config.background_image ? loadImage(config.background_image) : Promise.resolve(null),
+        config.overlay_image ? loadImage(config.overlay_image) : Promise.resolve(null),
       ]);
       setFrameImages({ background: bg, overlay });
     } catch (err) {
@@ -85,7 +88,7 @@ const PublicCanvasPage = () => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await fetch(`${API_URL}/remove-background`, {
+      const response = await fetch(`${API_URL}/api/v1/background-removal`, {
         method: 'POST',
         body: formData,
       });
@@ -258,7 +261,7 @@ const PublicCanvasPage = () => {
               <div className="w-3 h-3 rounded-full bg-yellow-400" />
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
-            <span className="text-xs font-medium text-gray-400 tracking-wide">
+            <span className="text-l font-medium text-gray-400 tracking-wide">
               {processedImage ? 'Adjust your photo' : 'புகைப்படத்தை பதிவேற்றுங்கள்'}
             </span>
             <div className="w-16" />
@@ -494,7 +497,7 @@ const PublicCanvasPage = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          For best results, use a clear photo with good lighting and a simple background.
+          For best results, use a clear photo with good lighting and a simple background. And background should be other than white.
         </div>
       </div>
     </div>

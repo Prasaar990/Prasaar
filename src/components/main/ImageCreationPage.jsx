@@ -101,7 +101,7 @@ const ImageCreationPage = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await fetch(`${API_URL}/remove-background`, {
+      const response = await fetch(`${API_URL}/api/v1/background-removal`, {
         method: "POST",
         body: formData,
       });
