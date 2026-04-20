@@ -18,6 +18,7 @@ import TNPage from "./components/main/TNPage";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import ZPPayment from "./components/main/ZPPayment";
 import VidhanSabhaPayment from "./components/main/VidhanSabhaPayment";
+import ImageCreationPage from "./components/main/ImageCreationPage";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path="/assembly" element={<VidhanSabhaPayment />}></Route>
           <Route path="/tn" element={<TNPage />}></Route>
           <Route path="/tnpoll" element={<TNPage />}></Route>
+          <Route path="/test" element={<ImageCreationPage />}></Route>
           <Route path="*" element={<ElectionPage />}>
             {" "}
           </Route>
