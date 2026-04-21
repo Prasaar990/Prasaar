@@ -508,7 +508,7 @@ const PublicCanvasPage = () => {
             )}
           </div>
 
-          <div className='flex items-center justify-center gap-2 pb-4'>
+          {/* <div className='flex items-center justify-center gap-2 pb-4'>
             Powered by Prasaar •{' '}
             <a
               href="tel:+919960969076"
@@ -521,7 +521,7 @@ const PublicCanvasPage = () => {
               </svg>
               +91 9960969076
             </a>
-          </div>
+          </div> */}
         </div>
 
         {/* Footer tip */}
