@@ -158,7 +158,7 @@ export default function Footer() {
               Contact
             </h3>
             <ul className="space-y-3.5">
-              <li>
+              {/* <li>
                 <a
                   href="tel:+919226333789"
                   className="text-sm text-gray-400 hover:text-white inline-flex items-start gap-2.5 group transition-colors duration-200"
@@ -166,8 +166,8 @@ export default function Footer() {
                   <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70 group-hover:text-[#c60240] transition-colors" />
                   +91 9226333789
                 </a>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <a
                   href="mailto:ashok@prasaar.co"
                   className="text-sm text-gray-400 hover:text-white inline-flex items-start gap-2.5 group transition-colors duration-200"
@@ -175,15 +175,15 @@ export default function Footer() {
                   <Mail className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70 group-hover:text-[#c60240] transition-colors" />
                   ashok@prasaar.co
                 </a>
-              </li>
-              <li className="text-sm text-gray-400 flex items-start gap-2.5">
+              </li> */}
+              {/* <li className="text-sm text-gray-400 flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70" />
                 <span className="leading-relaxed">
                   Office 615, Fortuna Business Center, Pimple Saudagar, Pune -
                   411025
                 </span>
-              </li>
-              {location.pathname.includes("/election") && (
+              </li> */}
+              {/* {location.pathname.includes("/election") && (
                 <li className="text-sm text-gray-400 flex items-start gap-2.5">
                   <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70" />
                   <span className="leading-relaxed">
@@ -191,7 +191,7 @@ export default function Footer() {
                     room, in front of Police Colony, Anishabad, Patna 800002
                   </span>
                 </li>
-              )}
+              )} */}
             </ul>
           </div>
 
