@@ -171,9 +171,9 @@ const Dashboard = () => {
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Name
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Status
-                  </th>
+                  </th> */}
                   <th className="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">
                     Created At
                   </th>
@@ -198,7 +198,7 @@ const Dashboard = () => {
                         </div>
                       )}
                     </td>
-                    <td className="px-6 py-4">
+                    {/* <td className="px-6 py-4">
                       <button
                         onClick={() => handleToggleStatus(client)}
                         className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-colors ${
@@ -210,7 +210,7 @@ const Dashboard = () => {
                         <span className={`w-1.5 h-1.5 rounded-full ${client.is_active ? 'bg-green-500' : 'bg-slate-400'}`} />
                         {client.is_active ? 'Active' : 'Inactive'}
                       </button>
-                    </td>
+                    </td> */}
                     <td className="px-6 py-4 text-sm text-slate-500">
                       {formatDate(client.created_at)}
                     </td>
