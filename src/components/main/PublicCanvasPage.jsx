@@ -1,6 +1,9 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCanvasData } from '../../lib/api';
+import LanguageSelector from '../common/LanguageSelector';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { getTranslation } from '../../translations/translations';
 
 const CANVAS_SIZE = 1080;
 const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
@@ -8,6 +11,8 @@ const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworks
 
 const PublicCanvasPage = () => {
   const { client_id } = useParams();
+  const { currentLanguage, changeLanguage } = useLanguage();
+  const t = (key) => getTranslation(currentLanguage, key);
   const [canvasConfig, setCanvasConfig] = useState(null);
   const [frameImages, setFrameImages] = useState({ background: null, overlay: null });
   const [processedImage, setProcessedImage] = useState(null);
@@ -19,22 +24,33 @@ const PublicCanvasPage = () => {
   const [rotation, setRotation] = useState(0);
 
   const canvasRef = useRef(null);
+
+  // Set default language based on URL path
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path.startsWith('/hr')) {
+      changeLanguage('hi');
+    } else if (path.startsWith('/tn')) {
+      changeLanguage('ta');
+    } else {
+      changeLanguage('en');
+    }
+  }, []);
   const fileInputRef = useRef(null);
 
-  const SHARE_TEXT = `நான் Prasaar மூலம் என் DP / WhatsApp Status படத்தை உருவாக்கியுள்ளேன்.\nநீங்களும் இப்போது உங்கள் படத்தை உருவாக்குங்கள்!\nஉருவாக்க லிங்க்: ${window.location.href}`;
-
-
+  const getShareText = () => `${t('shareText')} ${window.location.href}`;
 
   const handleShare = () => {
+    const shareText = getShareText();
     if (navigator.share) {
       navigator.share({
-        title: "DP / WhatsApp Status உருவாக்குங்கள் – Prasaar",
-        text: SHARE_TEXT,
+        title: `${t('dpStatus')} – Prasaar`,
+        text: shareText,
         url: window.location.href,
       }).catch(() => { });
     } else {
-      navigator.clipboard.writeText(SHARE_TEXT)
-        .then(() => alert("லிங்க் காப்பி ஆனது!"))
+      navigator.clipboard.writeText(shareText)
+        .then(() => alert(t('copied') || 'Link copied!'))
         .catch(() => { });
     }
   };
@@ -254,11 +270,14 @@ const PublicCanvasPage = () => {
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-10 px-4">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-10 mt-10">
+        <div className="text-center mb-6 mt-10">
           <h1 className="text-2xl md:text-3xl font-medium text-gray-900 leading-tight tracking-tight">
-            உங்கள் <span style={{ color: PRIMARY }}>DP / WhatsApp Status உருவாக்குங்கள்</span>
+            {t('createYourDP')} <span style={{ color: PRIMARY }}>{t('dpStatus')}</span>
           </h1>
         </div>
+
+        {/* Language Selector */}
+        <LanguageSelector />
 
         {/* Error Display */}
         {error && (
@@ -280,7 +299,7 @@ const PublicCanvasPage = () => {
               <div className="w-3 h-3 rounded-full bg-green-400" />
             </div>
             <span className="text-l pl-3 font-medium text-gray-400 tracking-wide">
-              {processedImage ? 'Adjust your photo' : 'புகைப்படத்தை பதிவேற்றுங்கள்'}
+              {processedImage ? t('adjustYourPhoto') : t('uploadYourPhoto')}
             </span>
             <div className="w-16" />
           </div>
@@ -350,8 +369,8 @@ const PublicCanvasPage = () => {
                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
-                      <p className="text-gray-700 font-semibold text-sm">கேலரியில் இருந்து பதிவேற்றுங்கள்</p>
-                      <p className="text-gray-400 text-xs">உங்கள் புகைப்படம் இங்கே தோன்றும்</p>
+                      <p className="text-gray-700 font-semibold text-sm">{t('uploadYourPhoto')}</p>
+                      <p className="text-gray-400 text-xs">{t('noImageSelected')}</p>
                     </div>
                   </div>
                 )}
@@ -367,8 +386,7 @@ const PublicCanvasPage = () => {
                         style={{ borderColor: `${PRIMARY} transparent transparent transparent` }}
                       />
                     </div>
-                    <p className="text-gray-700 font-semibold">Removing background...</p>
-                    <p className="text-gray-400 text-sm mt-1">This may take a few seconds</p>
+                    <p className="text-gray-700 font-semibold">{t('processing')}</p>
                   </div>
                 )}
               </div>
@@ -388,7 +406,7 @@ const PublicCanvasPage = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                {processedImage ? 'Change Photo' : 'கேலரியில் இருந்து பதிவேற்றுங்கள்'}
+                {processedImage ? t('replace') : t('uploadYourPhoto')}
               </button>
               <input ref={fileInputRef} type="file" accept="image/*,.heic,.heif" onChange={handleFileSelect} className="hidden" />
             </div>
@@ -399,7 +417,7 @@ const PublicCanvasPage = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="flex-1 h-px bg-gray-100" />
                   <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
-                    Adjust your photo
+                    {t('adjustYourPhoto')}
                   </span>
                   <div className="flex-1 h-px bg-gray-100" />
                 </div>
@@ -414,7 +432,7 @@ const PublicCanvasPage = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" />
                           </svg>
                         </div>
-                        <span className="text-sm font-semibold text-gray-700">Position</span>
+                        <span className="text-sm font-semibold text-gray-700">{t('verticalPosition')}</span>
                       </div>
                       <span
                         className="text-xs font-medium tabular-nums px-2.5 py-0.5 rounded-full border"
@@ -433,9 +451,9 @@ const PublicCanvasPage = () => {
                       style={{ accentColor: PRIMARY }}
                     />
                     <div className="flex justify-between text-xs text-gray-400 mt-2 px-0.5">
-                      <span>Up</span>
-                      <span>Center</span>
-                      <span>Down</span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
                     </div>
                   </div>
 
@@ -448,7 +466,7 @@ const PublicCanvasPage = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                           </svg>
                         </div>
-                        <span className="text-sm font-semibold text-gray-700">Zoom</span>
+                        <span className="text-sm font-semibold text-gray-700">{t('scale')}</span>
                       </div>
                       <span
                         className="text-xs font-medium tabular-nums px-2.5 py-0.5 rounded-full border"
@@ -468,9 +486,9 @@ const PublicCanvasPage = () => {
                       style={{ accentColor: PRIMARY }}
                     />
                     <div className="flex justify-between text-xs text-gray-400 mt-2 px-0.5">
-                      <span>Smaller</span>
-                      <span>1:1</span>
-                      <span>Larger</span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
                     </div>
                   </div>
                 </div>
@@ -485,7 +503,7 @@ const PublicCanvasPage = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
-                    Reset & Start Over
+                    {t('startOver')}
                   </button>
                   <button
                     onClick={handleDownload}
@@ -501,7 +519,7 @@ const PublicCanvasPage = () => {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
-                    Download Image
+                    {t('downloadImage')}
                   </button>
                 </div>
               </>
@@ -530,7 +548,7 @@ const PublicCanvasPage = () => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          For best results, use a clear photo with good lighting and a simple background. And background should be other than white.
+          {t('photoTip')}
         </div>
       </div>
       {/* ── Fixed Share FAB (bottom-right) ── */}

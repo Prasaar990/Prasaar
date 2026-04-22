@@ -82,6 +82,7 @@ function App() {
             
             {/* Public Canvas Page for clients */}
             <Route path="/tn/:client_id" element={<PublicCanvasPage />} />
+            <Route path="/hr/:client_id" element={<PublicCanvasPage />} />
           </Route>
 
           {/* Admin Login (no Header/Footer) */}
