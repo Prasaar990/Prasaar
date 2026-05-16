@@ -1,6 +1,6 @@
 import { getAccessToken, clearAuthTokens, isTokenExpired, getRefreshToken } from './auth';
 
-const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
+const API_URL = import.meta.env.VITE_API_URL || "https://dp.prasaar.co";
 // const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8087';
 
 // Helper to get auth headers
@@ -23,12 +23,12 @@ const handleResponse = async (response) => {
     window.location.href = '/login';
     throw new Error('Session expired. Please login again.');
   }
-  
+
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: 'Request failed' }));
     throw new Error(error.message || `Error: ${response.status}`);
   }
-  
+
   return response.json();
 };
 
@@ -59,7 +59,7 @@ export const postFormData = async (endpoint, formData) => {
     headers['Authorization'] = `Bearer ${token}`;
   }
   // Don't set Content-Type for FormData, browser sets it with boundary
-  
+
   const response = await fetch(`${API_URL}${endpoint}`, {
     method: 'POST',
     headers,

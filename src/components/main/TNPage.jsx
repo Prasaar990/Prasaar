@@ -94,7 +94,7 @@ const TNPage = () => {
   const [hasVoted, setHasVoted] = useState(false);
   const [isVoting, setIsVoting] = useState(false);
 
-  const API_BASE_URL = "https://electionmanagementworkshop.in";
+  const API_BASE_URL = "https://dp.prasaar.co";
 
   const fetchPollData = async () => {
     try {

@@ -6,7 +6,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { getTranslation } from '../../translations/translations';
 
 const CANVAS_SIZE = 1080;
-const API_URL = import.meta.env.VITE_API_URL || "https://electionmanagementworkshop.in";
+const API_URL = import.meta.env.VITE_API_URL || "https://dp.prasaar.co";
 // const API_URL = "http://localhost:8087";
 
 const PublicCanvasPage = () => {
@@ -65,7 +65,7 @@ const PublicCanvasPage = () => {
     try {
       const config = await getCanvasData(client_id);
       setCanvasConfig(config.canvas_config);
-      
+
       // Load frame images
       await loadFrameImages(config.canvas_config);
     } catch (err) {
@@ -531,7 +531,7 @@ const PublicCanvasPage = () => {
             <a
               href="tel:+919960969076"
               className="inline-flex items-center gap-1 font-semibold"
-              
+
             >
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
