@@ -124,6 +124,10 @@ export const uploadClientImage = async (clientId, type, file) => {
   return postFormData(`/api/v1/images/clients/${clientId}/${type}`, formData);
 };
 
+export const deleteClientImage = async (clientId, type) => {
+  return del(`/api/v1/images/clients/${clientId}/${type}`);
+};
+
 // Public canvas data
 export const getCanvasData = async (clientId) => {
   return get(`/tn/${clientId}/canvas-data`);

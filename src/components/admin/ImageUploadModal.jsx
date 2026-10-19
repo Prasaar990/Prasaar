@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { uploadClientImage, getCanvasData } from '../../lib/api';
+import { uploadClientImage, deleteClientImage, getCanvasData } from '../../lib/api';
 
 const ImageUploadModal = ({ client, onClose }) => {
-  const [backgroundImage, setBackgroundImage] = useState(null);
-  const [overlayImage, setOverlayImage] = useState(null);
   const [backgroundPreview, setBackgroundPreview] = useState(null);
   const [overlayPreview, setOverlayPreview] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [uploadingType, setUploadingType] = useState(null);
+  const [deletingType, setDeletingType] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -37,7 +36,6 @@ const ImageUploadModal = ({ client, onClose }) => {
         }
       } catch (err) {
         console.error('Failed to fetch canvas data:', err);
-        // Don't show error - just leave previews empty if fetch fails
       } finally {
         setIsFetching(false);
       }
@@ -56,153 +54,177 @@ const ImageUploadModal = ({ client, onClose }) => {
     return null;
   };
 
-  const handleFileSelect = (type, e) => {
+  const handleFileSelect = async (type, e) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const errorMsg = validateFile(file);
     if (errorMsg) {
       setError(errorMsg);
+      if (e.target) e.target.value = '';
       return;
     }
 
     setError('');
-    
-    // Create preview
+    setSuccess('');
+
+    // Instant visual preview
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = (event) => {
       if (type === 'background') {
-        setBackgroundImage(file);
-        setBackgroundPreview(e.target.result);
+        setBackgroundPreview(event.target.result);
       } else {
-        setOverlayImage(file);
-        setOverlayPreview(e.target.result);
+        setOverlayPreview(event.target.result);
       }
     };
     reader.readAsDataURL(file);
+
+    // Directly upload & replace the image
+    setUploadingType(type);
+    try {
+      await uploadClientImage(client.client_id, type, file);
+      setSuccess(`${type === 'background' ? 'Background' : 'Overlay'} image replaced successfully!`);
+    } catch (err) {
+      setError(err.message || `Failed to replace ${type} image`);
+      // Restore previous state if upload failed
+      try {
+        const data = await getCanvasData(client.client_id);
+        if (type === 'background') {
+          setBackgroundPreview(data?.canvas_config?.background_image || null);
+        } else {
+          setOverlayPreview(data?.canvas_config?.overlay_image || null);
+        }
+      } catch (_) {}
+    } finally {
+      setUploadingType(null);
+      if (e.target) e.target.value = '';
+    }
   };
 
-  const handleUpload = async (type) => {
-    const file = type === 'background' ? backgroundImage : overlayImage;
-    if (!file) {
-      setError(`Please select a ${type} image first`);
-      return;
-    }
-
-    setIsLoading(true);
+  const handleDelete = async (type) => {
+    setDeletingType(type);
     setError('');
     setSuccess('');
 
     try {
-      await uploadClientImage(client.client_id, type, file);
-      setSuccess(`${type === 'background' ? 'Background' : 'Overlay'} image uploaded successfully!`);
-      
-      // Clear the file input after successful upload
+      await deleteClientImage(client.client_id, type);
       if (type === 'background') {
-        setBackgroundImage(null);
+        setBackgroundPreview(null);
       } else {
-        setOverlayImage(null);
+        setOverlayPreview(null);
       }
+      setSuccess(`${type === 'background' ? 'Background' : 'Overlay'} image removed successfully!`);
     } catch (err) {
-      setError(err.message || `Failed to upload ${type} image`);
+      setError(err.message || `Failed to delete ${type} image`);
     } finally {
-      setIsLoading(false);
+      setDeletingType(null);
+      if (type === 'background' && backgroundInputRef.current) {
+        backgroundInputRef.current.value = '';
+      }
+      if (type === 'overlay' && overlayInputRef.current) {
+        overlayInputRef.current.value = '';
+      }
     }
   };
 
-  const handleDelete = (type) => {
-    if (type === 'background') {
-      setBackgroundImage(null);
-      setBackgroundPreview(null);
-    } else {
-      setOverlayImage(null);
-      setOverlayPreview(null);
-    }
-    if (backgroundInputRef.current) backgroundInputRef.current.value = '';
-    if (overlayInputRef.current) overlayInputRef.current.value = '';
-  };
+  const ImageUploadZone = ({ type, preview, inputRef, title }) => {
+    const isUploading = uploadingType === type;
+    const isDeleting = deletingType === type;
+    const isBusy = isUploading || isDeleting;
 
-  const ImageUploadZone = ({ type, preview, inputRef, title }) => (
-    <div className="border border-slate-200 rounded-xl p-4">
-      <h3 className="text-sm font-semibold text-slate-700 mb-4">{title}</h3>
+    return (
+      <div className="border border-slate-200 rounded-xl p-4">
+        <h3 className="text-sm font-semibold text-slate-700 mb-4">{title}</h3>
 
-      {/* Preview area */}
-      <div className="mb-4 aspect-video bg-slate-50 rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center">
-        {isFetching ? (
-          <div className="text-center p-8">
-            <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-            <p className="text-sm text-slate-400">Loading...</p>
-          </div>
-        ) : preview ? (
-          <img
-            src={preview}
-            alt={`${title} preview`}
-            className="w-full h-full object-contain"
-          />
-        ) : (
-          <div className="text-center p-8">
-            <svg className="w-12 h-12 text-slate-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <p className="text-sm text-slate-400">No image selected</p>
-          </div>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div className="flex gap-2">
-        <input
-          ref={inputRef}
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          onChange={(e) => handleFileSelect(type, e)}
-          className="hidden"
-        />
-        <button
-          onClick={() => inputRef.current?.click()}
-          className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 font-medium text-sm transition-colors flex items-center justify-center gap-2"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-          </svg>
-          {preview ? 'Replace' : 'Select File'}
-        </button>
-        {preview && (
-          <button
-            onClick={() => handleDelete(type)}
-            className="px-4 py-2 border border-red-200 text-red-600 rounded-lg hover:bg-red-50 font-medium text-sm transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </button>
-        )}
-      </div>
-
-      {/* Upload button */}
-      {(type === 'background' ? backgroundImage : overlayImage) && (
-        <button
-          onClick={() => handleUpload(type)}
-          disabled={isLoading}
-          className="w-full mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium text-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-        >
-          {isLoading ? (
+        {/* Preview area */}
+        <div className="mb-4 aspect-video bg-slate-50 rounded-lg overflow-hidden border border-slate-200 flex items-center justify-center relative">
+          {isFetching ? (
+            <div className="text-center p-8">
+              <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+              <p className="text-sm text-slate-400">Loading...</p>
+            </div>
+          ) : preview ? (
             <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              Uploading...
+              <img
+                src={preview}
+                alt={`${title} preview`}
+                className="w-full h-full object-contain"
+              />
+              {isUploading && (
+                <div className="absolute inset-0 bg-white/70 backdrop-blur-sm flex flex-col items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mb-2" />
+                  <p className="text-xs font-semibold text-blue-700">Replacing image...</p>
+                </div>
+              )}
             </>
           ) : (
-            <>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-              </svg>
-              Upload {title}
-            </>
+            <div className="text-center p-8">
+              {isUploading ? (
+                <>
+                  <div className="w-8 h-8 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                  <p className="text-xs font-semibold text-blue-700">Uploading image...</p>
+                </>
+              ) : (
+                <>
+                  <svg className="w-12 h-12 text-slate-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <p className="text-sm text-slate-400">No image selected</p>
+                </>
+              )}
+            </div>
           )}
-        </button>
-      )}
-    </div>
-  );
+        </div>
+
+        {/* Actions */}
+        <div className="flex gap-2">
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            onChange={(e) => handleFileSelect(type, e)}
+            className="hidden"
+            disabled={isBusy}
+          />
+          <button
+            onClick={() => inputRef.current?.click()}
+            disabled={isBusy}
+            className="flex-1 px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 font-medium text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            {isUploading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
+                <span>Replacing...</span>
+              </>
+            ) : (
+              <>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+                <span>{preview ? 'Replace' : 'Select File'}</span>
+              </>
+            )}
+          </button>
+          {preview && (
+            <button
+              onClick={() => handleDelete(type)}
+              disabled={isBusy}
+              className="px-4 py-2 border border-red-200 text-red-600 rounded-lg hover:bg-red-50 font-medium text-sm transition-colors disabled:opacity-50 flex items-center justify-center"
+              title={`Delete ${title}`}
+            >
+              {isDeleting ? (
+                <div className="w-4 h-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              )}
+            </button>
+          )}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
