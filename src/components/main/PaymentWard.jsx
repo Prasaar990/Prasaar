@@ -163,7 +163,7 @@ Payment screenshot is attached below.
 https://prasaar.co/election`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=919226333789&text=${encodedMessage}&type=phone_number&app_absent=0`;
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=91000000000&text=${encodedMessage}&type=phone_number&app_absent=0`;
     window.open(whatsappUrl, "_blank");
   };
 
@@ -171,9 +171,8 @@ https://prasaar.co/election`;
     <div className=" lg:py-20 pt-24 px-4 bg-gray-50">
       <div className={`mx-auto ${showPayment ? "max-w-6xl" : "max-w-xl"}`}>
         <div
-          className={`bg-white rounded-lg shadow-sm border border-gray-200 ${
-            showPayment ? "grid lg:grid-cols-2 gap-0" : ""
-          }`}
+          className={`bg-white rounded-lg shadow-sm border border-gray-200 ${showPayment ? "grid lg:grid-cols-2 gap-0" : ""
+            }`}
         >
           {showPayment && (
             <div className="border-l border-gray-200 bg-gray-50">
@@ -296,11 +295,10 @@ https://prasaar.co/election`;
                       name="corporation"
                       value={formData.corporation}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2.5 text-base border ${
-                        errors.corporation
+                      className={`w-full px-3 py-2.5 text-base border ${errors.corporation
                           ? "border-red-500"
                           : "border-gray-300"
-                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                        } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter corporation / महानगरपालिका प्रविष्ट करा"
                     />
                     {errors.corporation && (
@@ -319,11 +317,10 @@ https://prasaar.co/election`;
                       name="candidateName"
                       value={formData.candidateName}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2.5 text-base border ${
-                        errors.candidateName
+                      className={`w-full px-3 py-2.5 text-base border ${errors.candidateName
                           ? "border-red-500"
                           : "border-gray-300"
-                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                        } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter candidate name / उमेदवाराचे नाव प्रविष्ट करा"
                     />
                     {errors.candidateName && (
@@ -342,9 +339,8 @@ https://prasaar.co/election`;
                       name="ward"
                       value={formData.ward}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2.5 text-base border ${
-                        errors.ward ? "border-red-500" : "border-gray-300"
-                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      className={`w-full px-3 py-2.5 text-base border ${errors.ward ? "border-red-500" : "border-gray-300"
+                        } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter ward / प्रभाग प्रविष्ट करा"
                     />
                     {errors.ward && (
@@ -362,9 +358,8 @@ https://prasaar.co/election`;
                       value={formData.mobile}
                       onChange={handleChange}
                       maxLength="10"
-                      className={`w-full px-3 py-2.5 text-base border ${
-                        errors.mobile ? "border-red-500" : "border-gray-300"
-                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      className={`w-full px-3 py-2.5 text-base border ${errors.mobile ? "border-red-500" : "border-gray-300"
+                        } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter 10-digit mobile / १० अंकी मोबाईल नंबर"
                     />
                     {errors.mobile && (
@@ -383,9 +378,8 @@ https://prasaar.co/election`;
                       name="amount"
                       value={formData.amount}
                       onChange={handleChange}
-                      className={`w-full px-3 py-2.5 text-base border ${
-                        errors.amount ? "border-red-500" : "border-gray-300"
-                      } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
+                      className={`w-full px-3 py-2.5 text-base border ${errors.amount ? "border-red-500" : "border-gray-300"
+                        } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter amount / रक्कम प्रविष्ट करा"
                     />
                     {errors.amount && (
@@ -402,9 +396,8 @@ https://prasaar.co/election`;
                   >
                     {isSubmitting
                       ? "Processing... / प्रक्रिया सुरू आहे..."
-                      : `Pay ₹${formData.amount || "0"} / पेमेंट करा ₹${
-                          formData.amount || "0"
-                        }`}
+                      : `Pay ₹${formData.amount || "0"} / पेमेंट करा ₹${formData.amount || "0"
+                      }`}
                   </button>
                 </div>
               ) : (

@@ -19,7 +19,7 @@ const ElectionPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageOrientation, setImageOrientation] = useState("landscape");
   const whatsappLink =
-    "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
+    "https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
   const phoneNumber = "tel:+919226333789";
 
   const voterSlipPDFs = [
@@ -50,7 +50,7 @@ const ElectionPage = () => {
       imageSpace: true,
       imageSrc: "./img/portal.png",
       demoLink:
-        "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Voter%20List%20App%20and%20Election%20Management%20Software.%20Please%20share%20pricing%20and%20features.&type=phone_number&app_absent=0",
+        "https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Voter%20List%20App%20and%20Election%20Management%20Software.%20Please%20share%20pricing%20and%20features.&type=phone_number&app_absent=0",
       buttonText: "Contact For App",
     },
     {
@@ -108,7 +108,7 @@ const ElectionPage = () => {
     //   imageSpace: true,
     //   imageSrc: "./img/getblasto.webp",
     //   demoLink:
-    //     "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Blasto%20app%20that%20automatically%20sends%20WhatsApp%20and%20SMS%20messages%20after%20every%20call.%20Please%20share%20the%20details.&type=phone_number&app_absent=0",
+    //     "https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Blasto%20app%20that%20automatically%20sends%20WhatsApp%20and%20SMS%20messages%20after%20every%20call.%20Please%20share%20the%20details.&type=phone_number&app_absent=0",
     //   buttonText: "Get Blasto App",
     // },
   ];
@@ -437,8 +437,8 @@ const ElectionPage = () => {
               src={selectedImage}
               alt="Full view"
               className={`${imageOrientation === "portrait"
-                  ? "max-h-[90vh] w-auto"
-                  : "max-w-[90vw] h-auto"
+                ? "max-h-[90vh] w-auto"
+                : "max-w-[90vw] h-auto"
                 } object-contain rounded-xl shadow-2xl`}
               loading="lazy"
             />

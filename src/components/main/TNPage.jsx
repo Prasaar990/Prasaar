@@ -223,7 +223,7 @@ const TNPage = () => {
       title: "Voter Slips & Reports",
       description: "அச்சிடுவதற்குத் தயாரான PDF அறிக்கைகள்.",
       isVoterSlips: true,
-      demoLink: "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20need%20details%20on%20Voter%20Slips%20and%20Reports.&type=phone_number&app_absent=0",
+      demoLink: "https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20need%20details%20on%20Voter%20Slips%20and%20Reports.&type=phone_number&app_absent=0",
     },
     {
       id: "candidate-profile",
@@ -501,7 +501,7 @@ https://prasaar.co/tn
                   Get Demo
                 </button>
                 <button
-                  onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=919960969076&text=${encodeURIComponent(`Need ${service.title} for my Assembly.\nPlease callback.`)}&type=phone_number&app_absent=0`)}
+                  onClick={() => handleGeneralLink(`https://api.whatsapp.com/send/?phone=910000000000&text=${encodeURIComponent(`Need ${service.title} for my Assembly.\nPlease callback.`)}&type=phone_number&app_absent=0`)}
                   className="cursor-pointer flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#c60240] to-[#a00235] text-white px-4 py-2.5 rounded-xl text-sm font-semibold hover:shadow-md hover:shadow-[#c60240]/20 transition-all duration-200"
                 >
                   Need this service

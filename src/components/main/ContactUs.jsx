@@ -126,8 +126,7 @@ const ContactUs = () => {
                     </div>
                   </div>
                   <span className="ml-3 text-gray-700">
-                    <strong>Address:</strong> Office 615, Fortuna Business
-                    Center, Pimple Saudagar, Pune - 411025
+                    <strong>Address:</strong> Pimple Saudagar, Pune - 411025
                   </span>
                 </motion.li>
 
@@ -149,7 +148,7 @@ const ContactUs = () => {
                       className="hover:opacity-80 underline"
                       style={{ color: "#c60440" }}
                     >
-                      +91 92263 33789
+                      +91 0000000000
                     </a>
                   </span>
                 </motion.li>

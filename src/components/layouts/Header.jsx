@@ -173,11 +173,10 @@ export default function Header() {
           ease: [0.25, 0.46, 0.45, 0.94],
           type: "tween",
         }}
-        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[72px] text-[14px] sm:text-[15px] lg:text-[15px] flex justify-between items-center lg:px-12 md:px-8 sm:px-6 px-5 z-50 transition-all duration-500 ease-out ${
-          isScrolled
+        className={`fixed w-screen h-[64px] sm:h-[68px] lg:h-[72px] text-[14px] sm:text-[15px] lg:text-[15px] flex justify-between items-center lg:px-12 md:px-8 sm:px-6 px-5 z-50 transition-all duration-500 ease-out ${isScrolled
             ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(0,0,0,0.08)] border-b border-gray-100"
             : "bg-transparent"
-        }`}
+          }`}
         style={{ willChange: "transform" }}
       >
         <Link to="/" className="cursor-pointer flex-shrink-0">
@@ -257,7 +256,7 @@ export default function Header() {
             <div className="flex items-center gap-4 lg:gap-6">
               <Button
                 text={"Contact Us"}
-                to="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
+                to="https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
                 handleFormOpen={() => { }}
               />
             </div>
@@ -283,7 +282,7 @@ export default function Header() {
       <div className="relative">
         {/* WhatsApp Button */}
         <a
-          href="https://api.whatsapp.com/send/?phone=919226333789&text&type=phone_number&app_absent=0"
+          href="https://api.whatsapp.com/send/?phone=91000000000&text&type=phone_number&app_absent=0"
           className={`fixed z-20 bg-green-500 hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl
             ${isMobile
               ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"

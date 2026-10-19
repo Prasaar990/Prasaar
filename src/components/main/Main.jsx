@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function Main() {
   const whatsappLink =
-    "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
+    "https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
 
   return (
     <div className="w-full">
@@ -23,7 +23,7 @@ export default function Main() {
 
       <CustomFlows />
 
-        <Info />
+      <Info />
 
       {/* CTA Section */}
       <section className="relative overflow-hidden my-16 lg:my-24 mx-4 sm:mx-6 lg:mx-12 rounded-2xl sm:rounded-3xl">

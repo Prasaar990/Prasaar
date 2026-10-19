@@ -76,8 +76,8 @@ export default function Footer() {
         <div
           data-section="logo"
           className={`flex justify-center mb-12 lg:mb-16 transition-all duration-1000 ${isVisible.logo
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-12"
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-12"
             }`}
         >
           <img
@@ -93,8 +93,8 @@ export default function Footer() {
           <div
             data-section="about"
             className={`lg:col-span-1 transition-all duration-1000 delay-100 ${isVisible.about
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
               }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
@@ -127,8 +127,8 @@ export default function Footer() {
           <div
             data-section="products"
             className={`transition-all duration-1000 delay-200 ${isVisible.products
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
               }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
@@ -150,8 +150,8 @@ export default function Footer() {
           <div
             data-section="contact"
             className={`transition-all duration-1000 delay-300 ${isVisible.contact
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
               }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
@@ -160,11 +160,11 @@ export default function Footer() {
             <ul className="space-y-3.5">
               <li>
                 <a
-                  href="tel:+919960969076"
+                  href="tel:+910000000000"
                   className="text-sm text-gray-400 hover:text-white inline-flex items-start gap-2.5 group transition-colors duration-200"
                 >
                   <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70 group-hover:text-[#c60240] transition-colors" />
-                  +91 9960969076
+                  +91 0000000000
                 </a>
               </li>
               <li>
@@ -179,7 +179,7 @@ export default function Footer() {
               <li className="text-sm text-gray-400 flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70" />
                 <span className="leading-relaxed">
-                  Office 615, Fortuna Business Center, Pimple Saudagar, Pune -
+                  Pimple Saudagar, Pune -
                   411025
                 </span>
               </li>
@@ -199,8 +199,8 @@ export default function Footer() {
           <div
             data-section="social"
             className={`transition-all duration-1000 delay-[400ms] ${isVisible.social
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
               }`}
           >
             <h3 className="text-base font-semibold mb-4 text-white">
@@ -227,7 +227,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details.&type=phone_number&app_absent=0"
+                  href="https://api.whatsapp.com/send/?phone=91000000000&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details.&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-gray-400 hover:text-white inline-flex items-center gap-1 group transition-colors duration-200"
@@ -244,8 +244,8 @@ export default function Footer() {
         <div
           data-section="legal"
           className={`mt-14 lg:mt-16 pt-6 border-t border-white/10 transition-all duration-1000 delay-500 ${isVisible.legal
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-4"
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4"
             }`}
         >
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">

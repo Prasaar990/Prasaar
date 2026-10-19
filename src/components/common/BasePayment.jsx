@@ -200,7 +200,7 @@ const BasePayment = ({
       .replace('{{amount}}', formData.amount);
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=919226333789&text=${encodedMessage}&type=phone_number&app_absent=0`;
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=91000000000&text=${encodedMessage}&type=phone_number&app_absent=0`;
     window.open(whatsappUrl, "_blank");
   };
 
@@ -329,8 +329,8 @@ const BasePayment = ({
                       value={formData.corporation}
                       onChange={handleChange}
                       className={`w-full px-3 py-2.5 text-base border ${errors.corporation
-                          ? "border-red-500"
-                          : "border-gray-300"
+                        ? "border-red-500"
+                        : "border-gray-300"
                         } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder={config.corporationPlaceholder}
                     />
@@ -351,8 +351,8 @@ const BasePayment = ({
                       value={formData.candidateName}
                       onChange={handleChange}
                       className={`w-full px-3 py-2.5 text-base border ${errors.candidateName
-                          ? "border-red-500"
-                          : "border-gray-300"
+                        ? "border-red-500"
+                        : "border-gray-300"
                         } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder={getTranslation(language, 'enterCandidateName')}
                     />
