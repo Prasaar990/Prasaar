@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function Main() {
   const whatsappLink =
-    "https://api.whatsapp.com/send/?phone=922633378900&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
+    "https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details%20about%20the%20app.%20Please%20share%20information%20on%20features%2C%20demo%2C%20and%20pricing.&type=phone_number&app_absent=0";
 
   return (
     <div className="w-full">

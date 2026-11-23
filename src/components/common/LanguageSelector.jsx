@@ -11,6 +11,7 @@ const LanguageSelector = () => {
     { code: 'hi', name: 'हिंदी', flag: '🇮🇳' },
     { code: 'mr', name: 'मराठी', flag: '🇮🇳' },
     { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' },
+    { code: 'te', name: 'తెలుగు', flag: '🇮🇳' },
   ];
 
   const currentLang = languages.find(l => l.code === currentLanguage) || languages[0];

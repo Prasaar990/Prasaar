@@ -160,7 +160,7 @@ export default function Footer() {
             <ul className="space-y-3.5">
               <li>
                 <a
-                  href="tel:+9226333789000"
+                  href="tel:+9192263337890"
                   className="text-sm text-gray-400 hover:text-white inline-flex items-start gap-2.5 group transition-colors duration-200"
                 >
                   <Phone className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#c60240]/70 group-hover:text-[#c60240] transition-colors" />
@@ -227,7 +227,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=922633378900&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details.&type=phone_number&app_absent=0"
+                  href="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20would%20like%20to%20get%20more%20details.&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-gray-400 hover:text-white inline-flex items-center gap-1 group transition-colors duration-200"

@@ -28,7 +28,9 @@ const PublicCanvasPage = () => {
   // Set default language based on URL path
   useEffect(() => {
     const path = window.location.pathname;
-    if (path.startsWith('/dp') || path.startsWith('/hr') || path.startsWith('/tn')) {
+    if (path.startsWith('/te') || path.startsWith('/ap') || path.startsWith('/ts')) {
+      changeLanguage('te');
+    } else if (path.startsWith('/dp') || path.startsWith('/hr') || path.startsWith('/tn')) {
       changeLanguage('hi');
     } else {
       changeLanguage('hi');

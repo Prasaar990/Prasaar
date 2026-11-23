@@ -317,6 +317,89 @@ https://prasaar.co/pay`,
   
 https://prasaar.co/pay`,
   },
+
+  te: {
+    // Canvas Page
+    createYourDP: 'మీ',
+    dpStatus: 'DP / WhatsApp స్టేటస్‌ను సృష్టించండి',
+    uploadYourPhoto: 'మీ ఫోటోను అప్‌లోడ్ చేయండి',
+    adjustYourPhoto: 'మీ ఫోటోను సర్దుబాటు చేయండి',
+    downloadImage: 'చిత్రాన్ని డౌన్‌లోడ్ చేయండి',
+    startOver: 'మళ్లీ ప్రారంభించండి',
+    rotateLeft: '-90',
+    rotateRight: '+90',
+    scale: 'స్కేల్',
+    verticalPosition: 'నిలువు స్థానం',
+    photoTip: 'ఉత్తమ ఫలితాల కోసం, మంచి లైటింగ్ మరియు సాధారణ నేపథ్యం ఉన్న స్పష్టమైన ఫోటోను ఉపయోగించండి. మరియు నేపథ్యం తెలుపు రంగు కాకుండా ఇతర రంగులో ఉండాలి.',
+    noImageSelected: 'ఏ చిత్రమూ ఎంచుకోలేదు',
+    selectFile: 'ఫైల్‌ను ఎంచుకోండి',
+    replace: 'మార్చండి',
+    uploading: 'అప్‌లోడ్ అవుతోంది...',
+    processing: 'ప్రాసెస్ అవుతోంది...',
+    shareText: 'నేను Prasaar ఉపయోగించి నా DP / WhatsApp స్టేటస్‌ను సృష్టించాను.\nమీరు కూడా ఇప్పుడే మీది సృష్టించుకోండి!\nలింక్:',
+
+    // Common
+    paymentRegistration: 'సేవల కోసం చెల్లింపు నమోదు',
+    required: 'తప్పనిసరి',
+    processing: 'ప్రాసెస్ అవుతోంది...',
+    pay: 'చెల్లించండి',
+    paymentDone: 'చెల్లింపు పూర్తయింది',
+    close: 'మూసివేయండి',
+    sendOnWhatsApp: 'వాట్సాప్‌లో పంపండి',
+    downloadQR: 'QR ని డౌన్‌లోడ్ చేయండి',
+    copy: 'కాపీ చేయండి',
+    copied: 'లింక్ కాపీ చేయబడింది!',
+    note: 'గమనిక',
+    paymentNote: 'చెల్లింపు తర్వాత, "చెల్లింపు పూర్తయింది" పై క్లిక్ చేసి, ధృవీకరణ కోసం వాట్సాప్‌లో స్క్రీన్‌షాట్‌ను పంపండి.',
+    
+    // Form Labels
+    candidateName: 'అభ్యర్థి పేరు',
+    mobileNumber: 'మొబైల్ నంబర్',
+    paymentAmount: 'చెల్లింపు మొత్తం (₹)',
+    
+    // ZP Specific
+    zpName: 'జిల్లా పరిషత్ / ZP (మీ ZP పేరును నమోదు చేయండి)',
+    zpGat: 'ZP గట్ / జిల్లా పరిషత్ గ్రూప్ (మీ సమూహం పేరును నమోదు చేయండి)',
+    gan: 'గణ / పంచాయతీ సమితి సమూహం (మీ గణ పేరును నమోదు చేయండి)',
+    
+    // Vidhan Sabha Specific
+    assemblyConstituency: 'శాసనసభ నియోజకవర్గాన్ని నమోదు చేయండి',
+    
+    // Placeholders
+    enterCandidateName: 'అభ్యర్థి పేరు నమోదు చేయండి',
+    enterMobileNumber: '10 అంకెల మొబైల్ నంబర్ నమోదు చేయండి',
+    enterAmount: 'మొత్తం నమోదు చేయండి',
+    enterZP: 'ZP నమోదు చేయండి',
+    enterZPGat: 'ZP గట్ నమోదు చేయండి',
+    enterGan: 'గణ నమోదు చేయండి',
+    enterAssembly: 'శాసనసభ నియోజకవర్గాన్ని నమోదు చేయండి',
+    
+    // Payment Details
+    paymentDetails: 'చెల్లింపు వివరాలు',
+    scanQRCode: 'QR కోడ్‌ను స్కాన్ చేయండి',
+    upiId: 'UPI ఐడీ',
+    payToMobile: 'మొబైల్ నంబర్‌కు చెల్లించండి',
+    registrationDetails: 'నమోదు వివరాలు',
+    
+    // Success Modal
+    paymentConfirmed: 'చెల్లింపు ధృవీకరించబడింది!',
+    sendScreenshot: 'దయచేసి ధృవీకరించడానికి వాట్సాప్‌లో చెల్లింపు స్క్రీన్‌షాట్‌ను పంపండి.',
+    
+    // WhatsApp Message
+    whatsappMessage: `నమస్కారం,
+
+నేను చెల్లింపును పూర్తి చేసాను. దయచేసి క్రింది వివరాలను చూడండి:
+
+పేరు: {{candidateName}}
+మొబైల్: {{mobile}}
+{{type}}: {{corporation}}
+{{subType}}: {{ward}}
+మొత్తం: ₹{{amount}}
+
+చెల్లింపు స్క్రీన్‌షాట్ క్రింద జతచేయబడింది.
+
+https://prasaar.co/pay`,
+  },
 };
 
 export const getTranslation = (language, key) => {

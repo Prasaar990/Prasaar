@@ -256,7 +256,7 @@ export default function Header() {
             <div className="flex items-center gap-4 lg:gap-6">
               <Button
                 text={"Contact Us"}
-                to="https://api.whatsapp.com/send/?phone=922633378900&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
+                to="https://api.whatsapp.com/send/?phone=919226333789&text=Hello%20Team%2C%20I%20am%20interested%20in%20the%20Prasaar%20app.%20Please%20share%20the%20details.&type=phone_number&app_absent=0"
                 handleFormOpen={() => { }}
               />
             </div>
@@ -282,7 +282,7 @@ export default function Header() {
       <div className="relative">
         {/* WhatsApp Button */}
         <a
-          href="https://api.whatsapp.com/send/?phone=922633378900&text&type=phone_number&app_absent=0"
+          href="https://api.whatsapp.com/send/?phone=919226333789&text&type=phone_number&app_absent=0"
           className={`fixed z-20 bg-green-500 hover:bg-transparent flex justify-center items-center rounded-full cursor-pointer transition-all duration-300 shadow-lg hover:shadow-xl
             ${isMobile
               ? "right-[16px] bottom-[16px] w-[40px] h-[40px]"

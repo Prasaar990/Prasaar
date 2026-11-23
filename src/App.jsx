@@ -84,6 +84,8 @@ function App() {
             <Route path="/dp/:client_id" element={<PublicCanvasPage />} />
             <Route path="/tn/:client_id" element={<PublicCanvasPage />} />
             <Route path="/hr/:client_id" element={<PublicCanvasPage />} />
+            <Route path="/te/:client_id" element={<PublicCanvasPage />} />
+            <Route path="/ap/:client_id" element={<PublicCanvasPage />} />
           </Route>
 
           {/* Admin Login (no Header/Footer) */}
