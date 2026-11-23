@@ -81,6 +81,7 @@ function App() {
             <Route path="/test" element={<ImageCreationPage />} />
             
             {/* Public Canvas Page for clients */}
+            <Route path="/dp/:client_id" element={<PublicCanvasPage />} />
             <Route path="/tn/:client_id" element={<PublicCanvasPage />} />
             <Route path="/hr/:client_id" element={<PublicCanvasPage />} />
           </Route>

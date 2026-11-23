@@ -148,7 +148,7 @@ const ContactUs = () => {
                       className="hover:opacity-80 underline"
                       style={{ color: "#c60440" }}
                     >
-                      +91 0000000000
+                      +91 9226333789
                     </a>
                   </span>
                 </motion.li>

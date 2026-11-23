@@ -11,7 +11,7 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [currentLanguage, setCurrentLanguage] = useState('hi');
 
   const changeLanguage = (lang) => {
     setCurrentLanguage(lang);

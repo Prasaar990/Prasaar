@@ -163,7 +163,7 @@ Payment screenshot is attached below.
 https://prasaar.co/election`;
 
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://api.whatsapp.com/send/?phone=91000000000&text=${encodedMessage}&type=phone_number&app_absent=0`;
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=922633378900&text=${encodedMessage}&type=phone_number&app_absent=0`;
     window.open(whatsappUrl, "_blank");
   };
 
@@ -296,8 +296,8 @@ https://prasaar.co/election`;
                       value={formData.corporation}
                       onChange={handleChange}
                       className={`w-full px-3 py-2.5 text-base border ${errors.corporation
-                          ? "border-red-500"
-                          : "border-gray-300"
+                        ? "border-red-500"
+                        : "border-gray-300"
                         } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter corporation / महानगरपालिका प्रविष्ट करा"
                     />
@@ -318,8 +318,8 @@ https://prasaar.co/election`;
                       value={formData.candidateName}
                       onChange={handleChange}
                       className={`w-full px-3 py-2.5 text-base border ${errors.candidateName
-                          ? "border-red-500"
-                          : "border-gray-300"
+                        ? "border-red-500"
+                        : "border-gray-300"
                         } rounded focus:ring-1 focus:ring-[#c60240] focus:border-[#c60240] outline-none`}
                       placeholder="Enter candidate name / उमेदवाराचे नाव प्रविष्ट करा"
                     />
